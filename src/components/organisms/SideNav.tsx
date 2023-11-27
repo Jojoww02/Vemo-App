@@ -1,21 +1,16 @@
+import * as React from "react";
 import { Link } from "react-router-dom";
-import { IconHistory, IconInfoCircle, IconLayoutDashboard, IconMotorbike } from "@tabler/icons-react";
+import { IconHistory, IconInfoCircle, IconLayoutDashboard, IconMotorbike, IconSquareRoundedChevronRightFilled } from "@tabler/icons-react";
 
 export default function SideNav() {
+  const [open, setOpen] = React.useState(false)
   return (
-    <nav className="w-28 rounded-xl my-5 border-2 shadow-md flex flex-col justify-center items-center">
-      <Link to="/">
-        <IconLayoutDashboard size={30} />
-      </Link>
-      <Link to="/vehicles">
-        <IconMotorbike size={30} />
-      </Link>
-      <Link to="/vehicles">
-        <IconHistory size={30} />
-      </Link>
-      <Link to="/vehicles">
-      <IconInfoCircle size={30}/>
-      </Link>
-    </nav>
+    <div className="flex">
+      <div className={`rounded-xl my-5 border-2 shadow-md p-5 pt-8 ${open ? "w-72" : "w-28"} duration-300 relative`}>
+        <IconSquareRoundedChevronRightFilled className="absolute -right-5 mt-5 cursor-pointer text-[#898989] bg-white" size={40} 
+          onClick={() => setOpen(!open)}
+        />
+      </div>
+    </div>
   );
 }
