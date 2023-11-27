@@ -8,7 +8,7 @@ export default function Layout() {
         <SideNav />
         <div className="mt-5 w-full relative overflow-y-auto scrollbar-thin scrollbar-thumb-yellow-400 scrollbar-track-gray-100">
           <TopBar />
-          <div className="bg-violet-400 h-full rounded">
+          <div className="px-9">
             <Outlet />
           </div>
         </div>
