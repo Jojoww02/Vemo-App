@@ -1,7 +1,9 @@
+import * as React from "react";
 import { Outlet } from "react-router-dom";
-import { SideNav, TopBar } from "../organisms";
 
-export default function Layout() {
+import { SideNav, TopBar } from "@/components/organisms";
+
+const Layout: React.FC = () => {
   return (
     <main className="2xl:container h-screen flex px-4">
       <div className="flex w-full h-full gap-4">
@@ -15,4 +17,6 @@ export default function Layout() {
       </div>
     </main>
   );
-}
+};
+
+export default Layout;

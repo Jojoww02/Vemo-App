@@ -1,7 +1,6 @@
 import { Routes, Route } from "react-router-dom";
-import Layout from "./components/templates/Layout";
-import DashboardPage from "./pages/DashboardPage";
-import ListVehiclesPage from "./pages/ListVehiclesPage";
+import Layout from "./components/templates/Layout/Layout";
+import { DashboardPage, ListVehiclesPage } from "@/pages";
 
 export default function App() {
   return (

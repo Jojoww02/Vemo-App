@@ -28,6 +28,6 @@
       ]
     }
   },
-  "include": ["src"],
+  "include": ["src", "src/components/atoms/shadcn.ui"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }
