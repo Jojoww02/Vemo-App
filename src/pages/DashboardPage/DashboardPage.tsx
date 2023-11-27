@@ -4,7 +4,7 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "../../components/atoms/tooltip";
-import { IconDots, IconInfoCircle } from "@tabler/icons-react";
+import { IconInfoCircle, IconCircleArrowUpRightFilled } from "@tabler/icons-react";
 import img1 from "../../assets/dashboard/matic.svg";
 import request from "../../assets/dashboard/requestVeh.png";
 import register from "../../assets/dashboard/registerVeh.png";
@@ -16,8 +16,19 @@ export default function DashboardPage() {
   ];
   return (
     <>
-      <div className="bg-[#898989] pt-2 pb-10 rounded-xl px-10 relative shadow-[0px_0px_7px_#00000040]">
-        <h1 className="text-white text-lg font-medium py-2">List Kendaraan:</h1>
+      <div className="bg-[#898989] p-7 rounded-2xl px-10 relative shadow-[0px_0px_7px_#00000040]">
+        <div className="absolute right-2 top-2">
+          <TooltipProvider>
+            <Tooltip>
+              <TooltipTrigger>
+                <IconCircleArrowUpRightFilled size={27} className="text-white hover:scale-125 duration-500" />
+              </TooltipTrigger>
+              <TooltipContent>
+                <p>View All Vehicles</p>
+              </TooltipContent>
+            </Tooltip>
+          </TooltipProvider>
+        </div>
         <div className="flex justify-between gap-6">
           {carData.map((car) => (
             <div
@@ -51,41 +62,31 @@ export default function DashboardPage() {
             </div>
           ))}
         </div>
-        <div className="absolute left-1/2 transform -translate-x-1/2 -bottom-3 cursor-pointer">
-          <TooltipProvider>
-            <Tooltip>
-              <TooltipTrigger><IconDots className="text-[#D9D9D9]" size={50} /></TooltipTrigger>
-              <TooltipContent>
-                <p>Expand Vehicle list</p>
-              </TooltipContent>
-            </Tooltip>
-          </TooltipProvider>
-        </div>
       </div>
-      <div className="flex items-center justify-between w-full mt-5">
-        <div className="relative w-full">
-          <img
-            src={request}
-            alt=""
-            className="rounded-3xl shadow-[4px_4px_7px_#00000040]"
-          />
-          <img src={gradient} alt="" className="absolute bottom-0" />
-          <h1 className="font-bold text-4xl absolute px-1 w-[80%] bottom-10 left-10 text-white">
-            Request Perawatan
-          </h1>
-        </div>
+      <div className="flex items-center w-full mt-5 gap-10 mb-10">
+          <div className="relative w-1/2">
+            <img
+              src={request}
+              alt=""
+              className="rounded-3xl shadow-[4px_4px_7px_#00000040] w-full"
+            />
+            <img src={gradient} alt="" className="absolute -bottom-1 w-full" />
+            <h1 className="font-bold text-4xl absolute px-1 w-[80%] bottom-10 left-10 text-white">
+              Request Perawatan
+            </h1>
+          </div>
 
-        <div className="relative w-full ml-10">
-          <img
-            src={register}
-            alt=""
-            className="rounded-3xl shadow-[4px_4px_7px_#00000040]"
-          />
-          <img src={gradient} alt="" className="absolute bottom-0" />
-          <h1 className="font-bold text-4xl absolute px-1 w-[80%] bottom-10 left-10 text-white">
-            Daftarkan Kendaraan Anda
-          </h1>
-        </div>
+          <div className="relative w-1/2">
+            <img
+              src={register}
+              alt=""
+              className="rounded-3xl shadow-[4px_4px_7px_#00000040] w-full"
+            />
+            <img src={gradient} alt="" className="absolute -bottom-1 w-full" />
+            <h1 className="font-bold text-4xl absolute px-1 w-[80%] bottom-10 left-10 text-white">
+              Daftarkan Kendaraan Anda
+            </h1>
+          </div>
       </div>
     </>
   );
