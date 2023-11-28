@@ -16,7 +16,7 @@ export default function SideNav() {
   return (
     <div
       className={cn(
-        "relative rounded-3xl my-5 ml-5 border-2 shadow-md p-5 pt-8 duration-300 w-24 z-50",
+        "relative hidden lg:block rounded-3xl my-5 ml-5 border-2 shadow-md p-5 pt-8 duration-300 w-24 z-50",
         isOpen && "w-72"
       )}
     >
