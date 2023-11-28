@@ -2,18 +2,28 @@ import * as React from "react";
 import { cn } from "@/lib/utils";
 import { ArrowIcon } from "@/components/atoms";
 import { Separator } from "@/components/ui/separator";
-import { IconLayoutBoard, IconUserFilled, IconHistory, IconInfoSquareRoundedFilled, IconLogout2 } from "@tabler/icons-react";
+import {
+  IconLogout2,
+  IconUserSquareRounded,
+  IconLayoutCollage,
+} from "@tabler/icons-react";
 import IconVemo from "../../../assets/iconVemo.svg";
+import { History, Info } from "lucide-react";
+
+const sideBarItem = [
+  { title: "Dashboard", icon: <IconLayoutCollage size={35} /> },
+  {
+    title: "Profile",
+    icon: <IconUserSquareRounded size={35} />,
+    path: "/vehicles",
+  },
+  { title: "Services", icon: <History size={35} /> },
+  { title: "About Us", icon: <Info size={35} /> },
+];
 
 export default function SideNav() {
   const [isOpen, setIsOpen] = React.useState(false);
-  const SideBarItem = [
-    { title: "Dashboard" },
-    { title: "Profile", icon: <IconUserFilled size={35} /> },
-    { title: "Services", icon: <IconHistory size={35}/> },
-    { title: "About Us",  icon: <IconInfoSquareRoundedFilled size={35} /> },
-    { title: "Log Out", spacing: true, icon: <IconLogout2 size={35} /> }
-  ] 
+
   return (
     <div
       className={cn(
@@ -21,47 +31,43 @@ export default function SideNav() {
         isOpen && "w-72"
       )}
     >
-      <div
-        className="absolute -right-6 top-16 cursor-pointer bg-white text-[#898989]"
+      <ArrowIcon
+        open={isOpen}
+        className="absolute -right-6 top-16 cursor-pointer bg-white text-[#898989] z-50"
         onClick={() => setIsOpen(!isOpen)}
-      >
-        <ArrowIcon open={isOpen} />
+      />
+
+      <div className="absolute left-6 flex gap-2">
+        <img src={IconVemo} alt="icon vemo" width={50} />
+        {isOpen && (
+          <h1 className="text-4xl font-semibold italic text-[#898989] pt-1">
+            VEMO
+          </h1>
+        )}
       </div>
-      <div className="items-center">
-        <div className="absolute left-6">
-          <img src={IconVemo} alt="" className="w-[80%]" />
-        </div>
-        <div className={cn(
-          "absolute left-20",
-          !isOpen && "hidden"
-          )}
-        >
-          <h1 className="text-2xl font-semibold italic text-[#F4B400]">VEMO</h1>
-          <p className="text-[0.75rem] font-medium text-[#1E1E1E]">The best place for your vehicle</p>
-        </div>
+
+      <Separator className="w-full flex mt-16 bg-[#898989]" />
+
+      <div className="flex flex-col absolute mt-7 left-7 gap-5 text-[#898989]">
+        {sideBarItem.map((item, index) => (
+          <div
+            key={index}
+            className={cn(
+              "flex cursor-pointer font-medium text-lg items-center"
+            )}
+            onClick={() => window.location.href = "/vehicles"}
+          >
+            {item.icon}
+            <span className={cn("ml-5", !isOpen && "hidden")}>
+              {item.title}
+            </span>
+          </div>
+        ))}
       </div>
-      
-      <Separator className="w-full flex mt-20 bg-[#898989]"/>
-      {/* icon */}
-      <div className="flex-col absolute flex mt-7 left-6 gap-7">
-          {SideBarItem.map(( item, index ) => (
-            <>
-              <div key={index} className={cn(
-                "cursor-pointer font-medium text-[#898989] text-lg flex items-center",
-                item.spacing && "mt-40"
-                )}
-              >
-                {item.icon ? item.icon : <IconLayoutBoard size={35}/> }
-                <span className={cn(
-                  "ml-5",
-                  !isOpen && "hidden"
-                  )}
-                >
-                  {item.title}
-                </span>
-              </div>
-            </>
-          ))}
+
+      <div className="absolute bottom-10 left-6 text-[#898989] cursor-pointer font-medium text-lg flex items-center">
+        <IconLogout2 size={35} />
+        <span className={cn("ml-5", !isOpen && "hidden")}>Logout</span>
       </div>
     </div>
   );

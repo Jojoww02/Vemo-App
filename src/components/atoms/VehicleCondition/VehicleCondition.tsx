@@ -8,8 +8,8 @@ export default function VehicleCondition({ condition }: Props): JSX.Element {
   const { color, description } = getVehicleCondition(condition);
   return (
     <div className="flex items-center gap-2">
-      <div className={cn("w-5 h-5 rounded-full ring-4", color)}></div>
-      <h4 className="text-xs xl:text-sm">{description}</h4>
+      <div className={cn("w-3 h-3 md:w-5 md:h-5 rounded-full ring-4", color)}></div>
+      <h4 className="text-[.6rem] md:text-xs xl:text-sm">{description}</h4>
     </div>
   );
 }
