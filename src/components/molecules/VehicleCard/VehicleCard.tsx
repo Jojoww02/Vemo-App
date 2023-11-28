@@ -15,7 +15,7 @@ export default function VehicleCard({ vehicleData }: Props): JSX.Element {
   return (
     <div
       key={vehicleData.id}
-      className="bg-white w-full rounded-xl flex gap-10 px-8 py-2 shadow-[0px_3px_7px_5px_#00000040]"
+      className="flex bg-white w-full rounded-xl gap-10 px-12 py-2 shadow-[0px_3px_7px_5px_#00000040]"
     >
       <div className="self-center">
         <VehicleIcon type={vehicleData.type} />

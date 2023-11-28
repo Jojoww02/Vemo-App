@@ -3,14 +3,20 @@ import {
   IconSquareRoundedChevronRightFilled,
 } from "@tabler/icons-react";
 
-interface IProps {
+interface Props {
   open: boolean;
+  className?: string;
+  onClick?: () => void;
 }
 
-export default function ArrowIcon({ open }: IProps) {
-  return open ? (
-    <IconSquareRoundedChevronLeftFilled size={40} />
-  ) : (
-    <IconSquareRoundedChevronRightFilled size={40} />
+export default function ArrowIcon({ open, className = "", onClick }: Props) {
+  return (
+    <div className={className} onClick={onClick}>
+      {open ? (
+        <IconSquareRoundedChevronLeftFilled size={40} />
+      ) : (
+        <IconSquareRoundedChevronRightFilled size={40} />
+      )}
+    </div>
   );
 }
