@@ -1,7 +1,6 @@
 import { IconInfoCircleFilled } from "@tabler/icons-react";
 import {
   Button,
-  Tooltip,
   VehicleCondition,
   VehicleIcon,
 } from "@/components/atoms";
@@ -30,12 +29,10 @@ export default function VehicleCard({ vehicleData }: Props): JSX.Element {
         <div className="relative w-full flex justify-between items-center gap-2 pb-3">
           <VehicleCondition condition={vehicleData.condition} />
           <div className="mr-7">
-            <Tooltip text="View details vehicle">
-              <Button size="sm">
-                <IconInfoCircleFilled size={18} className="mr-1" />
-                Detail
-              </Button>
-            </Tooltip>
+            <Button size="sm">
+              <IconInfoCircleFilled size={18} className="mr-1" />
+              Detail
+            </Button>
           </div>
         </div>
       </div>

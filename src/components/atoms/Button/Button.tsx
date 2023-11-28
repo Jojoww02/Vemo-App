@@ -14,10 +14,8 @@ export default function Button({
   ...rest
 }: Props): JSX.Element {
   return (
-    <Link to={to}>
-      <_Button {...rest} className={"bg-[#F4B400] hover:bg-[#F4B400]/80"}>
-        {children}
-      </_Button>
-    </Link>
+    <_Button {...rest} className={"bg-[#F4B400] hover:bg-[#F4B400]/80"}>
+      {children}
+    </_Button>
   );
 }
