@@ -9,8 +9,8 @@ interface IProps {
 
 export default function ArrowIcon({ open }: IProps) {
   return open ? (
-    <IconSquareRoundedChevronLeftFilled size={45} />
+    <IconSquareRoundedChevronLeftFilled size={40} />
   ) : (
-    <IconSquareRoundedChevronRightFilled size={45} />
+    <IconSquareRoundedChevronRightFilled size={40} />
   );
 }
