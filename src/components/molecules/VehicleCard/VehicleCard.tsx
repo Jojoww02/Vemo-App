@@ -1,20 +1,18 @@
-import * as React from "react";
 import { IconInfoCircle } from "@tabler/icons-react";
-
 import img1 from "@/assets/dashboard/matic.svg";
 
-interface VehicleData {
+interface IVehicleData {
   id: number;
   name: string;
   plate: string;
   status: string;
 }
 
-interface Props {
-  vehicleData: VehicleData;
+interface IProps {
+  vehicleData: IVehicleData;
 }
 
-const VehicleCard: React.FC<Props> = ({ vehicleData }: Props) => {
+export default function VehicleCard({ vehicleData }: IProps): JSX.Element {
   return (
     <div
       key={vehicleData.id}
@@ -46,6 +44,4 @@ const VehicleCard: React.FC<Props> = ({ vehicleData }: Props) => {
       </div>
     </div>
   );
-};
-
-export default VehicleCard;
+}

@@ -1,13 +1,12 @@
-import * as React from "react";
-
 import gradient from "@/assets/dashboard/linear-gradient.svg";
 
-interface Props {
+interface IProps {
   image: string;
   title: string;
 }
 
-const FeatureCard: React.FC<Props> = ({ image, title }: Props) => {
+export default function FeatureCard(props: IProps): JSX.Element {
+  const { image, title } = props;
   return (
     <div className="relative w-1/2">
       <img
@@ -21,6 +20,4 @@ const FeatureCard: React.FC<Props> = ({ image, title }: Props) => {
       </h1>
     </div>
   );
-};
-
-export default FeatureCard;
+}
