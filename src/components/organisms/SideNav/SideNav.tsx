@@ -1,9 +1,8 @@
 import * as React from "react";
 import { cn } from "@/lib/utils";
+import { ArrowIcon } from "@/components/atoms";
 
-import ArrowSideBar from "../../atoms/ArrowSideBar";
-
-const SideNav: React.FC = () => {
+export default function SideNav() {
   const [isOpen, setIsOpen] = React.useState(false);
   return (
     <div
@@ -16,10 +15,8 @@ const SideNav: React.FC = () => {
         className="absolute -right-6 top-16 cursor-pointer bg-white text-[#898989]"
         onClick={() => setIsOpen(!isOpen)}
       >
-        <ArrowSideBar open={isOpen} />
+        <ArrowIcon open={isOpen} />
       </div>
     </div>
   );
-};
-
-export default SideNav;
+}
