@@ -1,14 +1,10 @@
-import { TooltipIcon } from "@/components/atoms";
+import { Tooltip } from "@/components/atoms";
 import { FeatureCard, VehicleCard } from "@/components/molecules";
 import { IconCircleArrowUpRightFilled } from "@tabler/icons-react";
 
 import request from "@/assets/dashboard/requestVeh.png";
 import register from "@/assets/dashboard/registerVeh.png";
-
-const carData = [
-  { id: 1, name: "Beat Honda 2021", plate: "B 1234 SBO", status: "Good " },
-  { id: 2, name: "Beat Honda 2021", plate: "B 1234 SBO", status: "Good " },
-];
+import { vehicleData } from "@/lib/data";
 
 interface FeatureData {
   image: string;
@@ -31,16 +27,16 @@ export default function DashboardPage(): JSX.Element {
     <>
       <div className="bg-[#898989] p-7 rounded-2xl px-10 relative shadow-[0px_0px_7px_#00000040]">
         <div className="absolute right-2 top-2">
-          <TooltipIcon text="View All Vehicles">
+          <Tooltip text="View All Vehicles">
             <IconCircleArrowUpRightFilled
               size={27}
               className="text-white hover:scale-125 duration-500"
             />
-          </TooltipIcon>
+          </Tooltip>
         </div>
         <div className="flex justify-between gap-6">
-          {carData.map((car) => (
-            <VehicleCard vehicleData={car} key={car.id} />
+          {vehicleData.map((vehicle) => (
+            <VehicleCard vehicleData={vehicle} key={vehicle.id} />
           ))}
         </div>
       </div>

@@ -1,6 +1,6 @@
 import React from "react";
 import {
-  Tooltip,
+  Tooltip as _Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
@@ -11,13 +11,13 @@ interface IProps {
   text: string;
 }
 
-export default function TooltipIcon(props: IProps): JSX.Element {
+export default function Tooltip(props: IProps): JSX.Element {
   return (
     <TooltipProvider>
-      <Tooltip>
+      <_Tooltip>
         <TooltipTrigger>{props.children}</TooltipTrigger>
-        <TooltipContent>{props.text}</TooltipContent>
-      </Tooltip>
+        <TooltipContent className="bg-slate-600">{props.text}</TooltipContent>
+      </_Tooltip>
     </TooltipProvider>
   );
 }
