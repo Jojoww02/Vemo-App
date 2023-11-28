@@ -1,44 +1,41 @@
-import { IconInfoCircle } from "@tabler/icons-react";
-import img1 from "@/assets/dashboard/matic.svg";
+import { IconInfoCircleFilled } from "@tabler/icons-react";
+import {
+  Button,
+  Tooltip,
+  VehicleCondition,
+  VehicleIcon,
+} from "@/components/atoms";
+import { VehicleData } from "@/lib/types";
 
-interface IVehicleData {
-  id: number;
-  name: string;
-  plate: string;
-  status: string;
+interface Props {
+  vehicleData: VehicleData;
 }
 
-interface IProps {
-  vehicleData: IVehicleData;
-}
-
-export default function VehicleCard({ vehicleData }: IProps): JSX.Element {
+export default function VehicleCard({ vehicleData }: Props): JSX.Element {
   return (
     <div
       key={vehicleData.id}
-      className="bg-white w-2/3 rounded-xl flex gap-6 px-4 py-2 shadow-[0px_3px_7px_5px_#00000040]"
+      className="bg-white w-full rounded-xl flex gap-10 px-8 py-2 shadow-[0px_3px_7px_5px_#00000040]"
     >
-      <img src={img1} alt="" className="w-26" />
-      <div className="mt-4 w-full">
+      <div className="self-center">
+        <VehicleIcon type={vehicleData.type} />
+      </div>
+      <div className="pt-4 w-full">
         <h1 className="font-semibold text-2xl tracking-wide mb-1">
           {vehicleData.name}
         </h1>
         <h3 className="font-semibold text-2xl pb-3 text-[#898989]">
-          {vehicleData.plate}
+          {vehicleData.licenseNumber}
         </h3>
         <div className="relative w-full flex justify-between items-center gap-2 pb-3">
-          <div className="flex items-center gap-2">
-            <div className="bg-[#49E102] w-5 h-5 rounded-full ring-2 ring-green-200"></div>
-            <h4 className="text-base">{vehicleData.status}</h4>
-          </div>
+          <VehicleCondition condition={vehicleData.condition} />
           <div className="mr-7">
-            <button
-              type="button"
-              className="bg-[#F4B400] text-base flex rounded text-white px-2 items-center gap-2"
-            >
-              Detail
-              <IconInfoCircle size={20} />
-            </button>
+            <Tooltip text="View details vehicle">
+              <Button size="sm">
+                <IconInfoCircleFilled size={18} className="mr-1" />
+                Detail
+              </Button>
+            </Tooltip>
           </div>
         </div>
       </div>
