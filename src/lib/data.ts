@@ -1,4 +1,4 @@
-import { VehicleData } from "./types";
+import { FeatureData, VehicleData } from "./types";
 
 export const vehicleData: VehicleData[] = [
   {
@@ -14,5 +14,16 @@ export const vehicleData: VehicleData[] = [
     licenseNumber: "AG 1234 BGH",
     type: "manual",
     condition: 80,
+  },
+];
+
+export const featuresData: FeatureData[] = [
+  {
+    image: "/poster-request-vehicle.png",
+    title: "Request Perawatan",
+  },
+  {
+    image: "/poster-register-vehicle.png",
+    title: "Daftarkan Kendaraan Anda",
   },
 ];

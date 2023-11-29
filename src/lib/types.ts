@@ -9,6 +9,12 @@ export interface VehicleData {
 }
 
 export interface VehicleCondition {
-  color: string;
+  image: string;
+  altImage: string;
   description: string;
+}
+
+export interface FeatureData {
+  image: string;
+  title: string;
 }
