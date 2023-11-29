@@ -1,5 +1,9 @@
+import { Button, Input } from "@/components/atoms";
+import { FormProvider, useForm } from "react-hook-form";
 
 export default function HomePage(): JSX.Element {
+  const methods = useForm()
+  const onSubmit = (data: any) => console.log(data);
   return (
     <div className="flex h-screen overflow-y-hidden">
 
@@ -49,7 +53,40 @@ export default function HomePage(): JSX.Element {
                 {/* Card */}
                 <div className="w-3/5 xl:w-1/2 p-8 rounded-[2rem] bg-white z-10 shadow-[0px_2px_7px_5px_#00000040]">
                     <p className="font-bold text-2xl mb-6 text-center">Create an Account</p>
-
+                    <FormProvider {...methods}>
+                        <form onSubmit={methods.handleSubmit(onSubmit)} className="flex-col flex gap-5">
+                            <Input 
+                                label="Name"
+                                isFill={methods.watch().name}
+                                placeholder="Input Your Name"
+                            />
+                            <Input 
+                                label="Email"
+                                isFill={methods.watch().email}
+                                placeholder="Input Your Email"
+                            />
+                            <Input 
+                                label="Password"
+                                isFill={methods.watch().password}
+                                placeholder="Input Your Password"
+                                type="password"
+                            />
+                            <Input 
+                                label="Confirm Password"
+                                isFill={methods.watch().confirmPassword}
+                                placeholder="Confirm Your Password"
+                                type="password"
+                            />
+                            <div className="flex flex-col gap-2">
+                                <Button className="py-6 text-lg font-semibold">
+                                    Sign Up
+                                </Button>
+                                <Button className="py-6 text-lg font-semibold bg-dark hover:bg-dark/80">
+                                    Log In
+                                </Button>
+                            </div>
+                        </form>
+                    </FormProvider>
                 </div>
             </div>
         </div>

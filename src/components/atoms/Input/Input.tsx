@@ -15,13 +15,13 @@ export default function Input(props: Props): JSX.Element {
   return (
     <div
       className={cn(
-        "relative border-2 border-gray-400 rounded-lg p-1 px-4 sm:py-3",
+        "relative border-2 border-gray-400 rounded-lg p-1 px-4 sm:py-2",
         error && "border-red-500"
       )}
     >
       <label
         className={cn(
-          "absolute -top-3 left-5 text-sm sm:text-lg bg-white px-2 lg:px-4 font-medium transition-all duration-100 ease-in-out text-dark",
+          "absolute -top-3 left-5 text-sm sm:text-base bg-white px-2 lg:px-4 font-medium transition-all duration-100 ease-in-out text-dark",
           isFill && "text-primary italic"
         )}
       >

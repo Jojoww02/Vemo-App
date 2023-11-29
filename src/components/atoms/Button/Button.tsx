@@ -1,18 +1,17 @@
 import { ButtonProps, Button as _Button } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
 interface Props extends ButtonProps {
   children: any;
   className?: string;
-  to?: string;
 }
 
 export default function Button({
   children,
   className,
-  to = "",
   ...rest
 }: Props): JSX.Element {
   return (
-    <_Button {...rest} className={"bg-[#F4B400] hover:bg-[#F4B400]/80"}>
+    <_Button {...rest} className={cn("bg-primary hover:bg-primary/80", className)}>
       {children}
     </_Button>
   );
