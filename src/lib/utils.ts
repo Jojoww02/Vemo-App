@@ -37,3 +37,22 @@ export function getVehicleCondition(condition: number): VehicleCondition {
     return constants.vehicleCard.indicator.veryGood;
   }
 }
+
+/**
+ * Converts a string to CamelCase.
+ * @param input - The input string to be converted.
+ * @returns The string in CamelCase.
+ */
+export function toCamelCase(input: string): string {
+  // Split words by spaces or capital letters
+  const words: string[] = input.split(/[\s]+|(?=[A-Z])/);
+
+  // Convert each word to CamelCase
+  const camelCaseWords: string[] = words.map((word, index) => {
+    return index === 0
+      ? word.toLowerCase()
+      : word.charAt(0).toUpperCase() + word.slice(1).toLowerCase();
+  });
+
+  return camelCaseWords.join("");
+}

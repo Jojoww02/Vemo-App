@@ -16,6 +16,10 @@ module.exports = {
       },
     },
     extend: {
+      colors: {
+        primary: "#F4B400",
+        dark: "#1E232C",
+      },
       screens: {
         xs: "480px",
       },
