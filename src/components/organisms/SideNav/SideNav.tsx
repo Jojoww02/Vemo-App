@@ -15,7 +15,7 @@ const sideBarItem = [
   {
     title: "Profile",
     icon: <IconUserSquareRounded size={35} />,
-    path: "/vehicles",
+    path: "/profile",
   },
   { title: "Services", icon: <History size={35} /> },
   { title: "About Us", icon: <Info size={35} /> },
