@@ -1,10 +1,11 @@
 import { Routes, Route } from "react-router-dom";
 import Layout from "./components/templates/Layout/Layout";
-import { DashboardPage, ListVehiclesPage, ProfilePage } from "@/pages";
+import { DashboardPage, ListVehiclesPage, ProfilePage, HomePage, } from "@/pages";
 
 export default function App() {
   return (
     <Routes>
+      <Route path="/home" element={<HomePage />} />
       <Route element={<Layout />}>
         <Route path="/" element={<DashboardPage />} />
         <Route path="/vehicles" element={<ListVehiclesPage />} />

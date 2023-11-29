@@ -33,10 +33,10 @@ export default function SideNav() {
         onClick={() => setIsOpen(!isOpen)}
       />
 
-      <div className="absolute left-6 flex gap-2">
+      <div className="absolute left-5 flex gap-2 z-50">
         <img src={IconVemo} alt="icon vemo" width={50} />
         {isOpen && (
-          <h1 className="text-4xl font-semibold italic text-[#898989] pt-1">
+          <h1 className="text-3xl font-semibold italic text-[#898989] pt-1">
             VEMO
           </h1>
         )}
