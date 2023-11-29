@@ -1,6 +1,4 @@
 import { ButtonProps, Button as _Button } from "@/components/ui/button";
-import { Link } from "react-router-dom";
-
 interface Props extends ButtonProps {
   children: any;
   className?: string;
