@@ -16,11 +16,11 @@ import {
 
 export default function TopBar() {
   return (
-    <header className="bg-white w-full h-20 mb-2 sticky top-0 flex justify-between items-center px-6 lg:px-9 z-40">
+    <header className="bg-white w-full h-20 mb-2 sticky top-0 flex justify-between items-center px-6 md:px-10 z-40">
       <span className="flex justify-center items-center">
         <Sheet>
           <SheetTrigger asChild>
-            <Menu className="text-slate-900 lg:hidden mr-4 scale-125 lg:scale-150" />
+            <Menu className="text-slate-900 lg:hidden mr-4 xs:scale-125 lg:scale-150" />
           </SheetTrigger>
           <SheetContent className="w-72">
             <SheetHeader>
@@ -59,7 +59,7 @@ export default function TopBar() {
           </SheetContent>
         </Sheet>
         <Link to={"/"}>
-          <h1 className="font-bold text-[#F4B400] text-2xl lg:text-3xl italic">
+          <h1 className="font-bold text-[#F4B400] text-xl xs:text-2xl lg:text-3xl italic">
             Dashboard
           </h1>
         </Link>

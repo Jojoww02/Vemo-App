@@ -1,26 +1,7 @@
 import { Tooltip } from "@/components/atoms";
 import { FeatureCard, VehicleCard } from "@/components/molecules";
 import { IconCircleArrowUpRightFilled } from "@tabler/icons-react";
-
-import request from "@/assets/dashboard/requestVeh.png";
-import register from "@/assets/dashboard/registerVeh.png";
-import { vehicleData } from "@/lib/data";
-
-interface FeatureData {
-  image: string;
-  title: string;
-}
-
-const featuresData: FeatureData[] = [
-  {
-    image: request,
-    title: "Request Perawatan",
-  },
-  {
-    image: register,
-    title: "Daftarkan Kendaraan Anda",
-  },
-];
+import { featuresData, vehicleData } from "@/lib/data";
 
 export default function DashboardPage(): JSX.Element {
   return (
@@ -34,7 +15,7 @@ export default function DashboardPage(): JSX.Element {
             />
           </Tooltip>
         </div>
-        <div className="flex flex-col md:flex-row justify-between gap-4 md:gap-6">
+        <div className="flex flex-col xs:px-8 md:px-0 md:flex-row justify-between gap-4 md:gap-6">
           {vehicleData.map((vehicle) => (
             <VehicleCard vehicleData={vehicle} key={vehicle.id} />
           ))}

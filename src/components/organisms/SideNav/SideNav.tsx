@@ -12,11 +12,7 @@ import { History, Info } from "lucide-react";
 
 const sideBarItem = [
   { title: "Dashboard", icon: <IconLayoutCollage size={35} /> },
-  {
-    title: "Profile",
-    icon: <IconUserSquareRounded size={35} />,
-    path: "/vehicles",
-  },
+  { title: "Profile", icon: <IconUserSquareRounded size={35} /> },
   { title: "Services", icon: <History size={35} /> },
   { title: "About Us", icon: <Info size={35} /> },
 ];
@@ -27,7 +23,7 @@ export default function SideNav() {
   return (
     <div
       className={cn(
-        "relative hidden lg:block rounded-3xl my-5 ml-5 border-2 shadow-md p-5 pt-8 duration-300 w-24 z-50",
+        "relative my-5 ml-5 p-5 pt-8 hidden lg:block rounded-3xl border-2 shadow-md duration-300 w-24 z-50",
         isOpen && "w-72"
       )}
     >
@@ -55,7 +51,7 @@ export default function SideNav() {
             className={cn(
               "flex cursor-pointer font-medium text-lg items-center"
             )}
-            onClick={() => window.location.href = "/vehicles"}
+            onClick={() => (window.location.href = "/vehicles")}
           >
             {item.icon}
             <span className={cn("ml-5", !isOpen && "hidden")}>
