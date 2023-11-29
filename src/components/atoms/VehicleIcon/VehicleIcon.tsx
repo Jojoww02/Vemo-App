@@ -6,5 +6,5 @@ interface Props {
 }
 
 export default function VehicleIcon({ type }: Props): JSX.Element {
-  return <img src={getVehicleImageByType(type)} alt="icon vehicle" />;
+  return <img src={getVehicleImageByType(type)} alt="icon vehicle" className="w-14 xs:w-16 md:w-24" />;
 }

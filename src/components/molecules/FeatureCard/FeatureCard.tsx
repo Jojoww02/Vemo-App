@@ -17,7 +17,7 @@ export default function FeatureCard(props: IProps): JSX.Element {
       <img
         src={gradient}
         alt=""
-        className="absolute -bottom-1 w-full cursor-pointer"
+        className="absolute -bottom-[1px] rounded-b-3xl w-full cursor-pointer"
       />
       <h1 className="absolute text-4xl px-1 w-[80%] bottom-5 left-5 md:bottom-10 md:left-10 font-bold text-white cursor-pointer">
         {title}

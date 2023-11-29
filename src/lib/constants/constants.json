@@ -1,0 +1,25 @@
+{
+  "vehicleCard": {
+    "icon": {
+      "matic": "/matic-sm.svg",
+      "manual": "/manual-sm.svg"
+    },
+    "indicator": {
+      "bad": {
+        "image": "/indicator-red.svg",
+        "altImage": "bad indicator",
+        "description": "Buruk"
+      },
+      "good": {
+        "image": "/indicator-yellow.svg",
+        "altImage": "good indicator",
+        "description": "Baik"
+      },
+      "veryGood": {
+        "image": "/indicator-green.svg",
+        "altImage": "very good indicator",
+        "description": "Sangat Baik"
+      }
+    }
+  }
+}

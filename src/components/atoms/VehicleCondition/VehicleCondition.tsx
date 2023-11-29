@@ -1,14 +1,15 @@
-import { cn, getVehicleCondition } from "@/lib/utils";
+import { VehicleCondition } from "@/lib/types";
+import { getVehicleCondition } from "@/lib/utils";
 
 interface Props {
   condition: number;
 }
 
 export default function VehicleCondition({ condition }: Props): JSX.Element {
-  const { color, description } = getVehicleCondition(condition);
+  const { image, altImage, description }: VehicleCondition = getVehicleCondition(condition);
   return (
-    <div className="flex items-center gap-2">
-      <div className={cn("w-3 h-3 md:w-5 md:h-5 rounded-full ring-4", color)}></div>
+    <div className="flex items-center gap-1 xs:gap-2 md:gap-3">
+      <img src={image} width={15} alt={altImage} className="xs:scale-110 md:scale-125 lg:scale-150" />
       <h4 className="text-[.6rem] md:text-xs xl:text-sm">{description}</h4>
     </div>
   );
