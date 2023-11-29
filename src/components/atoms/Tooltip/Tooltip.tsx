@@ -16,7 +16,9 @@ export default function Tooltip(props: IProps): JSX.Element {
     <TooltipProvider>
       <_Tooltip>
         <TooltipTrigger>{props.children}</TooltipTrigger>
-        <TooltipContent className="bg-slate-600">{props.text}</TooltipContent>
+        <TooltipContent className="bg-slate-600 hidden lg:block">
+          {props.text}
+        </TooltipContent>
       </_Tooltip>
     </TooltipProvider>
   );

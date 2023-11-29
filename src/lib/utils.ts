@@ -1,7 +1,7 @@
 import { type ClassValue, clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
 import { VehicleCondition, VehicleType } from "./types";
-import { MANUAL_IMG, MATIC_IMG } from "./constants";
+import constants from "./constants";
 
 /**
  * Generates dynamic CSS class names.
@@ -18,7 +18,9 @@ export function cn(...inputs: ClassValue[]): string {
  * @returns {string} Image URL.
  */
 export function getVehicleImageByType(type: VehicleType): string {
-  return type === "matic" ? MATIC_IMG : MANUAL_IMG;
+  return type === "matic"
+    ? constants.vehicleCard.icon.matic
+    : constants.vehicleCard.icon.manual;
 }
 
 /**
@@ -28,19 +30,10 @@ export function getVehicleImageByType(type: VehicleType): string {
  */
 export function getVehicleCondition(condition: number): VehicleCondition {
   if (condition <= 30) {
-    return {
-      color: "bg-red-500 ring-red-300/40",
-      description: "Kondisi kurang baik",
-    };
+    return constants.vehicleCard.indicator.bad;
   } else if (condition <= 60) {
-    return {
-      color: "bg-yellow-500 ring-yellow-300/40",
-      description: "Kondisi baik",
-    };
+    return constants.vehicleCard.indicator.good;
   } else {
-    return {
-      color: "bg-green-500 ring-green-300/40",
-      description: "Kondisi sangat baik",
-    };
+    return constants.vehicleCard.indicator.veryGood;
   }
 }
