@@ -1,5 +1,6 @@
 import { Button, Input } from "@/components/atoms";
 import { FormProvider, useForm } from "react-hook-form";
+import { Link } from "react-router-dom";
 
 export default function HomePage(): JSX.Element {
   const methods = useForm()
@@ -81,8 +82,10 @@ export default function HomePage(): JSX.Element {
                                 <Button className="py-6 text-lg font-semibold">
                                     Sign Up
                                 </Button>
-                                <Button className="py-6 text-lg font-semibold bg-dark hover:bg-dark/80">
-                                    Log In
+                                <Button asChild className="py-6 text-lg font-semibold bg-dark hover:bg-dark/80">
+                                    <Link to={"/login"}>
+                                        Log In
+                                    </Link>
                                 </Button>
                             </div>
                         </form>
