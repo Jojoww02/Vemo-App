@@ -2,6 +2,7 @@ import zod from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Button, Input } from "@/components/atoms";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
+import { Link } from "react-router-dom";
 import useMutateAuth from "@/hooks/useMutateAuth";
 
 const loginSchema = zod.object({
@@ -57,7 +58,9 @@ export default function LoginPage(): JSX.Element {
               type="password"
             />
             <div className="flex justify-end mt-6 font-semibold text-[#6a707c] text-sm xl:text-base">
-              <span className="cursor-pointer">Forgot Password?</span>
+                    <Link to={"/forgot-password/request"}>
+                <span className="cursor-pointer">Forgot Password?</span>
+                    </Link>
             </div>
             <Button className="py-6 mt-6 text-lg font-semibold">Log In</Button>
           </form>
@@ -65,10 +68,16 @@ export default function LoginPage(): JSX.Element {
         <div className="flex items-center justify-center text-base mt-5">
           <p className=" font-medium">
             Don’t have an account?
-            <span className="text-[#0586BE] font-semibold cursor-pointer">
+            <Link to={"/home"}>
+              
+            <span className="text-[#0586BE] ml-1 font-semibold cursor-pointer">
               {" "}
-              Register Now
+              
+                 Register Now
+              
             </span>
+            </Link>
+          
           </p>
         </div>
       </div>
