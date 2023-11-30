@@ -1,5 +1,5 @@
 import { useForm, FormProvider } from "react-hook-form";
-import { Input } from "@/components/atoms";
+import { Button, Input } from "@/components/atoms";
 
 export default function ListVehiclesPage() {
   const methods = useForm();
@@ -8,12 +8,11 @@ export default function ListVehiclesPage() {
   return (
     <FormProvider {...methods}>
       <form onSubmit={methods.handleSubmit(onSubmit)} className="w-[400px]">
-        <Input
-          label="Login Input"
-          isFill={methods.watch().loginInput}
-          placeholder="Please input your email"
-        />
-        <input type="submit" />
+        <Input label="Login Input" isFill={methods.watch().loginInput} placeholder="Please input your email" />
+
+        <Button>
+          <input type="submit" />
+        </Button>
       </form>
     </FormProvider>
   );
