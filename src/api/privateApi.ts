@@ -1,6 +1,6 @@
 import axios from "axios";
 import { refreshTokenFn } from "@/api/services/auth";
-import { getToken, isTokenSet } from "@/lib/utils/token";
+import { getToken, isTokenSet, setToken } from "@/lib/utils/token";
 
 const privateApi = axios.create({
   baseURL: import.meta.env.VITE_APP_BASE_API_URL,
@@ -22,10 +22,24 @@ privateApi.interceptors.response.use(
     return response;
   },
   async (error) => {
-    const originalRequest = error.config;
-    if (error.status === 401 && !originalRequest._retry) {
+    const originalRequest = error?.config;
+    const errMessage = error?.response?.data?.message as string;
+    if (
+      error?.response?.status === 401 &&
+      errMessage.includes("expired_token") &&
+      !originalRequest._retry
+    ) {
       originalRequest._retry = true;
-      await refreshTokenFn();
+
+      try {
+        const data = await refreshTokenFn();
+        setToken(data.accessToken);
+      } catch (error) {
+        if ((error as any).response.status === 403) {
+          console.log("need login");
+        }
+      }
+
       return privateApi(originalRequest);
     }
     return Promise.reject(error);

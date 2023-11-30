@@ -13,7 +13,7 @@ import { PrivateRoute } from "./components/templates";
 export default function App() {
   return (
     <Routes>
-      <Route path="/home" element={<HomePage />} />
+      <Route path="/" element={<HomePage />} />
       <Route path="/login" element={<LoginPage />} />
       <Route
         path="/forgot-password/request"
@@ -21,7 +21,7 @@ export default function App() {
       />
       <Route element={<PrivateRoute />}>
         <Route element={<Layout />}>
-          <Route path="/" element={<DashboardPage />} />
+          <Route path="/dashboard" element={<DashboardPage />} />
           <Route path="/vehicles" element={<ListVehiclesPage />} />
           <Route path="/profile" element={<ProfilePage />} />
         </Route>
