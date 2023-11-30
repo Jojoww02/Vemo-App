@@ -37,7 +37,7 @@ export default function LoginPage(): JSX.Element {
       <div className="absolute left-0 top-0 w-full h-full bg-black bg-opacity-30"></div>
 
       {/* Card */}
-      <div className="w-[37%] xl:w-[30%] xl:h-[80%] h-[55%] 2xl:h-[75%] p-8 rounded-[2rem] bg-white z-10 shadow-[0px_2px_7px_5px_#00000040]">
+      <div className="w-[37%] xl:w-[30%] xl:h-[80%] h-[75%] 2xl:h-[75%] p-8 rounded-[2rem] bg-white z-10 shadow-[0px_2px_7px_5px_#00000040]">
         <p className="font-bold text-dark text-xl xl:text-3xl text-center">
           Welcome back! Glad to see you, Again!
         </p>
@@ -57,27 +57,23 @@ export default function LoginPage(): JSX.Element {
               placeholder="Enter Your Password"
               type="password"
             />
-            <div className="flex justify-end mt-6 font-semibold text-[#6a707c] text-sm xl:text-base">
+            <div className="flex justify-end mt-2 font-semibold text-[#6a707c] text-sm xl:text-base">
                     <Link to={"/forgot-password/request"}>
                 <span className="cursor-pointer">Forgot Password?</span>
                     </Link>
             </div>
-            <Button className="py-6 mt-6 text-lg font-semibold">Log In</Button>
+            <Button className="py-6 mt-4 text-lg font-semibold">Log In</Button>
           </form>
         </FormProvider>
-        <div className="flex items-center justify-center text-base mt-5">
+        <div className="flex items-center text-xs justify-center xl:text-base mt-4 xl:mt-5">
           <p className=" font-medium">
             Don’t have an account?
             <Link to={"/home"}>
-              
-            <span className="text-[#0586BE] ml-1 font-semibold cursor-pointer">
+              <span className="text-[#0586BE] ml-1 font-semibold cursor-pointer">
               {" "}
-              
-                 Register Now
-              
-            </span>
+                Register Now
+              </span>
             </Link>
-          
           </p>
         </div>
       </div>

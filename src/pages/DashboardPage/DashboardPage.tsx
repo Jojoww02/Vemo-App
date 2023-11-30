@@ -27,6 +27,7 @@ export default function DashboardPage(): JSX.Element {
             image={feature.image}
             title={feature.title}
             key={index}
+            path={feature.path}
           />
         ))}
       </div>

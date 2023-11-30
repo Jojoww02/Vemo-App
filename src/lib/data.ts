@@ -21,9 +21,11 @@ export const featuresData: FeatureData[] = [
   {
     image: "/poster-request-vehicle.png",
     title: "Request Perawatan",
+    path: "/maintenance/request",
   },
   {
     image: "/poster-register-vehicle.png",
     title: "Daftarkan Kendaraan Anda",
+    path: "/",
   },
 ];

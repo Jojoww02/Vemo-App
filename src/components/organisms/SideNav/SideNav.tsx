@@ -51,7 +51,7 @@ export default function SideNav() {
             className={cn(
               "flex cursor-pointer font-medium text-lg items-center"
             )}
-            onClick={() => (window.location.href = "/")}
+            onClick={() => (window.location.href = "/dashboard")}
           >
             {item.icon}
             <span className={cn("ml-5", !isOpen && "hidden")}>

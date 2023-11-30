@@ -17,6 +17,7 @@ export interface VehicleCondition {
 export interface FeatureData {
   image: string;
   title: string;
+  path: string;
 }
 
 export interface AnyObject {

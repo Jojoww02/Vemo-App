@@ -153,7 +153,7 @@ export default function HomePage(): JSX.Element {
                 placeholder="Confirm your password"
                 type="password"
               />
-              <div className="flex flex-col gap-2">
+              <div className="flex flex-col gap-2 cursor-pointer">
                 <Button
                   className="py-6 text-lg font-semibold"
                   type="submit"
@@ -166,7 +166,7 @@ export default function HomePage(): JSX.Element {
                   className="py-6 text-lg font-semibold bg-dark hover:bg-dark/80"
                   asChild
                 >
-                  <Link to="/login">Log In</Link>
+                  <Link className="w-full text-center" to="/login">Log In</Link>
                 </Button>
               </div>
             </form>

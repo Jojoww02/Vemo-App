@@ -41,7 +41,7 @@ export default function Input(props: Props): JSX.Element {
           {...otherProps}
           id={name}
           placeholder={label}
-          className="w-full outline-none py-2 font-sans text-black text-sm lg:text-base placeholder:text-sm"
+          className="w-full outline-none py-4 font-sans text-black text-sm lg:text-base placeholder:text-sm"
           type={isEyeIconOpen ? "text" : otherProps.type}
           autoComplete="off"
         />
