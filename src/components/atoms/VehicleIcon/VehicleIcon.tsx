@@ -1,5 +1,5 @@
 import { VehicleType } from "@/lib/types";
-import { getVehicleImageByType } from "@/lib/utils";
+import { getVehicleImageByType } from "@/lib/utils/vehicle";
 
 interface Props {
   type: VehicleType;

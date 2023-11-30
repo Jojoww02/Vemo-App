@@ -1,5 +1,5 @@
 import * as React from "react";
-import { cn } from "@/lib/utils";
+import { cn } from "@/lib/utils/style";
 import { ArrowIcon } from "@/components/atoms";
 import { Separator } from "@/components/ui/separator";
 import {

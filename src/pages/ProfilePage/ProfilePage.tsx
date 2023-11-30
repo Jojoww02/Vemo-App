@@ -46,11 +46,6 @@ export default function ProfilePage(): JSX.Element {
             <button
               type="button"
               className="mt-3 flex gap-2  items-center"
-              onClick={() => {
-                localStorage.removeItem("accessToken");
-                localStorage.removeItem("refreshToken");
-                window.location.reload();
-              }}
             >
               <IconLogout2 style={{ fontSize: "1.3rem" }} />
               <span className="font-medium text-sm">Log Out</span>

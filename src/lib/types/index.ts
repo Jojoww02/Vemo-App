@@ -18,3 +18,7 @@ export interface FeatureData {
   image: string;
   title: string;
 }
+
+export interface AnyObject {
+  [key: string]: any;
+}

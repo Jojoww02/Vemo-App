@@ -1,7 +1,11 @@
 import { NotificationIcon } from "@/components/atoms";
 import { Link } from "react-router-dom";
 import { History, Info, Menu } from "lucide-react";
-import { IconLayoutCollage, IconSquareRoundedChevronLeftFilled, IconUserSquareRounded } from "@tabler/icons-react";
+import {
+  IconLayoutCollage,
+  IconSquareRoundedChevronLeftFilled,
+  IconUserSquareRounded,
+} from "@tabler/icons-react";
 import {
   Sheet,
   SheetClose,
@@ -11,7 +15,7 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 import IconVemo from "../../../assets/iconVemo.svg";
-import { cn } from "@/lib/utils";
+import { cn } from "@/lib/utils/style";
 import { IconLogout2 } from "@tabler/icons-react";
 
 export default function TopBar() {
@@ -33,33 +37,36 @@ export default function TopBar() {
             <Menu className="text-slate-900 lg:hidden mr-4 xs:scale-125 lg:scale-150" />
           </SheetTrigger>
           <SheetContent className="w-72">
-            <SheetHeader className="flex flex-row font-semibold italic items-center justify-between" >
+            <SheetHeader className="flex flex-row font-semibold italic items-center justify-between">
               <img src={IconVemo} alt="vemo-icon" className="w-[20%]" />
-              <SheetTitle className="text-2xl text-[#F4B400] pr-20">VEMO</SheetTitle>
+              <SheetTitle className="text-2xl text-[#F4B400] pr-20">
+                VEMO
+              </SheetTitle>
               <SheetClose>
-                <IconSquareRoundedChevronLeftFilled size={35} style={{ color: "#898989" }}/>
+                <IconSquareRoundedChevronLeftFilled
+                  size={35}
+                  style={{ color: "#898989" }}
+                />
               </SheetClose>
             </SheetHeader>
-            <div className="w-full h-[0.05rem] mt-7 bg-[#898989]"/>
+            <div className="w-full h-[0.05rem] mt-7 bg-[#898989]" />
             <div className="flex flex-col mt-10 gap-7 text-[#898989]">
               {sideBarItem.map((item, index) => (
                 <div
-                  key={index} 
+                  key={index}
                   className={cn(
-                  "flex cursor-pointer font-medium text-lg items-center"
+                    "flex cursor-pointer font-medium text-lg items-center"
                   )}
                 >
                   {item.icon}
-                  <span className="ml-5">
-                    {item.title}
-                  </span>
+                  <span className="ml-5">{item.title}</span>
                 </div>
               ))}
             </div>
-            <div className="w-full h-[0.05rem] bg-[#898989] mt-10"/>
-            <div className="flex flex-row mt-7 text-[#898989] cursor-pointer font-medium text-lg items-center">
-              <IconLogout2 size={35}/>
-              <span className="ml-5">Log Out</span> 
+            <div className="w-full h-[0.05rem] bg-[#898989] mt-10" />
+            <div className="flex mt-7 flex-row text-[#898989] cursor-pointer font-medium text-lg items-center">
+              <IconLogout2 size={35} />
+              <span className="ml-5">Log Out</span>
             </div>
           </SheetContent>
         </Sheet>

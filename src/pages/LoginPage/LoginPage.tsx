@@ -1,9 +1,36 @@
+import zod from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { Button, Input } from "@/components/atoms";
-import { FormProvider, useForm } from "react-hook-form";
+import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
+import useMutateAuth from "@/hooks/useMutateAuth";
 
-export default function LoginPage():JSX.Element {
-  const methods = useForm()
-  const onSubmit = (data: any) => console.log(data);
+const loginSchema = zod.object({
+  email: zod
+    .string()
+    .min(1, "Email address is required")
+    .email("Email Address is invalid"),
+  password: zod
+    .string()
+    .min(1, "Password is required")
+    .min(8, "Password must be more than 8 characters")
+    .max(32, "Password must be less than 32 characters"),
+});
+
+export type LoginInput = zod.TypeOf<typeof loginSchema>;
+
+export default function LoginPage(): JSX.Element {
+  const methods = useForm<LoginInput>({
+    resolver: zodResolver(loginSchema),
+  });
+
+  const { loginUser } = useMutateAuth();
+
+  const onSubmitHandler: SubmitHandler<LoginInput> = async (
+    credentials: LoginInput
+  ) => {
+    await loginUser.mutateAsync(credentials);
+  };
+
   return (
     <div className="h-screen overflow-hidden bg-[url('/src/assets/authImage/auth-bg.webp')] grid place-items-center bg-cover bg-center">
       <div className="absolute left-0 top-0 w-full h-full bg-black bg-opacity-30"></div>
@@ -14,30 +41,37 @@ export default function LoginPage():JSX.Element {
           Welcome back! Glad to see you, Again!
         </p>
         <FormProvider {...methods}>
-            <form onSubmit={methods.handleSubmit(onSubmit)} className="flex flex-col mt-10 gap-5">
-                <Input 
-                label="Email"
-                isFill={methods.watch().email}
-                placeholder="Enter Your Email"
-                />
-                <Input 
-                label="Password"
-                isFill={methods.watch().password}
-                placeholder="Enter Your Password"
-                type="password"
-                />
-                <div className="flex justify-end mt-6 font-semibold text-[#6a707c] text-sm xl:text-base">
-                    <span className="cursor-pointer">Forgot Password?</span>
-                </div>
-                <Button className="py-6 mt-6 text-lg font-semibold">
-                  Log In
-                </Button>
-            </form>
+          <form
+            onSubmit={methods.handleSubmit(onSubmitHandler)}
+            className="flex flex-col mt-10 gap-5"
+          >
+            <Input
+              label="Email"
+              isFill={methods.watch().email}
+              placeholder="Enter Your Email"
+            />
+            <Input
+              label="Password"
+              isFill={methods.watch().password}
+              placeholder="Enter Your Password"
+              type="password"
+            />
+            <div className="flex justify-end mt-6 font-semibold text-[#6a707c] text-sm xl:text-base">
+              <span className="cursor-pointer">Forgot Password?</span>
+            </div>
+            <Button className="py-6 mt-6 text-lg font-semibold">Log In</Button>
+          </form>
         </FormProvider>
         <div className="flex items-center justify-center text-base mt-5">
-          <p className=" font-medium">Don’t have an account?<span className="text-[#0586BE] font-semibold cursor-pointer"> Register Now</span></p>
+          <p className=" font-medium">
+            Don’t have an account?
+            <span className="text-[#0586BE] font-semibold cursor-pointer">
+              {" "}
+              Register Now
+            </span>
+          </p>
         </div>
       </div>
     </div>
-  )
+  );
 }

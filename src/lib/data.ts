@@ -1,4 +1,4 @@
-import { FeatureData, VehicleData } from "./types";
+import { FeatureData, VehicleData } from "@/lib/types";
 
 export const vehicleData: VehicleData[] = [
   {
