@@ -30,7 +30,7 @@ export default function Input(props: Props): JSX.Element {
         <label
           htmlFor={name}
           className={cn(
-            "absolute -top-3 left-5 text-sm sm:text-base bg-white px-2 lg:px-4 font-medium transition-all duration-100 ease-in-out text-dark",
+            "absolute -top-3 left-5 text-sm lg:text-base bg-white px-2 lg:px-4 font-medium transition-all duration-100 ease-in-out text-dark",
             isFill && "text-primary italic"
           )}
         >
