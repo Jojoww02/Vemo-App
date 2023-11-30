@@ -6,7 +6,6 @@ import {
   Sheet,
   SheetClose,
   SheetContent,
-  SheetFooter,
   SheetHeader,
   SheetTitle,
   SheetTrigger,
@@ -57,13 +56,11 @@ export default function TopBar() {
                 </div>
               ))}
             </div>
-            <SheetFooter>
-              <div className="flex mt-7 flex-row text-[#898989] cursor-pointer font-medium text-lg items-center">
-                <IconLogout2 size={35}/>
-                <span className="ml-5">Log Out</span> 
-              </div>
-              <div className="w-full h-[0.05rem] bg-[#898989] mt-10"/>
-            </SheetFooter>
+            <div className="w-full h-[0.05rem] bg-[#898989] mt-10"/>
+            <div className="flex flex-row mt-7 text-[#898989] cursor-pointer font-medium text-lg items-center">
+              <IconLogout2 size={35}/>
+              <span className="ml-5">Log Out</span> 
+            </div>
           </SheetContent>
         </Sheet>
         <Link to={"/"}>
