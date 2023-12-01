@@ -11,7 +11,7 @@ import IconVemo from "../../../assets/iconVemo.svg";
 import { History, Info } from "lucide-react";
 
 const sideBarItem = [
-  { title: "Dashboard", icon: <IconLayoutCollage size={35} />, navigateTo:'/dashboard' },
+  { title: "Dashboard", icon: <IconLayoutCollage size={35} />, navigateTo:'/dashboard', navigateTo: '/dashboard' },
   { title: "Profile", icon: <IconUserSquareRounded size={35}  />, navigateTo:'/profile' },
   { title: "Services", icon: <History size={35} />, navigateTo:'/services' },
   { title: "About Us", icon: <Info size={35} />,  navigateTo:'/about-us' },
