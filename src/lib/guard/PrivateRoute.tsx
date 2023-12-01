@@ -3,6 +3,7 @@ import { Navigate, Outlet } from "react-router-dom";
 import { IUserResponse } from "@/api/types";
 import { getMeFn } from "@/api/services/users";
 import { isTokenSet } from "@/lib/utils/token";
+import { IconLoader3 } from "@tabler/icons-react";
 
 export default function PrivateRoute() {
   const query = useQuery({
@@ -19,7 +20,12 @@ export default function PrivateRoute() {
 
   if (query.isLoading) {
     return (
-      <div className="min-h-screen grid place-items-center">Loading...</div>
+      <div className="min-h-screen w-full grid place-items-center">
+        <IconLoader3
+          size={50}
+          className="animate-spin text-primary"
+        />
+      </div>
     );
   }
 
