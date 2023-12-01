@@ -21,5 +21,15 @@
         "description": "Sangat Baik"
       }
     }
+  },
+  "features": {
+    "requestMaintenance": {
+      "title": "Request Perawatan",
+      "poster": "/poster-request-vehicle.png"
+    },
+    "registerVehicle": {
+      "title": "Daftarkan Kendaraan Anda",
+      "poster": "/poster-register-vehicle.png"
+    }
   }
 }

@@ -8,3 +8,4 @@ export { default as RequestVehiclePage } from "./RequestVehiclePage";
 export { default as ProfilePage } from "./ProfilePage";
 export { default as RegisterVehiclePage } from "./RegisterVehiclePage";
 export { default as AboutPage } from "./AboutPage";
+export { default as NotFoundPage } from "./NotFoundPage";
