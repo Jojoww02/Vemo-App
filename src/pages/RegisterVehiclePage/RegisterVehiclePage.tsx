@@ -23,7 +23,7 @@ const registerSchema = zod
 
 export type RegisterInput = zod.TypeOf<typeof registerSchema>;
 
-export default function RegisterVehiclePage() {
+export default function RegisterVehiclePage(): JSX.Element {
   const methods = useForm();
 
   const onSubmit = (data: any) => console.log(data);
