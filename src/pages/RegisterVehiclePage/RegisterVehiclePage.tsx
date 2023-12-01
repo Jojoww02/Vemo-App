@@ -91,6 +91,12 @@ export default function RegisterVehiclePage(): JSX.Element {
                 type="text"
               />
               <Input
+                label="Tanggal Pembelian Kendaraan"
+                isFill={methods.watch().tanggalPembelianKendaraan}
+                placeholder="Input your password"
+                type="date"
+              />
+              <Input
                 label="Plat Nomor"
                 isFill={methods.watch().platNomor}
                 placeholder="Confirm your password"
