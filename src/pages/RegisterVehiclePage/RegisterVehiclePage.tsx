@@ -11,9 +11,20 @@ import { log } from "console";
 
 const registerSchema = zod
   .object({
-    name: zod.string().min(1, "Name is required").min(3, "Name must be more than 3 characters").max(50, "Password must be less than 50 characters"),
-    email: zod.string().min(1, "Email address is required").email("Email Address is invalid"),
-    password: zod.string().min(1, "Password is required").min(8, "Password must be more than 8 characters").max(32, "Password must be less than 32 characters"),
+    name: zod
+      .string()
+      .min(1, "Name is required")
+      .min(3, "Name must be more than 3 characters")
+      .max(50, "Password must be less than 50 characters"),
+    email: zod
+      .string()
+      .min(1, "Email address is required")
+      .email("Email Address is invalid"),
+    password: zod
+      .string()
+      .min(1, "Password is required")
+      .min(8, "Password must be more than 8 characters")
+      .max(32, "Password must be less than 32 characters"),
     confirmPassword: zod.string().min(1, "Please confirm your password"),
   })
   .refine((data) => data.password === data.confirmPassword, {
@@ -29,7 +40,7 @@ export default function RegisterVehiclePage(): JSX.Element {
   const onSubmit = (data: any) => console.log(data);
 
   return (
-    <div className="flex gap-10 mt-10">
+    <div className="flex justify-evenly gap-10 mt-10">
       {/* Content Left */}
       <div className="relative w-1/2 bg-cover grid rounded-xl bg-[url('/src/assets/requestPageImage/register-vehicle-image.webp')]">
         <div className="absolute bottom-0 font-bold text-white text-xl xl:text-5xl px-8 z-10 mb-14">
@@ -42,10 +53,14 @@ export default function RegisterVehiclePage(): JSX.Element {
       {/* Content Left End */}
 
       {/* Content Right */}
-      <div className="w-1/3 mb-12">
-        <div className="w-full mt-7">
+      <div className="w-1/2 mb-12 justify-center flex">
+        <div className="w-[80%] mt-7">
           <FormProvider {...methods}>
-            <form autoComplete="off" onSubmit={methods.handleSubmit(onSubmit)} className="flex-col flex gap-5">
+            <form
+              autoComplete="off"
+              onSubmit={methods.handleSubmit(onSubmit)}
+              className="flex-col flex gap-6"
+            >
               {/* {registerUser.isError && (
                 <Alert variant="destructive" className="flex items-center">
                   <div className="mr-4">
@@ -57,10 +72,30 @@ export default function RegisterVehiclePage(): JSX.Element {
                   </div>
                 </Alert>
               )} */}
-              <Input label="Nama Lengkap" isFill={methods.watch().namaLengkap} placeholder="Input your name" type="text" />
-              <Input label="Nama Kendaraan" isFill={methods.watch().namaKendaraan} placeholder="Input your email" type="text" />
-              <Input label="Jenis Kendaraan" isFill={methods.watch().jenisKendaraan} placeholder="Input your password" type="text" />
-              <Input label="Plat Nomor" isFill={methods.watch().platNomor} placeholder="Confirm your password" type="text" />
+              <Input
+                label="Nama Lengkap"
+                isFill={methods.watch().namaLengkap}
+                placeholder="Input your name"
+                type="text"
+              />
+              <Input
+                label="Nama Kendaraan"
+                isFill={methods.watch().namaKendaraan}
+                placeholder="Input your email"
+                type="text"
+              />
+              <Input
+                label="Jenis Kendaraan"
+                isFill={methods.watch().jenisKendaraan}
+                placeholder="Input your password"
+                type="text"
+              />
+              <Input
+                label="Plat Nomor"
+                isFill={methods.watch().platNomor}
+                placeholder="Confirm your password"
+                type="text"
+              />
               <div className="flex flex-col gap-2 mt-7">
                 <Button className="py-6 text-lg font-semibold" type="submit">
                   Send

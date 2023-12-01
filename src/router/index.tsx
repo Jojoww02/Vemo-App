@@ -1,6 +1,6 @@
 import type { RouteObject } from "react-router-dom";
 import * as APP from "@/lib/constants/routes";
-import { PrivateRoute } from "@/lib/guard";
+import { AuthRouteGuard, PrivateRouteGuard } from "@/lib/guard";
 import { Layout } from "@/components/templates";
 import {
   HomePage,
@@ -15,7 +15,17 @@ import {
   AboutPage,
 } from "@/pages";
 
-const publicRoute: RouteObject = {
+const publicRoutes: RouteObject = {
+  children: [
+    {
+      path: APP.NOT_FOUND_PAGE,
+      element: <NotFoundPage />,
+    },
+  ],
+};
+
+const authRoutes: RouteObject = {
+  element: <AuthRouteGuard />,
   children: [
     {
       index: true,
@@ -34,15 +44,11 @@ const publicRoute: RouteObject = {
       path: APP.FORGOT_PASSWORD_PAGE(":token"),
       element: <ForgotPasswordPage />,
     },
-    {
-      path: APP.NOT_FOUND_PAGE,
-      element: <NotFoundPage />,
-    },
   ],
 };
 
-const privateRoute: RouteObject = {
-  element: <PrivateRoute />,
+const privateRoutes: RouteObject = {
+  element: <PrivateRouteGuard />,
   children: [
     {
       element: <Layout />,
@@ -72,6 +78,6 @@ const privateRoute: RouteObject = {
   ],
 };
 
-const routes: RouteObject[] = [publicRoute, privateRoute];
+const routes: RouteObject[] = [publicRoutes, authRoutes, privateRoutes];
 
 export default routes;

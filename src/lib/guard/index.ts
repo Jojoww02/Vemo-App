@@ -1,1 +1,2 @@
-export { default as PrivateRoute } from "./PrivateRoute";
+export { default as PrivateRouteGuard } from "./PrivateRouteGuard";
+export { default as AuthRouteGuard } from "./AuthRouteGuard";

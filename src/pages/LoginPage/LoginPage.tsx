@@ -4,6 +4,9 @@ import { Button, Input } from "@/components/atoms";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
 import useMutateAuth from "@/hooks/useMutateAuth";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+import { AlertTriangle } from "lucide-react";
+import { isObjectEmpty } from "@/lib/utils/common";
 
 const loginSchema = zod.object({
   email: zod
@@ -46,6 +49,21 @@ export default function LoginPage(): JSX.Element {
             onSubmit={methods.handleSubmit(onSubmitHandler)}
             className="flex flex-col mt-10 gap-5"
           >
+            {loginUser.isError && (
+              <Alert variant="destructive" className="flex items-center">
+                <div className="mr-4">
+                  <AlertTriangle />
+                </div>
+                <div>
+                  <AlertTitle>
+                    {(loginUser.error as any).response.data.message}
+                  </AlertTitle>
+                  <AlertDescription>
+                    {(loginUser.error as any).response.data.errors}
+                  </AlertDescription>
+                </div>
+              </Alert>
+            )}
             <Input
               label="Email"
               isFill={methods.watch().email}
@@ -58,11 +76,17 @@ export default function LoginPage(): JSX.Element {
               type="password"
             />
             <div className="flex justify-end mt-2 font-semibold text-[#6a707c] text-sm xl:text-base">
-                    <Link to={"/forgot-password/request"}>
+              <Link to={"/forgot-password/request"}>
                 <span className="cursor-pointer">Forgot Password?</span>
-                    </Link>
+              </Link>
             </div>
-            <Button className="py-6 mt-4 text-lg font-semibold">Log In</Button>
+            <Button
+              disabled={!isObjectEmpty(methods.formState.errors)}
+              isLoading={loginUser.isPending}
+              className="py-6 mt-4 text-lg font-semibold"
+            >
+              Log In
+            </Button>
           </form>
         </FormProvider>
         <div className="flex items-center text-xs justify-center xl:text-base mt-4 xl:mt-5">
@@ -70,7 +94,7 @@ export default function LoginPage(): JSX.Element {
             Don’t have an account?
             <Link to={"/home"}>
               <span className="text-[#0586BE] ml-1 font-semibold cursor-pointer">
-              {" "}
+                {" "}
                 Register Now
               </span>
             </Link>
