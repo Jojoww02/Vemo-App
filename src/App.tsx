@@ -9,7 +9,8 @@ import {
   ForgotPasswordRequestPage,
   ForgotPasswordPage,
   RegisterVehiclePage,
-  AboutPage
+  AboutPage,
+  RequestVehiclePage
 } from "@/pages";
 import { PrivateRoute } from "./components/templates";
 
@@ -28,7 +29,8 @@ export default function App() {
           <Route path="/dashboard" element={<DashboardPage />} />
           <Route path="/vehicles" element={<ListVehiclesPage />} />
           <Route path="/profile" element={<ProfilePage />} />
-          <Route path="/maintenance/request" element={<RegisterVehiclePage />} />
+          <Route path="/maintenance/request" element={<RequestVehiclePage />} />
+          <Route path="/vehicle/register" element={<RegisterVehiclePage />} />
           <Route path="/about-us" element={<AboutPage />} />
         </Route>
       </Route>

@@ -70,7 +70,7 @@ export default function TopBar() {
             </div>
           </SheetContent>
         </Sheet>
-        <Link to={"/"}>
+        <Link to={"/dashboard"}>
           <h1 className="font-bold text-[#F4B400] text-xl xs:text-2xl lg:text-3xl italic">
             Dashboard
           </h1>

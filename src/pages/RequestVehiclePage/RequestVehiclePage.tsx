@@ -3,10 +3,10 @@ import { vehicleData } from "@/lib/data";
 
 export default function RequestVehiclePage():JSX.Element {
   return (
-    <div className="flex gap-10">
+    <div className="flex gap-10 mt-10">
       {/* Content Left */}
-        <div className="relative w-1/2 bg-cover grid  bg-[url('/src/responsive/dekstop/assets/FormImg/req-bg.webp')]">
-          <div className="absolute bottom-0 font-bold text-white text-5xl xl:text-5xl px-8 z-10 mb-20">
+        <div className="relative w-1/2 bg-cover rounded-xl grid  bg-[url('/src/assets/requestPageImage/request-vehicle-image.webp')]">
+          <div className="absolute bottom-0 font-bold text-white text-5xl xl:text-5xl px-8 z-10 mb-14">
             Request
             <br />
             Perawatan
@@ -16,9 +16,9 @@ export default function RequestVehiclePage():JSX.Element {
       {/* Content Left End */}
 
       {/* Content Right */}
-      <div className="w-1/2 px-10 mt-24">
+      <div className="w-1/2 px-10">
         <span className="font-medium text-[#898989] text-lg xl:text-1xl">List Kendaraan:</span>
-        <div className='w-full mt-12 flex-col grid gap-2 place-items-center justify-center h-[25rem] xl:h-[20rem] overflow-y-auto'>
+        <div className='w-full px-2 flex xl:mt-12 mb-20 xl:mb-24 flex-col gap-5 place-items-center justify-center h-[25rem] xl:h-[20rem] overflow-y-auto'>
             {vehicleData.map((vehicle) => (
                 <VehicleCard vehicleData={vehicle} key={vehicle.id} />
             ))}

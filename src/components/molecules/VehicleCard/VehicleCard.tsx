@@ -24,17 +24,19 @@ export default function VehicleCard({ vehicleData }: Props): JSX.Element {
           <div>
             <VehicleCondition condition={vehicleData.condition} />
           </div>
-          <div className="lg:pr-5">
-            <Tooltip text="View details vehicle">
-              <Link
-                to=""
-                className="flex items-center justify-center px-2 py-1 text-center bg-[#F4B400] text-white rounded-lg scale-75 xs:scale-90 lg:scale-110"
-              >
-                <Info size={18} className="mr-1" />
-                <p className="text-xs">Detail</p>
-              </Link>
-            </Tooltip>
-          </div>
+          {window.location.pathname !== "/maintenance/request" && (
+            <div className="lg:pr-5">
+              <Tooltip text="View details vehicle">
+                <Link
+                  to=""
+                  className="flex items-center justify-center px-2 py-1 text-center bg-[#F4B400] text-white rounded-lg scale-75 xs:scale-90 lg:scale-110"
+                >
+                  <Info size={18} className="mr-1" />
+                  <p className="text-xs">Detail</p>
+                </Link>
+              </Tooltip>
+            </div>
+          )}
         </div>
       </div>
     </div>

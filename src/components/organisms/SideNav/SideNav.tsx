@@ -11,9 +11,9 @@ import IconVemo from "../../../assets/iconVemo.svg";
 import { History, Info } from "lucide-react";
 
 const sideBarItem = [
-  { title: "Dashboard", icon: <IconLayoutCollage size={35} /> },
+  { title: "Dashboard", icon: <IconLayoutCollage size={35} />, navigateTo:'/dashboard' },
   { title: "Profile", icon: <IconUserSquareRounded size={35}  />, navigateTo:'/profile' },
-  { title: "Services", icon: <History size={35} /> },
+  { title: "Services", icon: <History size={35} />, navigateTo:'/services' },
   { title: "About Us", icon: <Info size={35} />,  navigateTo:'/about-us' },
 ];
 
@@ -34,7 +34,7 @@ export default function SideNav() {
       />
 
       <div className="absolute left-5 flex gap-2 z-50">
-        <img src={IconVemo} alt="icon vemo" width={50} />
+        <img src={IconVemo} alt="icon vemo" width={50} className="cursor-pointer"/>
         {isOpen && (
           <h1 className="text-3xl font-semibold italic text-[#898989] pt-1">
             VEMO
