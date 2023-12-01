@@ -23,7 +23,7 @@ export default function Input(props: Props): JSX.Element {
     <div>
       <div
         className={cn(
-          "relative border-2 border-gray-400 rounded-lg p-1 px-4",
+          "relative border-2 border-gray-400 rounded-lg px-4",
           (errors[name]?.message as string) && "border-red-500"
         )}
       >
@@ -41,7 +41,7 @@ export default function Input(props: Props): JSX.Element {
           {...otherProps}
           id={name}
           placeholder={label}
-          className="w-full outline-none py-4 font-sans text-black text-sm lg:text-base placeholder:text-sm"
+          className="w-full h-full outline-none py-3 font-sans text-black text-sm lg:text-base placeholder:text-sm"
           type={isEyeIconOpen ? "text" : otherProps.type}
           autoComplete="off"
         />
