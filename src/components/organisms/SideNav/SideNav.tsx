@@ -9,16 +9,30 @@ import {
 } from "@tabler/icons-react";
 import IconVemo from "../../../assets/iconVemo.svg";
 import { History, Info } from "lucide-react";
+import { useQuery } from "@tanstack/react-query";
+import { logoutUserFn } from "@/api/services/auth";
+import { removeToken } from "@/lib/utils/token";
+import useLogoutUser from "@/hooks/useLogoutUser";
 
 const sideBarItem = [
-  { title: "Dashboard", icon: <IconLayoutCollage size={35} />, navigateTo:'/dashboard', navigateTo: '/dashboard' },
-  { title: "Profile", icon: <IconUserSquareRounded size={35}  />, navigateTo:'/profile' },
-  { title: "Services", icon: <History size={35} />, navigateTo:'/services' },
-  { title: "About Us", icon: <Info size={35} />,  navigateTo:'/about-us' },
+  {
+    title: "Dashboard",
+    icon: <IconLayoutCollage size={35} />,
+    navigateTo: "/dashboard",
+  },
+  {
+    title: "Profile",
+    icon: <IconUserSquareRounded size={35} />,
+    navigateTo: "/profile",
+  },
+  { title: "Services", icon: <History size={35} />, navigateTo: "/services" },
+  { title: "About Us", icon: <Info size={35} />, navigateTo: "/about-us" },
 ];
 
 export default function SideNav() {
   const [isOpen, setIsOpen] = React.useState(false);
+
+  const { handleLogoutUser } = useLogoutUser();
 
   return (
     <div
@@ -34,7 +48,12 @@ export default function SideNav() {
       />
 
       <div className="absolute left-5 flex gap-2 z-50">
-        <img src={IconVemo} alt="icon vemo" width={50} className="cursor-pointer"/>
+        <img
+          src={IconVemo}
+          alt="icon vemo"
+          width={50}
+          className="cursor-pointer"
+        />
         {isOpen && (
           <h1 className="text-3xl font-semibold italic text-[#898989] pt-1">
             VEMO
@@ -51,7 +70,9 @@ export default function SideNav() {
             className={cn(
               "flex cursor-pointer font-medium text-lg items-center"
             )}
-            onClick={() => item.navigateTo && (window.location.href = item.navigateTo)}
+            onClick={() =>
+              item.navigateTo && (window.location.href = item.navigateTo)
+            }
           >
             {item.icon}
             <span className={cn("ml-5", !isOpen && "hidden")}>
@@ -61,7 +82,10 @@ export default function SideNav() {
         ))}
       </div>
 
-      <div className="absolute bottom-10 left-6 text-[#898989] cursor-pointer font-medium text-lg flex items-center">
+      <div
+        className="absolute bottom-10 left-6 text-[#898989] cursor-pointer font-medium text-lg flex items-center"
+        onClick={handleLogoutUser}
+      >
         <IconLogout2 size={35} />
         <span className={cn("ml-5", !isOpen && "hidden")}>Logout</span>
       </div>

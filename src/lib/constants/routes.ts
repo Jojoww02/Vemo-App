@@ -21,6 +21,7 @@ export const SEND_OTP_SERVICE = "auth/otp/request";
 export const VERIFY_OTP_SERVICE = "auth/otp/verify";
 export const FORGOT_PASSWORD_SERVICE = "auth/forgot-password";
 export const FORGOT_PASSWORD_REQUEST_SERVICE = "auth/forgot-password/request";
+export const LOGOUT_SERVICE = "auth/logout";
 
 /* USERS SERVICES */
 export const GET_CURRENT_USER_SERVICE = "users/me";
