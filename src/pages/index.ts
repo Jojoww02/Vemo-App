@@ -9,3 +9,8 @@ export { default as ProfilePage } from "./ProfilePage";
 export { default as RegisterVehiclePage } from "./RegisterVehiclePage";
 export { default as AboutPage } from "./AboutPage";
 export { default as NotFoundPage } from "./NotFoundPage";
+export { default as NotificationPage } from "./NotificationPage";
+export { default as NotificationDetailsPage } from "./NotificationDetailsPage";
+export { default as ConfirmPasswordPage } from "./ConfirmPasswordPage";
+export { default as UpdateProfile } from "./UpdateProfile";
+export { default as VeriyOtpPage } from "./VeriyOtpPage";

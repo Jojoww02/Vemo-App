@@ -13,6 +13,11 @@ import {
   ProfilePage,
   RegisterVehiclePage,
   AboutPage,
+  NotificationPage,
+  NotificationDetailsPage,
+  ConfirmPasswordPage,
+  UpdateProfile,
+  VeriyOtpPage
 } from "@/pages";
 
 const publicRoutes: RouteObject = {
@@ -72,6 +77,26 @@ const privateRoutes: RouteObject = {
         {
           path: APP.ABOUT_US_PAGE,
           element: <AboutPage />,
+        },
+        {
+          path: APP.NOTIFICATION_PAGE,
+          element: <NotificationPage />,
+        },
+        {
+          path: APP.NOTIFICATION_DETAILS_PAGE,
+          element: <NotificationDetailsPage />,
+        },
+        {
+          path: APP.CONFIMASI_PASSWORD_PAGE,
+          element: <ConfirmPasswordPage />,
+        },
+        {
+          path: APP.PROFILE_UPDATE_PAGE,
+          element: <UpdateProfile />,
+        },
+        {
+          path: APP.VERIFY_OTP_PAGE,
+          element: <VeriyOtpPage />,
         },
       ],
     },

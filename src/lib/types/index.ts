@@ -23,3 +23,11 @@ export interface FeatureData {
 export interface AnyObject {
   [key: string]: any;
 }
+
+export interface NotificationData {
+  id: number
+  title: string
+  description: string
+  status: number
+  date: Date
+}
