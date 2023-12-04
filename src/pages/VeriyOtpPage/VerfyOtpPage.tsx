@@ -94,16 +94,16 @@ export default function VerifyOtpPage(): JSX.Element {
 
   return (
     <div className="w-full">
-      <div className="flex flex-col pt-24 items-center justify-center">
+      <div className="flex flex-col px-4 lg:items-center lg:justify-center md:pl-10">
         <div className="flex ">
-          <img src={IconArrow} alt="" className="w-[2rem] absolute items-center left-10 cursor-pointer" onClick={() => navigate(PROFILE_PAGE)} />
+          <img src={IconArrow} alt="" className="lg:w-[2rem] w-4 sm:w-6 absolute lg:items-center lg:left-10 cursor-pointer" onClick={() => navigate(PROFILE_PAGE)} />
         </div>
-        <h1 className="font-semibold text-5xl">OTP Verification</h1>
-        <p className="font-base text-lg text-[#8391A1] mt-2">Enter the verification code we just sent on your email address.</p>
+        <h1 className="font-semibold lg:text-5xl text-xl sm:text-2xl  mt-10 md:text-3xl">OTP Verification</h1>
+        <p className="lg:font-base text-sm sm:text-lg lg:text-lg lg:text-[#8391A1] lg:mt-2 md:text-xl">Enter the verification code we just sent on your email address.</p>
       </div>
-      <div className="flex justify-center items-center pt-14">
+      <div className="flex justify-center items-center lg:pt-14">
         <div>
-          <div className="flex justify-center space-x-10 items-center">
+          <div className="flex items-center justify-center lg:space-x-10 space-x-5 mt-12">
             {otp.map((digit, index) => (
               <div key={index}>
                 <label htmlFor={`otp-input-${index}`} className="sr-only">
@@ -113,7 +113,7 @@ export default function VerifyOtpPage(): JSX.Element {
                   type="text"
                   id={`otp-input-${index}`}
                   value={digit}
-                  className="w-20 h-20 text-xl transition text-center border-2 border-gray-300 rounded-md focus:ring focus:ring-orange-400"
+                  className="w-14 h-14 text-xl text-center border-2 border-gray-300 rounded-md focus:ring focus:ring-blue-400 lg:w-20 lg:h-20 lg:transiti lg:border-gray-300 lg:focus:ring lg:focus:ring-orange-400"
                   onChange={(e) => handleInputChange(e, index)}
                   onKeyDown={(e) => handleBackspace(e, index)}
                 />
@@ -121,7 +121,7 @@ export default function VerifyOtpPage(): JSX.Element {
             ))}
           </div>
           <div className="flex flex-col justify-center items-center mt-14 gap-10">
-            <p className="text-base font-medium">
+            <p className="lg:text-base text-sm sm:text-lg font-medium">
               Dont have any receive code?
               <button type="button" onClick={() => countDownTimer(moment(new Date()).add(1, "minute"))} className="text-[#2495C6] cursor-pointer ml-1 disabled:text-slate-400 disabled:cursor-default" disabled={isSendCodeDisabled}>
                 Send Code
