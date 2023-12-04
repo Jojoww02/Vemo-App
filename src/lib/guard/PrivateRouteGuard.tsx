@@ -5,7 +5,7 @@ import { getMeFn } from "@/api/services/users";
 import { isTokenSet } from "@/lib/utils/token";
 import { IconLoader3 } from "@tabler/icons-react";
 
-export default function PrivateRoute() {
+export default function PrivateRouteGuard() {
   const query = useQuery({
     queryKey: ["me"],
     queryFn: async (): Promise<IUserResponse> => await getMeFn(),
@@ -21,10 +21,7 @@ export default function PrivateRoute() {
   if (query.isLoading) {
     return (
       <div className="min-h-screen w-full grid place-items-center">
-        <IconLoader3
-          size={50}
-          className="animate-spin text-primary"
-        />
+        <IconLoader3 size={50} className="animate-spin text-primary" />
       </div>
     );
   }

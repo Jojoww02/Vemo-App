@@ -166,7 +166,9 @@ export default function HomePage(): JSX.Element {
                   className="py-6 text-lg font-semibold bg-dark hover:bg-dark/80"
                   asChild
                 >
-                  <Link className="w-full text-center" to="/login">Log In</Link>
+                  <Link className="w-full text-center" to="/login">
+                    Log In
+                  </Link>
                 </Button>
               </div>
             </form>

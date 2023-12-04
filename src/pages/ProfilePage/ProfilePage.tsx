@@ -1,7 +1,10 @@
 import { IconLock, IconLogout2, IconMailFilled, IconPencil, IconUser } from "@tabler/icons-react";
 import UserProfileIcon from "../../assets/profile/user-profile-icon.svg";
+import { useNavigate } from "react-router-dom";
+import { CONFIMASI_PASSWORD_PAGE, PROFILE_PAGE } from "@/lib/constants/routes";
 
 export default function ProfilePage(): JSX.Element {
+  const navigate = useNavigate()
   return (
     <div className="md:w-[640px] md:mx-auto mb-10">
       <div className="flex-col flex ">
@@ -39,16 +42,16 @@ export default function ProfilePage(): JSX.Element {
           </button>
           <p className="mt-1 md:text-base">putraekasatrya@email.com</p>
           <div className="absolute bottom-10 lg:right-0 lg:top-0 bg-white">
-            <button type="button" className="flex text-[#0586BE] gap-2 items-center">
+            <button type="button" className="flex text-[#0586BE] gap-2 items-center" onClick={() => navigate(PROFILE_PAGE)}>
               <IconLock />
-              <span className=" text-sm ">Change Password</span>
+              <p className=" text-sm ">Change Password</p>
             </button>
             <button
               type="button"
               className="mt-3 flex gap-2  items-center"
             >
               <IconLogout2 style={{ fontSize: "1.3rem" }} />
-              <span className="font-medium text-sm">Log Out</span>
+              <p className="font-medium text-sm">Log Out</p>
             </button>
           </div>
         </div>

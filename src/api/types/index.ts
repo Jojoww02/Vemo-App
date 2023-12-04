@@ -20,7 +20,7 @@ export interface IToken {
 
 export interface GenericResponse {
   message: string;
-  error: string[];
+  error: string[] | null;
 }
 
 export interface ICredentials {

@@ -23,14 +23,14 @@ privateApi.interceptors.response.use(
   },
   async (error) => {
     const originalRequest = error?.config;
-    const errMessage = error?.response?.data?.message as string;
+    const errMessage = error?.response?.data?.errors as string[];
     if (
       error?.response?.status === 401 &&
+      errMessage &&
       errMessage.includes("expired_token") &&
       !originalRequest._retry
     ) {
       originalRequest._retry = true;
-
       try {
         const data = await refreshTokenFn();
         setToken(data.accessToken);
@@ -39,7 +39,6 @@ privateApi.interceptors.response.use(
           console.log("need login");
         }
       }
-
       return privateApi(originalRequest);
     }
     return Promise.reject(error);

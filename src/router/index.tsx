@@ -1,6 +1,6 @@
 import type { RouteObject } from "react-router-dom";
 import * as APP from "@/lib/constants/routes";
-import { PrivateRoute } from "@/lib/guard";
+import { AuthRouteGuard, PrivateRouteGuard } from "@/lib/guard";
 import { Layout } from "@/components/templates";
 import {
   HomePage,
@@ -14,9 +14,24 @@ import {
   RegisterVehiclePage,
   AboutPage,
   RequestVehiclePage,
+  NotificationPage,
+  NotificationDetailsPage,
+  ConfirmPasswordPage,
+  UpdateProfile,
+  VeriyOtpPage
 } from "@/pages";
 
-const publicRoute: RouteObject = {
+const publicRoutes: RouteObject = {
+  children: [
+    {
+      path: APP.NOT_FOUND_PAGE,
+      element: <NotFoundPage />,
+    },
+  ],
+};
+
+const authRoutes: RouteObject = {
+  element: <AuthRouteGuard />,
   children: [
     {
       index: true,
@@ -35,15 +50,11 @@ const publicRoute: RouteObject = {
       path: APP.FORGOT_PASSWORD_PAGE(":token"),
       element: <ForgotPasswordPage />,
     },
-    {
-      path: APP.NOT_FOUND_PAGE,
-      element: <NotFoundPage />,
-    },
   ],
 };
 
-const privateRoute: RouteObject = {
-  element: <PrivateRoute />,
+const privateRoutes: RouteObject = {
+  element: <PrivateRouteGuard />,
   children: [
     {
       element: <Layout />,
@@ -72,11 +83,31 @@ const privateRoute: RouteObject = {
           path: APP.ABOUT_US_PAGE,
           element: <AboutPage />,
         },
+        {
+          path: APP.NOTIFICATION_PAGE,
+          element: <NotificationPage />,
+        },
+        {
+          path: APP.NOTIFICATION_DETAILS_PAGE,
+          element: <NotificationDetailsPage />,
+        },
+        {
+          path: APP.CONFIMASI_PASSWORD_PAGE,
+          element: <ConfirmPasswordPage />,
+        },
+        {
+          path: APP.PROFILE_UPDATE_PAGE,
+          element: <UpdateProfile />,
+        },
+        {
+          path: APP.VERIFY_OTP_PAGE,
+          element: <VeriyOtpPage />,
+        },
       ],
     },
   ],
 };
 
-const routes: RouteObject[] = [publicRoute, privateRoute];
+const routes: RouteObject[] = [publicRoutes, authRoutes, privateRoutes];
 
 export default routes;
