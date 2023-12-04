@@ -92,7 +92,7 @@ const privateRoutes: RouteObject = {
           element: <NotificationDetailsPage />,
         },
         {
-          path: APP.CONFIMASI_PASSWORD_PAGE,
+          path: APP.CONFIRMATION_PASSWORD_PAGE,
           element: <ConfirmPasswordPage />,
         },
         {
