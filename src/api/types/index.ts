@@ -1,10 +1,12 @@
-type Customer = "customer";
+import { VehicleType } from "@/lib/types";
+
+type ICustomer = "customer";
 
 export interface IUser {
   name: string;
   email: string;
   password: string;
-  role: Customer;
+  role: ICustomer;
 }
 
 export interface IUserResponse {
@@ -18,7 +20,7 @@ export interface IToken {
   accessToken: string;
 }
 
-export interface GenericResponse {
+export interface IGenericResponse {
   message: string;
   error: string[] | null;
 }
@@ -26,4 +28,13 @@ export interface GenericResponse {
 export interface ICredentials {
   email: string;
   password: string;
+}
+
+export interface IVehicle {
+  vehicleName: string;
+  ownerName: string;
+  purchasingDate: string;
+  vehicleType: VehicleType;
+  licenseNumber: string;
+  userId: string;
 }

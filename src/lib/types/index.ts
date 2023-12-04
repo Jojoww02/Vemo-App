@@ -25,9 +25,9 @@ export interface AnyObject {
 }
 
 export interface NotificationData {
-  id: number
-  title: string
-  description: string
-  status: number
-  date: Date
+  id: number;
+  title: string;
+  description: string;
+  status: number;
+  date: Date;
 }
