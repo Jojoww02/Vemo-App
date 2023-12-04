@@ -13,6 +13,7 @@ import {
   ProfilePage,
   RegisterVehiclePage,
   AboutPage,
+  RequestVehiclePage,
 } from "@/pages";
 
 const publicRoute: RouteObject = {
@@ -58,6 +59,10 @@ const privateRoute: RouteObject = {
         {
           path: APP.PROFILE_PAGE,
           element: <ProfilePage />,
+        },
+        {
+          path: APP.REQUEST_MAINTENANCE_VEHICLE_PAGE,
+          element: <RequestVehiclePage />,
         },
         {
           path: APP.REGISTER_VEHICLE_PAGE,

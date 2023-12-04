@@ -1,6 +1,6 @@
 import constants from "@/lib/constants";
-import * as APP from "@/lib/constants/routes";
 import { FeatureData, VehicleData } from "@/lib/types";
+import { REGISTER_VEHICLE_PAGE, REQUEST_MAINTENANCE_VEHICLE_PAGE } from "../constants/routes";
 
 export const vehicleData: VehicleData[] = [
   {
@@ -23,11 +23,11 @@ export const featuresData: FeatureData[] = [
   {
     title: constants.features.requestMaintenance.title,
     image: constants.features.requestMaintenance.poster,
-    path: APP.REQUEST_MAINTENANCE_VEHICLE_PAGE,
+    path: (REQUEST_MAINTENANCE_VEHICLE_PAGE),
   },
   {
     title: constants.features.registerVehicle.title,
     image: constants.features.registerVehicle.poster,
-    path: APP.REGISTER_VEHICLE_PAGE,
+    path: (REGISTER_VEHICLE_PAGE),
   },
 ];

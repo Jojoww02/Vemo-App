@@ -42,7 +42,7 @@ export default function RegisterVehiclePage(): JSX.Element {
       {/* Content Left End */}
 
       {/* Content Right */}
-      <div className="w-1/3 mb-12">
+      <div className="w-1/3 mb-20">
         <div className="w-full mt-7">
           <FormProvider {...methods}>
             <form autoComplete="off" onSubmit={methods.handleSubmit(onSubmit)} className="flex-col flex gap-5">
@@ -61,7 +61,7 @@ export default function RegisterVehiclePage(): JSX.Element {
               <Input label="Nama Kendaraan" isFill={methods.watch().namaKendaraan} placeholder="Input your email" type="text" />
               <Input label="Jenis Kendaraan" isFill={methods.watch().jenisKendaraan} placeholder="Input your password" type="text" />
               <Input label="Plat Nomor" isFill={methods.watch().platNomor} placeholder="Confirm your password" type="text" />
-              <div className="flex flex-col gap-2 mt-7">
+              <div className="flex flex-col gap-2 mt-12">
                 <Button className="py-6 text-lg font-semibold" type="submit">
                   Send
                 </Button>

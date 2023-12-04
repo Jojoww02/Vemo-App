@@ -7,6 +7,7 @@ import IconVemo from "../../../assets/iconVemo.svg";
 import { cn } from "@/lib/utils/style";
 import { IconLogout2 } from "@tabler/icons-react";
 import { useState } from "react";
+import { ABOUT_US_PAGE, DASHBOARD_PAGE, INDEX_PAGE, PROFILE_PAGE } from "@/lib/constants/routes";
 
 interface SideBarItem {
   title: string;
@@ -32,14 +33,14 @@ export default function TopBar() {
   };
 
   const sideBarItem: SideBarItem[] = [
-    { title: "Dashboard", icon: <IconLayoutCollage size={35} />, path: "/dashboard" },
+    { title: "Dashboard", icon: <IconLayoutCollage size={35} />, path: (DASHBOARD_PAGE) },
     {
       title: "Profile",
       icon: <IconUserSquareRounded size={35} />,
-      path: "/profile",
+      path: (PROFILE_PAGE),
     },
-    { title: "Services", icon: <History size={35} />, path: "/dashboard" },
-    { title: "About Us", icon: <Info size={35} />, path: "/about-us" },
+    { title: "Services", icon: <History size={35} />, path: (INDEX_PAGE) },
+    { title: "About Us", icon: <Info size={35} />, path: (ABOUT_US_PAGE) },
   ];
   return (
     <header className="bg-white w-full h-20 mb-2 sticky top-0 flex justify-between items-center px-6 md:px-10 z-40">
@@ -72,7 +73,7 @@ export default function TopBar() {
             </div>
           </SheetContent>
         </Sheet>
-        <Link to={"/dashboard"}>
+        <Link to={DASHBOARD_PAGE}>
           <h1 className="font-bold text-[#F4B400] text-xl xs:text-2xl lg:text-3xl italic">Dashboard</h1>
         </Link>
       </span>

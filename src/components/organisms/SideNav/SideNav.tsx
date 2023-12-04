@@ -9,12 +9,13 @@ import {
 } from "@tabler/icons-react";
 import IconVemo from "../../../assets/iconVemo.svg";
 import { History, Info } from "lucide-react";
+import { ABOUT_US_PAGE, DASHBOARD_PAGE, INDEX_PAGE, PROFILE_PAGE } from "@/lib/constants/routes";
 
 const sideBarItem = [
-  { title: "Dashboard", icon: <IconLayoutCollage size={35} />, navigateTo:'/dashboard', navigateTo: '/dashboard' },
-  { title: "Profile", icon: <IconUserSquareRounded size={35}  />, navigateTo:'/profile' },
-  { title: "Services", icon: <History size={35} />, navigateTo:'/services' },
-  { title: "About Us", icon: <Info size={35} />,  navigateTo:'/about-us' },
+  { title: "Dashboard", icon: <IconLayoutCollage size={35} />, navigateTo:(DASHBOARD_PAGE), },
+  { title: "Profile", icon: <IconUserSquareRounded size={35}  />, navigateTo:(PROFILE_PAGE) },
+  { title: "Services", icon: <History size={35} />, navigateTo:(INDEX_PAGE) },
+  { title: "About Us", icon: <Info size={35} />,  navigateTo:(ABOUT_US_PAGE) },
 ];
 
 export default function SideNav() {

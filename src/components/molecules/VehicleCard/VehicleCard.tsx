@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { VehicleData } from "@/lib/types";
 import { Info } from "lucide-react";
 import { Tooltip, VehicleCondition, VehicleIcon } from "@/components/atoms";
+import { REQUEST_MAINTENANCE_VEHICLE_PAGE } from "@/lib/constants/routes";
 
 interface Props {
   vehicleData: VehicleData;
@@ -24,7 +25,7 @@ export default function VehicleCard({ vehicleData }: Props): JSX.Element {
           <div>
             <VehicleCondition condition={vehicleData.condition} />
           </div>
-          {window.location.pathname !== "/maintenance/request" && (
+          {window.location.pathname !== (REQUEST_MAINTENANCE_VEHICLE_PAGE) && (
             <div className="lg:pr-5">
               <Tooltip text="View details vehicle">
                 <Link
