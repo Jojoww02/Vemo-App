@@ -1,9 +1,8 @@
 import React, { useEffect, useState, ChangeEvent, KeyboardEvent } from "react";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
 import moment from "moment";
 import IconArrow from "../../assets/notification/Icon-arrow.svg";
-import { DASHBOARD_PAGE, PROFILE_PAGE } from "@/lib/constants/routes";
+import { PROFILE_PAGE } from "@/lib/constants/routes";
 import { Button } from "@/components/atoms";
 
 export default function VerifyOtpPage(): JSX.Element {

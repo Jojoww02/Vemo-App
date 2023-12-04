@@ -1,22 +1,25 @@
-import React from "react";
+import React, { HTMLInputTypeAttribute } from "react";
 import { cn } from "@/lib/utils/style";
-import { isObjectEmpty, toCamelCase } from "@/lib/utils/common";
-import { useFormContext } from "react-hook-form";
-import { EyeIcon } from "..";
+import { isObjectEmpty } from "@/lib/utils/common";
+import { Controller, useFormContext } from "react-hook-form";
+import { EyeIcon } from "@/components/atoms";
 
 interface Props extends React.InputHTMLAttributes<HTMLInputElement> {
+  name: string;
   label: string;
   isFill?: string | boolean;
+  type: HTMLInputTypeAttribute;
+  children?: React.ReactNode;
 }
 
 export default function Input(props: Props): JSX.Element {
-  const { label, isFill, ...otherProps } = props;
+  const { name, label, isFill, type, children, ...otherProps } = props;
   const [isEyeIconOpen, setIsEyeIconOpen] = React.useState(false);
-  const name: string = toCamelCase(label);
 
   const {
     register,
     formState: { errors },
+    control,
   } = useFormContext();
 
   return (
@@ -36,22 +39,39 @@ export default function Input(props: Props): JSX.Element {
         >
           {label}
         </label>
-        <input
-          {...register(name)}
-          {...otherProps}
-          id={name}
-          placeholder={label}
-          className="w-full h-full outline-none py-3 font-sans text-black text-sm lg:text-base placeholder:text-sm"
-          type={isEyeIconOpen ? "text" : otherProps.type}
-          autoComplete="off"
-        />
-        {otherProps.type === "password" && (
-          <span className="absolute right-[5%] top-1/2 -translate-y-1/2 text-gray-700">
-            <EyeIcon
-              open={isEyeIconOpen}
-              onClick={() => setIsEyeIconOpen(!isEyeIconOpen)}
+        {type === "select" ? (
+          <Controller
+            name={name}
+            control={control}
+            render={({ field }) => (
+              <select {...field} className="my-1 py-2 bg-white w-full">
+                <option selected disabled>
+                  {otherProps.placeholder}
+                </option>
+                {children}
+              </select>
+            )}
+          />
+        ) : (
+          <>
+            <input
+              {...register(name)}
+              {...otherProps}
+              id={name}
+              placeholder={label}
+              className="w-full h-full outline-none py-3 font-sans text-black text-sm lg:text-base placeholder:text-sm"
+              type={isEyeIconOpen ? "text" : type}
+              autoComplete="off"
             />
-          </span>
+            {type === "password" && (
+              <span className="absolute right-[5%] top-1/2 -translate-y-1/2 text-gray-700">
+                <EyeIcon
+                  open={isEyeIconOpen}
+                  onClick={() => setIsEyeIconOpen(!isEyeIconOpen)}
+                />
+              </span>
+            )}
+          </>
         )}
       </div>
       {!isObjectEmpty(errors) && (

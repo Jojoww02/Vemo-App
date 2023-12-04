@@ -130,24 +130,28 @@ export default function HomePage(): JSX.Element {
                 </Alert>
               )}
               <Input
+                name="name"
                 label="Name"
                 isFill={methods.watch().name}
                 placeholder="Input your name"
                 type="text"
               />
               <Input
+                name="email"
                 label="Email"
                 isFill={methods.watch().email}
                 placeholder="Input your email"
                 type="email"
               />
               <Input
+                name="password"
                 label="Password"
                 isFill={methods.watch().password}
                 placeholder="Input your password"
                 type="password"
               />
               <Input
+                name="confirmPassword"
                 label="Confirm Password"
                 isFill={methods.watch().confirmPassword}
                 placeholder="Confirm your password"

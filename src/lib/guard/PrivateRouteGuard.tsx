@@ -4,6 +4,7 @@ import { IUserResponse } from "@/api/types";
 import { getMeFn } from "@/api/services/users";
 import { isTokenSet } from "@/lib/utils/token";
 import { IconLoader3 } from "@tabler/icons-react";
+import { LOGIN_PAGE } from "@/lib/constants/routes";
 
 export default function PrivateRouteGuard() {
   const query = useQuery({
@@ -15,7 +16,7 @@ export default function PrivateRouteGuard() {
     (query.isError && (query.error as any)?.response?.status === 401) ||
     !isTokenSet()
   ) {
-    return <Navigate to="/" />;
+    return <Navigate to={LOGIN_PAGE} />;
   }
 
   if (query.isLoading) {

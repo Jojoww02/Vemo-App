@@ -1,5 +1,5 @@
 import { baseApi } from "@/api";
-import { GenericResponse, ICredentials, IToken, IUser } from "@/api/types";
+import { IGenericResponse, ICredentials, IToken, IUser } from "@/api/types";
 import * as API from "@/lib/constants/routes";
 
 export const registerUserFn = async (user: IUser): Promise<IToken> => {
@@ -7,9 +7,7 @@ export const registerUserFn = async (user: IUser): Promise<IToken> => {
   return response.data;
 };
 
-export const loginUserFn = async (
-  credentials: ICredentials
-): Promise<IToken> => {
+export const loginUserFn = async (credentials: ICredentials): Promise<IToken> => {
   const response = await baseApi.post<IToken>(API.LOGIN_SERVICE, credentials);
   return response.data;
 };
@@ -19,7 +17,7 @@ export const refreshTokenFn = async (): Promise<IToken> => {
   return response.data;
 };
 
-export const logoutUserFn = async (): Promise<GenericResponse> => {
-  const response = await baseApi.get<GenericResponse>(API.LOGOUT_SERVICE);
+export const logoutUserFn = async (): Promise<IGenericResponse> => {
+  const response = await baseApi.get<IGenericResponse>(API.LOGOUT_SERVICE);
   return response.data;
 };

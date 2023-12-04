@@ -7,6 +7,10 @@ import useMutateAuth from "@/hooks/useMutateAuth";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { AlertTriangle } from "lucide-react";
 import { isObjectEmpty } from "@/lib/utils/common";
+import {
+  FORGOT_PASSWORD_REQUEST_PAGE,
+  INDEX_PAGE,
+} from "@/lib/constants/routes";
 
 const loginSchema = zod.object({
   email: zod
@@ -37,6 +41,7 @@ export default function LoginPage(): JSX.Element {
 
   return (
     <div className="h-screen overflow-hidden bg-[url('/src/assets/authImage/auth-bg.webp')] grid place-items-center bg-cover bg-center">
+      {/* Overlay Background */}
       <div className="absolute left-0 top-0 w-full h-full bg-black bg-opacity-30"></div>
 
       {/* Card */}
@@ -65,18 +70,21 @@ export default function LoginPage(): JSX.Element {
               </Alert>
             )}
             <Input
+              name="email"
               label="Email"
               isFill={methods.watch().email}
               placeholder="Enter Your Email"
+              type="email"
             />
             <Input
+              name="password"
               label="Password"
               isFill={methods.watch().password}
               placeholder="Enter Your Password"
               type="password"
             />
             <div className="flex justify-end mt-2 font-semibold text-[#6a707c] text-sm xl:text-base">
-              <Link to={"/forgot-password/request"}>
+              <Link to={FORGOT_PASSWORD_REQUEST_PAGE}>
                 <span className="cursor-pointer">Forgot Password?</span>
               </Link>
             </div>
@@ -92,7 +100,7 @@ export default function LoginPage(): JSX.Element {
         <div className="flex items-center text-xs justify-center xl:text-base mt-4 xl:mt-5">
           <p className=" font-medium">
             Don’t have an account?
-            <Link to={"/home"}>
+            <Link to={INDEX_PAGE}>
               <span className="text-[#0586BE] ml-1 font-semibold cursor-pointer">
                 {" "}
                 Register Now
