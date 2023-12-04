@@ -1,58 +1,47 @@
 import { IconLock, IconLogout2, IconMailFilled, IconPencil, IconUser } from "@tabler/icons-react";
 import UserProfileIcon from "../../assets/profile/user-profile-icon.svg";
 import { useNavigate } from "react-router-dom";
-import { CONFIMASI_PASSWORD_PAGE, PROFILE_PAGE } from "@/lib/constants/routes";
+import { PROFILE_PAGE } from "@/lib/constants/routes";
 
 export default function ProfilePage(): JSX.Element {
   const navigate = useNavigate()
   return (
-    <div className="md:w-[640px] md:mx-auto mb-10">
-      <div className="flex-col flex ">
-        <div className="flex flex-col items-center pt-5 gap-8">
-          <h1 className="font-semibold text-4xl">Profile</h1>
-          <img src={UserProfileIcon} alt="" className="w-20 xs:w-28 md:w-36 lg:w-40" />
-          <button type="button" className="flex mt-3 text-[#0586BE] gap-1 items-center">
-            <IconPencil />
-            <span className=" text-lg  sm:text-sm">Update Profile</span>
-          </button>
+    <div className="flex gap-10 mt-10">
+      {/* left content */}
+      <div className="w-1/2 flex flex-col ">
+        <div className="h-80 flex flex-col bg-[#EFEFEF] rounded-xl items-center justify-center">
+          <img src={UserProfileIcon} alt="" className="w-40 mb-12 "/>
+          <div className="flex text-[#0586BE] text-lg font-medium items-center cursor-pointer">
+            <IconPencil size={25}/>
+            <span>Update Profile</span>
+          </div>
+        </div>
+        <div className="h-32 flex flex-col mt-10 bg-[#EFEFEF] rounded-xl justify-center px-10 gap-5">
+          <div className="flex text-[#0586BE] text-lg font-medium items-center gap-2">
+            <IconLock size={30} className="cursor-pointer"/>
+            <span className="cursor-pointer">Change Password</span>
+          </div>
+          <div className="flex text-lg font-medium items-center gap-2 ">
+            <IconLogout2 size={30} className="cursor-pointer"/>
+            <span className="cursor-pointer">Log Out</span>
+          </div>
         </div>
       </div>
-      <div className="px-4 xs:px-0">
-        <div className="flex flex-col pt-5">
-          <h1 className="font-semibold text-2xl  border-b pb-2 ">My Information</h1>
-        </div>
-        <div className="flex-col  mt-5 lg:relative">
-          <div className="flex justify-between">
-            <p className="font-semibold text-xl  ">Biodata</p>
-          </div>
-          <div className="flex justify-between">
-            <button type="button" className="flex items-center space-x-3 mt-5  text-xl cursor-default">
-              <span>
-                <IconUser style={{ fontSize: "1.5rem" }} />
-              </span>
-              <span className="mt-1 text-base  font-medium">Name</span>
-            </button>
-          </div>
-          <p className="mt-1 text-sm md:text-base">Putra Eka Satrya</p>
-          <button type="button" className="flex items-center space-x-3 mt-7  text-lg cursor-default">
-            <span>
-              <IconMailFilled style={{ fontSize: "1rem" }} />
-            </span>
-            <p className="md:text-base font-medium ">Email</p>
-          </button>
-          <p className="mt-1 md:text-base">putraekasatrya@email.com</p>
-          <div className="absolute bottom-10 lg:right-0 lg:top-0 bg-white">
-            <button type="button" className="flex text-[#0586BE] gap-2 items-center" onClick={() => navigate(PROFILE_PAGE)}>
-              <IconLock />
-              <p className=" text-sm ">Change Password</p>
-            </button>
-            <button
-              type="button"
-              className="mt-3 flex gap-2  items-center"
-            >
-              <IconLogout2 style={{ fontSize: "1.3rem" }} />
-              <p className="font-medium text-sm">Log Out</p>
-            </button>
+      {/* right content */}
+      <div className="w-1/2 flex flex-col">
+        <div className="h-[30.5rem] flex flex-col bg-[#EFEFEF] rounded-xl justify-center px-10 xl:px-20">
+          <h1 className="text-2xl font-semibold">Biodata</h1>
+          <div className="flex flex-col mt-10 gap-3">
+            <div className="flex items-center gap-2">
+              <IconUser size={30}/>
+              <span className="font-regular text-lg">Name</span>
+            </div>
+            <span className="font-medium text-xl ml-1">Putra Eka Satrya</span>
+            <div className="flex items-center mt-4 gap-2 ml-1">
+              <IconMailFilled size={30}/>
+              <span className="font-regular text-lg">Email</span>
+            </div>
+            <span className="font-medium text-xl ml-1">putraekasatrya@email.com</span>
           </div>
         </div>
       </div>

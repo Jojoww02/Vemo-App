@@ -32,7 +32,8 @@ export default function ForgotPasswordRequestPage():JSX.Element {
         </p>
         <FormProvider {...methods}>
           <form onSubmit={methods.handleSubmit(onSubmit)} className="flex flex-col mt-10 gap-32 xl:gap-40">
-            <Input 
+            <Input
+              name="email"
               label="Email"
               isFill={methods.watch().email}
               placeholder="Enter Your Email"

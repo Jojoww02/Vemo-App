@@ -33,7 +33,7 @@ export default function RegisterVehiclePage(): JSX.Element {
     <main className="flex justify-evenly gap-10 mt-10">
       {/* Content Left Start */}
       <div className="relative w-1/2 bg-cover grid rounded-xl bg-[url('/src/assets/requestPageImage/register-vehicle-image.webp')]">
-        <div className="absolute bottom-0 font-bold text-white text-xl xl:text-5xl px-8 z-10 mb-14">
+        <div className="absolute bottom-0 font-bold text-white text-4xl xl:text-5xl px-8 z-10 mb-14">
           Daftarkan
           <br />
           Kendaraan Anda
@@ -43,8 +43,8 @@ export default function RegisterVehiclePage(): JSX.Element {
       {/* Content Left End */}
 
       {/* Content Right Start */}
-      <div className="w-1/2 mb-12 justify-center flex">
-        <div className="w-[80%] mt-7">
+      <div className="w-1/2 mb-2 justify-center flex">
+        <div className="w-[80%] mt-5">
           <FormProvider {...methods}>
             <form
               autoComplete="off"
@@ -78,7 +78,7 @@ export default function RegisterVehiclePage(): JSX.Element {
               <Input
                 name="purchasingDate"
                 label="Tanggal Pembelian Kendaraan"
-                isFill={methods.watch().purchasingDate.toString()}
+                isFill={methods.watch().purchasingDate?.toString()}
                 placeholder="Input your password"
                 type="date"
               />

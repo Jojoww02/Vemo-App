@@ -1,16 +1,19 @@
 import zod from "zod";
+import useMutateAuth from "@/hooks/useMutateAuth";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Button, Input } from "@/components/atoms";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
-import useMutateAuth from "@/hooks/useMutateAuth";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { AlertTriangle } from "lucide-react";
 import { isObjectEmpty } from "@/lib/utils/common";
+import { LoginPageMobile } from "@/mobile";
 import {
   FORGOT_PASSWORD_REQUEST_PAGE,
   INDEX_PAGE,
 } from "@/lib/constants/routes";
+import useMobileResponsive from "@/hooks/useMobileResponsive";
+import { Link } from "react-router-dom";
+
 
 const loginSchema = zod.object({
   email: zod
@@ -39,76 +42,82 @@ export default function LoginPage(): JSX.Element {
     await loginUser.mutateAsync(credentials);
   };
 
-  return (
-    <div className="h-screen overflow-hidden bg-[url('/src/assets/authImage/auth-bg.webp')] grid place-items-center bg-cover bg-center">
-      {/* Overlay Background */}
-      <div className="absolute left-0 top-0 w-full h-full bg-black bg-opacity-30"></div>
+  const isMobileResponsive = useMobileResponsive()
 
-      {/* Card */}
-      <div className="w-[37%] xl:w-[30%] xl:h-[80%] h-[75%] 2xl:h-[75%] p-8 rounded-[2rem] bg-white z-10 shadow-[0px_2px_7px_5px_#00000040]">
-        <p className="font-bold text-dark text-xl xl:text-3xl text-center">
-          Welcome back! Glad to see you, Again!
-        </p>
-        <FormProvider {...methods}>
-          <form
-            onSubmit={methods.handleSubmit(onSubmitHandler)}
-            className="flex flex-col mt-10 gap-5"
-          >
-            {loginUser.isError && (
-              <Alert variant="destructive" className="flex items-center">
-                <div className="mr-4">
-                  <AlertTriangle />
+  return (
+    <>
+      {isMobileResponsive ? 
+          <div className="h-screen overflow-hidden bg-[url('/src/assets/authImage/auth-bg.webp')] grid place-items-center bg-cover bg-center">
+          {/* Overlay Background */}
+          <div className="absolute left-0 top-0 w-full h-full bg-black bg-opacity-30"></div>
+
+          {/* Card */}
+          <div className="w-[37%] xl:w-[30%] xl:h-[80%] h-[75%] 2xl:h-[75%] p-8 rounded-[2rem] bg-white z-10 shadow-[0px_2px_7px_5px_#00000040]">
+            <p className="font-bold text-dark text-xl xl:text-3xl text-center">
+              Welcome back! Glad to see you, Again!
+            </p>
+            <FormProvider {...methods}>
+              <form
+                onSubmit={methods.handleSubmit(onSubmitHandler)}
+                className="flex flex-col mt-10 gap-5"
+              >
+                {loginUser.isError && (
+                  <Alert variant="destructive" className="flex items-center">
+                    <div className="mr-4">
+                      <AlertTriangle />
+                    </div>
+                    <div>
+                      <AlertTitle>
+                        {(loginUser.error as any).response.data.message}
+                      </AlertTitle>
+                      <AlertDescription>
+                        {(loginUser.error as any).response.data.errors}
+                      </AlertDescription>
+                    </div>
+                  </Alert>
+                )}
+                <Input
+                  name="email"
+                  label="Email"
+                  isFill={methods.watch().email}
+                  placeholder="Enter Your Email"
+                  type="email"
+                />
+                <Input
+                  name="password"
+                  label="Password"
+                  isFill={methods.watch().password}
+                  placeholder="Enter Your Password"
+                  type="password"
+                />
+                <div className="flex justify-end mt-2 font-semibold text-[#6a707c] text-sm xl:text-base">
+                  <Link to={FORGOT_PASSWORD_REQUEST_PAGE}>
+                    <span className="cursor-pointer">Forgot Password?</span>
+                  </Link>
                 </div>
-                <div>
-                  <AlertTitle>
-                    {(loginUser.error as any).response.data.message}
-                  </AlertTitle>
-                  <AlertDescription>
-                    {(loginUser.error as any).response.data.errors}
-                  </AlertDescription>
-                </div>
-              </Alert>
-            )}
-            <Input
-              name="email"
-              label="Email"
-              isFill={methods.watch().email}
-              placeholder="Enter Your Email"
-              type="email"
-            />
-            <Input
-              name="password"
-              label="Password"
-              isFill={methods.watch().password}
-              placeholder="Enter Your Password"
-              type="password"
-            />
-            <div className="flex justify-end mt-2 font-semibold text-[#6a707c] text-sm xl:text-base">
-              <Link to={FORGOT_PASSWORD_REQUEST_PAGE}>
-                <span className="cursor-pointer">Forgot Password?</span>
-              </Link>
+                <Button
+                  disabled={!isObjectEmpty(methods.formState.errors)}
+                  isLoading={loginUser.isPending}
+                  className="py-6 mt-4 text-lg font-semibold"
+                >
+                  Log In
+                </Button>
+              </form>
+            </FormProvider>
+            <div className="flex items-center text-[13px] justify-center xl:text-base mt-4 xl:mt-5">
+              <p className=" font-medium">
+                Don’t have an account?
+                <Link to={INDEX_PAGE}>
+                  <span className="text-[#0586BE] ml-1 font-semibold cursor-pointer">
+                    {" "}
+                    Register Now
+                  </span>
+                </Link>
+              </p>
             </div>
-            <Button
-              disabled={!isObjectEmpty(methods.formState.errors)}
-              isLoading={loginUser.isPending}
-              className="py-6 mt-4 text-lg font-semibold"
-            >
-              Log In
-            </Button>
-          </form>
-        </FormProvider>
-        <div className="flex items-center text-xs justify-center xl:text-base mt-4 xl:mt-5">
-          <p className=" font-medium">
-            Don’t have an account?
-            <Link to={INDEX_PAGE}>
-              <span className="text-[#0586BE] ml-1 font-semibold cursor-pointer">
-                {" "}
-                Register Now
-              </span>
-            </Link>
-          </p>
+          </div>
         </div>
-      </div>
-    </div>
+      : <LoginPageMobile />}
+    </>
   );
 }

@@ -20,6 +20,7 @@ import {
   UpdateProfile,
   VeriyOtpPage,
 } from "@/pages";
+import { RegisterPageMobile } from "@/mobile";
 
 const publicRoutes: RouteObject = {
   children: [
@@ -37,6 +38,10 @@ const authRoutes: RouteObject = {
       index: true,
       path: APP.INDEX_PAGE,
       element: <HomePage />,
+    },
+    {
+      path: APP.REGISTER_USER_PAGE,
+      element: <RegisterPageMobile />,
     },
     {
       path: APP.LOGIN_PAGE,
