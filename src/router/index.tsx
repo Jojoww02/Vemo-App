@@ -17,7 +17,7 @@ import {
   NotificationDetailsPage,
   ConfirmPasswordPage,
   UpdateProfile,
-  VeriyOtpPage
+  VeriyOtpPage,
 } from "@/pages";
 
 const publicRoutes: RouteObject = {
