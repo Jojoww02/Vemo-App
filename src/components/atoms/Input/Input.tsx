@@ -101,6 +101,7 @@ export default function Input(props: Props): JSX.Element {
                 )}
                 type={isEyeIconOpen ? "text" : type}
                 autoComplete="off"
+                defaultValue={defaultValue}
               />
             )}
             {type === "password" && (
