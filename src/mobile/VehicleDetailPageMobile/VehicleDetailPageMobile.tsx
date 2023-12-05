@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 import { Button } from "@/components/atoms";
 import { Modal } from "react-responsive-modal";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { IconBike, IconCalendarEvent, IconUser } from "@tabler/icons-react";
 
 export default function VehicleDetailPageMobile() {
   const [activeTab, setActiveTab] = useState("information");
@@ -47,7 +48,6 @@ export default function VehicleDetailPageMobile() {
   const motorcyleInformation = {
     name: "Maulvi Ilmullah",
     vehicle: "Jupiter mx old",
-    type: "Motor gigi",
     date: Date.now(),
   };
 
@@ -124,20 +124,29 @@ export default function VehicleDetailPageMobile() {
             </TabsTrigger>
           </TabsList>
           <TabsContent value="account">
-            <div className="text-start pl-6 mt-10 sm:text-2xl">
-              <h1 className="font-semibold text-xl sm:text-2xl">Motorcycle Information</h1>
-              <ul className="list-disc text-base pt-5 px-2 sm:text-lg ">
-                <li className="w-[90%] sm:w-[60%] border-b-2">Nama Lengkap: {motorcyleInformation.name}</li>
-              </ul>
-              <ul className="list-disc text-base pt-5 px-2 sm:text-lg">
-                <li className=" w-[90%] border-b-2 sm:w-[60%]">Nama Kendaraan : {motorcyleInformation.vehicle} </li>
-              </ul>
-              <ul className="list-disc text-base pt-5 px-2 sm:text-lg">
-                <li className=" w-[90%] border-b-2 sm:w-[60%]">Jenis Kendaraan : {motorcyleInformation.type} </li>
-              </ul>
-              <ul className="list-disc text-base pt-5 px-2 sm:text-lg">
-                <li className=" w-[90%] sm:w-[60%] border-b-2">Pembelian Motor : {motorcyleInformation.date} </li>
-              </ul>
+            <div className="text-start pl-6 mt-10 sm:text-2xl flex flex-col gap-6">
+              <h1 className="font-semibold text-2xl sm:text-2xl">Motorcycle Information</h1>
+              <div className="flex flex-col gap-2">
+                <div className="flex gap-2">
+                  <IconUser />
+                  <h4 className="text-xl">Owner Name :</h4>
+                </div>
+                <div className="text-lg">{motorcyleInformation.name}</div>
+              </div>
+              <div className="flex flex-col gap-2">
+                <div className="flex gap-2">
+                  <IconBike />
+                  <h4 className="text-xl">Vehicle Name And Type :</h4>
+                </div>
+                <div className="text-lg"> {motorcyleInformation.vehicle}</div>
+              </div>
+              <div className="flex flex-col gap-2">
+                <div className="flex gap-2">
+                  <IconCalendarEvent />
+                  <h4 className="text-xl">Date Vehicle Purchase :</h4>
+                </div>
+                <div className="text-lg">{motorcyleInformation.date}</div>
+              </div>
             </div>
           </TabsContent>
           <TabsContent value="password">
