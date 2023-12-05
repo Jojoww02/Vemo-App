@@ -8,6 +8,7 @@ import { useNavigate } from "react-router-dom";
 import { UPDATE_PROFILE_PAGE } from "@/lib/constants/routes";
 import useUpdateProfile from "@/hooks/useUpdateProfile";
 import useUpdateEmail from "@/hooks/useUpdateEmail";
+import React from "react";
 
 const verifyPasswordSchema = zod.object({
   password: zod
@@ -21,6 +22,7 @@ export type VerifyPasswordInput = zod.TypeOf<typeof verifyPasswordSchema>;
 
 export default function VerifyPasswordPage() {
   const navigate = useNavigate();
+
   const { setIsCanUpdateProfile } = useUpdateProfile();
   const { setFalseUpdateEmail } = useUpdateEmail();
 
@@ -39,11 +41,13 @@ export default function VerifyPasswordPage() {
     mutation.mutate(password);
   };
 
-  if (mutation.isSuccess) {
-    setIsCanUpdateProfile(true);
-    setFalseUpdateEmail();
-    navigate(UPDATE_PROFILE_PAGE);
-  }
+  React.useEffect(() => {
+    if (mutation.isSuccess) {
+      setIsCanUpdateProfile(true);
+      setFalseUpdateEmail();
+      navigate(UPDATE_PROFILE_PAGE);
+    }
+  }, [mutation.isSuccess]);
 
   return (
     <div className="md:w-[480px] md:mx-auto mb-10">
