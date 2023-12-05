@@ -13,23 +13,25 @@ export const REGISTER_VEHICLE_PAGE = "/register-vehicle";
 export const REQUEST_MAINTENANCE_VEHICLE_PAGE = "/request-maintenance";
 export const NOTIFICATION_PAGE = "/notification";
 export const NOTIFICATION_DETAILS_PAGE = "/notification/detail";
-export const CONFIRMATION_PASSWORD_PAGE = "/verify/password";
-export const PROFILE_UPDATE_PAGE = "/profile/update";
+export const UPDATE_PROFILE_PAGE = "/update-profile";
+export const VERIFY_PASSWORD_PAGE = "/verify-password";
+export const VERIFY_OTP_PAGE = "/otp";
 export const CHANGE_PASSWORD_PAGE = "/change-password";
-export const VERIFY_OTP_PAGE = "/verify-otp";
 
 /* AUTH SERVICES */
 export const LOGIN_SERVICE = "auth/login";
 export const REGISTER_SERVICE = "auth/register";
 export const REFRESH_TOKEN_SERVICE = "auth/refresh-token";
-export const SEND_OTP_SERVICE = "auth/otp/request";
-export const VERIFY_OTP_SERVICE = "auth/otp/verify";
+export const SEND_OTP_SERVICE =  (email: string) => `auth/otp?email=${email}`;
+export const VERIFY_OTP_SERVICE = (otp: number) => `auth/otp/verify?otp=${otp}`;
 export const FORGOT_PASSWORD_SERVICE = "auth/forgot-password";
 export const FORGOT_PASSWORD_REQUEST_SERVICE = "auth/forgot-password/request";
 export const LOGOUT_SERVICE = "auth/logout";
 
 /* USERS SERVICES */
+export const UPDATE_USER_SERVICE = "users";
 export const GET_CURRENT_USER_SERVICE = "users/me";
+export const VERIFY_PASSWORD_USER_SERVICE = (password: string) => `users/password/verify?password=${password}`;
 
 /* VEHICLE SERVICE */
 export const REGISTER_VEHICLE_SERVICE = "vehicles";

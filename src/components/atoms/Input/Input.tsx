@@ -2,7 +2,10 @@ import React, { HTMLInputTypeAttribute } from "react";
 import { cn } from "@/lib/utils/style";
 import { isObjectEmpty } from "@/lib/utils/common";
 import { Controller, useFormContext } from "react-hook-form";
-import { EyeIcon } from "@/components/atoms";
+import { EyeIcon, ToogleIcon } from "@/components/atoms";
+import { IconEdit } from "@tabler/icons-react";
+import { XCircle } from "lucide-react";
+import useUpdateEmail from "@/hooks/useUpdateEmail";
 
 interface Props extends React.InputHTMLAttributes<HTMLInputElement> {
   name: string;
@@ -10,12 +13,27 @@ interface Props extends React.InputHTMLAttributes<HTMLInputElement> {
   isFill?: string | boolean;
   type: HTMLInputTypeAttribute;
   children?: React.ReactNode;
+  editable?: boolean;
+  defaultValue?: string;
 }
 
 export default function Input(props: Props): JSX.Element {
-  const { name, label, isFill, type, children, ...otherProps } = props;
+  const {
+    name,
+    label,
+    isFill,
+    type,
+    editable,
+    children,
+    defaultValue = "",
+    ...otherProps
+  } = props;
+  const constantValue = defaultValue;
   const [isEyeIconOpen, setIsEyeIconOpen] = React.useState(false);
-  const [emailPrev, setEmailPrev] = React.useState(isFill)
+  const [isEdit, setIsEdit] = React.useState(!otherProps.disabled);
+  const [value, setValue] = React.useState(constantValue);
+
+  const { toogleIsUpdateEmail } = useUpdateEmail();
 
   const {
     register,
@@ -58,17 +76,39 @@ export default function Input(props: Props): JSX.Element {
             <input
               {...register(name)}
               {...otherProps}
+              value={value}
+              onChange={(e) => setValue(e.target.value)}
               id={name}
               placeholder={label}
-              className="w-full h-full outline-none py-3 font-sans text-black text-sm lg:text-base placeholder:text-sm"
+              className={cn(
+                "w-full h-full outline-none py-3 font-sans text-black text-sm lg:text-base placeholder:text-sm",
+                !isEdit && "text-slate-400"
+              )}
               type={isEyeIconOpen ? "text" : type}
               autoComplete="off"
+              disabled={!isEdit}
             />
             {type === "password" && (
               <span className="absolute right-[5%] top-1/2 -translate-y-1/2 text-gray-700">
                 <EyeIcon
                   open={isEyeIconOpen}
                   onClick={() => setIsEyeIconOpen(!isEyeIconOpen)}
+                />
+              </span>
+            )}
+            {editable && (
+              <span className="absolute right-[5%] top-1/2 -translate-y-1/2 text-blue-400">
+                <ToogleIcon
+                  iconOpen={<IconEdit />}
+                  iconClose={<XCircle />}
+                  isOpen={isEdit}
+                  onClick={() => {
+                    setIsEdit(!isEdit);
+                    toogleIsUpdateEmail();
+                    if (isEdit) {
+                      setValue(defaultValue);
+                    }
+                  }}
                 />
               </span>
             )}

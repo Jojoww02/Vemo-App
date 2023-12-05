@@ -11,7 +11,7 @@ import {
   FORGOT_PASSWORD_REQUEST_PAGE,
   INDEX_PAGE,
 } from "@/lib/constants/routes";
-import useMobileResponsive from "@/hooks/useMobileResponsive";
+import useMobileResponsive from "@/hooks/useMobile";
 import { Link } from "react-router-dom";
 
 

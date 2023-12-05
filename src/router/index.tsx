@@ -16,12 +16,14 @@ import {
   RequestVehiclePage,
   NotificationPage,
   NotificationDetailsPage,
-  ConfirmPasswordPage,
+  VerifyPasswordPage,
   UpdateProfile,
   ChangePasswordPage,
   VeriyOtpPage,
 } from "@/pages";
 import { RegisterPageMobile } from "@/mobile";
+import UpdateProfileGuard from "@/lib/guard/UpdateProfileGuard";
+import SendOtpGuard from "@/lib/guard/SendOtpGuard";
 
 const publicRoutes: RouteObject = {
   children: [
@@ -98,20 +100,30 @@ const privateRoutes: RouteObject = {
           element: <NotificationDetailsPage />,
         },
         {
-          path: APP.CONFIRMATION_PASSWORD_PAGE,
-          element: <ConfirmPasswordPage />,
+          path: APP.VERIFY_PASSWORD_PAGE,
+          element: <VerifyPasswordPage />,
         },
         {
-          path: APP.PROFILE_UPDATE_PAGE,
-          element: <UpdateProfile />,
+          element: <UpdateProfileGuard />,
+          children: [
+            {
+              path: APP.UPDATE_PROFILE_PAGE,
+              element: <UpdateProfile />,
+            },
+          ],
         },
         {
           path: APP.CHANGE_PASSWORD_PAGE,
           element: <ChangePasswordPage />,
         },
         {
-          path: APP.VERIFY_OTP_PAGE,
-          element: <VeriyOtpPage />,
+          element: <SendOtpGuard />,
+          children: [
+            {
+              path: APP.VERIFY_OTP_PAGE,
+              element: <VeriyOtpPage />,
+            },
+          ],
         },
       ],
     },

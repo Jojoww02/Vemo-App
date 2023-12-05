@@ -7,7 +7,7 @@ import { Link } from "react-router-dom";
 import useMutateAuth from "@/hooks/useMutateAuth";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { AlertTriangle } from "lucide-react";
-import useMobileResponsive from "@/hooks/useMobileResponsive";
+import useMobileResponsive from "@/hooks/useMobile";
 import { HomePageMobile } from "@/mobile";
 
 const registerSchema = zod

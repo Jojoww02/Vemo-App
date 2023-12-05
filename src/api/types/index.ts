@@ -10,7 +10,7 @@ export interface IUser {
 }
 
 export interface IUserResponse {
-  id: string;
+  userId: string;
   name: string;
   email: string;
   role: "admin" | "customer";
@@ -37,4 +37,10 @@ export interface IVehicle {
   vehicleType: VehicleType;
   licenseNumber: string;
   userId: string;
+}
+
+export interface IUpdateUser {
+  userId: string;
+  name: string | null;
+  email: string | null;
 }
