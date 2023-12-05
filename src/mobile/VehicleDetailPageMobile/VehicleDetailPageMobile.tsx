@@ -115,11 +115,11 @@ export default function VehicleDetailPageMobile() {
           </div>
         </div> */}
         <Tabs defaultValue="account" className="w-full flex flex-col justify-center">
-          <TabsList className="w-full h-11 text-dark">
-            <TabsTrigger value="account" className="w-full h-full data-[state=active]:bg-yellow-400 data-[state=active]:text-white">
+          <TabsList className="w-full h-11 text-dark bg-gray-200">
+            <TabsTrigger value="account" className="w-full h-full data-[state=active]:bg-primary/80 data-[state=active]:text-white">
               Information
             </TabsTrigger>
-            <TabsTrigger value="password" className="w-full h-full data-[state=active]:bg-yellow-400 data-[state=active]:text-white">
+            <TabsTrigger value="password" className="w-full h-full data-[state=active]:bg-primary/80 data-[state=active]:text-white">
               History Service
             </TabsTrigger>
           </TabsList>
