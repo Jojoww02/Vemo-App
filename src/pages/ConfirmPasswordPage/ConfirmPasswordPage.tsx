@@ -12,7 +12,7 @@ export default function ConfirmasiPasswordPage() {
 
   const onSubmit = (data: any) => console.log(data);
   return (
-    <div className="md:w-[640px] md:mx-auto mb-10">
+    <div className="md:w-[680px] md:mx-auto mb-10">
       <div className="flex flex-col items-center justify-center px-4 ">
         <div className="flex ">
           <img src={IconArrow} alt="" className="lg:w-[2rem] absolute lg:left-10 cursor-pointer w-4 sm:w-6 left-5" onClick={() => navigate(PROFILE_PAGE)} />
@@ -33,7 +33,7 @@ export default function ConfirmasiPasswordPage() {
                   </div>
                 </Alert>
               )} */}
-            <Input name="Password" label="password" isFill={methods.watch().password} placeholder="Enter Your Password" type="password" />
+            <Input name="password" label="Password" isFill={methods.watch().password} placeholder="Enter Your Password" type="password" />
             <div className="flex flex-col gap-2 mt-7">
               <Button className="py-6 text-lg font-semibold" type="submit">
                 Send

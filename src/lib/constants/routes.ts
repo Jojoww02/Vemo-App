@@ -15,6 +15,7 @@ export const NOTIFICATION_PAGE = "/notification";
 export const NOTIFICATION_DETAILS_PAGE = "/notification/detail";
 export const CONFIRMATION_PASSWORD_PAGE = "/verify/password";
 export const PROFILE_UPDATE_PAGE = "/profile/update";
+export const CHANGE_PASSWORD_PAGE = "/change-password";
 export const VERIFY_OTP_PAGE = "/verify-otp";
 
 /* AUTH SERVICES */
