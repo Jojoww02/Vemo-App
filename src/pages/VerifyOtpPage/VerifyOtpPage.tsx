@@ -173,7 +173,7 @@ export default function VerifyOtpPage(): JSX.Element {
               type="submit"
               onClick={handleSubmit}
               isLoading={verifyOtp.isPending || updateUser.isPending}
-              disabled={isDisabled}
+              disabled={otp.join("").length != 4}
             >
               Update Profile
             </Button>
