@@ -48,7 +48,9 @@ export interface IUpdateUser {
 export interface IVehicleResponse {
   id: string;
   name: string;
+  ownerName: string;
   licenseNumber: string;
   type: VehicleType;
   condition: number;
+  purchasingDate: string;
 }

@@ -37,3 +37,4 @@ export const VERIFY_PASSWORD_USER_SERVICE = (password: string) => `users/passwor
 /* VEHICLE SERVICE */
 export const REGISTER_VEHICLE_SERVICE = "vehicles";
 export const GET_VEHICLES_BY_USERID_SERVICE = (userId: string) => `vehicles?userId=${userId}`;
+export const GET_VEHICLE_BY_ID = (vehicleId: string | undefined) => `vehicles/${vehicleId}`;

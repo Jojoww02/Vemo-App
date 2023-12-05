@@ -28,7 +28,7 @@ export default function DashboardPage(): JSX.Element {
         </div>
         <div className="flex flex-col xs:px-8 md:px-0 md:flex-row justify-between gap-4 md:gap-6">
           {isSuccess &&
-            (vehicles as any).map((vehicle: IVehicleResponse) => (
+            (vehicles as IVehicleResponse[]).map((vehicle: IVehicleResponse) => (
               <VehicleCard vehicleData={vehicle} key={vehicle.id} />
             ))}
         </div>

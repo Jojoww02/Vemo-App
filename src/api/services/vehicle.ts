@@ -7,7 +7,12 @@ export const registerVehicleFn = async (registerVehicleData: IVehicle): Promise<
   return response.data;
 };
 
-export const getVehiclesByUserIdFn = async (userId: string): Promise<IVehicleResponse> => {
-  const response = await privateApi.get<IVehicleResponse>(API.GET_VEHICLES_BY_USERID_SERVICE(userId));
+export const getVehiclesByUserIdFn = async (userId: string): Promise<IVehicleResponse[]> => {
+  const response = await privateApi.get<IVehicleResponse[]>(API.GET_VEHICLES_BY_USERID_SERVICE(userId));
+  return response.data;
+}
+
+export const getVehicleById = async (vehicleId: string | undefined): Promise<IVehicleResponse> => {
+  const response = await privateApi.get<IVehicleResponse>(API.GET_VEHICLE_BY_ID(vehicleId));
   return response.data;
 }
