@@ -57,7 +57,7 @@ export default function TopBar() {
     { title: "About Us", icon: <Info size={35} />, path: (ABOUT_US_PAGE) },
   ];
   return (
-    <header className="bg-white w-full h-20 mb-2 sticky top-0 flex justify-between items-center px-6 md:px-10 z-40">
+    <header className="bg-white w-full h-20 sticky top-0 flex justify-between items-center px-6 md:px-10 z-40">
       <span className="flex justify-center items-center">
         <Sheet open={isOpen}>
           <SheetTrigger asChild>
