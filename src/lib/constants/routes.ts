@@ -3,21 +3,21 @@ export const NOT_FOUND_PAGE = "*";
 export const INDEX_PAGE = "/";
 export const LOGIN_PAGE = "/login";
 export const REGISTER_USER_PAGE = "/register";
-export const DASHBOARD_PAGE = "dashboard";
-export const ABOUT_US_PAGE = "about-us";
-export const LIST_VEHICLE_PAGE = "vehicles";
+export const DASHBOARD_PAGE = "/dashboard";
+export const ABOUT_US_PAGE = "/about/vemo";
+export const LIST_VEHICLE_PAGE = "/vehicles";
+export const REGISTER_VEHICLE_PAGE = "/vehicles/register";
 export const FORGOT_PASSWORD_REQUEST_PAGE = "/forgot-password";
-export const PROFILE_PAGE = "/profile";
 export const FORGOT_PASSWORD_PAGE = (token: string) => `/forgot-password/${token}`;
-export const REGISTER_VEHICLE_PAGE = "/register-vehicle";
-export const REQUEST_MAINTENANCE_VEHICLE_PAGE = "/request-maintenance";
-export const VEHICLE_DETAIL_PAGE = "/vehicles/details";
-export const NOTIFICATION_PAGE = "/notification";
-export const NOTIFICATION_DETAILS_PAGE = "/notification/detail";
+export const PROFILE_PAGE = "/profile";
 export const UPDATE_PROFILE_PAGE = "/profile/update";
-export const VERIFY_PASSWORD_PAGE = "/verify-password";
-export const VERIFY_OTP_PAGE = "/otp";
-export const CHANGE_PASSWORD_PAGE = "/change-password";
+export const CHANGE_PASSWORD_PAGE = "/profile/update/password";
+export const REQUEST_MAINTENANCE_VEHICLE_PAGE = "/request-maintenance"; // -> nanti ganti
+export const VEHICLE_DETAIL_PAGE = "/vehicles/details"; // -> nanti ganti
+export const NOTIFICATION_PAGE = "/notification";
+export const NOTIFICATION_DETAILS_PAGE = "/notification/details"; // -> nanti ganti
+export const VERIFY_PASSWORD_PAGE = "/verify/password";
+export const VERIFY_OTP_PAGE = "/verify/otp";
 
 /* AUTH SERVICES */
 export const LOGIN_SERVICE = "auth/login";
