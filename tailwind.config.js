@@ -19,6 +19,7 @@ module.exports = {
       colors: {
         primary: "#F4B400",
         dark: "#1E232C",
+        milk: "#EFEFEF",
       },
       screens: {
         xs: "480px",

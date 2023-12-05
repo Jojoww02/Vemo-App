@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { Link } from "react-router-dom";
-import { IUser } from "@/api/types";
+import { IUserResponse } from "@/api/types";
 import { VERIFY_PASSWORD_PAGE } from "@/lib/constants/routes";
 import UserProfileIcon from "../../assets/profile/user-profile-icon.svg";
 import {
@@ -12,14 +12,14 @@ import {
 } from "@tabler/icons-react";
 
 export default function ProfilePage(): JSX.Element {
-  const { data: user } = useQuery<IUser>({ queryKey: ["me"] });
+  const { data: user } = useQuery<IUserResponse>({ queryKey: ["me"] });
 
   return (
-    <main className="flex gap-10 mt-10 mb-5">
-      {/* left content */}
-      <div className="w-1/2 flex flex-col ">
-        <div className="h-80 flex flex-col bg-[#EFEFEF] rounded-xl items-center justify-center">
-          <img src={UserProfileIcon} alt="" className="w-40 mb-12 " />
+    <main className="flex mt-10 gap-10 mb-5 text-dark">
+      {/* Left Content Start */}
+      <div className="w-1/2 flex flex-col">
+        <div className="h-80 flex flex-col bg-milk rounded-xl items-center justify-center">
+          <img src={UserProfileIcon} alt="" className="w-40 mb-12" />
           <Link
             to={VERIFY_PASSWORD_PAGE}
             className="flex text-[#0586BE] text-lg font-medium items-center cursor-pointer hover:underline"
@@ -28,7 +28,7 @@ export default function ProfilePage(): JSX.Element {
             <span>Update Profile</span>
           </Link>
         </div>
-        <div className="h-32 flex flex-col mt-10 bg-[#EFEFEF] rounded-xl justify-center px-10 gap-5">
+        <div className="h-32 flex flex-col mt-10 bg-milk rounded-xl justify-center px-10 gap-5">
           <Link
             to={""}
             className="flex text-[#0586BE] text-lg font-medium items-center gap-2 cursor-pointer hover:underline"
@@ -42,26 +42,31 @@ export default function ProfilePage(): JSX.Element {
           </button>
         </div>
       </div>
-      {/* right content */}
+      {/* Left Content End */}
+
+      {/* Right Content Start */}
       <div className="w-1/2 flex flex-col">
-        <div className="h-[30.5rem] flex flex-col bg-[#EFEFEF] rounded-xl justify-center px-10 xl:px-20">
+        <div className="flex flex-col h-full bg-milk rounded-xl justify-center px-10 xl:px-20">
           <h1 className="text-2xl font-semibold">Biodata</h1>
           <div className="flex flex-col mt-10 gap-3">
-            <div className="flex items-center gap-2">
-              <IconUser size={30} />
-              <span className="font-regular text-lg">Name</span>
-            </div>
-            <span className="font-medium text-xl ml-1">
-              {(user as IUser).name}
+            <span className="flex items-center gap-2 text-lg">
+              <IconUser size={25} />
+              <p>Name</p>
             </span>
-            <div className="flex items-center mt-4 gap-2 ml-1">
-              <IconMailFilled size={30} />
-              <span className="font-regular text-lg">Email</span>
-            </div>
-            <span className="font-medium text-xl ml-1">{user?.email}</span>
+            <p className="font-medium text-lg ml-1">
+              {(user as IUserResponse).name}
+            </p>
+            <span className="flex items-center mt-4 gap-2 ml-1 text-lg">
+              <IconMailFilled size={25} />
+              <p>Email</p>
+            </span>
+            <p className="font-medium text-lg ml-1">
+              {(user as IUserResponse).email}
+            </p>
           </div>
         </div>
       </div>
+      {/* Right Content End */}
     </main>
   );
 }
