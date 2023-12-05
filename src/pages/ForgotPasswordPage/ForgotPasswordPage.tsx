@@ -4,7 +4,7 @@ import { FormProvider, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { isObjectEmpty } from "@/lib/utils/common";
 import useMobileResponsive from "@/hooks/useMobileResponsive";
-import { ForgotPasswordPageMobile } from "@/mobile";
+import ForgotPasswordPageMobile from "@/mobile/ForgotPasswordPageMobile";
 
 const ForgotPasswordSchema = zod.object({
     newEmail: zod
