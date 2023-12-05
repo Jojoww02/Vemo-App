@@ -1,10 +1,14 @@
+import { IUserResponse } from "@/api/types";
 import { Button, Input } from "@/components/atoms";
 import useMobile from "@/hooks/useMobile";
 import useMutateVehicle from "@/hooks/useMutateVehicle";
+import { DASHBOARD_PAGE } from "@/lib/constants/routes";
 import { VehicleType } from "@/lib/types";
 import { RegisterVehiclePageMobile } from "@/mobile";
-import { useQueryClient } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
+import React from "react";
 import { FormProvider, useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
 
 interface RegisterVehicle {
   fullName: string;
@@ -15,8 +19,10 @@ interface RegisterVehicle {
 }
 
 export default function RegisterVehiclePage(): JSX.Element {
-  const queryClient = useQueryClient();
+  const isMobile = useMobile();
+  const navigate = useNavigate();
   const methods = useForm<RegisterVehicle>();
+  const { data: user } = useQuery<IUserResponse>({ queryKey: ["me"] });
 
   const { registerVehicle } = useMutateVehicle();
 
@@ -27,11 +33,15 @@ export default function RegisterVehiclePage(): JSX.Element {
       licenseNumber: data.licenseNumber,
       vehicleType: data.vehicleType,
       purchasingDate: new Date(data.purchasingDate).toISOString(),
-      userId: (queryClient.getQueryData(["me"]) as any).userId,
+      userId: (user as IUserResponse).userId,
     });
   }
 
-  const isMobile = useMobile();
+  React.useEffect(() => {
+    if (registerVehicle.isSuccess) {
+      navigate(DASHBOARD_PAGE);
+    }
+  }, [registerVehicle.isSuccess]);
 
   return (
     <>

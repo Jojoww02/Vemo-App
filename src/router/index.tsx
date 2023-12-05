@@ -101,7 +101,7 @@ const privateRoutes: RouteObject = {
           element: <NotificationDetailsPage />,
         },
         {
-          path: APP.VEHICLE_DETAIL_PAGE,
+          path: APP.VEHICLE_DETAILS_PAGE(":vehicleId"),
           element: <VehicleDetailsPage />,
         },
         {

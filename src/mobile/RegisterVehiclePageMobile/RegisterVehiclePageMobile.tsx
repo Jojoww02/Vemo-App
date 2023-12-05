@@ -1,7 +1,7 @@
 import { FormProvider, useForm } from "react-hook-form";
 import gradient from "../../assets/requestPageImage/gradient-img.svg";
 import ImageVehicle from "../../assets/requestPageImage/register-vehicle-mobile-image.png";
-import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
 import useMutateVehicle from "@/hooks/useMutateVehicle";
 import { Button, Input } from "@/components/atoms";
 import { VehicleType } from "@/lib/types";
@@ -42,27 +42,27 @@ export default function RegisterVehiclePageMobile() {
 
   return (
     <main className="flex flex-col gap-8 mb-10">
-      <div className="sm:bg-black sm:bg-opacity-30 ">
-        <div className="relative w-full flex flex-col justify-center ">
+      <div>
+        <div className="relative w-full flex flex-col justify-center items-center">
+          <div className="w-full h-full bg-black z-50"></div>
           <img
             src={ImageVehicle}
             alt=""
-            className="w-full sm:h-80 sm:-z-10 -z-10"
+            className="w-full max-w-md -z-10"
           />
-          <h1 className="absolute bottom-4 left-5 text-xl text-white font-bold z-10 w-2/3 xs:w-4/5 xs:text-4xl  sm:text-6xl sm:left-1/2 sm:top-1/2 sm:-translate-x-1/2 sm:-translate-y-1/2 sm:text-center sm:flex sm:items-center ">
-            Daftarkan Kendaraan Anda
-          </h1>
           <img
             src={gradient}
             alt=""
-            className="absolute w-full -bottom-[1px] sm:hidden "
+            className="absolute w-full max-w-md -bottom-[1px] sm:hidden "
           />
+          <h1 className="absolute bottom-4 left-5 xs:left-10 text-2xl text-white font-bold z-10 w-2/3 xs:w-4/5 xs:text-4xl sm:text-6xl sm:w-[50%] sm:left-1/2 sm:top-1/2 sm:-translate-x-1/2 sm:-translate-y-1/2 sm:text-center sm:flex sm:items-center sm:justify-center">
+            Daftarkan Kendaraan Anda
+          </h1>
         </div>
-        <div></div>
       </div>
 
       <div className="w-full mb-2 justify-center flex">
-        <div className="w-[90%] mt-5">
+        <div className="max-w-md w-full mt-5 px-4">
           <FormProvider {...methods}>
             <form
               autoComplete="off"
