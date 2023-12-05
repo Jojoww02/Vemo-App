@@ -1,6 +1,8 @@
 import { Button, Input } from "@/components/atoms";
+import useMobile from "@/hooks/useMobile";
 import useMutateVehicle from "@/hooks/useMutateVehicle";
 import { VehicleType } from "@/lib/types";
+import { RegisterVehiclePageMobile } from "@/mobile";
 import { useQueryClient } from "@tanstack/react-query";
 import { FormProvider, useForm } from "react-hook-form";
 
@@ -29,7 +31,12 @@ export default function RegisterVehiclePage(): JSX.Element {
     });
   }
 
+  const isMobile = useMobile()
+
   return (
+    
+    <>
+    {isMobile ?
     <main className="flex justify-evenly gap-10 mt-10">
       {/* Content Left Start */}
       <div className="relative w-1/2 bg-cover grid rounded-xl bg-[url('/src/assets/requestPageImage/register-vehicle-image.webp')]">
@@ -104,5 +111,7 @@ export default function RegisterVehiclePage(): JSX.Element {
       </div>
       {/* Content Right End */}
     </main>
+    : <RegisterVehiclePageMobile />}
+    </>
   );
 }

@@ -15,7 +15,7 @@ export default function ProfilePage(): JSX.Element {
   const { data: user } = useQuery<IUser>({ queryKey: ["me"] });
 
   return (
-    <div className="flex gap-10 mt-10 mb-5">
+    <main className="flex gap-10 mt-10 mb-5">
       {/* left content */}
       <div className="w-1/2 flex flex-col ">
         <div className="h-80 flex flex-col bg-[#EFEFEF] rounded-xl items-center justify-center">
@@ -29,7 +29,10 @@ export default function ProfilePage(): JSX.Element {
           </Link>
         </div>
         <div className="h-32 flex flex-col mt-10 bg-[#EFEFEF] rounded-xl justify-center px-10 gap-5">
-          <Link to={""} className="flex text-[#0586BE] text-lg font-medium items-center gap-2 cursor-pointer hover:underline">
+          <Link
+            to={""}
+            className="flex text-[#0586BE] text-lg font-medium items-center gap-2 cursor-pointer hover:underline"
+          >
             <IconLock size={25} />
             <span>Change Password</span>
           </Link>
@@ -55,12 +58,10 @@ export default function ProfilePage(): JSX.Element {
               <IconMailFilled size={30} />
               <span className="font-regular text-lg">Email</span>
             </div>
-            <span className="font-medium text-xl ml-1">
-              {(user as IUser).email}
-            </span>
+            <span className="font-medium text-xl ml-1">{user?.email}</span>
           </div>
         </div>
       </div>
-    </div>
+    </main>
   );
 }

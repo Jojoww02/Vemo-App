@@ -15,7 +15,7 @@ import { Button, Input } from "@/components/atoms";
 import useMutateAuth from "@/hooks/useMutateAuth";
 import useUpdateProfile from "@/hooks/useUpdateProfile";
 
-export default function UpdateProfile() {
+export default function UpdateProfilePage() {
   const { data: user } = useQuery<IUserResponse>({ queryKey: ["me"] });
   const { updateUser } = useMutateUser();
   const { sendOtpByEmail } = useMutateAuth();

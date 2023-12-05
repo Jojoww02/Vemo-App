@@ -13,13 +13,14 @@ import {
   ProfilePage,
   RegisterVehiclePage,
   AboutPage,
-  RequestVehiclePage,
   NotificationPage,
   NotificationDetailsPage,
   VerifyPasswordPage,
-  UpdateProfile,
   ChangePasswordPage,
-  VeriyOtpPage,
+  VerifyOtpPage,
+  RequestMaintenanceVehiclePage,
+  VehicleDetailsPage,
+  UpdateProfilePage,
 } from "@/pages";
 import { RegisterPageMobile } from "@/mobile";
 import UpdateProfileGuard from "@/lib/guard/UpdateProfileGuard";
@@ -81,7 +82,7 @@ const privateRoutes: RouteObject = {
         },
         {
           path: APP.REQUEST_MAINTENANCE_VEHICLE_PAGE,
-          element: <RequestVehiclePage />,
+          element: <RequestMaintenanceVehiclePage />,
         },
         {
           path: APP.REGISTER_VEHICLE_PAGE,
@@ -100,6 +101,10 @@ const privateRoutes: RouteObject = {
           element: <NotificationDetailsPage />,
         },
         {
+          path: APP.VEHICLE_DETAIL_PAGE,
+          element: <VehicleDetailsPage />,
+        },
+        {
           path: APP.VERIFY_PASSWORD_PAGE,
           element: <VerifyPasswordPage />,
         },
@@ -108,7 +113,7 @@ const privateRoutes: RouteObject = {
           children: [
             {
               path: APP.UPDATE_PROFILE_PAGE,
-              element: <UpdateProfile />,
+              element: <UpdateProfilePage />,
             },
           ],
         },
@@ -121,7 +126,7 @@ const privateRoutes: RouteObject = {
           children: [
             {
               path: APP.VERIFY_OTP_PAGE,
-              element: <VeriyOtpPage />,
+              element: <VerifyOtpPage />,
             },
           ],
         },
