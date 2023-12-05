@@ -18,6 +18,7 @@ import {
   NotificationDetailsPage,
   ConfirmPasswordPage,
   UpdateProfile,
+  ChangePasswordPage,
   VeriyOtpPage,
 } from "@/pages";
 import { RegisterPageMobile } from "@/mobile";
@@ -103,6 +104,10 @@ const privateRoutes: RouteObject = {
         {
           path: APP.PROFILE_UPDATE_PAGE,
           element: <UpdateProfile />,
+        },
+        {
+          path: APP.CHANGE_PASSWORD_PAGE,
+          element: <ChangePasswordPage />,
         },
         {
           path: APP.VERIFY_OTP_PAGE,

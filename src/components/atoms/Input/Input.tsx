@@ -15,6 +15,7 @@ interface Props extends React.InputHTMLAttributes<HTMLInputElement> {
 export default function Input(props: Props): JSX.Element {
   const { name, label, isFill, type, children, ...otherProps } = props;
   const [isEyeIconOpen, setIsEyeIconOpen] = React.useState(false);
+  const [emailPrev, setEmailPrev] = React.useState(isFill)
 
   const {
     register,

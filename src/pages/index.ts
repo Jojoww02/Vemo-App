@@ -13,4 +13,5 @@ export { default as NotificationPage } from "./NotificationPage";
 export { default as NotificationDetailsPage } from "./NotificationDetailsPage";
 export { default as ConfirmPasswordPage } from "./ConfirmPasswordPage";
 export { default as UpdateProfile } from "./UpdateProfile";
+export { default as ChangePasswordPage } from "./ChangePasswordPage";
 export { default as VeriyOtpPage } from "./VeriyOtpPage";

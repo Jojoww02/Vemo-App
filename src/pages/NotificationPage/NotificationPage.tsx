@@ -7,7 +7,7 @@ import { useState } from "react";
 export default function NontificationPage(): JSX.Element {
   const [activeTabEmail, setActiveTabEmail] = useState("");
   return (
-    <div className="w-full h-screen bg-darker">
+    <div className="md:w-[640px] md:mx-auto mb-10 ">
       <Notification activeTabEmail={activeTabEmail} setActiveTabEmail={setActiveTabEmail}/>
       {activeTabEmail == "unread" ? (
         <div className="flex flex-col pt-10 overflow-y-auto">

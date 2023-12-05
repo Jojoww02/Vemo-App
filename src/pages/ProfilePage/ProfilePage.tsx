@@ -2,11 +2,29 @@ import { IconLock, IconLogout2, IconMailFilled, IconPencil, IconUser } from "@ta
 import UserProfileIcon from "../../assets/profile/user-profile-icon.svg";
 import { useNavigate } from "react-router-dom";
 import { PROFILE_PAGE } from "@/lib/constants/routes";
+import { useQuery } from "@tanstack/react-query";
 
+interface UserData {
+  name: string;
+  email: string;
+}
 export default function ProfilePage(): JSX.Element {
   const navigate = useNavigate()
+  const  {data: user, isLoading, isError} = useQuery<UserData>({queryKey: ['me']});
+
+  if (isLoading) {
+    return <p>Loading...</p>;
+  }
+
+  if (isError) {
+    return <p>Error fetching user data</p>;
+  }
+
+  // console.log(user);
+  
+
   return (
-    <div className="flex gap-10 mt-10">
+    <div className="flex gap-10 mt-10 mb-5">
       {/* left content */}
       <div className="w-1/2 flex flex-col ">
         <div className="h-80 flex flex-col bg-[#EFEFEF] rounded-xl items-center justify-center">
@@ -36,12 +54,12 @@ export default function ProfilePage(): JSX.Element {
               <IconUser size={30}/>
               <span className="font-regular text-lg">Name</span>
             </div>
-            <span className="font-medium text-xl ml-1">Putra Eka Satrya</span>
+            <span className="font-medium text-xl ml-1">{user?.name}</span>
             <div className="flex items-center mt-4 gap-2 ml-1">
               <IconMailFilled size={30}/>
               <span className="font-regular text-lg">Email</span>
             </div>
-            <span className="font-medium text-xl ml-1">putraekasatrya@email.com</span>
+            <span className="font-medium text-xl ml-1">{user?.email}</span>
           </div>
         </div>
       </div>
