@@ -11,9 +11,8 @@ import {
   FORGOT_PASSWORD_REQUEST_PAGE,
   INDEX_PAGE,
 } from "@/lib/constants/routes";
-import useMobileResponsive from "@/hooks/useMobile";
+import useMobile from "@/hooks/useMobile";
 import { Link } from "react-router-dom";
-
 
 const loginSchema = zod.object({
   email: zod
@@ -42,12 +41,12 @@ export default function LoginPage(): JSX.Element {
     await loginUser.mutateAsync(credentials);
   };
 
-  const isMobileResponsive = useMobileResponsive()
+  const isMobileResponsive = useMobile();
 
   return (
     <>
-      {isMobileResponsive ? 
-          <div className="h-screen overflow-hidden bg-[url('/src/assets/authImage/auth-bg.webp')] grid place-items-center bg-cover bg-center">
+      {isMobileResponsive ? (
+        <main className="h-screen overflow-hidden bg-[url('/src/assets/authImage/auth-bg.webp')] grid place-items-center bg-cover bg-center">
           {/* Overlay Background */}
           <div className="absolute left-0 top-0 w-full h-full bg-black bg-opacity-30"></div>
 
@@ -116,8 +115,10 @@ export default function LoginPage(): JSX.Element {
               </p>
             </div>
           </div>
-        </div>
-      : <LoginPageMobile />}
+        </main>
+      ) : (
+        <LoginPageMobile />
+      )}
     </>
   );
 }
