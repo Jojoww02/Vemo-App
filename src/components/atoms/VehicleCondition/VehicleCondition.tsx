@@ -16,7 +16,7 @@ export default function VehicleCondition({ condition }: Props): JSX.Element {
         alt={altImage}
         className="xs:scale-110 md:scale-125 lg:scale-150"
       />
-      <h4 className="text-[.6rem] md:text-xs xl:text-sm">{description}</h4>
+      <h4 className="text-[.6rem] md:text-base xl:text-sm">{description}</h4>
     </div>
   );
 }

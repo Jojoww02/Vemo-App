@@ -16,6 +16,7 @@ import {
   RequestVehiclePage,
   NotificationPage,
   NotificationDetailsPage,
+  VehicleDetailPage,
   ConfirmPasswordPage,
   UpdateProfile,
   ChangePasswordPage,
@@ -96,6 +97,10 @@ const privateRoutes: RouteObject = {
         {
           path: APP.NOTIFICATION_DETAILS_PAGE,
           element: <NotificationDetailsPage />,
+        },
+        {
+          path: APP.VEHICLE_DETAIL_PAGE,
+          element: <VehicleDetailPage />,
         },
         {
           path: APP.CONFIRMATION_PASSWORD_PAGE,

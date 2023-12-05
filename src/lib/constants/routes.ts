@@ -11,6 +11,7 @@ export const PROFILE_PAGE = "/profile";
 export const FORGOT_PASSWORD_PAGE = (token: string) => `/forgot-password/${token}`;
 export const REGISTER_VEHICLE_PAGE = "/register-vehicle";
 export const REQUEST_MAINTENANCE_VEHICLE_PAGE = "/request-maintenance";
+export const VEHICLE_DETAIL_PAGE = "/vehicles/details";
 export const NOTIFICATION_PAGE = "/notification";
 export const NOTIFICATION_DETAILS_PAGE = "/notification/detail";
 export const CONFIRMATION_PASSWORD_PAGE = "/verify/password";

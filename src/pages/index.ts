@@ -15,3 +15,4 @@ export { default as ConfirmPasswordPage } from "./ConfirmPasswordPage";
 export { default as UpdateProfile } from "./UpdateProfile";
 export { default as ChangePasswordPage } from "./ChangePasswordPage";
 export { default as VeriyOtpPage } from "./VeriyOtpPage";
+export { default as VehicleDetailPage } from "./VehicleDetailPage";
