@@ -39,7 +39,7 @@ export default function UpdateProfile() {
       // cek apakah nama === nama sebelumnya
       if (data.name === (user as IUserResponse).name) {
         alert("Nama tidak boleh sama dengan sebelumnya");
-      } 
+      }
       // jika tidak maka mutate dengan email null
       else {
         await updateUser.mutateAsync({
@@ -48,7 +48,7 @@ export default function UpdateProfile() {
           email: null,
         });
       }
-    } 
+    }
     // jika update email
     else {
       // cek apakah email sama dengan sebelumnya
@@ -57,7 +57,7 @@ export default function UpdateProfile() {
         data.email === (user as IUserResponse).email
       ) {
         alert("Email tidak boleh sama dengan sebelumnya");
-      } 
+      }
       // cek apakah nama sama dengan sebelumnya, jika iya mutate dengan data nama null
       else if (data.name === (user as IUserResponse).name) {
         setEmail(data.email);
@@ -67,7 +67,7 @@ export default function UpdateProfile() {
           email: data.email,
         });
         await sendOtpByEmail.mutateAsync(data.email);
-      } 
+      }
       // jika tidak keduanya maka mutate data
       else {
         setEmail(data.email);
@@ -80,9 +80,6 @@ export default function UpdateProfile() {
       }
     }
   };
-
-  console.log(isUpdateEmail);
-  
 
   updateUser.isSuccess && navigate(PROFILE_PAGE);
 
@@ -133,12 +130,16 @@ export default function UpdateProfile() {
             />
             {isUpdateEmail && (
               <p className="pl-1 -mt-3 text-sm text-yellow-500 italic">
-                * Warning: ketika update email akan diminta i kode otp di email
-                yang terbaru
+                * Ketika update email akan dimintai kode otp di email yang
+                terbaru
               </p>
             )}
             <div className="flex flex-col gap-2 mt-7">
-              <Button className="py-6 text-lg font-semibold" type="submit">
+              <Button
+                className="py-6 text-lg font-semibold"
+                type="submit"
+                isLoading={updateUser.isPending || sendOtpByEmail.isPending}
+              >
                 Send
               </Button>
             </div>
