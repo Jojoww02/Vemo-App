@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { Link } from "react-router-dom";
 import { IUserResponse } from "@/api/types";
-import { VERIFY_PASSWORD_PAGE } from "@/lib/constants/routes";
+import { CHANGE_PASSWORD_PAGE, VERIFY_PASSWORD_PAGE } from "@/lib/constants/routes";
 import UserProfileIcon from "../../assets/profile/user-profile-icon.svg";
 import {
   IconLock,
@@ -30,7 +30,7 @@ export default function ProfilePage(): JSX.Element {
         </div>
         <div className="h-32 flex flex-col mt-10 bg-milk rounded-xl justify-center px-10 gap-5">
           <Link
-            to={""}
+            to={CHANGE_PASSWORD_PAGE}
             className="flex text-[#0586BE] text-lg font-medium items-center gap-2 cursor-pointer hover:underline"
           >
             <IconLock size={25} />

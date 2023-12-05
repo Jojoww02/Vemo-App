@@ -1,10 +1,11 @@
 import React, { useState } from "react";
-import image1 from '../../assets/vehicleDetail/imageMotor.png'
+import image1 from "../../assets/vehicleDetail/imageMotor.png";
 import { DASHBOARD_PAGE } from "@/lib/constants/routes";
 import IconArrow from "../../assets/notification/Icon-arrow.svg";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/atoms";
-import { Modal } from 'react-responsive-modal';
+import { Modal } from "react-responsive-modal";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 export default function VehicleDetailPageMobile() {
   const [activeTab, setActiveTab] = useState("information");
@@ -62,7 +63,7 @@ export default function VehicleDetailPageMobile() {
           <img src={image1} alt="" className="" />
           <h1 className="font-semibold text-2xl mb-3 sm:text-3xl sm:mb-5">Beat Honda 2021</h1>
         </div>
-        <div className="relative text-center ">
+        {/* <div className="relative text-center ">
           <Link to={DASHBOARD_PAGE} className="absolute w-4 left-5 top-7 ">
             <img src={IconArrow} alt="" />
           </Link>
@@ -112,11 +113,54 @@ export default function VehicleDetailPageMobile() {
             Request Perawatan
             </Button>
           </div>
-        </div>
+        </div> */}
+        <Tabs defaultValue="account" className="w-full flex flex-col justify-center">
+          <TabsList className="w-full h-11 text-dark">
+            <TabsTrigger value="account" className="w-full h-full data-[state=active]:bg-yellow-400 data-[state=active]:text-white">
+              Information
+            </TabsTrigger>
+            <TabsTrigger value="password" className="w-full h-full data-[state=active]:bg-yellow-400 data-[state=active]:text-white">
+              History Service
+            </TabsTrigger>
+          </TabsList>
+          <TabsContent value="account">
+            <div className="text-start pl-6 mt-10 sm:text-2xl">
+              <h1 className="font-semibold text-xl sm:text-2xl">Motorcycle Information</h1>
+              <ul className="list-disc text-base pt-5 px-2 sm:text-lg ">
+                <li className="w-[90%] sm:w-[60%] border-b-2">Nama Lengkap: {motorcyleInformation.name}</li>
+              </ul>
+              <ul className="list-disc text-base pt-5 px-2 sm:text-lg">
+                <li className=" w-[90%] border-b-2 sm:w-[60%]">Nama Kendaraan : {motorcyleInformation.vehicle} </li>
+              </ul>
+              <ul className="list-disc text-base pt-5 px-2 sm:text-lg">
+                <li className=" w-[90%] border-b-2 sm:w-[60%]">Jenis Kendaraan : {motorcyleInformation.type} </li>
+              </ul>
+              <ul className="list-disc text-base pt-5 px-2 sm:text-lg">
+                <li className=" w-[90%] sm:w-[60%] border-b-2">Pembelian Motor : {motorcyleInformation.date} </li>
+              </ul>
+            </div>
+          </TabsContent>
+          <TabsContent value="password">
+            {" "}
+            <div className="text-start pl-6 mt-5">
+              <div className="flex flex-col">
+                <h1 className="list-disc text-xl pt-5 p font-bold sm:text-2xl">Riwayat Service</h1>
+                <ul className="list-disc text-base pt-5 px-2 font-light sm:text-lg">
+                  <li className="border-b-2 w-[90%] sm:w-[60%]">
+                    20 Januari 2023 -{" "}
+                    <span className="text-primary cursor-pointer" onClick={onOpenModal}>
+                      See Details
+                    </span>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </TabsContent>
+        </Tabs>
 
-        <Modal open={open} center onClose={() => {}}>
+        <Modal open={open} onClose={onCloseModal} center>
           <div className="flex flex-col">
-            <h1 className="modal py-8 text-center font-semibold text-3xl ">Service Details</h1>
+            <h1 className="modal py-8 text-center font-semibold text-3xl">Service Details</h1>
             <table>
               <thead>
                 <tr>
@@ -151,9 +195,9 @@ export default function VehicleDetailPageMobile() {
             </table>
 
             <div className="w-4/6 self-center my-6">
-              <Button title={"Close"}  onClick={onCloseModal}>
+              {/* <Button onClick={onCloseModal}>
                 Close
-              </Button>
+              </Button> */}
             </div>
           </div>
         </Modal>

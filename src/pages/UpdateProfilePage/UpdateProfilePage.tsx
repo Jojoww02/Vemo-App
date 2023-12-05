@@ -89,13 +89,13 @@ export default function UpdateProfilePage() {
   }
 
   return (
-    <main className="md:w-[640px] md:mx-auto mb-10">
-      <div className="flex flex-col items-center justify-center ">
+    <main className="md:w-[480px] md:mx-auto mb-10">
+      <div className="flex flex-col items-center justify-center relative">
         <div className="flex ">
           <img
             src={IconArrow}
             alt=""
-            className="lg:w-[2rem] absolute lg:items-center lg:left-10 w-4 sm:w-6 left-5  cursor-pointer"
+            className="absolute lg:items-center lg:left-10 left-4 w-5 lg:w-7   cursor-pointer"
             onClick={() => navigate(VERIFY_PASSWORD_PAGE)}
           />
         </div>
