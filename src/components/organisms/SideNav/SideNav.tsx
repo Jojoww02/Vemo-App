@@ -41,13 +41,15 @@ export default function SideNav() {
         isSideNavOpen && "w-72"
       )}
     >
-      <ToogleIcon
-        iconOpen={<IconSquareRoundedChevronLeftFilled size={40} />}
-        iconClose={<IconSquareRoundedChevronRightFilled size={40} />}
-        isOpen={isSideNavOpen}
-        onClick={() => setIsSideNavOpen(!isSideNavOpen)}
-        className="absolute -right-6 top-16 cursor-pointer bg-white text-[#898989] z-50 hover:scale-105 duration-500 hover:text-[#595959]"
-      />
+      <span className="absolute -right-6 top-16 cursor-pointer bg-white text-[#898989] z-50 hover:scale-105 duration-500 hover:text-[#595959]">
+        <ToogleIcon
+          iconOpen={<IconSquareRoundedChevronLeftFilled size={40} />}
+          iconClose={<IconSquareRoundedChevronRightFilled size={40} />}
+          isOpen={isSideNavOpen}
+          onClick={() => setIsSideNavOpen(!isSideNavOpen)}
+        />
+      </span>
+
       <div className="absolute left-5 flex gap-2 z-50">
         <img
           src={IconVemo}

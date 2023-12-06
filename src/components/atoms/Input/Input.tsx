@@ -2,8 +2,8 @@ import React, { HTMLInputTypeAttribute } from "react";
 import { cn } from "@/lib/utils/style";
 import { isObjectEmpty } from "@/lib/utils/common";
 import { Controller, useFormContext } from "react-hook-form";
-import { EyeIcon, ToogleIcon } from "@/components/atoms";
-import { IconEdit } from "@tabler/icons-react";
+import { IconEdit, IconEye, IconEyeOff } from "@tabler/icons-react";
+import { ToogleIcon } from "@/components/atoms";
 import { XCircle } from "lucide-react";
 import useUpdateEmail from "@/hooks/useUpdateEmail";
 
@@ -106,8 +106,10 @@ export default function Input(props: Props): JSX.Element {
             )}
             {type === "password" && (
               <span className="absolute right-[5%] top-1/2 -translate-y-1/2 text-gray-700">
-                <EyeIcon
-                  open={isEyeIconOpen}
+                <ToogleIcon
+                  iconOpen={<IconEye />}
+                  iconClose={<IconEyeOff />}
+                  isOpen={isEyeIconOpen}
                   onClick={() => setIsEyeIconOpen(!isEyeIconOpen)}
                 />
               </span>
