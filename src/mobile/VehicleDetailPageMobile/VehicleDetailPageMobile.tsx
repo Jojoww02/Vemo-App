@@ -62,42 +62,27 @@ export default function VehicleDetailPageMobile() {
       <div className="mt-11 px-4 mb-20">
         <div className="pt-3 flex flex-col justify-center items-center text-center gap-4 bg-white">
           <img src={image1} alt="" className="" />
-          <h1 className="font-semibold text-2xl mb-3 sm:text-3xl sm:mb-5">
-            Beat Honda 2021
-          </h1>
+          <h1 className="font-semibold text-2xl mb-3 sm:text-3xl sm:mb-5">Beat Honda 2021</h1>
         </div>
 
-        <Tabs
-          defaultValue="account"
-          className="w-full flex flex-col justify-center"
-        >
+        <Tabs defaultValue="account" className="w-full flex flex-col justify-center">
           <TabsList className="w-full h-11 text-dark bg-gray-200">
-            <TabsTrigger
-              value="account"
-              className="w-full h-full data-[state=active]:bg-primary/80 data-[state=active]:text-white"
-            >
+            <TabsTrigger value="account" className="w-full h-full data-[state=active]:bg-primary/80 data-[state=active]:text-white">
               Information
             </TabsTrigger>
-            <TabsTrigger
-              value="password"
-              className="w-full h-full data-[state=active]:bg-primary/80 data-[state=active]:text-white"
-            >
+            <TabsTrigger value="password" className="w-full h-full data-[state=active]:bg-primary/80 data-[state=active]:text-white">
               History Service
             </TabsTrigger>
           </TabsList>
           <TabsContent value="account">
             <div className="text-start pl-6 mt-10 sm:text-2xl flex flex-col gap-6">
-              <h1 className="font-semibold text-2xl sm:text-2xl">
-                Motorcycle Information
-              </h1>
+              <h1 className="font-semibold text-2xl sm:text-2xl">Motorcycle Information</h1>
               <div className="flex flex-col gap-2">
                 <div className="flex gap-2">
                   <IconUser />
                   <h4 className="text-xl">Owner Name :</h4>
                 </div>
-                <div className="text-lg">
-                  {isSuccess && (vehicle as IVehicleResponse).ownerName}
-                </div>
+                <div className="text-lg">{isSuccess && (vehicle as IVehicleResponse).ownerName}</div>
               </div>
               <div className="flex flex-col gap-2">
                 <div className="flex gap-2">
@@ -105,8 +90,7 @@ export default function VehicleDetailPageMobile() {
                   <h4 className="text-xl">Vehicle Name And Type :</h4>
                 </div>
                 <div className="text-lg">
-                  {isSuccess && (vehicle as IVehicleResponse).ownerName} |{" "}
-                  {isSuccess && (vehicle as IVehicleResponse).type}
+                  {isSuccess && (vehicle as IVehicleResponse).name} | {isSuccess && (vehicle as IVehicleResponse).type}
                 </div>
               </div>
               <div className="flex flex-col gap-2">
@@ -114,14 +98,7 @@ export default function VehicleDetailPageMobile() {
                   <IconCalendarEvent />
                   <h4 className="text-xl">Date Vehicle Purchase :</h4>
                 </div>
-                <div className="text-lg">
-                  {isSuccess &&
-                    format(
-                      new Date((vehicle as IVehicleResponse).purchasingDate),
-                      "dd MMMM yyyy",
-                      { locale: id }
-                    )}
-                </div>
+                <div className="text-lg">{isSuccess && format(new Date((vehicle as IVehicleResponse).purchasingDate), "dd MMMM yyyy", { locale: id })}</div>
               </div>
             </div>
           </TabsContent>
@@ -129,16 +106,11 @@ export default function VehicleDetailPageMobile() {
             {" "}
             <div className="text-start pl-6 mt-5">
               <div className="flex flex-col">
-                <h1 className="list-disc text-xl pt-5 p font-bold sm:text-2xl">
-                  Riwayat Service
-                </h1>
+                <h1 className="list-disc text-xl pt-5 p font-bold sm:text-2xl">Riwayat Service</h1>
                 <ul className="list-disc text-base pt-5 px-2 font-light sm:text-lg">
                   <li className="border-b-2 w-[90%] sm:w-[60%]">
                     20 Januari 2023 -{" "}
-                    <span
-                      className="text-primary cursor-pointer"
-                      onClick={onOpenModal}
-                    >
+                    <span className="text-primary cursor-pointer" onClick={onOpenModal}>
                       See Details
                     </span>
                   </li>
@@ -150,9 +122,7 @@ export default function VehicleDetailPageMobile() {
 
         <Modal open={open} onClose={onCloseModal} center>
           <div className="flex flex-col">
-            <h1 className="modal py-8 text-center font-semibold text-3xl">
-              Service Details
-            </h1>
+            <h1 className="modal py-8 text-center font-semibold text-3xl">Service Details</h1>
             <table>
               <thead>
                 <tr>
