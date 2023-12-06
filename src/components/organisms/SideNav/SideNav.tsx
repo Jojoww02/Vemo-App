@@ -1,7 +1,4 @@
-import * as React from "react";
-import { cn } from "@/lib/utils/style";
-import { ArrowIcon, ToogleIcon } from "@/components/atoms";
-import { Separator } from "@/components/ui/separator";
+import React from "react";
 import {
   IconLogout2,
   IconUserSquareRounded,
@@ -9,13 +6,13 @@ import {
   IconSquareRoundedChevronLeftFilled,
   IconSquareRoundedChevronRightFilled,
 } from "@tabler/icons-react";
-import IconVemo from "../../../assets/iconVemo.svg";
+import { cn } from "@/lib/utils/style";
+import { ToogleIcon } from "@/components/atoms";
+import { Separator } from "@/components/ui/separator";
 import { History, Info } from "lucide-react";
-import { useQuery } from "@tanstack/react-query";
-import { logoutUserFn } from "@/api/services/auth";
-import { removeToken } from "@/lib/utils/token";
-import useLogoutUser from "@/hooks/useLogoutUser";
 import { useNavigate } from "react-router-dom";
+import useLogoutUser from "@/hooks/useLogoutUser";
+import IconVemo from "../../../assets/iconVemo.svg";
 
 const sideBarItem = [
   {

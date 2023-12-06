@@ -1,4 +1,3 @@
-export { default as ArrowIcon } from "./ArrowIcon";
 export { default as EyeIcon } from "./EyeIcon";
 export { default as NotificationIcon } from "./NotificationIcon";
 export { default as VehicleIcon } from "./VehicleIcon";
