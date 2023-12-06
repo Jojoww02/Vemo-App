@@ -1,24 +1,27 @@
 import React, { useState } from "react";
-import image1 from '../../assets/vehicleDetail/imageMotor.png'
+import image1 from "../../assets/vehicleDetail/imageMotor.png";
 import { DASHBOARD_PAGE } from "@/lib/constants/routes";
 import IconArrow from "../../assets/notification/Icon-arrow.svg";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { Button } from "@/components/atoms";
-import { Modal } from 'react-responsive-modal';
+import { Modal } from "react-responsive-modal";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { IconBike, IconCalendarEvent, IconUser } from "@tabler/icons-react";
+import { useQuery } from "@tanstack/react-query";
+import { getVehicleById } from "@/api/services/vehicle";
+import { IVehicleResponse } from "@/api/types";
+import { format } from "date-fns";
+import { id } from "date-fns/locale";
 
 export default function VehicleDetailPageMobile() {
-  const [activeTab, setActiveTab] = useState("information");
+  const { vehicleId } = useParams();
 
-  const tabs = [
-    {
-      name: "Information",
-      id: "information",
-    },
-    {
-      name: "History Service",
-      id: "History Service",
-    },
-  ];
+  const { data: vehicle, isSuccess } = useQuery<IVehicleResponse>({
+    queryKey: ["vehicle", vehicleId],
+    queryFn: async () => await getVehicleById(vehicleId),
+  });
+
+  console.log(vehicleId);
 
   const detailsService = [
     {
@@ -46,7 +49,6 @@ export default function VehicleDetailPageMobile() {
   const motorcyleInformation = {
     name: "Maulvi Ilmullah",
     vehicle: "Jupiter mx old",
-    type: "Motor gigi",
     date: Date.now(),
   };
 
@@ -57,66 +59,100 @@ export default function VehicleDetailPageMobile() {
 
   return (
     <>
-      <div className="mt-11 ">
+      <div className="mt-11 px-4 mb-20">
         <div className="pt-3 flex flex-col justify-center items-center text-center gap-4 bg-white">
           <img src={image1} alt="" className="" />
-          <h1 className="font-semibold text-2xl mb-3 sm:text-3xl sm:mb-5">Beat Honda 2021</h1>
+          <h1 className="font-semibold text-2xl mb-3 sm:text-3xl sm:mb-5">
+            Beat Honda 2021
+          </h1>
         </div>
-        <div className="relative text-center ">
-          <Link to={DASHBOARD_PAGE} className="absolute w-4 left-5 top-7 ">
-            <img src={IconArrow} alt="" />
-          </Link>
-          {tabs.map((tab, index) => (
-            <button
-            type="button"
-              onClick={() => setActiveTab(tab.id)}
-              key={index}
-              className={` text-xs px-5 py-3 sm:py-5 sm:px-7 bg-opacity-[50%] sm:text-base ${tab.id == activeTab ? "bg-primary border-b-[3px] border-primary" : "bg-[#D9D9D9] border-b-[3px] border-[#D9D9D9]"}`}
+
+        <Tabs
+          defaultValue="account"
+          className="w-full flex flex-col justify-center"
+        >
+          <TabsList className="w-full h-11 text-dark bg-gray-200">
+            <TabsTrigger
+              value="account"
+              className="w-full h-full data-[state=active]:bg-primary/80 data-[state=active]:text-white"
             >
-              {tab.name}
-            </button>
-          ))}
-          {activeTab == "History Service" ? (
+              Information
+            </TabsTrigger>
+            <TabsTrigger
+              value="password"
+              className="w-full h-full data-[state=active]:bg-primary/80 data-[state=active]:text-white"
+            >
+              History Service
+            </TabsTrigger>
+          </TabsList>
+          <TabsContent value="account">
+            <div className="text-start pl-6 mt-10 sm:text-2xl flex flex-col gap-6">
+              <h1 className="font-semibold text-2xl sm:text-2xl">
+                Motorcycle Information
+              </h1>
+              <div className="flex flex-col gap-2">
+                <div className="flex gap-2">
+                  <IconUser />
+                  <h4 className="text-xl">Owner Name :</h4>
+                </div>
+                <div className="text-lg">
+                  {isSuccess && (vehicle as IVehicleResponse).ownerName}
+                </div>
+              </div>
+              <div className="flex flex-col gap-2">
+                <div className="flex gap-2">
+                  <IconBike />
+                  <h4 className="text-xl">Vehicle Name And Type :</h4>
+                </div>
+                <div className="text-lg">
+                  {isSuccess && (vehicle as IVehicleResponse).ownerName} |{" "}
+                  {isSuccess && (vehicle as IVehicleResponse).type}
+                </div>
+              </div>
+              <div className="flex flex-col gap-2">
+                <div className="flex gap-2">
+                  <IconCalendarEvent />
+                  <h4 className="text-xl">Date Vehicle Purchase :</h4>
+                </div>
+                <div className="text-lg">
+                  {isSuccess &&
+                    format(
+                      new Date((vehicle as IVehicleResponse).purchasingDate),
+                      "dd MMMM yyyy",
+                      { locale: id }
+                    )}
+                </div>
+              </div>
+            </div>
+          </TabsContent>
+          <TabsContent value="password">
+            {" "}
             <div className="text-start pl-6 mt-5">
               <div className="flex flex-col">
-                <h1 className="list-disc text-xl pt-5 p font-bold sm:text-2xl">Riwayat Service</h1>
+                <h1 className="list-disc text-xl pt-5 p font-bold sm:text-2xl">
+                  Riwayat Service
+                </h1>
                 <ul className="list-disc text-base pt-5 px-2 font-light sm:text-lg">
                   <li className="border-b-2 w-[90%] sm:w-[60%]">
                     20 Januari 2023 -{" "}
-                    <span className="text-primary cursor-pointer" onClick={onOpenModal}>
+                    <span
+                      className="text-primary cursor-pointer"
+                      onClick={onOpenModal}
+                    >
                       See Details
                     </span>
                   </li>
                 </ul>
               </div>
             </div>
-          ) : (
-            <div className="text-start pl-6 mt-10 sm:text-2xl">
-              <h1 className="font-semibold text-xl sm:text-2xl">Motorcycle Information</h1>
-              <ul className="list-disc text-base pt-5 px-2 sm:text-lg ">
-                <li className="w-[90%] sm:w-[60%] border-b-2">Nama Lengkap: {motorcyleInformation.name}</li>
-              </ul>
-              <ul className="list-disc text-base pt-5 px-2 sm:text-lg">
-                <li className=" w-[90%] border-b-2 sm:w-[60%]">Nama Kendaraan : {motorcyleInformation.vehicle} </li>
-              </ul>
-              <ul className="list-disc text-base pt-5 px-2 sm:text-lg">
-                <li className=" w-[90%] border-b-2 sm:w-[60%]">Jenis Kendaraan : {motorcyleInformation.type} </li>
-              </ul>
-              <ul className="list-disc text-base pt-5 px-2 sm:text-lg">
-                <li className=" w-[90%] sm:w-[60%] border-b-2">Pembelian Motor : {motorcyleInformation.date} </li>
-              </ul>
-            </div>
-          )}
-          <div className="px-4 absolute left-1/2 transform -translate-x-1/2 sm:px-20 w-full pt-10">
-            <Button >
-            Request Perawatan
-            </Button>
-          </div>
-        </div>
+          </TabsContent>
+        </Tabs>
 
-        <Modal open={open} center onClose={() => {}}>
+        <Modal open={open} onClose={onCloseModal} center>
           <div className="flex flex-col">
-            <h1 className="modal py-8 text-center font-semibold text-3xl ">Service Details</h1>
+            <h1 className="modal py-8 text-center font-semibold text-3xl">
+              Service Details
+            </h1>
             <table>
               <thead>
                 <tr>
@@ -151,9 +187,9 @@ export default function VehicleDetailPageMobile() {
             </table>
 
             <div className="w-4/6 self-center my-6">
-              <Button title={"Close"}  onClick={onCloseModal}>
+              {/* <Button onClick={onCloseModal}>
                 Close
-              </Button>
+              </Button> */}
             </div>
           </div>
         </Modal>

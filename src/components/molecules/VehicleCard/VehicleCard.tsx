@@ -1,11 +1,11 @@
 import { Link } from "react-router-dom";
-import { VehicleData } from "@/lib/types";
 import { Info } from "lucide-react";
 import { Tooltip, VehicleCondition, VehicleIcon } from "@/components/atoms";
-import { REQUEST_MAINTENANCE_VEHICLE_PAGE } from "@/lib/constants/routes";
+import { REQUEST_MAINTENANCE_VEHICLE_PAGE, VEHICLE_DETAILS_PAGE } from "@/lib/constants/routes";
+import { IVehicleResponse } from "@/api/types";
 
 interface Props {
-  vehicleData: VehicleData;
+  vehicleData: IVehicleResponse;
 }
 
 export default function VehicleCard({ vehicleData }: Props): JSX.Element {
@@ -29,7 +29,7 @@ export default function VehicleCard({ vehicleData }: Props): JSX.Element {
             <div className="lg:pr-5">
               <Tooltip text="View details vehicle">
                 <Link
-                  to=""
+                  to={VEHICLE_DETAILS_PAGE(vehicleData.id)}
                   className="flex items-center justify-center px-2 py-1 text-center bg-[#F4B400] text-white rounded-lg scale-75 xs:scale-90 lg:scale-110"
                 >
                   <Info size={18} className="mr-1" />

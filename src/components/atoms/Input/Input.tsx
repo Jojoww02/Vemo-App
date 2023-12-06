@@ -28,10 +28,11 @@ export default function Input(props: Props): JSX.Element {
     defaultValue = "",
     ...otherProps
   } = props;
+
   const constantValue = defaultValue;
-  const [isEyeIconOpen, setIsEyeIconOpen] = React.useState(false);
-  const [isEdit, setIsEdit] = React.useState(!otherProps.disabled);
   const [value, setValue] = React.useState(constantValue);
+  const [isEdit, setIsEdit] = React.useState(!otherProps.disabled);
+  const [isEyeIconOpen, setIsEyeIconOpen] = React.useState(false);
 
   const { toogleIsUpdateEmail } = useUpdateEmail();
 
@@ -73,21 +74,36 @@ export default function Input(props: Props): JSX.Element {
           />
         ) : (
           <>
-            <input
-              {...register(name)}
-              {...otherProps}
-              value={value}
-              onChange={(e) => setValue(e.target.value)}
-              id={name}
-              placeholder={label}
-              className={cn(
-                "w-full h-full outline-none py-3 font-sans text-black text-sm lg:text-base placeholder:text-sm",
-                !isEdit && "text-slate-400"
-              )}
-              type={isEyeIconOpen ? "text" : type}
-              autoComplete="off"
-              disabled={!isEdit}
-            />
+            {editable ? (
+              <input
+                {...register(name)}
+                {...otherProps}
+                value={value}
+                onChange={(e) => setValue(e.target.value)}
+                id={name}
+                placeholder={label}
+                className={cn(
+                  "w-full h-full outline-none py-3 font-sans text-black text-sm lg:text-base placeholder:text-sm",
+                  !isEdit && "text-slate-400"
+                )}
+                type={isEyeIconOpen ? "text" : type}
+                autoComplete="off"
+                disabled={!isEdit}
+              />
+            ) : (
+              <input
+                {...register(name)}
+                {...otherProps}
+                id={name}
+                placeholder={label}
+                className={cn(
+                  "w-full h-full outline-none py-3 font-sans text-black text-sm lg:text-base placeholder:text-sm"
+                )}
+                type={isEyeIconOpen ? "text" : type}
+                autoComplete="off"
+                defaultValue={defaultValue}
+              />
+            )}
             {type === "password" && (
               <span className="absolute right-[5%] top-1/2 -translate-y-1/2 text-gray-700">
                 <EyeIcon

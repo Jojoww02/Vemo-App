@@ -44,3 +44,13 @@ export interface IUpdateUser {
   name: string | null;
   email: string | null;
 }
+
+export interface IVehicleResponse {
+  id: string;
+  name: string;
+  ownerName: string;
+  licenseNumber: string;
+  type: VehicleType;
+  condition: number;
+  purchasingDate: string;
+}

@@ -13,7 +13,7 @@ export const PROFILE_PAGE = "/profile";
 export const UPDATE_PROFILE_PAGE = "/profile/update";
 export const CHANGE_PASSWORD_PAGE = "/profile/update/password";
 export const REQUEST_MAINTENANCE_VEHICLE_PAGE = "/request-maintenance"; // -> nanti ganti
-export const VEHICLE_DETAIL_PAGE = "/vehicles/details"; // -> nanti ganti
+export const VEHICLE_DETAILS_PAGE = (vehicleId: string) => `/vehicles/details/${vehicleId}`;
 export const NOTIFICATION_PAGE = "/notification";
 export const NOTIFICATION_DETAILS_PAGE = "/notification/details"; // -> nanti ganti
 export const VERIFY_PASSWORD_PAGE = "/verify/password";
@@ -36,3 +36,5 @@ export const VERIFY_PASSWORD_USER_SERVICE = (password: string) => `users/passwor
 
 /* VEHICLE SERVICE */
 export const REGISTER_VEHICLE_SERVICE = "vehicles";
+export const GET_VEHICLES_BY_USERID_SERVICE = (userId: string) => `vehicles?userId=${userId}`;
+export const GET_VEHICLE_BY_ID = (vehicleId: string | undefined) => `vehicles/${vehicleId}`;
