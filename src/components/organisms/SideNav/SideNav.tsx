@@ -1,11 +1,13 @@
 import * as React from "react";
 import { cn } from "@/lib/utils/style";
-import { ArrowIcon } from "@/components/atoms";
+import { ArrowIcon, ToogleIcon } from "@/components/atoms";
 import { Separator } from "@/components/ui/separator";
 import {
   IconLogout2,
   IconUserSquareRounded,
   IconLayoutCollage,
+  IconSquareRoundedChevronLeftFilled,
+  IconSquareRoundedChevronRightFilled,
 } from "@tabler/icons-react";
 import IconVemo from "../../../assets/iconVemo.svg";
 import { History, Info } from "lucide-react";
@@ -13,6 +15,7 @@ import { useQuery } from "@tanstack/react-query";
 import { logoutUserFn } from "@/api/services/auth";
 import { removeToken } from "@/lib/utils/token";
 import useLogoutUser from "@/hooks/useLogoutUser";
+import { useNavigate } from "react-router-dom";
 
 const sideBarItem = [
   {
@@ -30,23 +33,24 @@ const sideBarItem = [
 ];
 
 export default function SideNav() {
-  const [isOpen, setIsOpen] = React.useState(false);
-
+  const navigate = useNavigate();
+  const [isSideNavOpen, setIsSideNavOpen] = React.useState(false);
   const { handleLogoutUser } = useLogoutUser();
 
   return (
     <div
       className={cn(
         "relative my-5 ml-5 p-5 pt-8 hidden lg:block rounded-3xl border-2 shadow-md duration-300 w-24 z-50",
-        isOpen && "w-72"
+        isSideNavOpen && "w-72"
       )}
     >
-      <ArrowIcon
-        open={isOpen}
-        className="absolute -right-6 top-16 cursor-pointer bg-white text-[#898989] z-50"
-        onClick={() => setIsOpen(!isOpen)}
+      <ToogleIcon
+        iconOpen={<IconSquareRoundedChevronLeftFilled size={40} />}
+        iconClose={<IconSquareRoundedChevronRightFilled size={40} />}
+        isOpen={isSideNavOpen}
+        onClick={() => setIsSideNavOpen(!isSideNavOpen)}
+        className="absolute -right-6 top-16 cursor-pointer bg-white text-[#898989] z-50 hover:scale-105 duration-500 hover:text-[#595959]"
       />
-
       <div className="absolute left-5 flex gap-2 z-50">
         <img
           src={IconVemo}
@@ -54,7 +58,7 @@ export default function SideNav() {
           width={50}
           className="cursor-pointer"
         />
-        {isOpen && (
+        {isSideNavOpen && (
           <h1 className="text-3xl font-semibold italic text-[#898989] pt-1">
             VEMO
           </h1>
@@ -70,12 +74,10 @@ export default function SideNav() {
             className={cn(
               "flex cursor-pointer font-medium text-lg items-center"
             )}
-            onClick={() =>
-              item.navigateTo && (window.location.href = item.navigateTo)
-            }
+            onClick={() => item.navigateTo && navigate(item.navigateTo)}
           >
             {item.icon}
-            <span className={cn("ml-5", !isOpen && "hidden")}>
+            <span className={cn("ml-5", !isSideNavOpen && "hidden")}>
               {item.title}
             </span>
           </div>
@@ -87,7 +89,7 @@ export default function SideNav() {
         onClick={handleLogoutUser}
       >
         <IconLogout2 size={35} />
-        <span className={cn("ml-5", !isOpen && "hidden")}>Logout</span>
+        <span className={cn("ml-5", !isSideNavOpen && "hidden")}>Logout</span>
       </div>
     </div>
   );
