@@ -62,7 +62,7 @@ export default function VehicleDetailPageMobile() {
       <div className="mt-11 px-4 mb-20">
         <div className="pt-3 flex flex-col justify-center items-center text-center gap-4 bg-white">
           <img src={image1} alt="" className="" />
-          <h1 className="font-semibold text-2xl mb-3 sm:text-3xl sm:mb-5">Beat Honda 2021</h1>
+          <h1 className="font-semibold text-2xl mb-3 sm:text-3xl sm:mb-5">{isSuccess && (vehicle as IVehicleResponse).name}</h1>
         </div>
 
         <Tabs defaultValue="account" className="w-full flex flex-col justify-center">

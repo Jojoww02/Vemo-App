@@ -21,6 +21,7 @@ import {
   RequestMaintenanceVehiclePage,
   VehicleDetailsPage,
   UpdateProfilePage,
+  VehicleList,
 } from "@/pages";
 import { RegisterPageMobile } from "@/mobile";
 import UpdateProfileGuard from "@/lib/guard/UpdateProfileGuard";
@@ -103,6 +104,10 @@ const privateRoutes: RouteObject = {
         {
           path: APP.VEHICLE_DETAILS_PAGE(":vehicleId"),
           element: <VehicleDetailsPage />,
+        },
+        {
+          path: APP.VEHICLE_LIST,
+          element: <VehicleList />,
         },
         {
           path: APP.VERIFY_PASSWORD_PAGE,

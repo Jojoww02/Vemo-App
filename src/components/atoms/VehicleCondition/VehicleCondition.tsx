@@ -12,11 +12,11 @@ export default function VehicleCondition({ condition }: Props): JSX.Element {
     <div className="flex items-center gap-1 xs:gap-2 md:gap-3">
       <img
         src={image}
-        width={15}
+        width={10}
         alt={altImage}
         className="xs:scale-110 md:scale-125 lg:scale-150"
       />
-      <h4 className="text-[.6rem] md:text-base xl:text-sm">{description}</h4>
+      <h4 className="text-[.6rem] md:text-sm xl:text-sm">{description}</h4>
     </div>
   );
 }

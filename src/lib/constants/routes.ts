@@ -14,6 +14,7 @@ export const UPDATE_PROFILE_PAGE = "/profile/update";
 export const CHANGE_PASSWORD_PAGE = "/profile/update/password";
 export const REQUEST_MAINTENANCE_VEHICLE_PAGE = "/request-maintenance"; // -> nanti ganti
 export const VEHICLE_DETAILS_PAGE = (vehicleId: string) => `/vehicles/details/${vehicleId}`;
+export const VEHICLE_LIST = "/vehicles/List/";
 export const NOTIFICATION_PAGE = "/notification";
 export const NOTIFICATION_DETAILS_PAGE = "/notification/details"; // -> nanti ganti
 export const VERIFY_PASSWORD_PAGE = "/verify/password";

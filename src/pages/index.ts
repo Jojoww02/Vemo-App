@@ -16,3 +16,4 @@ export { default as UpdateProfilePage } from "./UpdateProfilePage";
 export { default as ChangePasswordPage } from "./ChangePasswordPage";
 export { default as VerifyOtpPage } from "./VerifyOtpPage";
 export { default as VehicleDetailsPage } from "./VehicleDetailsPage";
+export { default as VehicleList } from "./VehicleList";
