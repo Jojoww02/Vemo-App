@@ -1,7 +1,14 @@
 import type { RouteObject } from "react-router-dom";
 import * as APP from "@/lib/constants/routes";
-import { AuthRouteGuard, PrivateRouteGuard } from "@/lib/guard";
 import { Layout } from "@/components/templates";
+import {
+  AdminRouteGuard,
+  AuthRouteGuard,
+  CustomerRouteGuard,
+  PrivateRouteGuard,
+  SendOtpGuard,
+  UpdateProfileGuard,
+} from "@/lib/guard";
 import {
   HomePage,
   NotFoundPage,
@@ -23,9 +30,8 @@ import {
   UpdateProfilePage,
   VehicleList,
 } from "@/pages";
+import { AdminDashboardPage } from "@/pages/_admin";
 import { RegisterPageMobile } from "@/mobile";
-import UpdateProfileGuard from "@/lib/guard/UpdateProfileGuard";
-import SendOtpGuard from "@/lib/guard/SendOtpGuard";
 
 const publicRoutes: RouteObject = {
   children: [
@@ -69,69 +75,85 @@ const privateRoutes: RouteObject = {
     {
       element: <Layout />,
       children: [
+        /* Customer Pages */
         {
-          path: APP.DASHBOARD_PAGE,
-          element: <DashboardPage />,
-        },
-        {
-          path: APP.LIST_VEHICLE_PAGE,
-          element: <ListVehiclesPage />,
-        },
-        {
-          path: APP.PROFILE_PAGE,
-          element: <ProfilePage />,
-        },
-        {
-          path: APP.REQUEST_MAINTENANCE_VEHICLE_PAGE,
-          element: <RequestMaintenanceVehiclePage />,
-        },
-        {
-          path: APP.REGISTER_VEHICLE_PAGE,
-          element: <RegisterVehiclePage />,
-        },
-        {
-          path: APP.ABOUT_US_PAGE,
-          element: <AboutPage />,
-        },
-        {
-          path: APP.NOTIFICATION_PAGE,
-          element: <NotificationPage />,
-        },
-        {
-          path: APP.NOTIFICATION_DETAILS_PAGE,
-          element: <NotificationDetailsPage />,
-        },
-        {
-          path: APP.VEHICLE_DETAILS_PAGE(":vehicleId"),
-          element: <VehicleDetailsPage />,
-        },
-        {
-          path: APP.VEHICLE_LIST,
-          element: <VehicleList />,
-        },
-        {
-          path: APP.VERIFY_PASSWORD_PAGE,
-          element: <VerifyPasswordPage />,
-        },
-        {
-          element: <UpdateProfileGuard />,
+          element: <CustomerRouteGuard />,
           children: [
             {
-              path: APP.UPDATE_PROFILE_PAGE,
-              element: <UpdateProfilePage />,
+              path: APP.DASHBOARD_PAGE,
+              element: <DashboardPage />,
+            },
+            {
+              path: APP.VEHICLE_LIST_PAGE,
+              element: <ListVehiclesPage />,
+            },
+            {
+              path: APP.PROFILE_PAGE,
+              element: <ProfilePage />,
+            },
+            {
+              path: APP.REQUEST_MAINTENANCE_VEHICLE_PAGE,
+              element: <RequestMaintenanceVehiclePage />,
+            },
+            {
+              path: APP.REGISTER_VEHICLE_PAGE,
+              element: <RegisterVehiclePage />,
+            },
+            {
+              path: APP.ABOUT_US_PAGE,
+              element: <AboutPage />,
+            },
+            {
+              path: APP.NOTIFICATION_PAGE,
+              element: <NotificationPage />,
+            },
+            {
+              path: APP.NOTIFICATION_DETAILS_PAGE,
+              element: <NotificationDetailsPage />,
+            },
+            {
+              path: APP.VEHICLE_DETAILS_PAGE(":vehicleId"),
+              element: <VehicleDetailsPage />,
+            },
+            {
+              path: APP.VEHICLE_LIST_PAGE,
+              element: <VehicleList />,
+            },
+            {
+              path: APP.VERIFY_PASSWORD_PAGE,
+              element: <VerifyPasswordPage />,
+            },
+            {
+              element: <UpdateProfileGuard />,
+              children: [
+                {
+                  path: APP.UPDATE_PROFILE_PAGE,
+                  element: <UpdateProfilePage />,
+                },
+              ],
+            },
+            {
+              path: APP.CHANGE_PASSWORD_PAGE,
+              element: <ChangePasswordPage />,
+            },
+            {
+              element: <SendOtpGuard />,
+              children: [
+                {
+                  path: APP.VERIFY_OTP_PAGE,
+                  element: <VerifyOtpPage />,
+                },
+              ],
             },
           ],
         },
+        /* Admin Pages */
         {
-          path: APP.CHANGE_PASSWORD_PAGE,
-          element: <ChangePasswordPage />,
-        },
-        {
-          element: <SendOtpGuard />,
+          element: <AdminRouteGuard />,
           children: [
             {
-              path: APP.VERIFY_OTP_PAGE,
-              element: <VerifyOtpPage />,
+              path: APP.ADMIN_DASHBOARD_PAGE,
+              element: <AdminDashboardPage />,
             },
           ],
         },

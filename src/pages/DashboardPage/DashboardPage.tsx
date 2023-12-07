@@ -7,7 +7,7 @@ import { getVehiclesByUserIdFn } from "@/api/services/vehicle";
 import { IUserResponse, IVehicleResponse } from "@/api/types";
 import { BadgeAlert } from "lucide-react";
 import { useNavigate } from "react-router-dom";
-import { VEHICLE_LIST } from "@/lib/constants/routes";
+import { VEHICLE_LIST_PAGE } from "@/lib/constants/routes";
 
 export default function DashboardPage(): JSX.Element {
   const { data: user } = useQuery({ queryKey: ["me"] });
@@ -20,7 +20,7 @@ export default function DashboardPage(): JSX.Element {
   });
 
   const handleIconClick = () => {
-    navigate(VEHICLE_LIST);
+    navigate(VEHICLE_LIST_PAGE);
   };
 
   return (

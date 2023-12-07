@@ -3,6 +3,7 @@ import { IUserResponse } from "@/api/types";
 import { getMeFn } from "@/api/services/users";
 import { Navigate, Outlet } from "react-router-dom";
 import { IconLoader3 } from "@tabler/icons-react";
+import { DASHBOARD_PAGE } from "../constants/routes";
 
 export default function AuthRouteGuard() {
   const query = useQuery({
@@ -23,6 +24,6 @@ export default function AuthRouteGuard() {
   }
 
   if (query.isSuccess) {
-    return <Navigate to="/dashboard" />;
+    return <Navigate to={DASHBOARD_PAGE} />;
   }
 }
