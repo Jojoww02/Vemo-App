@@ -1,7 +1,6 @@
 import { getVehiclesByUserIdFn } from "@/api/services/vehicle";
 import { IUserResponse, IVehicleResponse } from "@/api/types";
 import { VehicleCard } from "@/components/molecules";
-import { IconCircleArrowUpRightFilled } from "@tabler/icons-react";
 import { useQuery } from "@tanstack/react-query";
 import { BadgeAlert } from "lucide-react";
 
