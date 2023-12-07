@@ -1,11 +1,10 @@
 import { getVehiclesByUserIdFn } from "@/api/services/vehicle";
 import { IUserResponse, IVehicleResponse } from "@/api/types";
 import { VehicleCard } from "@/components/molecules";
-import { IconCircleArrowUpRightFilled } from "@tabler/icons-react";
 import { useQuery } from "@tanstack/react-query";
 import { BadgeAlert } from "lucide-react";
 
-export default function VehicleList(): JSX.Element {
+export default function VehicleListPage(): JSX.Element {
   const { data: user } = useQuery({ queryKey: ["me"] });
   const {
     data: vehicles,
