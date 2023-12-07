@@ -35,8 +35,8 @@ export default function LoginPageMobile():JSX.Element {
     await loginUser.mutateAsync(credentials);
   };
   return (
-    <div className=" h-screen pt-8 px-6 sm:px-20 sm:mt-10">
-      <h1 className="text-[2rem] leading-10 font-bold mb-10 sm:text-[2.4rem]">Welcome back! Glad to see you, Again!</h1>
+    <div className="sm:w-[640px] sm:mx-auto h-screen pt-8 px-6 sm:px-20 sm:mt-10">
+      <h1 className="text-4xl leading-10 font-bold mb-10 pl-4">Welcome back! Glad to see you, Again!</h1>
       <div className="my-5 w-full xs:w-[90%] sm:pt-8 m-auto gap-4">
         <FormProvider {...methods}>
             <form 
@@ -72,7 +72,7 @@ export default function LoginPageMobile():JSX.Element {
                     placeholder="Enter Your Password"
                     type="password"
                 />
-                <div className="text-[#6a707c] text-end font-semibold mt-3 sm:text-lg">
+                <div className="text-[#6a707c] text-end font-semibold mt-3">
                     <Link to={FORGOT_PASSWORD_REQUEST_PAGE}>
                         <p>Forgot Password?</p>
                     </Link>
@@ -88,7 +88,7 @@ export default function LoginPageMobile():JSX.Element {
             </form>
         </FormProvider>
       </div>
-      <div className="flex justify-center gap-1  mt-10 font-medium tracking-wid sm:text-xl">
+      <div className="flex justify-center gap-1 mt-10 font-medium">
         <p className="">Don’t have an account?</p>
         <div className="text-[#0587BE]">
           <Link to={REGISTER_USER_PAGE}>
