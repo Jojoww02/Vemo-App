@@ -37,7 +37,7 @@ export default function DashboardPage(): JSX.Element {
         >
           {isSuccess &&
             (vehicles.length > 0 ? (
-              vehicles.length > 2 ? (
+              vehicles.length >= 2 ? (
                 (vehicles as IVehicleResponse[])
                   .slice(0, 2)
                   .map((vehicle: IVehicleResponse) => (
