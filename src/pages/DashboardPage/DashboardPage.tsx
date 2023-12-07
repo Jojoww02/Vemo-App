@@ -18,7 +18,7 @@ export default function DashboardPage(): JSX.Element {
   });
 
   return (
-    <>
+     <>
       <div className="relative p-4 md:p-7 md:px-10 rounded-2xl shadow-[0px_0px_7px_#00000040] bg-[#898989]">
         <div className="hidden md:block absolute right-2 top-2">
           <Tooltip text="View All Vehicles">
