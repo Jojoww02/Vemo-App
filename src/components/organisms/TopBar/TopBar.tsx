@@ -47,7 +47,6 @@ export default function TopBar() {
   const { handleLogoutUser } = useLogoutUser();
 
   const sideBarItem: SideBarItem[] = [
-    { title: "Dashboard", icon: <IconLayoutCollage size={35} />, path: (DASHBOARD_PAGE) },
     {
       title: "Profile",
       icon: <IconUserSquareRounded size={35} />,
