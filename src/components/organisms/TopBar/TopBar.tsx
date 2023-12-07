@@ -67,8 +67,8 @@ export default function TopBar() {
           </SheetTrigger>
           <SheetContent className="w-72">
             <SheetHeader className="flex flex-row font-semibold italic items-center justify-between">
-              <img src={IconVemo} alt="vemo-icon" className="w-[20%]" />
-              <SheetTitle className="text-2xl text-[#F4B400] pr-20">
+              <img src={IconVemo} alt="vemo-icon" className="w-[20%] cursor-pointer" onClick={() => navigate(DASHBOARD_PAGE)} />
+              <SheetTitle className="text-2xl text-[#F4B400] pr-20 cursor-pointer" onClick={() => navigate(DASHBOARD_PAGE)}>
                 VEMO
               </SheetTitle>
               <SheetClose>
