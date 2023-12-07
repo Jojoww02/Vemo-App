@@ -1,11 +1,5 @@
 import React from "react";
-import {
-  IconLogout2,
-  IconUserSquareRounded,
-  IconLayoutCollage,
-  IconSquareRoundedChevronLeftFilled,
-  IconSquareRoundedChevronRightFilled,
-} from "@tabler/icons-react";
+import { IconLogout2, IconUserSquareRounded, IconLayoutCollage, IconSquareRoundedChevronLeftFilled, IconSquareRoundedChevronRightFilled } from "@tabler/icons-react";
 import { cn } from "@/lib/utils/style";
 import { ToogleIcon } from "@/components/atoms";
 import { Separator } from "@/components/ui/separator";
@@ -15,11 +9,6 @@ import useLogoutUser from "@/hooks/useLogoutUser";
 import IconVemo from "../../../assets/iconVemo.svg";
 
 const sideBarItem = [
-  {
-    title: "Dashboard",
-    icon: <IconLayoutCollage size={35} />,
-    navigateTo: "/dashboard",
-  },
   {
     title: "Profile",
     icon: <IconUserSquareRounded size={35} />,
@@ -35,58 +24,28 @@ export default function SideNav() {
   const { handleLogoutUser } = useLogoutUser();
 
   return (
-    <div
-      className={cn(
-        "relative my-5 ml-5 p-5 pt-8 hidden lg:block rounded-3xl border-2 shadow-md duration-300 w-24 z-50",
-        isSideNavOpen && "w-72"
-      )}
-    >
+    <div className={cn("relative my-5 ml-5 p-5 pt-8 hidden lg:block rounded-3xl border-2 shadow-md duration-300 w-24 z-50", isSideNavOpen && "w-72")}>
       <span className="absolute -right-6 top-16 cursor-pointer bg-white text-[#898989] z-50 hover:scale-105 duration-500 hover:text-[#595959]">
-        <ToogleIcon
-          iconOpen={<IconSquareRoundedChevronLeftFilled size={40} />}
-          iconClose={<IconSquareRoundedChevronRightFilled size={40} />}
-          isOpen={isSideNavOpen}
-          onClick={() => setIsSideNavOpen(!isSideNavOpen)}
-        />
+        <ToogleIcon iconOpen={<IconSquareRoundedChevronLeftFilled size={40} />} iconClose={<IconSquareRoundedChevronRightFilled size={40} />} isOpen={isSideNavOpen} onClick={() => setIsSideNavOpen(!isSideNavOpen)} />
       </span>
 
       <div className="absolute left-5 flex gap-2 z-50">
-        <img
-          src={IconVemo}
-          alt="icon vemo"
-          width={50}
-          className="cursor-pointer"
-        />
-        {isSideNavOpen && (
-          <h1 className="text-3xl font-semibold italic text-[#898989] pt-1">
-            VEMO
-          </h1>
-        )}
+        <img src={IconVemo} alt="icon vemo" width={50} className="cursor-pointer" />
+        {isSideNavOpen && <h1 className="text-3xl font-semibold italic text-[#898989] pt-1">VEMO</h1>}
       </div>
 
       <Separator className="w-full flex mt-16 bg-[#898989]" />
 
       <div className="flex flex-col absolute mt-7 left-7 gap-5 text-[#898989]">
         {sideBarItem.map((item, index) => (
-          <div
-            key={index}
-            className={cn(
-              "flex cursor-pointer font-medium text-lg items-center"
-            )}
-            onClick={() => item.navigateTo && navigate(item.navigateTo)}
-          >
+          <div key={index} className={cn("flex cursor-pointer font-medium text-lg items-center")} onClick={() => item.navigateTo && navigate(item.navigateTo)}>
             {item.icon}
-            <span className={cn("ml-5", !isSideNavOpen && "hidden")}>
-              {item.title}
-            </span>
+            <span className={cn("ml-5", !isSideNavOpen && "hidden")}>{item.title}</span>
           </div>
         ))}
       </div>
 
-      <div
-        className="absolute bottom-10 left-6 text-[#898989] cursor-pointer font-medium text-lg flex items-center"
-        onClick={handleLogoutUser}
-      >
+      <div className="absolute bottom-10 left-6 text-[#898989] cursor-pointer font-medium text-lg flex items-center" onClick={handleLogoutUser}>
         <IconLogout2 size={35} />
         <span className={cn("ml-5", !isSideNavOpen && "hidden")}>Logout</span>
       </div>
