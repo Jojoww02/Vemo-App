@@ -28,7 +28,7 @@ import {
   RequestMaintenanceVehiclePage,
   VehicleDetailsPage,
   UpdateProfilePage,
-  VehicleList,
+  VehicleListPage,
 } from "@/pages";
 import { AdminDashboardPage } from "@/pages/_admin";
 import { RegisterPageMobile } from "@/mobile";
@@ -117,7 +117,7 @@ const privateRoutes: RouteObject = {
             },
             {
               path: APP.VEHICLE_LIST_PAGE,
-              element: <VehicleList />,
+              element: <VehicleListPage />,
             },
             {
               path: APP.VERIFY_PASSWORD_PAGE,
