@@ -85,7 +85,7 @@ const privateRoutes: RouteObject = {
             },
             {
               path: APP.VEHICLE_LIST_PAGE,
-              element: <ListVehiclesPage />,
+              element: <VehicleListPage />,
             },
             {
               path: APP.PROFILE_PAGE,
