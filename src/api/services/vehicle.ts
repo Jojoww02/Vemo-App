@@ -1,5 +1,5 @@
 import { privateApi } from "@/api";
-import { IGenericResponse, IVehicle, IVehicleResponse } from "@/api/types";
+import { IGenericResponse, IVehicle, IVehicleResponse, IVehicleStatus } from "@/api/types";
 import * as API from "@/lib/constants/routes";
 
 export const registerVehicleFn = async (registerVehicleData: IVehicle): Promise<IGenericResponse> => {
@@ -12,7 +12,17 @@ export const getVehiclesByUserIdFn = async (userId: string): Promise<IVehicleRes
   return response.data;
 }
 
-export const getVehicleById = async (vehicleId: string | undefined): Promise<IVehicleResponse> => {
-  const response = await privateApi.get<IVehicleResponse>(API.GET_VEHICLE_BY_ID(vehicleId));
+export const getVehicleByIdFn = async (vehicleId: string | undefined): Promise<IVehicleResponse> => {
+  const response = await privateApi.get<IVehicleResponse>(API.GET_VEHICLE_BY_ID_SERVICE(vehicleId));
+  return response.data;
+}
+
+export const getVehiclesByStatusFn = async (status: IVehicleStatus): Promise<IVehicleResponse[]> => {
+  const response = await privateApi.get<Promise<IVehicleResponse[]>>(API.GET_VEHICLES_BY_STATUS_SERVICE(status));
+  return response.data;
+}
+
+export const approveVehicleFn = async (vehicleId: string) => {
+  const response = await privateApi.post(API.APPROVE_VEHICLE_SERVICE, {vehicleId});
   return response.data;
 }

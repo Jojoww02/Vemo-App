@@ -1,4 +1,4 @@
-import { getVehicleById } from "@/api/services/vehicle";
+import { getVehicleByIdFn } from "@/api/services/vehicle";
 import { IVehicleResponse } from "@/api/types";
 import useMobile from "@/hooks/useMobile";
 import { VehicleDetailPageMobile } from "@/mobile";
@@ -16,7 +16,7 @@ export default function VehicleDetailsPage() {
 
   const { data: vehicle, isSuccess } = useQuery<IVehicleResponse>({
     queryKey: ["vehicle", vehicleId],
-    queryFn: async () => await getVehicleById(vehicleId),
+    queryFn: async () => await getVehicleByIdFn(vehicleId),
   });
 
   console.log(vehicleId);

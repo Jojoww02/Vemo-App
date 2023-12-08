@@ -2,6 +2,8 @@ import { VehicleType } from "@/lib/types";
 
 type ICustomer = "customer";
 
+export type IVehicleStatus = "pending" | "approved";
+
 export interface IUser {
   name: string;
   email: string;
@@ -53,4 +55,5 @@ export interface IVehicleResponse {
   type: VehicleType;
   condition: number;
   purchasingDate: string;
+  status: IVehicleStatus;
 }

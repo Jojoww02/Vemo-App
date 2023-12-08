@@ -8,7 +8,7 @@ import { Modal } from "react-responsive-modal";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { IconBike, IconCalendarEvent, IconUser } from "@tabler/icons-react";
 import { useQuery } from "@tanstack/react-query";
-import { getVehicleById } from "@/api/services/vehicle";
+import { getVehicleByIdFn } from "@/api/services/vehicle";
 import { IVehicleResponse } from "@/api/types";
 import { format } from "date-fns";
 import { id } from "date-fns/locale";
@@ -18,7 +18,7 @@ export default function VehicleDetailPageMobile() {
 
   const { data: vehicle, isSuccess } = useQuery<IVehicleResponse>({
     queryKey: ["vehicle", vehicleId],
-    queryFn: async () => await getVehicleById(vehicleId),
+    queryFn: async () => await getVehicleByIdFn(vehicleId),
   });
 
   console.log(vehicleId);

@@ -55,9 +55,9 @@ export default function DashboardPage(): JSX.Element {
                 </>
               )
             ) : (
-              <div className="w-full flex flex-col items-center text-center gap-4">
+              <div className="w-full flex flex-col items-center text-center gap-4 py-4">
                 <BadgeAlert className="text-white" size={50} />
-                <h1 className="text-white sm:text-xl">
+                <h1 className="text-white sm:text-xl lg:text-2xl w-4/5">
                   Opps! anda belum mendaftarkan kendaraan anda, daftar dulu yuk!
                 </h1>
               </div>
