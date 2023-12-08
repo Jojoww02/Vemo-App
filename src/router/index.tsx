@@ -16,7 +16,6 @@ import {
   ForgotPasswordRequestPage,
   ForgotPasswordPage,
   DashboardPage,
-  ListVehiclesPage,
   ProfilePage,
   RegisterVehiclePage,
   AboutPage,
