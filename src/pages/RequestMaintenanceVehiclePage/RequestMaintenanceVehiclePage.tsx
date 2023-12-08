@@ -3,8 +3,7 @@ import ImageVehicle from "../../assets/requestPageImage/request-vehicle-mobile-i
 import gradient from "../../assets/requestPageImage/gradient-img.svg";
 import { useQuery } from "@tanstack/react-query";
 import { IVehicleResponse } from "@/api/types";
-import { BadgeAlert, Filter } from "lucide-react";
-import { VehicleCondition } from "@/components/atoms";
+import { BadgeAlert } from "lucide-react";
 
 export default function RequestMaintenanceVehiclePage(): JSX.Element {
   const { data: vehicles, isSuccess } = useQuery({
@@ -34,8 +33,8 @@ export default function RequestMaintenanceVehiclePage(): JSX.Element {
               ))
           ) : (
             <div className="w-full flex flex-col items-center text-center gap-4">
-              <BadgeAlert className="text-white" size={50} />
-              <h1 className="text-white sm:text-xl">Opps! Anda belum mendaftarkan kendaraan Anda, daftar dulu yuk!</h1>
+              <BadgeAlert className="text-dark" size={50} />
+              <h1 className="text-dark sm:text-xl">Opps! Anda belum mendaftarkan kendaraan Anda, daftar dulu yuk!</h1>
             </div>
           )}
         </div>
