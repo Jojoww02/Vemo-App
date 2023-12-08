@@ -3,7 +3,6 @@ export { default as LoginPage } from "./LoginPage";
 export { default as ForgotPasswordRequestPage } from "./ForgotPasswordRequestPage";
 export { default as ForgotPasswordPage } from "./ForgotPasswordPage";
 export { default as DashboardPage } from "./DashboardPage";
-export { default as ListVehiclesPage } from "./ListVehiclesPage";
 export { default as RequestMaintenanceVehiclePage } from "./RequestMaintenanceVehiclePage";
 export { default as ProfilePage } from "./ProfilePage";
 export { default as RegisterVehiclePage } from "./RegisterVehiclePage";
