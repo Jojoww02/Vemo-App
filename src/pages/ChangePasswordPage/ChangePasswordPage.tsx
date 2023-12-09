@@ -1,24 +1,59 @@
-import { FormProvider, useForm } from "react-hook-form";
+import zod from "zod";
+import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 
 import IconArrow from "../../assets/notification/Icon-arrow.svg";
 import { Button, Input } from "@/components/atoms";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useQuery } from "@tanstack/react-query";
+import { IUserResponse } from "@/api/types";
+import { PROFILE_PAGE } from "@/lib/constants/routes";
+import useMutateUser from "@/hooks/useMutateUser";
+
+const changePaswwordSchema = zod
+  .object({
+    previousPassword: zod.string().min(1, "Password is required").min(8, "Password must be more than 8 characters").max(32, "Password must be less than 32 characters"),
+    newPassword: zod.string().min(1, "Password is required").min(8, "Password must be more than 8 characters").max(32, "Password must be less than 32 characters"),
+    confirmNewPassword: zod.string().min(1, "Password is required").min(8, "Password must be more than 8 characters").max(32, "Password must be less than 32 characters"),
+  })
+  .refine((data) => data.newPassword === data.confirmNewPassword, {
+    path: ["confirmNewPassword"],
+    message: "Passwords do not match",
+  });
+
+export type ChangePasswordInput = zod.TypeOf<typeof changePaswwordSchema>;
 
 export default function ChangePasswordPage() {
-  const methods = useForm();
+  const methods = useForm<ChangePasswordInput>({
+    resolver: zodResolver(changePaswwordSchema),
+  });
+  const navigate = useNavigate()
+  const { changePassword } = useMutateUser();
+  const { data: user } = useQuery({ queryKey: ["me"] });
 
-  const onSubmit = (data: any) => console.log(data);
+  const onSubmitHandler: SubmitHandler<ChangePasswordInput> = async (data: ChangePasswordInput) => {
+    await changePassword.mutateAsync({
+      userId: (user as IUserResponse).userId,
+      oldPassword: data.previousPassword,
+      newPassword: data.newPassword,
+    });
+  };
+
+  if (changePassword.isSuccess) {
+    navigate(PROFILE_PAGE)
+  }
+
   return (
     <FormProvider {...methods}>
-      <div className="md:w-[640px] md:mx-auto mb-10">
+      <div className="md:w-[480px] md:mx-auto mb-10">
         <Link to="/profile">
           <img src={IconArrow} alt="" className=" lgmt-20 scale-100 cursor-pointer w-4 sm:w-6 sm:h-12 " />
         </Link>
         <div>
           <h1 className="font-bold text-xl lg:text-3xl py-4 leading-[3rem] sm:text-2xl md:text-3xl">Change Your Password</h1>
         </div>
-        <div className="my-5 xs:w-[90%] sm:pt-8 m-auto">
-          <form onSubmit={methods.handleSubmit(onSubmit)} className="flex flex-col gap-5">
+        <div className="my-5 xs:w-full sm:pt-6 m-auto">
+          <form onSubmit={methods.handleSubmit(onSubmitHandler)} className="flex flex-col gap-5">
             <div className="border-b-slate-400 border-b-[1.5px]  pb-4">
               <Input name="previousPassword" label="Previous Password" isFill={methods.watch().previousPassword} placeholder="Input your password" type="password" />
             </div>
@@ -27,7 +62,7 @@ export default function ChangePasswordPage() {
 
             <Input name="confirmNewPassword" label="Confirm New Password" isFill={methods.watch().confirmNewPassword} placeholder="Input your password" type="password" />
             <div className="mt-12 sm:text-">
-              <Button className="py-6 w-full text-lg font-semibold" type="submit">
+              <Button className="py-6 w-full text-lg font-semibold" type="submit" isLoading={changePassword.isPending}>
                 Send
               </Button>
             </div>

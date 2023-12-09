@@ -1,4 +1,5 @@
-import { IUserResponse } from "@/api/types";
+import { getVehiclesByUserIdFn } from "@/api/services/vehicle";
+import { IUserResponse, IVehicleResponse } from "@/api/types";
 import { Button, Input } from "@/components/atoms";
 import useMobile from "@/hooks/useMobile";
 import useMutateVehicle from "@/hooks/useMutateVehicle";
@@ -18,12 +19,11 @@ interface RegisterVehicle {
   licenseNumber: string;
 }
 
-export default function RegisterVehiclePage(): JSX.Element {
+export default function RegisterVehiclePage() {
   const isMobile = useMobile();
   const navigate = useNavigate();
   const methods = useForm<RegisterVehicle>();
   const { data: user } = useQuery<IUserResponse>({ queryKey: ["me"] });
-
   const { registerVehicle } = useMutateVehicle();
 
   async function handleRegisterVehicle(data: RegisterVehicle) {
@@ -36,6 +36,11 @@ export default function RegisterVehiclePage(): JSX.Element {
       userId: (user as IUserResponse).userId,
     });
   }
+
+  const { data: vehicles, isSuccess } = useQuery({
+    queryKey: ["vehicles"],
+    queryFn: async () => await getVehiclesByUserIdFn((user as IUserResponse).userId),
+  });
 
   React.useEffect(() => {
     if (registerVehicle.isSuccess) {
@@ -62,55 +67,17 @@ export default function RegisterVehiclePage(): JSX.Element {
           <div className="w-1/2 mb-2 justify-center flex">
             <div className="w-[80%] mt-5">
               <FormProvider {...methods}>
-                <form
-                  autoComplete="off"
-                  onSubmit={methods.handleSubmit(handleRegisterVehicle)}
-                  className="flex-col flex gap-6"
-                >
-                  <Input
-                    name="fullName"
-                    label="Nama Lengkap"
-                    isFill={methods.watch().fullName}
-                    placeholder="Input your name"
-                    type="text"
-                  />
-                  <Input
-                    name="vehicleName"
-                    label="Nama Kendaraan"
-                    isFill={methods.watch().vehicleName}
-                    placeholder="Input your email"
-                    type="text"
-                  />
-                  <Input
-                    name="vehicleType"
-                    label="Jenis Kendaraan"
-                    isFill={methods.watch().vehicleType}
-                    placeholder="Pilih jenis kendaraan"
-                    type="select"
-                  >
+                <form autoComplete="off" onSubmit={methods.handleSubmit(handleRegisterVehicle)} className="flex-col flex gap-6">
+                  <Input name="fullName" label="Nama Lengkap" isFill={methods.watch().fullName} placeholder="Input your name" type="text" />
+                  <Input name="vehicleName" label="Nama Kendaraan" isFill={methods.watch().vehicleName} placeholder="Input your email" type="text" />
+                  <Input name="vehicleType" label="Jenis Kendaraan" isFill={methods.watch().vehicleType} placeholder="Pilih jenis kendaraan" type="select">
                     <option value="matic">Matic</option>
                     <option value="manual">Manual</option>
                   </Input>
-                  <Input
-                    name="purchasingDate"
-                    label="Tanggal Pembelian Kendaraan"
-                    isFill={methods.watch().purchasingDate?.toString()}
-                    placeholder="Input your password"
-                    type="date"
-                  />
-                  <Input
-                    name="licenseNumber"
-                    label="Plat Nomor"
-                    isFill={methods.watch().licenseNumber}
-                    placeholder="Confirm your password"
-                    type="text"
-                  />
+                  <Input name="purchasingDate" label="Tanggal Pembelian Kendaraan" isFill={methods.watch().purchasingDate?.toString()} placeholder="Input your password" type="date" />
+                  <Input name="licenseNumber" label="Plat Nomor" isFill={methods.watch().licenseNumber} placeholder="Confirm your password" type="text" />
                   <div className="flex flex-col gap-2 mt-7">
-                    <Button
-                      className="py-6 text-lg font-semibold"
-                      type="submit"
-                      isLoading={registerVehicle.isPending}
-                    >
+                    <Button className="py-6 text-lg font-semibold" type="submit" isLoading={registerVehicle.isPending} disabled={isSuccess && (vehicles as IVehicleResponse[]).some((vehicle) => vehicle.status === "pending")}>
                       Send
                     </Button>
                   </div>

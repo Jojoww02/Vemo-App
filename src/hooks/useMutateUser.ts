@@ -1,6 +1,6 @@
 import { useMutation } from "@tanstack/react-query";
-import { updateUserFn } from "@/api/services/users";
-import { IUpdateUser } from "@/api/types";
+import { changePasswordFn, updateUserFn } from "@/api/services/users";
+import { IChangePasswordData, IUpdateUser } from "@/api/types";
 
 export default function useMutateUser() {
   return {
@@ -9,5 +9,8 @@ export default function useMutateUser() {
         await updateUserFn({ userId, name, email });
       },
     }),
+    changePassword: useMutation({
+      mutationFn: async (changePasswordData: IChangePasswordData) => await changePasswordFn(changePasswordData),
+    })
   };
 }

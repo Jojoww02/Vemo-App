@@ -21,8 +21,6 @@ export default function VehicleDetailPageMobile() {
     queryFn: async () => await getVehicleByIdFn(vehicleId),
   });
 
-  console.log(vehicleId);
-
   const detailsService = [
     {
       item: "Aki",

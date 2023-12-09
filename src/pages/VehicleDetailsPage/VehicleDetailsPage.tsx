@@ -7,19 +7,19 @@ import { IconBike, IconCalendarEvent, IconUser } from "@tabler/icons-react";
 import { useQuery } from "@tanstack/react-query";
 import { format } from "date-fns";
 import { id } from "date-fns/locale";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useState } from "react";
 import { Button, VehicleIcon } from "@/components/atoms";
+import { VEHICLE_PARTS_PAGE } from "@/lib/constants/routes";
 
 export default function VehicleDetailsPage() {
   const { vehicleId } = useParams();
+  const navigate = useNavigate();
 
   const { data: vehicle, isSuccess } = useQuery<IVehicleResponse>({
     queryKey: ["vehicle", vehicleId],
     queryFn: async () => await getVehicleByIdFn(vehicleId),
   });
-
-  console.log(vehicleId);
 
   const detailsService = [
     {
@@ -58,10 +58,10 @@ export default function VehicleDetailsPage() {
   const isMobileResponsive = useMobile();
   return (
     <>
-      {isMobileResponsive ? (
-        <div className="flex gap-10">
-          <div className="w-1/2 bg-[#F7F8F9] rounded-xl py-5 px-5 h-full min-h-[660px]">
-            <div className="h-full grid place-items-center ">
+      {/* {isMobileResponsive ? ( */}
+        <div className="w-full flex gap-5 flex-col lg:flex-row">
+          <div className="lg:w-1/2 bg-[#F7F8F9] rounded-xl py-5 px-5 h-full min-h-[660px]">
+            <div className="w-full flex flex-col justify-center items-center">
               <VehicleIcon type={isSuccess ? (vehicle as IVehicleResponse).type : "matic"} />
               <h1 className="font-semibold text-xl mt-4 devide mb-5">{isSuccess && (vehicle as IVehicleResponse).name}</h1>
             </div>
@@ -122,7 +122,7 @@ export default function VehicleDetailsPage() {
               </Tabs>
             </div>
           </div>
-          <div className="w-1/2 bg-[#F7F8F9] rounded-xl py-5 px-5 h-full min-h-[660px]">
+          <div className="lg:w-1/2 lg:bg-[#F7F8F9] rounded-xl py-5 px-5 h-full min-h-[660px]">
             <h1 className="text-[#898989] py-2 px-4 text-lg">Condiotion Part :</h1>
             <div className="w-full px-2 flex mt-7 mb-10 flex-col gap-5 justify-center h-[28rem]  overflow-y-auto">
               <div className="flex gap-4">
@@ -151,13 +151,13 @@ export default function VehicleDetailsPage() {
               </div>
             </div>
             <div className="w-full flex flex-col justify-center px-10 ">
-              <Button>Request Perawatan</Button>
+              <Button onClick={() => navigate(VEHICLE_PARTS_PAGE)}>Request Perawatan</Button>
             </div>
           </div>
         </div>
-      ) : (
+      {/* ) : (
         <VehicleDetailPageMobile />
-      )}
+       )} */}
     </>
   );
 }

@@ -95,7 +95,7 @@ export default function UpdateProfilePage() {
           <img
             src={IconArrow}
             alt=""
-            className="absolute lg:items-center lg:left-10 left-4 w-5 lg:w-7   cursor-pointer"
+            className="absolute left-4 w-5 lg:w-7  cursor-pointer"
             onClick={() => navigate(VERIFY_PASSWORD_PAGE)}
           />
         </div>

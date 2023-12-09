@@ -34,7 +34,7 @@ export default function RequestMaintenanceVehiclePage(): JSX.Element {
           ) : (
             <div className="w-full flex flex-col items-center text-center gap-4">
               <BadgeAlert className="text-dark" size={50} />
-              <h1 className="text-dark sm:text-xl">Opps! Anda belum mendaftarkan kendaraan Anda, daftar dulu yuk!</h1>
+              <h1 className="text-dark sm:text-xl mb-10">Opps! Anda belum mendaftarkan kendaraan Anda, daftar dulu yuk!</h1>
             </div>
           )}
         </div>
