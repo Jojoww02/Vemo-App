@@ -1,4 +1,3 @@
-import React from "react";
 import selectImage from "../../../assets/select.svg";
 import selectButtonImage from "../../../assets/selectButton.svg";
 
@@ -9,7 +8,7 @@ interface PartVehicleCardProps {
   showCircle?: string | boolean;
 }
 
-export default function PartVehicleCard({ title, image, condition, showCircle }: PartVehicleCardProps) {
+export default function PartVehicleCard({ title, image, condition }: PartVehicleCardProps) {
   return (
     <div className="w-full flex xl:w-[30rem] h-[6.7rem] xl:h-[7rem] xl:px-5 xl:p-2 px-2 p-2 my-2 rounded-[0.50rem] bg-white shadow-[0px_2px_7px_5px_#00000040] cursor-pointer">
       <img src={`/VectorImgParts/${image}.svg`} alt="" className="" />

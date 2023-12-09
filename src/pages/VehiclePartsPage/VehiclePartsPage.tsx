@@ -13,10 +13,10 @@ interface VehiclePartsPageProps {
 export default function VehiclePartsPage({ showCircle }: VehiclePartsPageProps) {
   const [iShowCircle, setIsShowCircle] = React.useState(true);
   const navigate = useNavigate();
-  const [open, setOpen] = React.useState(false);
+  // const [open, setOpen] = React.useState(false);
 
-  const onOpenModal = () => setOpen(true);
-  const onCloseModal = () => setOpen(false);
+  // const onOpenModal = () => setOpen(true);
+  // const onCloseModal = () => setOpen(false);
 
   const handleClickSelectAll = () => {
     setIsShowCircle((prevShowCircle) => !prevShowCircle);
@@ -46,7 +46,7 @@ export default function VehiclePartsPage({ showCircle }: VehiclePartsPageProps) 
       </div>
       {/* Button */}
       <div className="flex place-items-center pt-7 px-96">
-        <button type="button" className="py-3 text-white rounded-md text-base bg-primary xl:text-lg font-medium w-full" onClick={onOpenModal}>
+        <button type="button" className="py-3 text-white rounded-md text-base bg-primary xl:text-lg font-medium w-full">
           Request Perawatan
         </button>
       </div>

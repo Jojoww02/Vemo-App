@@ -1,4 +1,4 @@
-import zod, { string } from "zod";
+import zod from "zod";
 import { Button, Input } from "@/components/atoms";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";

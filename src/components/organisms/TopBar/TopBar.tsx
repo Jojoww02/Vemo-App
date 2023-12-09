@@ -2,7 +2,6 @@ import { NotificationIcon } from "@/components/atoms";
 import { Link, useNavigate } from "react-router-dom";
 import { History, Info, Menu } from "lucide-react";
 import {
-  IconLayoutCollage,
   IconSquareRoundedChevronLeftFilled,
   IconUserSquareRounded,
 } from "@tabler/icons-react";

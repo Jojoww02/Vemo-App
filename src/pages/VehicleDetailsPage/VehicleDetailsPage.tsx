@@ -1,14 +1,11 @@
 import { getVehicleByIdFn } from "@/api/services/vehicle";
 import { IVehicleResponse } from "@/api/types";
-import useMobile from "@/hooks/useMobile";
-import { VehicleDetailPageMobile } from "@/mobile";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { IconBike, IconCalendarEvent, IconUser } from "@tabler/icons-react";
 import { useQuery } from "@tanstack/react-query";
 import { format } from "date-fns";
 import { id } from "date-fns/locale";
 import { useNavigate, useParams } from "react-router-dom";
-import { useState } from "react";
 import { Button, VehicleIcon } from "@/components/atoms";
 import { VEHICLE_PARTS_PAGE } from "@/lib/constants/routes";
 
@@ -21,41 +18,39 @@ export default function VehicleDetailsPage() {
     queryFn: async () => await getVehicleByIdFn(vehicleId),
   });
 
-  const detailsService = [
-    {
-      item: "Aki",
-      qty: 1,
-      price: 250000,
-    },
-    {
-      item: "Busi",
-      qty: 1,
-      price: 12000,
-    },
-    {
-      item: "Mesin",
-      qty: 1,
-      price: 30000,
-    },
-    {
-      item: "Oli",
-      qty: 1,
-      price: 80000,
-    },
-  ];
+  // const detailsService = [
+  //   {
+  //     item: "Aki",
+  //     qty: 1,
+  //     price: 250000,
+  //   },
+  //   {
+  //     item: "Busi",
+  //     qty: 1,
+  //     price: 12000,
+  //   },
+  //   {
+  //     item: "Mesin",
+  //     qty: 1,
+  //     price: 30000,
+  //   },
+  //   {
+  //     item: "Oli",
+  //     qty: 1,
+  //     price: 80000,
+  //   },
+  // ];
 
-  const motorcyleInformation = {
-    name: "Maulvi Ilmullah",
-    vehicle: "Jupiter mx old",
-    date: Date.now(),
-  };
+  // const motorcyleInformation = {
+  //   name: "Maulvi Ilmullah",
+  //   vehicle: "Jupiter mx old",
+  //   date: Date.now(),
+  // };
 
-  const [open, setOpen] = useState(false);
+  // const [open, setOpen] = useState(false);
 
-  const onOpenModal = () => setOpen(true);
-  const onCloseModal = () => setOpen(false);
+  // const onOpenModal = () => setOpen(true);
 
-  const isMobileResponsive = useMobile();
   return (
     <>
       {/* {isMobileResponsive ? ( */}
@@ -111,7 +106,7 @@ export default function VehicleDetailsPage() {
                       <ul className="list-disc text-base pt-5 px-2 font-light sm:text-lg">
                         <li className="border-b-2 w-[90%] sm:w-[60%]">
                           20 Januari 2023 -{" "}
-                          <span className="text-primary cursor-pointer" onClick={onOpenModal}>
+                          <span className="text-primary cursor-pointer">
                             See Details
                           </span>
                         </li>

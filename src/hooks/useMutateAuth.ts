@@ -3,7 +3,6 @@ import { useMutation } from "@tanstack/react-query";
 import { forgotPasswordFn, forgotPasswordRequestFn, loginUserFn, registerUserFn, sendOtpByEmailFn, verifyOtpFn } from "@/api/services/auth";
 import { ICredentials, IForgotPasswordUser, IUser } from "@/api/types";
 import { setToken } from "@/lib/utils/token";
-import { changePasswordFn } from "@/api/services/users";
 
 export default function useMutateAuth() {
   const navigate = useNavigate();

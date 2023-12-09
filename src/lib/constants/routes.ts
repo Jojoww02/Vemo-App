@@ -1,5 +1,4 @@
 import { IVehicleStatus } from "@/api/types";
-import { string } from "prop-types";
 
 /* CUSTOMER PAGES ROUTES */
 export const NOT_FOUND_PAGE = "*";

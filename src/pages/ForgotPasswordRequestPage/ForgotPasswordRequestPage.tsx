@@ -7,7 +7,6 @@ import { isObjectEmpty } from "@/lib/utils/common";
 import useMobile from "@/hooks/useMobile";
 import { ForgotPasswordRequestPageMobile } from "@/mobile";
 import useMutateAuth from "@/hooks/useMutateAuth";
-import { forgotPasswordRequestFn } from "@/api/services/auth";
 
 const ForgotPasswordRequestSchema = zod.object({
   email: zod.string().min(1, "Email address is required").email("Email Address is invalid"),
