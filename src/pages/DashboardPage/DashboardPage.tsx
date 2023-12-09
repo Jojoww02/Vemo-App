@@ -49,7 +49,7 @@ export default function DashboardPage(): JSX.Element {
                       <VehicleCard vehicleData={vehicle} key={vehicle.id} />
                     ))}
                   {/* Vehicle Pending Card  */}
-                  <div className="w-full border-dashed border-[3px] h-24 sm:h-28 md:h-[7.8rem] lg:h-32 flex justify-center items-center ">
+                  <div className="w-full border-dashed rounded-2xl border-[3px] h-24 sm:h-28 md:h-[7.8rem] lg:h-32 flex justify-center items-center ">
                     <p className="text-white text-xs xs:text-base lg:text-lg  px-4">Daftarkan kendaraan kedua anda</p>
                   </div>
                 </>
