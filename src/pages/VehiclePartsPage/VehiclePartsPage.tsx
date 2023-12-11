@@ -45,7 +45,7 @@ export default function VehiclePartsPage({ showCircle }: VehiclePartsPageProps) 
         </div>
       </div>
       {/* Button */}
-      <div className="flex place-items-center pt-7 px-24 mb-10">
+      <div className="w-full flex place-items-center pt-7 px-14 xs:px-24 sm:px-20 lg:px-48 mb-10">
         <button type="button" className="py-3 text-white rounded-md text-base bg-primary xl:text-lg font-medium w-full">
           Request Perawatan
         </button>

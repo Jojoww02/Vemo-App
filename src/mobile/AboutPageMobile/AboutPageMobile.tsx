@@ -8,6 +8,8 @@ import man3 from "../../assets/aboutUs/man3Mobile.png";
 import logo from "../../assets/aboutUs/logoMobile.svg";
 
 import { IconBrandFacebook, IconBrandGithubFilled, IconBrandInstagram, IconBrandWhatsapp } from "@tabler/icons-react";
+import { Link } from "react-router-dom";
+import { REGISTER_VEHICLE_PAGE, REQUEST_MAINTENANCE_VEHICLE_PAGE } from "@/lib/constants/routes";
 
 export default function AboutPageMobile() {
   return (
@@ -38,29 +40,29 @@ export default function AboutPageMobile() {
           </p>
         </div>
         <div className="flex justify-center px-4 py-4">
-          <img src={laptop} alt="" className="w-full" />
+          <img src={laptop} alt="" className="" />
         </div>
-        <h1 className="font-bold py-6 text-center text-xl xs:text-3xl">Meet The VEMO Team</h1>
+        <h1 className="font-bold py-3 md:py-6 text-center text-xl xs:text-3xl md:text-4xl">Meet The VEMO Team</h1>
         <div className="flex flex-col gap-10 mb-10">
           <div className="flex items-center gap-4">
-            <img src={man1} alt="" className="rounded-full xs:w-32 sm:w-48" />
+            <img src={man1} alt="" className="rounded-full w-20 xs:w-24" />
             <div className="flex flex-col">
-              <h1 className="font-bold xs:text-xl sm:text-4xl">Executive Team</h1>
-              <p className="xs:text-base sm:text-3xl">Mohammad Eka Satrya P</p>
+              <h1 className="font-bold xs:text-xl sm:text-3xl md:text-4xl">Executive Team</h1>
+              <p className="xs:text-base sm:text-xl md:text-2xl">Mohammad Eka Satrya P</p>
             </div>
           </div>
           <div className="flex items-center gap-4">
-            <img src={man2} alt="" className="rounded-full xs:w-32 sm:w-48" />
+            <img src={man2} alt="" className="rounded-full w-20 xs:w-24" />
             <div className="flex flex-col">
-              <h1 className="font-bold xs:text-xl sm:text-4xl">Vice Exe Team</h1>
-              <p className="xs:text-base sm:text-3xl">Maulvi Ilmullah F AA</p>
+              <h1 className="font-bold xs:text-xl sm:text-3xl md:text-4xl">Vice Exe Team</h1>
+              <p className="xs:text-base sm:text-xl md:text-2xl">Maulvi Ilmullah F AA</p>
             </div>
           </div>
           <div className="flex items-center gap-4">
-            <img src={man3} alt="" className="rounded-full xs:w-32 sm:w-48" />
+            <img src={man3} alt="" className="rounded-full w-20 xs:w-24" />
             <div className="flex flex-col">
-              <h1 className="font-bold xs:text-xl sm:text-4xl">Manager Team</h1>
-              <p className="xs:text-base sm:text-3xl">Jonatan Hermanto PS</p>
+              <h1 className="font-bold xs:text-xl sm:text-3xl md:text-4xl">Manager Team</h1>
+              <p className="xs:text-base sm:text-xl md:text-2xl">Jonatan Hermanto PS</p>
             </div>
           </div>
         </div>
@@ -74,8 +76,12 @@ export default function AboutPageMobile() {
             <h1 className="xs:text-lg sm:text-xl">Layanan</h1>
             <ul className="leading-8 text-[10px] xs:leading-9 sm:leading-10 xs:text-xs sm:text-base">
               <li>Index</li>
-              <li>Daftar Kendaraan</li>
-              <li>Request Perawatan</li>
+              <Link to={REGISTER_VEHICLE_PAGE}>
+                <li>Daftar Kendaraan</li>
+              </Link>
+              <Link to={REQUEST_MAINTENANCE_VEHICLE_PAGE}>
+                <li>Request Perawatan</li>
+              </Link>
             </ul>
           </div>
           <div>

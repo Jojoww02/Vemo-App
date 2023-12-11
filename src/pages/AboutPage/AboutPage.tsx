@@ -9,6 +9,8 @@ import LogoVemo from "../../assets/aboutUs/vemo-logo.svg";
 import { IconBrandFacebook, IconBrandGithubFilled, IconBrandInstagram, IconBrandWhatsapp } from "@tabler/icons-react";
 import useMobile from "@/hooks/useMobile";
 import AboutPageMobile from "@/mobile/AboutPageMobile";
+import { Link } from "react-router-dom";
+import { REGISTER_VEHICLE_PAGE, REQUEST_MAINTENANCE_VEHICLE_PAGE } from "@/lib/constants/routes";
 
 export default function AboutPage() {
   const isMobile = useMobile()
@@ -48,21 +50,21 @@ export default function AboutPage() {
         <h1 className="font-bold py-6 text-center text-xl xs:text-3xl">Meet The VEMO Team</h1>
         <div className="flex flex-col gap-10 mb-10">
           <div className="flex items-center gap-4">
-            <img src={ProfileEka} alt="" className="rounded-full xs:w-32 sm:w-48" />
+            <img src={ProfileEka} alt="" className="rounded-full w-32" />
             <div className="flex flex-col">
               <h1 className="font-bold xs:text-xl sm:text-4xl">Executive Team</h1>
               <p className="xs:text-base sm:text-3xl">Mohammad Eka Satrya P</p>
             </div>
           </div>
           <div className="flex items-center gap-4">
-            <img src={ProfileMaulvi} alt="" className="rounded-full xs:w-32 sm:w-48" />
+            <img src={ProfileMaulvi} alt="" className="rounded-full w-32" />
             <div className="flex flex-col">
               <h1 className="font-bold xs:text-xl sm:text-4xl">Vice Exe Team</h1>
               <p className="xs:text-base sm:text-3xl">Maulvi Ilmullah F AA</p>
             </div>
           </div>
           <div className="flex items-center gap-4">
-            <img src={ProfileJo} alt="" className="rounded-full xs:w-32 sm:w-48" />
+            <img src={ProfileJo} alt="" className="rounded-full w-32" />
             <div className="flex flex-col">
               <h1 className="font-bold xs:text-xl sm:text-4xl">Manager Team</h1>
               <p className="xs:text-base sm:text-3xl">Jonatan Hermanto PS</p>
@@ -79,8 +81,12 @@ export default function AboutPage() {
             <h1 className="xs:text-lg sm:text-xl">Layanan</h1>
             <ul className="leading-8 text-[10px] xs:leading-9 sm:leading-10 xs:text-xs sm:text-base">
               <li>Index</li>
+              <Link to={REGISTER_VEHICLE_PAGE} >
               <li>Daftar Kendaraan</li>
+              </Link>
+              <Link to={REQUEST_MAINTENANCE_VEHICLE_PAGE}>
               <li>Request Perawatan</li>
+              </Link>
             </ul>
           </div>
           <div>
