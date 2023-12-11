@@ -1,6 +1,5 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-
 import IconArrow from "../../assets/notification/Icon-arrow.svg";
 import { REQUEST_MAINTENANCE_VEHICLE_PAGE } from "@/lib/constants/routes";
 import { componentsData } from "@/lib/data";
@@ -17,9 +16,27 @@ export default function VehiclePartsPage({ showCircle }: VehiclePartsPageProps) 
 
   // const onOpenModal = () => setOpen(true);
   // const onCloseModal = () => setOpen(false);
+  const [checkboxStates, setCheckboxStates] = React.useState(componentsData.map(() => false));
+  const [selectAllText, setSelectAllText] = React.useState("Select All");
 
   const handleClickSelectAll = () => {
-    setIsShowCircle((prevShowCircle) => !prevShowCircle);
+    setCheckboxStates((prevCheckboxStates) => {
+      const allSelected = prevCheckboxStates.every((state) => state);
+      const newCheckboxStates = prevCheckboxStates.map(() =>
+        !allSelected, {/* ? false : componentsData[index]?.condition < 60 */}
+      );
+      setSelectAllText(allSelected ? "Select All" : "Unselect All");
+      return newCheckboxStates;
+    });
+  };
+
+  const handleCheckboxChange = (index: number) => {
+    setCheckboxStates((prevCheckboxStates) => {
+      const newCheckboxStates = [...prevCheckboxStates];
+      newCheckboxStates[index] = !newCheckboxStates[index];
+      setSelectAllText("Select All")
+      return newCheckboxStates;
+    });
   };
 
   return (
@@ -33,13 +50,24 @@ export default function VehiclePartsPage({ showCircle }: VehiclePartsPageProps) 
         </div>
       </div>
       <div className="relative">
-        <button className="absolute -right-1 -top-[3.2rem] md:-top-10 lg:-top-16 items-center text-xs xs:text-base md:text-lg text-white bg-primary rounded-lg px-2 py-1" onClick={handleClickSelectAll}>
-          Select All
+        <button 
+          className="absolute -right-1 -top-[3.2rem] md:-top-10 lg:-top-16 items-center text-xs xs:text-base md:text-lg text-white bg-primary rounded-lg px-2 py-1" 
+          onClick={handleClickSelectAll}
+        >
+          {selectAllText}
         </button>
         <div className="flex w-full">
           <div className="w-full flex flex-wrap lg:justify-evenly pt-5 gap-2">
             {componentsData.map((component, index) => (
-              <PartVehicleCard key={index} title={component?.name} condition={component?.condition} image={component?.name} showCircle={iShowCircle ? showCircle : undefined} />
+              <PartVehicleCard 
+                key={index} 
+                title={component?.name} 
+                condition={component?.condition} 
+                image={component?.name} 
+                showCircle={iShowCircle ? showCircle : undefined}
+                checked={checkboxStates[index]}
+                onCheckboxChange={() => handleCheckboxChange(index)}
+              />
             ))}
           </div>
         </div>
