@@ -7,9 +7,15 @@ import ProfileMaulvi from "../../assets/aboutUs/Maul.svg";
 import ProfileJo from "../../assets/aboutUs/Jo.svg";
 import LogoVemo from "../../assets/aboutUs/vemo-logo.svg";
 import { IconBrandFacebook, IconBrandGithubFilled, IconBrandInstagram, IconBrandWhatsapp } from "@tabler/icons-react";
+import useMobile from "@/hooks/useMobile";
+import AboutPageMobile from "@/mobile/AboutPageMobile";
 
 export default function AboutPage() {
+  const isMobile = useMobile()
   return (
+    <>
+    {isMobile ? (
+
     <div className="px-4">
       <div className="text-center text-white bg-gradient-to-br from-yellow-400 via-yellow-500 to-yellow-800 px-6 py-6 leading-8 flex flex-col gap-4 overflow-x-auto">
         <h3 className="font-semibold xs:text-xl sm:text-2xl">Making the company a place that can help and keep users happy, one app at a time.</h3>
@@ -98,5 +104,9 @@ export default function AboutPage() {
         <h1 className="text-white font-light text-center text-sm  xs:text-lg sm:text-xl"> Copyright 2023 VEMO</h1>
       </div>
     </div>
+    ) : (
+      <AboutPageMobile />
+    )}
+    </>
   );
 }

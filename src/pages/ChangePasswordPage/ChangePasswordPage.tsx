@@ -2,7 +2,7 @@ import zod from "zod";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 
 import IconArrow from "../../assets/notification/Icon-arrow.svg";
-import { Button, Input } from "@/components/atoms";
+import { AlertForm, Button, Input } from "@/components/atoms";
 import { Link, useNavigate } from "react-router-dom";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useQuery } from "@tanstack/react-query";
@@ -47,14 +47,20 @@ export default function ChangePasswordPage() {
     <FormProvider {...methods}>
       <div className="md:w-[480px] md:mx-auto mb-10">
         <Link to="/profile">
-          <img src={IconArrow} alt="" className=" lgmt-20 scale-100 cursor-pointer w-4 sm:w-6 sm:h-12 " />
+          <img src={IconArrow} alt="" className="scale-100 cursor-pointer w-4 sm:w-6 sm:h-12 " />
         </Link>
         <div>
           <h1 className="font-bold text-xl lg:text-3xl py-4 leading-[3rem] sm:text-2xl md:text-3xl">Change Your Password</h1>
         </div>
-        <div className="my-5 xs:w-full sm:pt-6 m-auto">
+        <div className="my-5 xs:w-full m-auto">
           <form onSubmit={methods.handleSubmit(onSubmitHandler)} className="flex flex-col gap-5">
-            <div className="border-b-slate-400 border-b-[1.5px]  pb-4">
+            {changePassword.isError && (
+                  <AlertForm 
+                    title={(changePassword.error as any).response.data.message} 
+                    description={(changePassword.error as any).response.data.errors} 
+                  />
+                )}
+            <div className="border-b-slate-400 border-b-[1.5px] pb-4">
               <Input name="previousPassword" label="Previous Password" isFill={methods.watch().previousPassword} placeholder="Input your password" type="password" />
             </div>
 

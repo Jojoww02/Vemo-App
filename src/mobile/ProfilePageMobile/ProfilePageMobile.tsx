@@ -5,13 +5,11 @@ import { Link } from "react-router-dom";
 import { IconLock, IconLogout2, IconMailFilled, IconPencil, IconUser } from "@tabler/icons-react";
 import { CHANGE_PASSWORD_PAGE, DASHBOARD_PAGE, VERIFY_PASSWORD_PAGE } from "@/lib/constants/routes";
 import useLogoutUser from "@/hooks/useLogoutUser";
-
-const identity = {
-  name: "Putra Eka Satrya",
-  email: "putraekasatrya@email.com",
-};
+import { useQuery } from "@tanstack/react-query";
+import { IUserResponse } from "@/api/types";
 
 function ProfileMobile() {
+  const { data: user } = useQuery<IUserResponse>({ queryKey: ["me"] });
   const { handleLogoutUser } = useLogoutUser();
   return (
     <>
@@ -38,7 +36,7 @@ function ProfileMobile() {
               <IconUser size={20} />
               <h3 className="sm:text-2xl">Name</h3>
             </div>
-            <p className="font-medium sm:text-lg">{identity.name}</p>
+            <p className="font-medium sm:text-lg">{(user as IUserResponse).name}</p>
           </div>
         </div>
         <div className="mb-5">
@@ -46,7 +44,7 @@ function ProfileMobile() {
             <IconMailFilled size={20} />
             <h3 className="sm:text-2xl">Email</h3>
           </div>
-          <p className="font-medium sm:text-lg">{identity.email}</p>
+          <p className="font-medium sm:text-lg">{(user as IUserResponse).email}</p>
         </div>
         <div className="absolute bottom-10">
           <Link
