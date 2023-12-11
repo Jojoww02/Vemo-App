@@ -8,6 +8,7 @@ export const REGISTER_USER_PAGE = "/register";
 export const DASHBOARD_PAGE = "/dashboard";
 export const ABOUT_US_PAGE = "/about/vemo";
 export const VEHICLE_LIST_PAGE = "/vehicles";
+export const VEHICLE_PARTS_PAGE = "/vehicles/parts";
 export const REGISTER_VEHICLE_PAGE = "/vehicles/register";
 export const VEHICLE_DETAILS_PAGE = (vehicleId: string) => `/vehicles/details/${vehicleId}`;
 export const REQUEST_MAINTENANCE_VEHICLE_PAGE = "/request-maintenance"; // -> nanti ganti
@@ -32,13 +33,14 @@ export const REFRESH_TOKEN_SERVICE = "auth/refresh-token";
 export const SEND_OTP_SERVICE =  (email: string) => `auth/otp?email=${email}`;
 export const VERIFY_OTP_SERVICE = (otp: number) => `auth/otp/verify?otp=${otp}`;
 export const FORGOT_PASSWORD_SERVICE = "auth/forgot-password";
-export const FORGOT_PASSWORD_REQUEST_SERVICE = "auth/forgot-password/request";
+export const FORGOT_PASSWORD_REQUEST_SERVICE = (email: string) => `auth/forgot-password?email=${email}`;
 export const LOGOUT_SERVICE = "auth/logout";
 
 /* USERS SERVICES */
 export const UPDATE_USER_SERVICE = "users";
 export const GET_CURRENT_USER_SERVICE = "users/me";
 export const VERIFY_PASSWORD_USER_SERVICE = (password: string) => `users/password/verify?password=${password}`;
+export const CHANGE_PASSWORD_SERVICE = "users/password";
 
 /* VEHICLE SERVICE */
 export const REGISTER_VEHICLE_SERVICE = "vehicles";

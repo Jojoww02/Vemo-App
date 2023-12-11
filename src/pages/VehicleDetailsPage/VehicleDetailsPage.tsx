@@ -1,67 +1,62 @@
 import { getVehicleByIdFn } from "@/api/services/vehicle";
 import { IVehicleResponse } from "@/api/types";
-import useMobile from "@/hooks/useMobile";
-import { VehicleDetailPageMobile } from "@/mobile";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { IconBike, IconCalendarEvent, IconUser } from "@tabler/icons-react";
 import { useQuery } from "@tanstack/react-query";
 import { format } from "date-fns";
 import { id } from "date-fns/locale";
-import { useParams } from "react-router-dom";
-import { useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import { Button, VehicleIcon } from "@/components/atoms";
+import { VEHICLE_PARTS_PAGE } from "@/lib/constants/routes";
 
 export default function VehicleDetailsPage() {
   const { vehicleId } = useParams();
+  const navigate = useNavigate();
 
   const { data: vehicle, isSuccess } = useQuery<IVehicleResponse>({
     queryKey: ["vehicle", vehicleId],
     queryFn: async () => await getVehicleByIdFn(vehicleId),
   });
 
-  console.log(vehicleId);
+  // const detailsService = [
+  //   {
+  //     item: "Aki",
+  //     qty: 1,
+  //     price: 250000,
+  //   },
+  //   {
+  //     item: "Busi",
+  //     qty: 1,
+  //     price: 12000,
+  //   },
+  //   {
+  //     item: "Mesin",
+  //     qty: 1,
+  //     price: 30000,
+  //   },
+  //   {
+  //     item: "Oli",
+  //     qty: 1,
+  //     price: 80000,
+  //   },
+  // ];
 
-  const detailsService = [
-    {
-      item: "Aki",
-      qty: 1,
-      price: 250000,
-    },
-    {
-      item: "Busi",
-      qty: 1,
-      price: 12000,
-    },
-    {
-      item: "Mesin",
-      qty: 1,
-      price: 30000,
-    },
-    {
-      item: "Oli",
-      qty: 1,
-      price: 80000,
-    },
-  ];
+  // const motorcyleInformation = {
+  //   name: "Maulvi Ilmullah",
+  //   vehicle: "Jupiter mx old",
+  //   date: Date.now(),
+  // };
 
-  const motorcyleInformation = {
-    name: "Maulvi Ilmullah",
-    vehicle: "Jupiter mx old",
-    date: Date.now(),
-  };
+  // const [open, setOpen] = useState(false);
 
-  const [open, setOpen] = useState(false);
+  // const onOpenModal = () => setOpen(true);
 
-  const onOpenModal = () => setOpen(true);
-  const onCloseModal = () => setOpen(false);
-
-  const isMobileResponsive = useMobile();
   return (
     <>
-      {isMobileResponsive ? (
-        <div className="flex gap-10">
-          <div className="w-1/2 bg-[#F7F8F9] rounded-xl py-5 px-5 h-full min-h-[660px]">
-            <div className="h-full grid place-items-center ">
+      {/* {isMobileResponsive ? ( */}
+        <div className="w-full flex gap-5 flex-col lg:flex-row">
+          <div className="lg:w-1/2 bg-[#F7F8F9] rounded-xl py-5 px-5 h-full min-h-[660px]">
+            <div className="w-full flex flex-col justify-center items-center">
               <VehicleIcon type={isSuccess ? (vehicle as IVehicleResponse).type : "matic"} />
               <h1 className="font-semibold text-xl mt-4 devide mb-5">{isSuccess && (vehicle as IVehicleResponse).name}</h1>
             </div>
@@ -111,7 +106,7 @@ export default function VehicleDetailsPage() {
                       <ul className="list-disc text-base pt-5 px-2 font-light sm:text-lg">
                         <li className="border-b-2 w-[90%] sm:w-[60%]">
                           20 Januari 2023 -{" "}
-                          <span className="text-primary cursor-pointer" onClick={onOpenModal}>
+                          <span className="text-primary cursor-pointer">
                             See Details
                           </span>
                         </li>
@@ -122,7 +117,7 @@ export default function VehicleDetailsPage() {
               </Tabs>
             </div>
           </div>
-          <div className="w-1/2 bg-[#F7F8F9] rounded-xl py-5 px-5 h-full min-h-[660px]">
+          <div className="lg:w-1/2 lg:bg-[#F7F8F9] rounded-xl py-5 px-5 h-full min-h-[660px]">
             <h1 className="text-[#898989] py-2 px-4 text-lg">Condiotion Part :</h1>
             <div className="w-full px-2 flex mt-7 mb-10 flex-col gap-5 justify-center h-[28rem]  overflow-y-auto">
               <div className="flex gap-4">
@@ -151,13 +146,13 @@ export default function VehicleDetailsPage() {
               </div>
             </div>
             <div className="w-full flex flex-col justify-center px-10 ">
-              <Button>Request Perawatan</Button>
+              <Button onClick={() => navigate(VEHICLE_PARTS_PAGE)}>Request Perawatan</Button>
             </div>
           </div>
         </div>
-      ) : (
+      {/* ) : (
         <VehicleDetailPageMobile />
-      )}
+       )} */}
     </>
   );
 }

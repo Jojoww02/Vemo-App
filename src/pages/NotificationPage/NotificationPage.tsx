@@ -52,7 +52,7 @@ export default function NontificationPage(): JSX.Element {
         </div>
       </div>
       {activeTabEmail == "unread" ? (
-        <div className="flex flex-col pt-10 overflow-y-auto">
+        <div className="flex flex-col pt-2 overflow-y-auto">
           {notificationData
             .filter((data) => data.status === 0)
             .map((data) => (
@@ -66,7 +66,7 @@ export default function NontificationPage(): JSX.Element {
         //   <h1 className="font-semibold text-dark text-3xl mb-5">No Inbox Notification!</h1>
         //   <p className="font-normal text-dark tex-1xl">Your Inbox Is Empty</p>
         // </div>
-        <div className="flex h-[72%] flex-col pt-10 overflow-y-auto">
+        <div className="flex h-[72%] flex-col pt-2 overflow-y-auto">
           {notificationData.map((data) => (
             <NotificationCard key={data.id} data={data} />
           ))}

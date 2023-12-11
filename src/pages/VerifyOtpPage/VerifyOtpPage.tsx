@@ -20,7 +20,6 @@ export default function VerifyOtpPage(): JSX.Element {
 
   const [otp, setOTP] = React.useState(["", "", "", ""]);
   const [msgFailedAttempt, setMsgFailedAttempt] = React.useState("");
-  const [isDisabled, setIsDisabled] = React.useState(false);
   const [isSendCodeDisabled, setIsSendCodeDisabled] = React.useState(false);
 
   const handleSubmit = async () => {
@@ -75,14 +74,6 @@ export default function VerifyOtpPage(): JSX.Element {
       }
     }
   };
-
-  React.useEffect(() => {
-    if (otp.join("").length === 4) {
-      setIsDisabled(true);
-    } else {
-      setIsDisabled(false);
-    }
-  }, [otp]);
 
   const countDownTimer = (endDate: moment.Moment) => {
     setIsSendCodeDisabled(true);

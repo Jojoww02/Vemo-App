@@ -1,23 +1,8 @@
 import constants from "@/lib/constants";
-import { FeatureData, VehicleData } from "@/lib/types";
+import { FeatureData  } from "@/lib/types";
 import { REGISTER_VEHICLE_PAGE, REQUEST_MAINTENANCE_VEHICLE_PAGE } from "../constants/routes";
 
-export const vehicleData: VehicleData[] = [
-  {
-    id: "1",
-    name: "Beat Honda 2021",
-    licenseNumber: "B 1234 SBO",
-    type: "matic",
-    condition: 20,
-  },
-  {
-    id: "2",
-    name: "Supra X 125 2018",
-    licenseNumber: "AG 1234 BGH",
-    type: "manual",
-    condition: 80,
-  },
-];
+
 
 export const featuresData: FeatureData[] = [
   {
@@ -28,7 +13,7 @@ export const featuresData: FeatureData[] = [
   {
     title: constants.features.registerVehicle.title,
     image: constants.features.registerVehicle.poster,
-    path: (REGISTER_VEHICLE_PAGE),
+    path: (REGISTER_VEHICLE_PAGE), 
   },
 ];
 
@@ -74,6 +59,33 @@ export const notificationData = [
     description: "Kamu akan dapat pesan dari mekanik kami.",
     status: 1,
     date: Date.now(),
+  },
+];
+
+export const componentsData = [
+  {
+    name: "Mesin",
+    condition: 90,
+  },
+  {
+    name: "Aki",
+    condition: 70,
+  },
+  {
+    name: "Busi",
+    condition: 100,
+  },
+  {
+    name: "Rem",
+    condition: 30,
+  },
+  {
+    name: "Oli",
+    condition: 20,
+  },
+  {
+    name: "Rantai",
+    condition: 45,
   },
 ];
 

@@ -28,6 +28,7 @@ import {
   VehicleDetailsPage,
   UpdateProfilePage,
   VehicleListPage,
+  VehiclePartsPage,
 } from "@/pages";
 import { AdminDashboardPage } from "@/pages/_admin";
 import { RegisterPageMobile } from "@/mobile";
@@ -117,6 +118,10 @@ const privateRoutes: RouteObject = {
             {
               path: APP.VEHICLE_LIST_PAGE,
               element: <VehicleListPage />,
+            },
+            {
+              path: APP.VEHICLE_PARTS_PAGE,
+              element: <VehiclePartsPage />,
             },
             {
               path: APP.VERIFY_PASSWORD_PAGE,

@@ -3,6 +3,7 @@ import { VehicleType } from "@/lib/types";
 type ICustomer = "customer";
 
 export type IVehicleStatus = "pending" | "approved";
+export type IUserRole = "admin" | "customer";
 
 export interface IUser {
   name: string;
@@ -15,7 +16,7 @@ export interface IUserResponse {
   userId: string;
   name: string;
   email: string;
-  role: "admin" | "customer";
+  role: IUserRole;
 }
 
 export interface IToken {
@@ -56,4 +57,15 @@ export interface IVehicleResponse {
   condition: number;
   purchasingDate: string;
   status: IVehicleStatus;
+}
+
+export interface IChangePasswordData {
+  userId: string;
+  oldPassword: string;
+  newPassword: string;
+}
+
+export interface IForgotPasswordUser {
+  token: string | undefined;
+  newPassword: string;
 }

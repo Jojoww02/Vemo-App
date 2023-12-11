@@ -9,8 +9,6 @@ interface Props {
 }
 
 export default function VehicleCard({ vehicleData }: Props): JSX.Element {
-  
-  console.log("vehicledata", vehicleData);
   return vehicleData.status === "approved" ? (
     <div className="flex px-4 md:py-2 gap-6 w-full lg:px-8 bg-white rounded-xl shadow-[0px_3px_7px_5px_#00000040]">
       <div className="self-center">
@@ -37,9 +35,9 @@ export default function VehicleCard({ vehicleData }: Props): JSX.Element {
       </div>
     </div>
   ) : (
-    <div className="w-full flex-col text-center border-dashed rounded-2xl border-[3px] h-24 sm:h-28 md:h-[7.8rem] lg:h-[8.5rem] flex justify-center items-center text-white text-xs xs:text-base lg:text-xl">
+    <div className="w-full gap-2 flex-col text-center border-dashed rounded-2xl border-[3px] h-24 sm:h-28 md:h-[7.8rem] lg:h-[8.5rem] flex justify-center items-center text-white text-xs xs:text-base lg:text-xl">
       <Timer className="text-white" size={35} />
-      <h1 className="text-white xs:text-base lg:text-xl xl:text-2xl w-4/5">Opps! anda belum mendaftarkan kendaraan anda, daftar dulu yuk!</h1>
+      <h1 className="text-white text-sm w-4/5">{`Kendaraan ${vehicleData.name} dengan plat ${vehicleData.licenseNumber} anda sedang status pending `}</h1>
     </div>
   );
 }

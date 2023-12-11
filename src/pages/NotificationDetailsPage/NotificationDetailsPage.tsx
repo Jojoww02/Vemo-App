@@ -1,4 +1,3 @@
-import React from "react";
 import IconArrow from "../../assets/notification/Icon-arrow.svg";
 import MailIcon from "../../assets/notification/Icon-mail copy.svg";
 import { useNavigate } from "react-router-dom";
