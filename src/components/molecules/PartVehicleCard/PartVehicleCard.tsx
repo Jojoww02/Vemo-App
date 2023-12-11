@@ -18,6 +18,7 @@ export default function PartVehicleCard({ title, image, condition }: PartVehicle
         {/* <img src={selectImage} alt="" className="absolute top-1 right-1 md:top-1 md:right xl:right-1" />
 
         <img src={selectButtonImage} alt="" className="absolute top-[.85rem] right-[.75rem] xl:right-3" /> */}
+        <input type="checkbox" className="absolute top-2 right-8 border-hidden rounded-full h-5 w-5"/>
         <div className="flex items-center py-1">
           <div className="xl:w-[17rem] w-[11rem] xs:w-[18rem] sm:w-[17rem] md:w-[34rem] h-2 bg-slate-600 rounded-full">
             <div className={`h-2 rounded-full ${condition <= 30 ? "bg-red-400" : condition <= 60 ? "bg-yellow-400" : "bg-green-400"}`} style={{ width: `${condition?.toString()}%` }}></div>

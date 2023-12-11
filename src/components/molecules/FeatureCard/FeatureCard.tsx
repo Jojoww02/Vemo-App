@@ -28,7 +28,7 @@ export default function FeatureCard(props: IProps): JSX.Element {
           path && navigate(path)
         }}
       />
-      <h1 className="absolute text:text-xs xs:text-2xl sm:text-3xl lg:text-4xl px-1 w-[80%] bottom-5 left-5 md:bottom-10 md:left-10 font-bold text-white cursor-pointer">
+      <h1 className="absolute text-lg xs:text-2xl sm:text-3xl lg:text-4xl px-1 w-[80%] bottom-7 left-5 md:bottom-10 md:left-10 font-bold text-white cursor-pointer">
         {title}
       </h1>
     </div>

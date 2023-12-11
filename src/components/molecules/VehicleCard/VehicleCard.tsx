@@ -36,8 +36,8 @@ export default function VehicleCard({ vehicleData }: Props): JSX.Element {
     </div>
   ) : (
     <div className="w-full gap-2 flex-col text-center border-dashed rounded-2xl border-[3px] h-24 sm:h-28 md:h-[7.8rem] lg:h-[8.5rem] flex justify-center items-center text-white text-xs xs:text-base lg:text-xl">
-      <Timer className="text-white" size={35} />
-      <h1 className="text-white text-sm w-4/5">{`Kendaraan ${vehicleData.name} dengan plat ${vehicleData.licenseNumber} anda sedang status pending `}</h1>
+      <Timer className="text-white" size={25} />
+      <h1 className="text-white text-xs xs:text-sm w-4/5 ">{`Kendaraan ${vehicleData.name} dengan plat ${vehicleData.licenseNumber} anda sedang status pending `}</h1>
     </div>
   );
 }

@@ -5,3 +5,4 @@ export { default as ForgotPasswordRequestPageMobile } from "./ForgotPasswordRequ
 export { default as ProfilePageMobile } from "./ProfilePageMobile";
 export { default as RegisterVehiclePageMobile } from "./RegisterVehiclePageMobile";
 export { default as VehicleDetailPageMobile } from "./VehicleDetailPageMobile";
+export { default as RequestMaintenanceVehiclePageMobile } from "./RequestMaintenanceVehiclePageMobile";
