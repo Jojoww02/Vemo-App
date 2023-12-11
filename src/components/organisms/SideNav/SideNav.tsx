@@ -7,7 +7,7 @@ import { History, Info } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import useLogoutUser from "@/hooks/useLogoutUser";
 import IconVemo from "../../../assets/iconVemo.svg";
-import { DASHBOARD_PAGE } from "@/lib/constants/routes";
+import { ADMIN_DASHBOARD_PAGE, DASHBOARD_PAGE } from "@/lib/constants/routes";
 
 const sideBarItem = [
   {
@@ -36,16 +36,16 @@ export default function SideNav() {
       </div>
 
       <Separator className="w-full flex mt-16 bg-[#898989]" />
-
-      <div className="flex flex-col absolute mt-7 left-7 gap-5 text-[#898989]">
-        {sideBarItem.map((item, index) => (
-          <div key={index} className={cn("flex cursor-pointer font-medium text-lg items-center")} onClick={() => item.navigateTo && navigate(item.navigateTo)}>
-            {item.icon}
-            <span className={cn("ml-5", !isSideNavOpen && "hidden")}>{item.title}</span>
-          </div>
-        ))}
-      </div>
-
+      {window.location.pathname !== ADMIN_DASHBOARD_PAGE && (
+          <div className="flex flex-col absolute mt-7 left-7 gap-5 text-[#898989]">
+          {sideBarItem.map((item, index) => (
+            <div key={index} className={cn("flex cursor-pointer font-medium text-lg items-center")} onClick={() => item.navigateTo && navigate(item.navigateTo)}>
+              {item.icon}
+              <span className={cn("ml-5", !isSideNavOpen && "hidden")}>{item.title}</span>
+            </div>
+          ))}
+        </div>
+      )}
       <div className="absolute bottom-10 left-6 text-[#898989] cursor-pointer font-medium text-lg flex items-center" onClick={handleLogoutUser}>
         <IconLogout2 size={35} />
         <span className={cn("ml-5", !isSideNavOpen && "hidden")}>Logout</span>

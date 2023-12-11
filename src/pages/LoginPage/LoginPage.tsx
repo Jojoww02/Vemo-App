@@ -51,7 +51,7 @@ export default function LoginPage(): JSX.Element {
           <div className="absolute left-0 top-0 w-full h-full bg-black bg-opacity-30"></div>
 
           {/* Card */}
-          <div className="w-[37%] xl:w-[30%] xl:h-[80%] h-[75%] 2xl:h-[75%] p-8 rounded-[2rem] bg-white z-10 shadow-[0px_2px_7px_5px_#00000040]">
+          <div className="w-[35%] xl:w-[30%] h-[80%] p-8 rounded-[2rem] bg-white z-10 shadow-[0px_2px_7px_5px_#00000040]">
             <p className="font-bold text-dark text-xl xl:text-3xl text-center">
               Welcome back! Glad to see you, Again!
             </p>

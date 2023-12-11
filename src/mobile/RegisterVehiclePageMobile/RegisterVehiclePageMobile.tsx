@@ -22,14 +22,6 @@ export default function RegisterVehiclePageMobile() {
   const { registerVehicle } = useMutateVehicle();
 
   async function handleRegisterVehicle(data: RegisterVehicle) {
-    // await registerVehicle.mutateAsync({
-    //   ownerName: data.fullName,
-    //   vehicleName: data.vehicleName,
-    //   licenseNumber: data.licenseNumber,
-    //   vehicleType: data.vehicleType,
-    //   purchasingDate: new Date(data.purchasingDate).toISOString(),
-    //   userId: (user as IUserResponse).userId,
-    // });
     console.log({
       ownerName: data.fullName,
       vehicleName: data.vehicleName,

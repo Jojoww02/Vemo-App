@@ -17,8 +17,9 @@ import IconVemo from "../../../assets/iconVemo.svg";
 import { cn } from "@/lib/utils/style";
 import { IconLogout2 } from "@tabler/icons-react";
 import { useState } from "react";
-import { ABOUT_US_PAGE, DASHBOARD_PAGE, INDEX_PAGE, PROFILE_PAGE } from "@/lib/constants/routes";
+import { ABOUT_US_PAGE, ADMIN_DASHBOARD_PAGE, DASHBOARD_PAGE, INDEX_PAGE, PROFILE_PAGE } from "@/lib/constants/routes";
 import useLogoutUser from "@/hooks/useLogoutUser";
+import useWindowPathname from "@/hooks/useWindowPathname";
 
 interface SideBarItem {
   title: string;
@@ -44,6 +45,8 @@ export default function TopBar() {
   };
 
   const { handleLogoutUser } = useLogoutUser();
+
+  const isWindow = useWindowPathname()
 
   const sideBarItem: SideBarItem[] = [
     {
@@ -104,12 +107,19 @@ export default function TopBar() {
             </div>
           </SheetContent>
         </Sheet>
-        <Link to={DASHBOARD_PAGE}>
-          <h1 className="font-bold text-[#F4B400] text-xl xs:text-2xl lg:text-3xl italic">Dashboard</h1>
-        </Link>
+        {isWindow? (
+          <Link to={DASHBOARD_PAGE}>
+            <h1 className="font-bold text-[#F4B400] text-xl xs:text-2xl lg:text-3xl italic">Dashboard</h1>
+          </Link>
+        ):(
+          <Link to={DASHBOARD_PAGE}>
+            <h1 className="font-bold text-[#F4B400] text-xl xs:text-2xl lg:text-3xl italic">Admin Dashboard</h1>
+          </Link>
+        )}
       </span>
-
-      <NotificationIcon notificationCount={12} />
+      {window.location.pathname !== ADMIN_DASHBOARD_PAGE && (
+        <NotificationIcon notificationCount={12} />
+      )}
     </header>
   );
 }
