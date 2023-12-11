@@ -1,3 +1,4 @@
+import React from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import gradient from "../../assets/requestPageImage/gradient-img.svg";
 import ImageVehicle from "../../assets/requestPageImage/register-vehicle-mobile-image.png";
@@ -5,7 +6,11 @@ import { useQuery } from "@tanstack/react-query";
 import useMutateVehicle from "@/hooks/useMutateVehicle";
 import { Button, Input } from "@/components/atoms";
 import { VehicleType } from "@/lib/types";
-import { IUserResponse } from "@/api/types";
+import { IUserResponse, IVehicleResponse } from "@/api/types";
+import { useNavigate } from "react-router-dom";
+import { getVehiclesByUserIdFn } from "@/api/services/vehicle";
+import { DASHBOARD_PAGE } from "@/lib/constants/routes";
+
 
 interface RegisterVehicle {
   fullName: string;
@@ -16,13 +21,13 @@ interface RegisterVehicle {
 }
 
 export default function RegisterVehiclePageMobile() {
-  const { data: user } = useQuery<IUserResponse>({ queryKey: ["me"] });
+  const navigate = useNavigate();
   const methods = useForm<RegisterVehicle>();
-
+  const { data: user } = useQuery<IUserResponse>({ queryKey: ["me"] });
   const { registerVehicle } = useMutateVehicle();
 
   async function handleRegisterVehicle(data: RegisterVehicle) {
-    console.log({
+    registerVehicle.mutateAsync({
       ownerName: data.fullName,
       vehicleName: data.vehicleName,
       licenseNumber: data.licenseNumber,
@@ -31,6 +36,17 @@ export default function RegisterVehiclePageMobile() {
       userId: (user as IUserResponse).userId,
     });
   }
+
+  const { data: vehicles, isSuccess } = useQuery({
+    queryKey: ["vehicles"],
+    queryFn: async () => await getVehiclesByUserIdFn((user as IUserResponse).userId),
+  });
+
+  React.useEffect(() => {
+    if (registerVehicle.isSuccess) {
+      navigate(DASHBOARD_PAGE);
+    }
+  }, [registerVehicle.isSuccess]);
 
   return (
     <main className="flex flex-col gap-8 mb-10">
@@ -104,6 +120,7 @@ export default function RegisterVehiclePageMobile() {
                   className="py-6 text-lg font-semibold"
                   type="submit"
                   isLoading={registerVehicle.isPending}
+                  disabled={isSuccess && (vehicles as IVehicleResponse[]).some((vehicle) => vehicle.status === "pending")}
                 >
                   Send
                 </Button>

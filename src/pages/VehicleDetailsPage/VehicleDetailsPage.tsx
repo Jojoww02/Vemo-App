@@ -58,7 +58,7 @@ export default function VehicleDetailsPage() {
           <div className="lg:w-1/2 bg-[#F7F8F9] rounded-xl py-5 px-5 h-full min-h-[660px]">
             <div className="w-full flex flex-col justify-center items-center">
               <VehicleIcon type={isSuccess ? (vehicle as IVehicleResponse).type : "matic"} />
-              <h1 className="font-semibold text-xl mt-4 devide mb-5">{isSuccess && (vehicle as IVehicleResponse).name}</h1>
+              <h1 className="font-semibold text-xl lg:text-2xl mt-4 devide mb-5">{isSuccess && (vehicle as IVehicleResponse).name}</h1>
             </div>
             <div>
               <Tabs defaultValue="account" className="w-full flex flex-col justify-center">
@@ -71,19 +71,19 @@ export default function VehicleDetailsPage() {
                   </TabsTrigger>
                 </TabsList>
                 <TabsContent value="account">
-                  <div className="text-start pl-6 mt-10 sm:text-2xl flex flex-col gap-6">
-                    <h1 className="font-semibold text-2xl sm:text-2xl">Motorcycle Information</h1>
+                  <div className="text-start mt-5 sm:text-2xl flex flex-col gap-6">
+                    <h1 className="font-semibold text-lg sm:text-2xl">Motorcycle Information</h1>
                     <div className="flex flex-col gap-2">
                       <div className="flex gap-2">
                         <IconUser />
-                        <h4 className="text-xl">Owner Name :</h4>
+                        <h4 className="text-lg lg:text-xl">Owner Name :</h4>
                       </div>
                       <div className="text-lg">{isSuccess && (vehicle as IVehicleResponse).ownerName}</div>
                     </div>
                     <div className="flex flex-col gap-2">
                       <div className="flex gap-2">
                         <IconBike />
-                        <h4 className="text-xl">Vehicle Name And Type :</h4>
+                        <h4 className="text-lg lg:text-xl">Vehicle Name And Type :</h4>
                       </div>
                       <div className="text-lg">
                         {isSuccess && (vehicle as IVehicleResponse).name} | {isSuccess && (vehicle as IVehicleResponse).type}
@@ -92,7 +92,7 @@ export default function VehicleDetailsPage() {
                     <div className="flex flex-col gap-2">
                       <div className="flex gap-2">
                         <IconCalendarEvent />
-                        <h4 className="text-xl">Date Vehicle Purchase :</h4>
+                        <h4 className="text-lg lg:text-xl">Date Vehicle Purchase :</h4>
                       </div>
                       <div className="text-lg">{isSuccess && format(new Date((vehicle as IVehicleResponse).purchasingDate), "dd MMMM yyyy", { locale: id })}</div>
                     </div>
@@ -120,32 +120,32 @@ export default function VehicleDetailsPage() {
           <div className="lg:w-1/2 lg:bg-[#F7F8F9] rounded-xl py-5 px-5 h-full min-h-[660px]">
             <h1 className="text-[#898989] py-2 px-4 text-lg">Condiotion Part :</h1>
             <div className="w-full px-2 flex mt-7 mb-10 flex-col gap-5 justify-center h-[28rem]  overflow-y-auto">
-              <div className="flex gap-4">
-                <img src={"/machine.svg"} alt="" className="w-24" />
+              <div className="flex gap-4 mt-9">
+                <img src={"/machine.svg"} alt="" className="w-16 lg:w-24" />
                 <p className="font-bold text-xl">Mesin Motor</p>
               </div>
               <div className="flex gap-4">
-                <img src={"/oil.svg"} alt="" className="w-24" />
+                <img src={"/oil.svg"} alt="" className="w-16 lg:w-24" />
                 <p className="font-bold text-xl">Oli Motor</p>
               </div>
               <div className="flex gap-4">
-                <img src={"/busi.svg"} alt="" className="w-24" />
+                <img src={"/busi.svg"} alt="" className="w-16 lg:w-24" />
                 <p className="font-bold text-xl">Busi Motor</p>
               </div>
               <div className="flex gap-4">
-                <img src={"/aki.svg"} alt="" className="w-24" />
+                <img src={"/aki.svg"} alt="" className="w-16 lg:w-24" />
                 <p className="font-bold text-xl">Aki Motor</p>
               </div>
               <div className="flex gap-4">
-                <img src={"/chain.svg"} alt="" className="w-24" />
+                <img src={"/chain.svg"} alt="" className="w-16 lg:w-24" />
                 <p className="font-bold text-xl">Rantai Motor</p>
               </div>
               <div className="flex gap-4">
-                <img src={"/rem.svg"} alt="" className="w-24" />
+                <img src={"/rem.svg"} alt="" className="w-16 lg:w-24" />
                 <p className="font-bold text-xl">Rem Motor</p>
               </div>
             </div>
-            <div className="w-full flex flex-col justify-center px-10 ">
+            <div className="w-full flex flex-col justify-center mb-10 ">
               <Button onClick={() => navigate(VEHICLE_PARTS_PAGE)}>Request Perawatan</Button>
             </div>
           </div>

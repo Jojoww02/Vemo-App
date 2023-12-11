@@ -1,7 +1,7 @@
 import zod from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { FormProvider, useForm, SubmitHandler } from "react-hook-form";
-import { Button, Input } from "@/components/atoms";
+import { AlertForm, Button, Input } from "@/components/atoms";
 import { isObjectEmpty } from "@/lib/utils/common";
 import { Link } from "react-router-dom";
 import useMutateAuth from "@/hooks/useMutateAuth";
@@ -120,19 +120,10 @@ export default function HomePage(): JSX.Element {
                   className="flex-col flex gap-4"
                 >
                   {registerUser.isError && (
-                    <Alert variant="destructive" className="flex items-center">
-                      <div className="mr-4">
-                        <AlertTriangle />
-                      </div>
-                      <div>
-                        <AlertTitle>
-                          {(registerUser.error as any).response.data.message}
-                        </AlertTitle>
-                        <AlertDescription>
-                          {(registerUser.error as any).response.data.errors}
-                        </AlertDescription>
-                      </div>
-                    </Alert>
+                   <AlertForm 
+                   title={(registerUser.error as any).response.data.message} 
+                   description={(registerUser.error as any).response.data.errors} 
+                 />
                   )}
                   <Input
                     name="name"

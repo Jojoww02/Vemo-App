@@ -19,8 +19,8 @@ interface RegisterVehicle {
   licenseNumber: string;
 }
 
-export default function RegisterVehiclePage() {
-  const isMobile = useMobile();
+  export default function RegisterVehiclePage() {
+    const isMobile = useMobile();
   const navigate = useNavigate();
   const methods = useForm<RegisterVehicle>();
   const { data: user } = useQuery<IUserResponse>({ queryKey: ["me"] });
@@ -77,7 +77,8 @@ export default function RegisterVehiclePage() {
                   <Input name="purchasingDate" label="Tanggal Pembelian Kendaraan" isFill={methods.watch().purchasingDate?.toString()} placeholder="Input your password" type="date" />
                   <Input name="licenseNumber" label="Plat Nomor" isFill={methods.watch().licenseNumber} placeholder="Confirm your password" type="text" />
                   <div className="flex flex-col gap-2 mt-7">
-                    <Button className="py-6 text-lg font-semibold" type="submit" isLoading={registerVehicle.isPending} disabled={isSuccess && (vehicles as IVehicleResponse[]).some((vehicle) => vehicle.status === "pending")}>
+                    <Button className="py-6 text-lg font-semibold" type="submit" isLoading={registerVehicle.isPending} 
+                    disabled={isSuccess && (vehicles as IVehicleResponse[]).some((vehicle) => vehicle.status === "pending")}>
                       Send
                     </Button>
                   </div>

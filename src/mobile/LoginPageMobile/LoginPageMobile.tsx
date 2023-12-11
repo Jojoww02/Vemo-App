@@ -2,7 +2,7 @@ import zod from "zod"
 import useMutateAuth from "@/hooks/useMutateAuth";
 import { FORGOT_PASSWORD_REQUEST_PAGE, REGISTER_USER_PAGE } from "@/lib/constants/routes";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Button, Input } from "@/components/atoms";
+import { AlertForm, Button, Input } from "@/components/atoms";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { isObjectEmpty } from "@/lib/utils/common";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
@@ -44,19 +44,8 @@ export default function LoginPageMobile():JSX.Element {
                 className="flex-col w-full flex gap-5"
             >
                 {loginUser.isError && (
-                    <Alert variant="destructive" className="flex items-center">
-                        <div className="mr-4">
-                            <AlertTriangle />
-                        </div>
-                        <div>
-                        <AlertTitle>
-                            {(loginUser.error as any).response.data.message}
-                        </AlertTitle>
-                        <AlertDescription>
-                            {(loginUser.error as any).response.data.errors}
-                        </AlertDescription>
-                        </div>
-                    </Alert>
+                  <AlertForm title={(loginUser.error as any).response.data.message}
+                  description={(loginUser.error as any).response.data.errors} />
                 )}
                 <Input
                     name="email"
