@@ -118,7 +118,7 @@ export default function VehicleDetailsPage() {
             </div>
           </div>
           <div className="lg:w-1/2 lg:bg-[#F7F8F9] rounded-xl py-5 px-5 h-full min-h-[660px]">
-            <h1 className="text-[#898989] py-2 px-4 text-lg">Condiotion Part :</h1>
+            <h1 className="text-[#898989] py-2 px-4 text-lg">Condition Part :</h1>
             <div className="w-full px-2 flex mt-7 mb-10 flex-col gap-5 justify-center h-[28rem]  overflow-y-auto">
               <div className="flex gap-4 mt-9">
                 <img src={"/machine.svg"} alt="" className="w-16 lg:w-24" />
