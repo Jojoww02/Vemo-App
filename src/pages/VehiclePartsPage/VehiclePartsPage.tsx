@@ -1,6 +1,7 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
 import IconArrow from "../../assets/notification/Icon-arrow.svg";
+import PartVehicleCard from "@/components/molecules/PartVehicleCard";
+import { useNavigate } from "react-router-dom";
 import PartVehicleCard from "@/components/molecules/PartVehicleCard";
 import { useNavigate } from "react-router-dom";
 import { REQUEST_MAINTENANCE_VEHICLE_PAGE } from "@/lib/constants/routes";
@@ -27,10 +28,6 @@ import {
   DialogTrigger
 } 
 from "@/components/ui/dialog";
-import { Button, Input } from "@/components/atoms";
-import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
-import { useQuery } from "@tanstack/react-query";
-import { IUserResponse } from "@/api/types";
 
 interface RequestMaintenanceVehicle {
   emailAndPhoneNumber: string;
@@ -48,14 +45,27 @@ interface RequestMaintenanceVehicle {
   notesMechanic: string;
 }
 
-export default function VehiclePartsPage({ showCircle }: VehiclePartsPageProps) {
+export default function VehiclePartsPage(): JSX.Element {
   const methods = useForm<RequestMaintenanceVehicle>();
+
   const onSubmitHandler: SubmitHandler<RequestMaintenanceVehicle> = async(data) => {
-    console.log(data)
+    console.log('Form Data', data)
+
+    const selectedCheckboxes = checkboxStates.map((checked, index) => ({
+      name: componentsData[index]?.name,
+      checked: checked,
+    }));
+
+    console.log('Selected Checkboxes:', selectedCheckboxes);
   };
+
   const { data: user } = useQuery<IUserResponse>({ queryKey: ["me"] });
-  const [iShowCircle, setIsShowCircle] = React.useState(true);
+
   const navigate = useNavigate();
+
+  const [checkboxStates, setCheckboxStates] = React.useState(componentsData.map(() => false));
+
+  const [selectAllText, setSelectAllText] = React.useState("Select All");
   const [checkboxStates, setCheckboxStates] = React.useState(componentsData.map(() => false));
   const [selectAllText, setSelectAllText] = React.useState("Select All");
   const [checkboxStates, setCheckboxStates] = React.useState(componentsData.map(() => false));
@@ -106,7 +116,6 @@ export default function VehiclePartsPage({ showCircle }: VehiclePartsPageProps) 
                 title={component?.name} 
                 condition={component?.condition} 
                 image={component?.name} 
-                showCircle={iShowCircle ? showCircle : undefined}
                 checked={checkboxStates[index]}
                 onCheckboxChange={() => handleCheckboxChange(index)}
               />
@@ -123,6 +132,52 @@ export default function VehiclePartsPage({ showCircle }: VehiclePartsPageProps) 
             <button type="button" className="py-3 text-white rounded-md text-base bg-primary xl:text-lg font-medium w-full">
                   Request Perawatan
                 </button>
+          </DialogTrigger>
+          <DialogContent className="sm:w-[500px] sm:h-[500px] bg-white">
+            <DialogHeader className="flex flex-col items-center justify-center">
+              <DialogTitle className="text-2xl font-semibold">Form Request Perawatan</DialogTitle>
+              <DialogDescription className="text-center">
+                Silahkan isi form berikut untuk merequest perawatan kendaraan
+              </DialogDescription>
+            </DialogHeader>
+              <div className="w-full flex flex-col px-7">
+                <FormProvider {...methods}>
+                  <form
+                    autoComplete="off"
+                    className="flex flex-col gap-5"
+                    onSubmit={methods.handleSubmit(onSubmitHandler)}
+                  >
+                  <Input
+                    defaultValue={(user as IUserResponse).email}
+                    name="emailAndPhoneNumber" 
+                    label="Email/Phone Number" 
+                    isFill={methods.watch().emailAndPhoneNumber} 
+                    placeholder="Enter Email/Phone Number" 
+                    type="text" 
+                  />
+                  <Input 
+                    name="distanceVehicle" 
+                    label="Distance Vehicle / km" 
+                    isFill={methods.watch().distanceVehicle} 
+                    placeholder="Enter Distance Vehicle" 
+                    type="number"
+                    min={0}
+                  />
+                  <Input 
+                    name="notesMechanic" 
+                    label="Notes for Mechanic" 
+                    isFill={methods.watch().notesMechanic} 
+                    placeholder="Enter Notes for Mechanic" 
+                    type="text" 
+                  />
+                  <Button type="submit" className="py-6 mt-4 text-lg font-semibold">
+                    Enter
+                  </Button>
+                </form>
+              </FormProvider>
+            </div>
+          </DialogContent>
+        </Dialog>
           </DialogTrigger>
           <DialogContent className="sm:w-[500px] sm:h-[500px] bg-white">
             <DialogHeader className="flex flex-col items-center justify-center">
