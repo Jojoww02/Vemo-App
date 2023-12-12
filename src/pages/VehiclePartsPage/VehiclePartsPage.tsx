@@ -1,22 +1,49 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-
 import IconArrow from "../../assets/notification/Icon-arrow.svg";
+import PartVehicleCard from "@/components/molecules/PartVehicleCard";
+import { useNavigate } from "react-router-dom";
 import { REQUEST_MAINTENANCE_VEHICLE_PAGE } from "@/lib/constants/routes";
 import { componentsData } from "@/lib/data";
-import PartVehicleCard from "@/components/molecules/PartVehicleCard";
+import { Button, Input } from "@/components/atoms";
+import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
+import { useQuery } from "@tanstack/react-query";
+import { IUserResponse } from "@/api/types";
+import { 
+  Dialog, 
+  DialogContent, 
+  DialogDescription, 
+  DialogHeader, 
+  DialogTitle, 
+  DialogTrigger
+} 
+from "@/components/ui/dialog";
 
-interface VehiclePartsPageProps {
-  showCircle?: string | undefined;
+interface RequestMaintenanceVehicle {
+  emailAndPhoneNumber: string;
+  distanceVehicle: string;
+  notesMechanic: string;
 }
 
-export default function VehiclePartsPage({ showCircle }: VehiclePartsPageProps) {
-  const [iShowCircle, setIsShowCircle] = React.useState(true);
-  const navigate = useNavigate();
-  // const [open, setOpen] = React.useState(false);
+export default function VehiclePartsPage(): JSX.Element {
+  const methods = useForm<RequestMaintenanceVehicle>();
 
-  // const onOpenModal = () => setOpen(true);
-  // const onCloseModal = () => setOpen(false);
+  const onSubmitHandler: SubmitHandler<RequestMaintenanceVehicle> = async(data) => {
+    console.log('Form Data', data)
+
+    const selectedCheckboxes = checkboxStates.map((checked, index) => ({
+      name: componentsData[index]?.name,
+      checked: checked,
+    }));
+
+    console.log('Selected Checkboxes:', selectedCheckboxes);
+  };
+
+  const { data: user } = useQuery<IUserResponse>({ queryKey: ["me"] });
+
+  const navigate = useNavigate();
+  const [checkboxStates, setCheckboxStates] = React.useState(componentsData.map(() => false));
+  const [selectAllText, setSelectAllText] = React.useState("Select All");
 
   const handleClickSelectAll = () => {
     setIsShowCircle((prevShowCircle) => !prevShowCircle);
@@ -39,16 +66,70 @@ export default function VehiclePartsPage({ showCircle }: VehiclePartsPageProps) 
         <div className="flex w-full">
           <div className="w-full flex flex-wrap lg:justify-evenly pt-5 gap-2">
             {componentsData.map((component, index) => (
-              <PartVehicleCard key={index} title={component?.name} condition={component?.condition} image={component?.name} showCircle={iShowCircle ? showCircle : undefined} />
+              <PartVehicleCard 
+                key={index} 
+                title={component?.name} 
+                condition={component?.condition} 
+                image={component?.name} 
+                checked={checkboxStates[index]}
+                onCheckboxChange={() => handleCheckboxChange(index)}
+              />
             ))}
           </div>
         </div>
       </div>
       {/* Button */}
       <div className="w-full flex place-items-center pt-7 px-14 xs:px-24 sm:px-20 lg:px-48 mb-10">
-        <button type="button" className="py-3 text-white rounded-md text-base bg-primary xl:text-lg font-medium w-full">
-          Request Perawatan
-        </button>
+        <Dialog>
+          <DialogTrigger asChild>
+            <button type="button" className="py-3 text-white rounded-md text-base bg-primary xl:text-lg font-medium w-full">
+              Request Perawatan
+            </button>
+          </DialogTrigger>
+          <DialogContent className="sm:w-[500px] sm:h-[500px] bg-white">
+            <DialogHeader className="flex flex-col items-center justify-center">
+              <DialogTitle className="text-2xl font-semibold">Form Request Perawatan</DialogTitle>
+              <DialogDescription className="text-center">
+                Silahkan isi form berikut untuk merequest perawatan kendaraan
+              </DialogDescription>
+            </DialogHeader>
+              <div className="w-full flex flex-col px-7">
+                <FormProvider {...methods}>
+                  <form
+                    autoComplete="off"
+                    className="flex flex-col gap-5"
+                    onSubmit={methods.handleSubmit(onSubmitHandler)}
+                  >
+                  <Input
+                    defaultValue={(user as IUserResponse).email}
+                    name="emailAndPhoneNumber" 
+                    label="Email/Phone Number" 
+                    isFill={methods.watch().emailAndPhoneNumber} 
+                    placeholder="Enter Email/Phone Number" 
+                    type="text" 
+                  />
+                  <Input 
+                    name="distanceVehicle" 
+                    label="Distance Vehicle" 
+                    isFill={methods.watch().distanceVehicle} 
+                    placeholder="Enter Distance Vehicle" 
+                    type="number" 
+                  />
+                  <Input 
+                    name="notesMechanic" 
+                    label="Notes for Mechanic" 
+                    isFill={methods.watch().notesMechanic} 
+                    placeholder="Enter Notes for Mechanic" 
+                    type="text" 
+                  />
+                  <Button type="submit" className="py-6 mt-4 text-lg font-semibold">
+                    Enter
+                  </Button>
+                </form>
+              </FormProvider>
+            </div>
+          </DialogContent>
+        </Dialog>
       </div>
 
       {/* <Modal open={open} center>
