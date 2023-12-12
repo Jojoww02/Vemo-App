@@ -1,4 +1,3 @@
-import React from "react"
 
 interface PartVehicleCardProps {
   title: string | undefined;
@@ -18,7 +17,7 @@ export default function PartVehicleCard({ title, image, condition, checked, onCh
         <p className="font-normal text-lg xl:text-lg ">Kondisi {title} Motor</p>
         <input 
           type="checkbox" 
-          className="absolute top-2 right-8 border-hidden rounded-full h-5 w-5"
+          className="absolute top-2 right-8 border-hidden rounded-full h-5 w-5 cursor-pointer"
           onChange={onCheckboxChange}
           checked={checked}
         />

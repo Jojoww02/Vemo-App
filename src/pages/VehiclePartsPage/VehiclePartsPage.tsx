@@ -4,18 +4,37 @@ import IconArrow from "../../assets/notification/Icon-arrow.svg";
 import { REQUEST_MAINTENANCE_VEHICLE_PAGE } from "@/lib/constants/routes";
 import { componentsData } from "@/lib/data";
 import PartVehicleCard from "@/components/molecules/PartVehicleCard";
+import { 
+  Dialog, 
+  DialogContent, 
+  DialogDescription, 
+  DialogHeader, 
+  DialogTitle, 
+  DialogTrigger
+} 
+from "@/components/ui/dialog";
+import { Button, Input } from "@/components/atoms";
+import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
+import { useQuery } from "@tanstack/react-query";
+import { IUserResponse } from "@/api/types";
 
 interface VehiclePartsPageProps {
   showCircle?: string | undefined;
 }
+interface RequestMaintenanceVehicle {
+  emailAndPhoneNumber: string;
+  distanceVehicle: string;
+  notesMechanic: string;
+}
 
 export default function VehiclePartsPage({ showCircle }: VehiclePartsPageProps) {
+  const methods = useForm<RequestMaintenanceVehicle>();
+  const onSubmitHandler: SubmitHandler<RequestMaintenanceVehicle> = async(data) => {
+    console.log(data)
+  };
+  const { data: user } = useQuery<IUserResponse>({ queryKey: ["me"] });
   const [iShowCircle, setIsShowCircle] = React.useState(true);
   const navigate = useNavigate();
-  // const [open, setOpen] = React.useState(false);
-
-  // const onOpenModal = () => setOpen(true);
-  // const onCloseModal = () => setOpen(false);
   const [checkboxStates, setCheckboxStates] = React.useState(componentsData.map(() => false));
   const [selectAllText, setSelectAllText] = React.useState("Select All");
 
@@ -74,25 +93,57 @@ export default function VehiclePartsPage({ showCircle }: VehiclePartsPageProps) 
       </div>
       {/* Button */}
       <div className="w-full flex place-items-center pt-7 px-14 xs:px-24 sm:px-20 lg:px-48 mb-10">
-        <button type="button" className="py-3 text-white rounded-md text-base bg-primary xl:text-lg font-medium w-full">
-          Request Perawatan
-        </button>
-      </div>
-
-      {/* <Modal open={open} center>
-        <div className="flex flex-col items-center justify-center gap-7">
-          <h1 className="modal py-8 text-center font-semibold text-3xl">Form Request Perawatan</h1>
-          <input className="w-[80%] outline-none py-4 text-black relative border-[1px] border-secondary rounded-lg p-1 px-4 font-medium text-lg" type="text" placeholder="Email/No.telp" />
-          <input className="w-[80%] outline-none py-4 text-black relative border-[1px] border-secondary rounded-lg p-1 px-4 font-medium text-lg" type="text" placeholder="Kilometer Awal" />
-          <textarea className="w-[80%] input-type outline-none pb-40 py-4 text-black relative border-[1px] border-secondary rounded-lg p-1 px-4 font-medium text-lg" placeholder="Notes For Mechanic" />
-          <div className="flex w-[50%] grid-cols-2 pb-5 space-x-3">
-            <Button bgColor="primary" title="Request Perawatan" />
-            <button className="py-3 text-white bg-dark rounded-md text-base xl:text-lg font-medium w-[60%]" onClick={onCloseModal}>
-              Cancel
+        <Dialog>
+          <DialogTrigger asChild>
+            <button type="button" className="py-3 text-white rounded-md text-base bg-primary xl:text-lg font-medium w-full">
+              Request Perawatan
             </button>
-          </div>
-        </div>
-      </Modal> */}
+          </DialogTrigger>
+          <DialogContent className="sm:w-[500px] sm:h-[500px] bg-white">
+            <DialogHeader className="flex flex-col items-center justify-center">
+              <DialogTitle className="text-2xl font-semibold">Form Request Perawatan</DialogTitle>
+              <DialogDescription className="text-center">
+                Silahkan isi form berikut untuk merequest perawatan kendaraan
+              </DialogDescription>
+            </DialogHeader>
+              <div className="w-full flex flex-col px-7">
+                <FormProvider {...methods}>
+                  <form
+                    autoComplete="off"
+                    className="flex flex-col gap-5"
+                    onSubmit={methods.handleSubmit(onSubmitHandler)}
+                  >
+                  <Input
+                    defaultValue={(user as IUserResponse).email}
+                    name="emailAndPhoneNumber" 
+                    label="Email/Phone Number" 
+                    isFill={methods.watch().emailAndPhoneNumber} 
+                    placeholder="Enter Email/Phone Number" 
+                    type="text" 
+                  />
+                  <Input 
+                    name="distanceVehicle" 
+                    label="Distance Vehicle" 
+                    isFill={methods.watch().distanceVehicle} 
+                    placeholder="Enter Distance Vehicle" 
+                    type="number" 
+                  />
+                  <Input 
+                    name="notesMechanic" 
+                    label="Notes for Mechanic" 
+                    isFill={methods.watch().notesMechanic} 
+                    placeholder="Enter Notes for Mechanic" 
+                    type="text" 
+                  />
+                  <Button type="submit" className="py-6 mt-4 text-lg font-semibold">
+                    Enter
+                  </Button>
+                </form>
+              </FormProvider>
+            </div>
+          </DialogContent>
+        </Dialog>
+      </div>
     </div>
   );
 }
