@@ -1,9 +1,13 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
 import IconArrow from "../../assets/notification/Icon-arrow.svg";
+import PartVehicleCard from "@/components/molecules/PartVehicleCard";
+import { useNavigate } from "react-router-dom";
 import { REQUEST_MAINTENANCE_VEHICLE_PAGE } from "@/lib/constants/routes";
 import { componentsData } from "@/lib/data";
-import PartVehicleCard from "@/components/molecules/PartVehicleCard";
+import { Button, Input } from "@/components/atoms";
+import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
+import { useQuery } from "@tanstack/react-query";
+import { IUserResponse } from "@/api/types";
 import { 
   Dialog, 
   DialogContent, 
@@ -13,29 +17,33 @@ import {
   DialogTrigger
 } 
 from "@/components/ui/dialog";
-import { Button, Input } from "@/components/atoms";
-import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
-import { useQuery } from "@tanstack/react-query";
-import { IUserResponse } from "@/api/types";
 
-interface VehiclePartsPageProps {
-  showCircle?: string | undefined;
-}
 interface RequestMaintenanceVehicle {
   emailAndPhoneNumber: string;
   distanceVehicle: string;
   notesMechanic: string;
 }
 
-export default function VehiclePartsPage({ showCircle }: VehiclePartsPageProps) {
+export default function VehiclePartsPage(): JSX.Element {
   const methods = useForm<RequestMaintenanceVehicle>();
+
   const onSubmitHandler: SubmitHandler<RequestMaintenanceVehicle> = async(data) => {
-    console.log(data)
+    console.log('Form Data', data)
+
+    const selectedCheckboxes = checkboxStates.map((checked, index) => ({
+      name: componentsData[index]?.name,
+      checked: checked,
+    }));
+
+    console.log('Selected Checkboxes:', selectedCheckboxes);
   };
+
   const { data: user } = useQuery<IUserResponse>({ queryKey: ["me"] });
-  const [iShowCircle, setIsShowCircle] = React.useState(true);
+
   const navigate = useNavigate();
+
   const [checkboxStates, setCheckboxStates] = React.useState(componentsData.map(() => false));
+
   const [selectAllText, setSelectAllText] = React.useState("Select All");
 
   const handleClickSelectAll = () => {
@@ -83,7 +91,6 @@ export default function VehiclePartsPage({ showCircle }: VehiclePartsPageProps) 
                 title={component?.name} 
                 condition={component?.condition} 
                 image={component?.name} 
-                showCircle={iShowCircle ? showCircle : undefined}
                 checked={checkboxStates[index]}
                 onCheckboxChange={() => handleCheckboxChange(index)}
               />
@@ -123,10 +130,11 @@ export default function VehiclePartsPage({ showCircle }: VehiclePartsPageProps) 
                   />
                   <Input 
                     name="distanceVehicle" 
-                    label="Distance Vehicle" 
+                    label="Distance Vehicle / km" 
                     isFill={methods.watch().distanceVehicle} 
                     placeholder="Enter Distance Vehicle" 
-                    type="number" 
+                    type="number"
+                    min={0}
                   />
                   <Input 
                     name="notesMechanic" 
