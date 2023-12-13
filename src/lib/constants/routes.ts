@@ -28,18 +28,18 @@ export const ADMIN_DASHBOARD_PAGE = `${ADMIN_PAGE}/dashboard`;
 
 /* AUTH SERVICES */
 export const LOGIN_SERVICE = "auth/login";
-export const REGISTER_SERVICE = "auth/register";
-export const REFRESH_TOKEN_SERVICE = "auth/refresh-token";
+export const REFRESH_TOKEN_SERVICE = (accessToken: string | null) => `auth/refresh?accessToken=${accessToken}`;
+export const VERIFY_PASSWORD_USER_SERVICE = (password: string) => `auth/password?verify=${password}`;
+export const FORGOT_PASSWORD_REQUEST_SERVICE = (email: string) => `auth/password/reset?email=${email}`;
+export const FORGOT_PASSWORD_SERVICE = "auth/password/reset";
 export const SEND_OTP_SERVICE =  (email: string) => `auth/otp?email=${email}`;
-export const VERIFY_OTP_SERVICE = (otp: number) => `auth/otp/verify?otp=${otp}`;
-export const FORGOT_PASSWORD_SERVICE = "auth/forgot-password";
-export const FORGOT_PASSWORD_REQUEST_SERVICE = (email: string) => `auth/forgot-password?email=${email}`;
+export const VERIFY_OTP_SERVICE = (otp: number) => `auth/otp?verify=${otp}`;
 export const LOGOUT_SERVICE = "auth/logout";
 
 /* USERS SERVICES */
+export const REGISTER_USER_SERVICE = "users";
 export const UPDATE_USER_SERVICE = "users";
-export const GET_CURRENT_USER_SERVICE = "users/me";
-export const VERIFY_PASSWORD_USER_SERVICE = (password: string) => `users/password/verify?password=${password}`;
+export const GET_CURRENT_USER_SERVICE = "users/me"; //ini
 export const CHANGE_PASSWORD_SERVICE = "users/password";
 
 /* VEHICLE SERVICE */

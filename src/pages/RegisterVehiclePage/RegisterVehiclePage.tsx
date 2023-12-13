@@ -16,7 +16,7 @@ interface RegisterVehicle {
   vehicleName: string;
   vehicleType: VehicleType;
   purchasingDate: Date;
-  licenseNumber: string;
+  licensePlate: string;
 }
 
   export default function RegisterVehiclePage() {
@@ -30,8 +30,8 @@ interface RegisterVehicle {
     registerVehicle.mutateAsync({
       ownerName: data.fullName,
       vehicleName: data.vehicleName,
-      licenseNumber: data.licenseNumber,
       vehicleType: data.vehicleType,
+      licensePlate: data.licensePlate,
       purchasingDate: new Date(data.purchasingDate).toISOString(),
       userId: (user as IUserResponse).userId,
     });
@@ -75,7 +75,7 @@ interface RegisterVehicle {
                     <option value="manual">Manual</option>
                   </Input>
                   <Input name="purchasingDate" label="Tanggal Pembelian Kendaraan" isFill={methods.watch().purchasingDate?.toString()} placeholder="Input your password" type="date" />
-                  <Input name="licenseNumber" label="Plat Nomor" isFill={methods.watch().licenseNumber} placeholder="Confirm your password" type="text" />
+                  <Input name="licensePlate" label="Plat Nomor" isFill={methods.watch().licensePlate} placeholder="Confirm your password" type="text" />
                   <div className="flex flex-col gap-2 mt-7">
                     <Button className="py-6 text-lg font-semibold" type="submit" isLoading={registerVehicle.isPending} 
                     disabled={isSuccess && (vehicles as IVehicleResponse[]).some((vehicle) => vehicle.status === "pending")}>

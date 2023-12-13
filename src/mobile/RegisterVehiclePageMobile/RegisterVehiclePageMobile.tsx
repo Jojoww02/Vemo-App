@@ -17,7 +17,7 @@ interface RegisterVehicle {
   vehicleName: string;
   vehicleType: VehicleType;
   purchasingDate: Date;
-  licenseNumber: string;
+  licensePlate: string;
 }
 
 export default function RegisterVehiclePageMobile() {
@@ -30,7 +30,7 @@ export default function RegisterVehiclePageMobile() {
     registerVehicle.mutateAsync({
       ownerName: data.fullName,
       vehicleName: data.vehicleName,
-      licenseNumber: data.licenseNumber,
+      licensePlate: data.licensePlate,
       vehicleType: data.vehicleType,
       purchasingDate: new Date(data.purchasingDate).toISOString(),
       userId: (user as IUserResponse).userId,
@@ -109,9 +109,9 @@ export default function RegisterVehiclePageMobile() {
                 type="date"
               />
               <Input
-                name="licenseNumber"
+                name="licensePlate"
                 label="Plat Nomor"
-                isFill={methods.watch().licenseNumber}
+                isFill={methods.watch().licensePlate}
                 placeholder="Confirm your password"
                 type="text"
               />

@@ -32,7 +32,7 @@ privateApi.interceptors.response.use(
     ) {
       originalRequest._retry = true;
       try {
-        const data = await refreshTokenFn();
+        const data = await refreshTokenFn(getToken());
         setToken(data.accessToken);
       } catch (error) {
         if ((error as any).response.status === 403) {
