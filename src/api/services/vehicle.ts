@@ -23,6 +23,6 @@ export const getVehiclesByStatusFn = async (status: IVehicleStatus): Promise<IVe
 }
 
 export const approveVehicleFn = async (vehicleId: string) => {
-  const response = await privateApi.post(API.APPROVE_VEHICLE_SERVICE, {vehicleId});
+  const response = await privateApi.post(API.APPROVE_VEHICLE_SERVICE(vehicleId));
   return response.data;
 }
