@@ -1,5 +1,5 @@
 import { baseApi, privateApi } from "@/api";
-import { IGenericResponse, ICredentials, IToken, IUser, IForgotPasswordUser } from "@/api/types";
+import { IGenericResponse, ICredentials, IToken, IForgotPasswordUser } from "@/api/types";
 import * as API from "@/lib/constants/routes";
 
 export const loginUserFn = async (credentials: ICredentials): Promise<IToken> => {
