@@ -39,14 +39,14 @@ export default function DashboardPage(): JSX.Element {
                 (vehicles as IVehicleResponse[])
                   .slice(0, 2)
                   .map((vehicle: IVehicleResponse) => (
-                    <VehicleCard vehicleData={vehicle} key={vehicle.id} />
+                    <VehicleCard vehicleData={vehicle} key={vehicle.vehicleId} />
                   ))
               ) : (
                 <>
                   {(vehicles as IVehicleResponse[])
                     .slice(0, 1)
                     .map((vehicle: IVehicleResponse) => (
-                      <VehicleCard vehicleData={vehicle} key={vehicle.id} />
+                      <VehicleCard vehicleData={vehicle} key={vehicle.vehicleId} />
                     ))}
                   {/* Vehicle Pending Card  */}
                   <div className="w-full border-dashed rounded-2xl border-[3px] h-24 sm:h-28 md:h-[7.8rem] lg:h-32 flex justify-center items-center ">
