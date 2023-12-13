@@ -1,14 +1,20 @@
-import { privateApi } from "@/api";
+import { baseApi, privateApi } from "@/api";
 import * as API from "@/lib/constants/routes";
-import { IChangePasswordData, IGenericResponse, IUpdateUser, IUserResponse } from "@/api/types";
+import { IChangePasswordData, IGenericResponse, IToken, IUpdateUser, IUser, IUserResponse } from "@/api/types";
+
+export const registerUserFn = async (user: IUser): Promise<IToken> => {
+  const response = await baseApi.post<IToken>(API.REGISTER_USER_SERVICE, user);
+  return response.data;
+};
+
 
 export const getMeFn = async (): Promise<IUserResponse> => {
   const response = await privateApi.get<IUserResponse>(API.GET_CURRENT_USER_SERVICE);
   return response.data;
 }
 
-export const verifyPasswordUserFn = async (password: string): Promise<IGenericResponse> => {
-  const response = await privateApi.get<IGenericResponse>(API.VERIFY_PASSWORD_USER_SERVICE(password));
+export const verifyPasswordUserFn = async (verify: string): Promise<IGenericResponse> => {
+  const response = await privateApi.get<IGenericResponse>(API.VERIFY_PASSWORD_USER_SERVICE(verify));
   return response.data;
 }
 

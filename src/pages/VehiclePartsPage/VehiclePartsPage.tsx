@@ -2,22 +2,14 @@ import React from "react";
 import IconArrow from "../../assets/notification/Icon-arrow.svg";
 import PartVehicleCard from "@/components/molecules/PartVehicleCard";
 import { useNavigate } from "react-router-dom";
+
 import { REQUEST_MAINTENANCE_VEHICLE_PAGE } from "@/lib/constants/routes";
 import { componentsData } from "@/lib/data";
 import { Button, Input } from "@/components/atoms";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { useQuery } from "@tanstack/react-query";
 import { IUserResponse } from "@/api/types";
-import { 
-  Dialog, 
-  DialogContent, 
-  DialogDescription, 
-  DialogHeader, 
-  DialogTitle, 
-  DialogTrigger
-} 
-from "@/components/ui/dialog";
-
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 interface RequestMaintenanceVehicle {
   emailAndPhoneNumber: string;
   distanceVehicle: string;
@@ -27,15 +19,15 @@ interface RequestMaintenanceVehicle {
 export default function VehiclePartsPage(): JSX.Element {
   const methods = useForm<RequestMaintenanceVehicle>();
 
-  const onSubmitHandler: SubmitHandler<RequestMaintenanceVehicle> = async(data) => {
-    console.log('Form Data', data)
+  const onSubmitHandler: SubmitHandler<RequestMaintenanceVehicle> = async (data) => {
+    console.log("Form Data", data);
 
     const selectedCheckboxes = checkboxStates.map((checked, index) => ({
       name: componentsData[index]?.name,
       checked: checked,
     }));
 
-    console.log('Selected Checkboxes:', selectedCheckboxes);
+    console.log("Selected Checkboxes:", selectedCheckboxes);
   };
 
   const { data: user } = useQuery<IUserResponse>({ queryKey: ["me"] });
@@ -43,15 +35,14 @@ export default function VehiclePartsPage(): JSX.Element {
   const navigate = useNavigate();
 
   const [checkboxStates, setCheckboxStates] = React.useState(componentsData.map(() => false));
-
   const [selectAllText, setSelectAllText] = React.useState("Select All");
 
   const handleClickSelectAll = () => {
     setCheckboxStates((prevCheckboxStates) => {
       const allSelected = prevCheckboxStates.every((state) => state);
-      const newCheckboxStates = prevCheckboxStates.map(() =>
-        !allSelected, {/* ? false : componentsData[index]?.condition < 60 */}
-      );
+      const newCheckboxStates = prevCheckboxStates.map(() => !allSelected, {
+        /* ? false : componentsData[index]?.condition < 60 */
+      });
       setSelectAllText(allSelected ? "Select All" : "Unselect All");
       return newCheckboxStates;
     });
@@ -61,7 +52,7 @@ export default function VehiclePartsPage(): JSX.Element {
     setCheckboxStates((prevCheckboxStates) => {
       const newCheckboxStates = [...prevCheckboxStates];
       newCheckboxStates[index] = !newCheckboxStates[index];
-      setSelectAllText("Select All")
+      setSelectAllText("Select All");
       return newCheckboxStates;
     });
   };
@@ -77,23 +68,13 @@ export default function VehiclePartsPage(): JSX.Element {
         </div>
       </div>
       <div className="relative">
-        <button 
-          className="absolute -right-1 -top-[3.2rem] md:-top-10 lg:-top-16 items-center text-xs xs:text-base md:text-lg text-white bg-primary rounded-lg px-2 py-1" 
-          onClick={handleClickSelectAll}
-        >
+        <button className="absolute -right-1 -top-[3.2rem] md:-top-10 lg:-top-16 items-center text-xs xs:text-base md:text-lg text-white bg-primary rounded-lg px-2 py-1" onClick={handleClickSelectAll}>
           {selectAllText}
         </button>
         <div className="flex w-full">
           <div className="w-full flex flex-wrap lg:justify-evenly pt-5 gap-2">
             {componentsData.map((component, index) => (
-              <PartVehicleCard 
-                key={index} 
-                title={component?.name} 
-                condition={component?.condition} 
-                image={component?.name} 
-                checked={checkboxStates[index]}
-                onCheckboxChange={() => handleCheckboxChange(index)}
-              />
+              <PartVehicleCard key={index} title={component?.name} condition={component?.condition} image={component?.name} checked={checkboxStates[index]} onCheckboxChange={() => handleCheckboxChange(index)} />
             ))}
           </div>
         </div>

@@ -87,5 +87,9 @@ export const componentsData = [
     name: "Rantai",
     condition: 45,
   },
+  {
+    name: "Per",
+    condition: 35,
+  },
 ];
 

@@ -37,8 +37,8 @@ export interface IVehicle {
   vehicleName: string;
   ownerName: string;
   purchasingDate: string;
+  licensePlate: string;
   vehicleType: VehicleType;
-  licenseNumber: string;
   userId: string;
 }
 
@@ -52,7 +52,7 @@ export interface IVehicleResponse {
   id: string;
   name: string;
   ownerName: string;
-  licenseNumber: string;
+  licensePlate: string;
   type: VehicleType;
   condition: number;
   purchasingDate: string;
