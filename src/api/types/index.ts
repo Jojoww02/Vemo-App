@@ -49,13 +49,13 @@ export interface IUpdateUser {
 }
 
 export interface IVehicleResponse {
-  id: string;
-  name: string;
+  vehicleId: string;
+  vehicleName: string;
   ownerName: string;
-  licensePlate: string;
-  type: VehicleType;
-  condition: number;
   purchasingDate: string;
+  licensePlate: string;
+  vehicleType: VehicleType;
+  condition: number;
   status: IVehicleStatus;
 }
 
