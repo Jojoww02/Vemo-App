@@ -15,7 +15,7 @@ export default function VehicleCard({ vehicleData }: Props): JSX.Element {
         <VehicleIcon type={vehicleData.vehicleType} />
       </div>
       <div className="pt-4 pb-3 w-full">
-        <h1 className="font-semibold text-sm xs:text-base lg:text-xl md:text-2xl tracking-wide sm:mb-1 md:mb-0">{vehicleData.ownerName}</h1>
+        <h1 className="font-semibold text-sm xs:text-base lg:text-xl md:text-2xl tracking-wide sm:mb-1 md:mb-0">{vehicleData.vehicleName}</h1>
         <h3 className="font-semibold text-[.6rem] xs:text-xs md:text-lg lg:text-lg lg:pb-3 text-[#898989]">{vehicleData.licensePlate}</h3>
         <div className="w-full flex justify-between items-center gap-2">
           <div>
@@ -37,7 +37,7 @@ export default function VehicleCard({ vehicleData }: Props): JSX.Element {
   ) : (
     <div className="w-full gap-2 flex-col text-center border-dashed rounded-2xl border-[3px] h-24 sm:h-28 md:h-[7.8rem] lg:h-[8.5rem] flex justify-center items-center text-white text-xs xs:text-base lg:text-xl">
       <Timer className="text-white" size={25} />
-      <h1 className="text-white text-xs xs:text-sm w-4/5 ">{`Kendaraan ${vehicleData.ownerName} dengan plat ${vehicleData.licensePlate} anda sedang status pending `}</h1>
+      <h1 className="text-white text-xs xs:text-sm w-4/5 ">{`Kendaraan ${vehicleData.vehicleName} dengan plat ${vehicleData.licensePlate} anda sedang status pending `}</h1>
     </div>
   );
 }

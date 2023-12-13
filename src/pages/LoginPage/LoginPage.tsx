@@ -41,12 +41,7 @@ export default function LoginPage(): JSX.Element {
             <p className="font-bold text-dark text-xl xl:text-3xl text-center">Welcome back! Glad to see you, Again!</p>
             <FormProvider {...methods}>
               <form onSubmit={methods.handleSubmit(onSubmitHandler)} className="flex flex-col mt-10 gap-5">
-                {loginUser.isError && (
-                  <AlertForm 
-                    title={(loginUser.error as any).response.data.message} 
-                    description={(loginUser.error as any).response.data.errors} 
-                  />
-                )}
+                {loginUser.isError && <AlertForm title={(loginUser.error as any).response.data.message} description={(loginUser.error as any).response.data.errors} />}
                 <Input name="email" label="Email" isFill={methods.watch().email} placeholder="Enter Your Email" type="email" />
                 <Input name="password" label="Password" isFill={methods.watch().password} placeholder="Enter Your Password" type="password" />
                 <div className="flex justify-end mt-2 font-semibold text-[#6a707c] text-sm xl:text-base">
