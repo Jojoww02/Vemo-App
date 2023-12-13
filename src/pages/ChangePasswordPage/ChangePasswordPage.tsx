@@ -50,7 +50,7 @@ export default function ChangePasswordPage() {
           <img src={IconArrow} alt="" className="scale-100 cursor-pointer w-4 sm:w-6 sm:h-12 " />
         </Link>
         <div>
-          <h1 className="font-bold text-xl lg:text-3xl py-4 leading-[3rem] sm:text-2xl md:text-3xl">Change Your Password</h1>
+          <h1 className="font-bold text-xl lg:text-3xl py-4 leading-[3rem] sm:text-2xl md:text-3xl">Ubah Password Anda</h1>
         </div>
         <div className="my-5 xs:w-full m-auto">
           <form onSubmit={methods.handleSubmit(onSubmitHandler)} className="flex flex-col gap-5">
@@ -69,7 +69,7 @@ export default function ChangePasswordPage() {
             <Input name="confirmNewPassword" label="Confirm New Password" isFill={methods.watch().confirmNewPassword} placeholder="Input your password" type="password" />
             <div className="mt-12 sm:text-">
               <Button className="py-6 w-full text-lg font-semibold" type="submit" isLoading={changePassword.isPending}>
-                Send
+                Kirim
               </Button>
             </div>
           </form>

@@ -119,10 +119,10 @@ export default function VerifyOtpPage(): JSX.Element {
           />
         </div>
         <h1 className="font-semibold lg:text-5xl text-xl sm:text-2xl  mt-10 md:text-3xl">
-          OTP Verification
+          Verifikasi OTP
         </h1>
         <p className="lg:font-base text-sm sm:text-lg lg:text-lg lg:text-[#8391A1] lg:mt-2 md:text-xl">
-          Enter the verification code we just sent on your email address.
+          Masukkan kode OTP yang baru saja kami berikan di email anda.
         </p>
       </div>
       <div className="flex justify-center items-center lg:pt-14">
@@ -146,7 +146,7 @@ export default function VerifyOtpPage(): JSX.Element {
           </div>
           <div className="flex flex-col justify-center items-center mt-14 gap-10">
             <p className="lg:text-base text-sm sm:text-lg font-medium">
-              Dont have any receive code?
+              Tidak mendapatkan kode?
               <button
                 type="button"
                 onClick={() =>
@@ -155,7 +155,7 @@ export default function VerifyOtpPage(): JSX.Element {
                 className="text-[#2495C6] cursor-pointer ml-1 disabled:text-slate-400 disabled:cursor-default"
                 disabled={isSendCodeDisabled}
               >
-                Send Code
+                Kirim Kode
               </button>
             </p>
             <p>{msgFailedAttempt}</p>
@@ -166,7 +166,7 @@ export default function VerifyOtpPage(): JSX.Element {
               isLoading={verifyOtp.isPending || updateUser.isPending}
               disabled={otp.join("").length != 4}
             >
-              Update Profile
+              Perbaharui Profile
             </Button>
           </div>
         </div>

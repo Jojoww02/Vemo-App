@@ -65,24 +65,24 @@ export default function VehicleDetailPageMobile() {
               value="account"
               className="w-full h-full data-[state=active]:bg-primary/80 data-[state=active]:text-white"
             >
-              Information
+              Informasi
             </TabsTrigger>
             <TabsTrigger
               value="password"
               className="w-full h-full data-[state=active]:bg-primary/80 data-[state=active]:text-white"
             >
-              History Service
+              Riwayat Service
             </TabsTrigger>
           </TabsList>
           <TabsContent value="account">
             <div className="text-start pl-6 mt-10 sm:text-2xl flex flex-col gap-6">
               <h1 className="font-semibold text-2xl sm:text-2xl">
-                Motorcycle Information
+                Informasi Kendaraan
               </h1>
               <div className="flex flex-col gap-2">
                 <div className="flex gap-2">
                   <IconUser />
-                  <h4 className="text-xl">Owner Name :</h4>
+                  <h4 className="text-xl">Nama Pengguna :</h4>
                 </div>
                 <div className="text-lg">
                   {isSuccess && (vehicle as IVehicleResponse).ownerName}
@@ -91,7 +91,7 @@ export default function VehicleDetailPageMobile() {
               <div className="flex flex-col gap-2">
                 <div className="flex gap-2">
                   <IconBike />
-                  <h4 className="text-xl">Vehicle Name And Type :</h4>
+                  <h4 className="text-xl">Nama Kendaraan Dan Tipe :</h4>
                 </div>
                 <div className="text-lg">
                   {isSuccess && (vehicle as IVehicleResponse).name} |{" "}
@@ -101,7 +101,7 @@ export default function VehicleDetailPageMobile() {
               <div className="flex flex-col gap-2">
                 <div className="flex gap-2">
                   <IconCalendarEvent />
-                  <h4 className="text-xl">Date Vehicle Purchase :</h4>
+                  <h4 className="text-xl">Tanggal Kendaraan Dibeli :</h4>
                 </div>
                 <div className="text-lg">
                   {isSuccess &&
@@ -128,7 +128,7 @@ export default function VehicleDetailPageMobile() {
                       className="text-primary cursor-pointer"
                       onClick={onOpenModal}
                     >
-                      See Details
+                      Lihat Detail
                     </span>
                   </li>
                 </ul>
@@ -140,7 +140,7 @@ export default function VehicleDetailPageMobile() {
         <Modal open={open} onClose={onCloseModal} center>
           <div className="flex flex-col">
             <h1 className="modal py-8 text-center font-semibold text-3xl">
-              Service Details
+              Service Detail
             </h1>
             <table>
               <thead>

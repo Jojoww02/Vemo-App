@@ -10,12 +10,12 @@ import { PROFILE_PAGE } from "@/lib/constants/routes";
 
 const ForgotPasswordSchema = zod
   .object({
-    newPassword: zod.string().min(1, "Password is required").min(8, "Password must be more than 8 characters").max(32, "Password must be less than 32 characters"),
-    confirmNewPassword: zod.string().min(1, "Password is required").min(8, "New Password must be more than 8 characters").max(32, "New Password must be less than 32 characters"),
+    newPassword: zod.string().min(1, "Password diperlukan").min(8, "Password harus lebih dari 8 karakter").max(32, "Password harus lebih kurang dari 32 karakter"),
+    confirmNewPassword: zod.string().min(1, "Konfirmasi password diperlukan").min(8, "Password baru harus lebih dari 8 karakter").max(32, "Password baru harus lebih kurang dari 32 karakter"),
   })
   .refine((data) => data.newPassword === data.confirmNewPassword, {
     path: ["confirmNewPassword"],
-    message: "Passwords do not match",
+    message: "Password tidak sama",
   });
 
 export type ForgotPasswordInput = zod.TypeOf<typeof ForgotPasswordSchema>;
@@ -53,8 +53,8 @@ export default function ForgotPasswordPage(): JSX.Element {
             <h3 className="font-medium text-[#8390a1] text-sm xl:text-base mt-5 text-center">Your new password must be unique from those previously used.</h3>
             <FormProvider {...methods}>
               <form onSubmit={methods.handleSubmit(onSubmitHandler)} className="flex flex-col mt-10 gap-5">
-                <Input name="newPassword" label="New Password" isFill={methods.watch().newPassword} placeholder="Your New Password" type="password" />
-                <Input name="confirmNewPassword" label="ConfirmNew Password" isFill={methods.watch().confirmNewPassword} placeholder="Your New Password" type="password" />
+                <Input name="newPassword" label="Password Baru" isFill={methods.watch().newPassword} placeholder="Your New Password" type="password" />
+                <Input name="confirmNewPassword" label="Confirm Password Baru" isFill={methods.watch().confirmNewPassword} placeholder="Your New Password" type="password" />
                 <Button className="py-6 mt-20 text-lg font-semibold" type="submit" disabled={!isObjectEmpty(methods.formState.errors)}>
                   Reset Password
                 </Button>

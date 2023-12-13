@@ -12,13 +12,13 @@ import { AlertTriangle } from "lucide-react";
 const loginSchema = zod.object({
     email: zod
       .string()
-      .min(1, "Email address is required")
-      .email("Email Address is invalid"),
+      .min(1, "Email diperlukan")
+      .email("Email diperlukan"),
     password: zod
       .string()
-      .min(1, "Password is required")
-      .min(8, "Password must be more than 8 characters")
-      .max(32, "Password must be less than 32 characters"),
+      .min(1, "Password diperlukan")
+      .min(8, "Password harus lebih dari 8 karakter")
+      .max(32, "Password harus kurang dari 32 karakter"),
   });
   
 export type LoginInput = zod.TypeOf<typeof loginSchema>;
@@ -36,7 +36,7 @@ export default function LoginPageMobile():JSX.Element {
   };
   return (
     <div className="sm:w-[640px] sm:mx-auto h-screen pt-8 px-6 sm:px-20 sm:mt-10">
-      <h1 className="text-4xl leading-10 font-bold mb-10 pl-4">Welcome back! Glad to see you, Again!</h1>
+      <h1 className="text-4xl leading-10 font-bold mb-10 pl-4">Selamat datang, senang melihatmu kembali!</h1>
       <div className="my-5 w-full xs:w-[90%] sm:pt-8 m-auto gap-4">
         <FormProvider {...methods}>
             <form 
@@ -63,7 +63,7 @@ export default function LoginPageMobile():JSX.Element {
                 />
                 <div className="text-[#6a707c] text-end font-semibold mt-3">
                     <Link to={FORGOT_PASSWORD_REQUEST_PAGE}>
-                        <p>Forgot Password?</p>
+                        <p>Lupa Password?</p>
                     </Link>
                 </div>
                 <Button 
@@ -72,16 +72,16 @@ export default function LoginPageMobile():JSX.Element {
                     disabled={!isObjectEmpty(methods.formState.errors)}
                     isLoading={loginUser.isPending}
                 >
-                    Log In
+                    Masuk
                 </Button>
             </form>
         </FormProvider>
       </div>
       <div className="flex justify-center gap-1 mt-10 font-medium">
-        <p className="">Don’t have an account?</p>
+        <p className="">Tidak mempunyai akun?</p>
         <div className="text-[#0587BE]">
           <Link to={REGISTER_USER_PAGE}>
-            <p>Register</p>
+            <p>Daftar</p>
           </Link>
         </div>
       </div>      

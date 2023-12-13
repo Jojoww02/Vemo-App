@@ -73,7 +73,7 @@ export default function VehiclePartsPage(): JSX.Element {
           <img src={IconArrow} alt="" className="absolute top-6 left-0 lg:left-5 xl:w-[2rem]  md:w-32 xl:h-[2rem] w-[1.4rem] h-[1.5rem] cursor-pointer" onClick={() => navigate(REQUEST_MAINTENANCE_VEHICLE_PAGE)} />
         </div>
         <div className="flex justify-center font-bold md:text-4xl xl:text-4xl text-3xl">
-          <h1 className="">Conditional</h1>
+          <h1 className="">Kondisi Part</h1>
         </div>
       </div>
       <div className="relative">
@@ -144,7 +144,7 @@ export default function VehiclePartsPage(): JSX.Element {
                     type="text" 
                   />
                   <Button type="submit" className="py-6 mt-4 text-lg font-semibold">
-                    Enter
+                    Kirim
                   </Button>
                 </form>
               </FormProvider>

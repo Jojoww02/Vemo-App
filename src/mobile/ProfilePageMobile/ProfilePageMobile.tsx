@@ -22,19 +22,19 @@ function ProfileMobile() {
         <h1 className=" -z-50 text-[1.5rem] font-semibold tracking-wide sm:text-5xl xs:text-[2.3rem] xs:">Profile</h1>
         <img src={UserProfileIcon} alt="" className="inset-0 m-auto w-24 sm:w-32 xs:w-[6rem] " />
         <Link to={VERIFY_PASSWORD_PAGE} style={{ display: "flex", alignItems: "center", gap: "8px" }}>
-          <IconPencil size={25} /> <p className="text-[#0586BE] sm:text-xl">Update Profile</p>
+          <IconPencil size={25} /> <p className="text-[#0586BE] sm:text-xl">Perbaharui Profile</p>
         </Link>
       </div>
       <div className="px-4   pt-5 mt-8 sm:mt-8 flex-col flex sm:text-start ">
         <div className="mb-6 pb-3 border-b-2">
-          <h1 className="text-2xl font-semibold xs:text-3xl sm:text-[2.5rem]">My Information</h1>
+          <h1 className="text-2xl font-semibold xs:text-3xl sm:text-[2.5rem]">Informasi Saya</h1>
         </div>
         <div className="mb-4">
           <div className="flex flex-col font-normal">
             <h1 className="font-semibold pt-2 pb-3 sm:text-3xl">Biodata</h1>
             <div className="flex items-center gap-2 sm:mt-5">
               <IconUser size={20} />
-              <h3 className="sm:text-2xl">Name</h3>
+              <h3 className="sm:text-2xl">Nama</h3>
             </div>
             <p className="font-medium sm:text-lg">{(user as IUserResponse).name}</p>
           </div>
@@ -57,11 +57,11 @@ function ProfileMobile() {
             }}
           >
             <IconLock size={20} className="cursor-pointer" />
-            <p className="text-[#0586BE] text-sm sm:text-lg">Change Password</p>
+            <p className="text-[#0586BE] text-sm sm:text-lg">Ubah Password</p>
           </Link>
           <button type="button" className="flex gap-2 items-center" onClick={handleLogoutUser}>
             <IconLogout2 size={20} className="cursor-pointer" />
-            <p className="text-sm sm:text-lg">Logout</p>
+            <p className="text-sm sm:text-lg">Keluar</p>
           </button>
         </div>
       </div>

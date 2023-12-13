@@ -64,26 +64,26 @@ export default function VehicleDetailsPage() {
               <Tabs defaultValue="account" className="w-full flex flex-col justify-center">
                 <TabsList className="w-full h-11 text-dark bg-gray-200">
                   <TabsTrigger value="account" className="w-full h-full data-[state=active]:bg-primary/80 data-[state=active]:text-white">
-                    Information
+                    Informasi
                   </TabsTrigger>
                   <TabsTrigger value="password" className="w-full h-full data-[state=active]:bg-primary/80 data-[state=active]:text-white">
-                    History Service
+                    Riwayat Service
                   </TabsTrigger>
                 </TabsList>
                 <TabsContent value="account">
                   <div className="text-start mt-5 sm:text-2xl flex flex-col gap-6">
-                    <h1 className="font-semibold text-lg sm:text-2xl">Motorcycle Information</h1>
+                    <h1 className="font-semibold text-lg sm:text-2xl">Informasi Kendaraan</h1>
                     <div className="flex flex-col gap-2">
                       <div className="flex gap-2">
                         <IconUser />
-                        <h4 className="text-lg lg:text-xl">Owner Name :</h4>
+                        <h4 className="text-lg lg:text-xl">Nama Pengguna :</h4>
                       </div>
                       <div className="text-lg">{isSuccess && (vehicle as IVehicleResponse).ownerName}</div>
                     </div>
                     <div className="flex flex-col gap-2">
                       <div className="flex gap-2">
                         <IconBike />
-                        <h4 className="text-lg lg:text-xl">Vehicle Name And Type :</h4>
+                        <h4 className="text-lg lg:text-xl">Nama Kendaraan Dan Tipe :</h4>
                       </div>
                       <div className="text-lg">
                         {isSuccess && (vehicle as IVehicleResponse).name} | {isSuccess && (vehicle as IVehicleResponse).type}
@@ -92,7 +92,7 @@ export default function VehicleDetailsPage() {
                     <div className="flex flex-col gap-2">
                       <div className="flex gap-2">
                         <IconCalendarEvent />
-                        <h4 className="text-lg lg:text-xl">Date Vehicle Purchase :</h4>
+                        <h4 className="text-lg lg:text-xl">Tanggal Kendaraan Dibeli :</h4>
                       </div>
                       <div className="text-lg">{isSuccess && format(new Date((vehicle as IVehicleResponse).purchasingDate), "dd MMMM yyyy", { locale: id })}</div>
                     </div>
@@ -107,7 +107,7 @@ export default function VehicleDetailsPage() {
                         <li className="border-b-2 w-[90%] sm:w-[60%]">
                           20 Januari 2023 -{" "}
                           <span className="text-primary cursor-pointer">
-                            See Details
+                            Lihat Detail
                           </span>
                         </li>
                       </ul>
@@ -118,7 +118,7 @@ export default function VehicleDetailsPage() {
             </div>
           </div>
           <div className="lg:w-1/2 lg:bg-[#F7F8F9] rounded-xl py-5 px-5 h-full min-h-[660px]">
-            <h1 className="text-[#898989] py-2 px-4 text-lg">Condition Part :</h1>
+            <h1 className="text-[#898989] py-2 px-4 text-lg">Kondisi Part :</h1>
             <div className="w-full px-2 flex mt-7 mb-10 flex-col gap-5 justify-center h-[28rem]  overflow-y-auto">
               <div className="flex gap-4 mt-9">
                 <img src={"/machine.svg"} alt="" className="w-16 lg:w-24" />
