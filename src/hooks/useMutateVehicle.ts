@@ -13,9 +13,6 @@ export default function useMutateVehicle() {
       mutationFn: async (vehicleId: string) => {
         await approveVehicleFn(vehicleId);
       },
-    }),
-    getVehiclePartByVehicleId: useMutation({
-      // from vehicle service
     })
   };
 }
