@@ -10,7 +10,7 @@ interface Props {
 
 export default function VehicleCard({ vehicleData }: Props): JSX.Element {
   return vehicleData.status === "approved" ? (
-    <div className="flex px-4 md:py-2 gap-6 w-full lg:px-8 bg-white rounded-xl shadow-[0px_3px_7px_5px_#00000040]">
+    <div className="flex  px-4 md:py-2 gap-6 w-full lg:px-8 bg-white rounded-xl shadow-[0px_3px_7px_5px_#00000040]">
       <div className="self-center">
         <VehicleIcon type={vehicleData.vehicleType} />
       </div>
@@ -23,7 +23,7 @@ export default function VehicleCard({ vehicleData }: Props): JSX.Element {
           </div>
           {window.location.pathname !== REQUEST_MAINTENANCE_VEHICLE_PAGE && (
             <div className="lg:pr-5">
-              <Tooltip text="View details vehicle">
+              <Tooltip text="Lihat Detail Kendaraan">
                 <Link to={VEHICLE_DETAILS_PAGE(vehicleData.vehicleId)} className="flex items-center justify-center px-2 py-1 text-center bg-[#F4B400] text-white rounded-lg scale-75 xs:scale-90 lg:scale-110">
                   <Info size={18} className="mr-1" />
                   <p className="text-xs">Detail</p>

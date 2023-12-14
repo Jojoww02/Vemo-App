@@ -12,7 +12,7 @@ export default function BadgeStatus({ condition }: BadgeProps):JSX.Element {
     getVehicleCondition(condition);
   return (
     <div>
-      <Badge className={`${condition <= 30 ? "bg-red-400" : condition <= 60 ? "bg-yellow-400" : "bg-green-400"}`}>{description}</Badge>
+      <Badge variant="default" className={`${condition <= 30 ? "bg-red-400" : condition <= 60 ? "bg-yellow-400" : "bg-green-400"}`}>{description}</Badge>
     </div>
   );
 }

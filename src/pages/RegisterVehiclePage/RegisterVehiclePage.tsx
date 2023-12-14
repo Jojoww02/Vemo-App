@@ -5,37 +5,39 @@ import { AlertForm, Button, Input } from "@/components/atoms";
 import useMobile from "@/hooks/useMobile";
 import useMutateVehicle from "@/hooks/useMutateVehicle";
 import { DASHBOARD_PAGE } from "@/lib/constants/routes";
-import { VehicleType } from "@/lib/types";
 import { RegisterVehiclePageMobile } from "@/mobile";
 import { useQuery } from "@tanstack/react-query";
 import React from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { VehicleType } from "@/lib/types";
 
 const RegisterVehicleSchema = zod.object({
-  fullName: zod.string().min(1, "Name is required")
-  .min(3, "Name must be more than 3 characters")
-  .max(50, "Password must be less than 50 characters"),
-  vehicleName: zod.string().min(1, "Name is required")
-  .min(3, "Name must be more than 3 characters")
-  .max(50, "Password must be less than 50 characters"),
-  vehicleType: zod.string().min(1, "Email address is required"),
-  purchasingDate: zod.string().min(1, "Email address is required"),
-  licensePlate: zod.string().min(1, "Plat nomor sudah terdaftar"),
-  lastMaintenance: zod.number().min(1, "Tanggal terakhir perawatan kendaraan tidak valid"),
+  fullName: zod.string().min(1, "Nama diperlukan").min(3, "Nama harus lebih dari 3 karakter").max(50, "Password harus kurang dari 50 karakter"),
+  vehicleName: zod.string().min(1, "Nama kendaraan diperlukan").min(3, "Nama kendaraan harus lebih dari 3 karakter").max(50, "Password harus kurang dari 50 karakter"),
+  vehicleType: zod.string().refine((value) => ["matic", "manual"].includes(value), {
+    message: "Pilih jenis kendaraan yang valid",
+  }),
+  purchasingDate: zod.string().min(1, "Tanggal pembelian kendaraan tidak valid"),
+  licensePlate: zod.string().min(1, "Plat kendaraan diperlukan"),
+  lastMaintenance: zod.string().refine((value) => !isNaN(new Date(value).getTime()), {
+    message: "Tanggal terakhir perawatan kendaraan tidak valid",
+  }),
 });
-
 export type RegisterVehicle = zod.TypeOf<typeof RegisterVehicleSchema>;
-
 
 export default function RegisterVehiclePage() {
   const isMobile = useMobile();
+
   const navigate = useNavigate();
+
   const methods = useForm<RegisterVehicle>({
     resolver: zodResolver(RegisterVehicleSchema),
   });
+
   const { data: user } = useQuery<IUserResponse>({ queryKey: ["me"] });
+  
   const { registerVehicle } = useMutateVehicle();
 
   async function handleRegisterVehicle(data: RegisterVehicle) {
@@ -49,7 +51,6 @@ export default function RegisterVehiclePage() {
       lastMaintenance: calculateMonthsAgo(data.lastMaintenance.toString()),
     });
   }
-  
 
   const { data: vehicles, isSuccess } = useQuery({
     queryKey: ["vehicles"],
@@ -61,15 +62,6 @@ export default function RegisterVehiclePage() {
       navigate(DASHBOARD_PAGE);
     }
   }, [registerVehicle.isSuccess]);
-
-  // const handleRegisterVehicle = (data: any) => {
-  //   // Convert the selected date to months ago
-  //   const monthsAgo = calculateMonthsAgo(data.lastMaintenance);
-  //   console.log("Form Data:", { ...data, lastMaintenance: monthsAgo });
-  //   // ...
-
-  //   // Your existing logic here
-  // };
 
   const calculateMonthsAgo = (selectedDate: string) => {
     const currentDate: Date = new Date();
@@ -98,15 +90,10 @@ export default function RegisterVehiclePage() {
 
           {/* Content Right Start */}
           <div className="w-1/2 mb-2 justify-center flex">
-            <div className="w-[80%] mt-5">
+            <div className="w-[80%]">
               <FormProvider {...methods}>
                 <form autoComplete="off" onSubmit={methods.handleSubmit(handleRegisterVehicle)} className="flex-col flex gap-6">
-                {registerVehicle.isError && (
-                  <AlertForm 
-                    title={(registerVehicle.error as any).response.data.message} 
-                    description={(registerVehicle.error as any).response.data.errors} 
-                  />
-                )}
+                {registerVehicle.isError && <AlertForm title={(registerVehicle.error as any).response.data.message} description={(registerVehicle.error as any).response.data.errors} />}
                   <Input name="fullName" label="Nama Lengkap" isFill={methods.watch().fullName} placeholder="Input your name" type="text" />
                   <Input name="vehicleName" label="Nama Kendaraan" isFill={methods.watch().vehicleName} placeholder="Input your email" type="text" />
                   <Input name="vehicleType" label="Jenis Kendaraan" isFill={methods.watch().vehicleType} placeholder="Pilih jenis kendaraan" type="select">
@@ -115,10 +102,10 @@ export default function RegisterVehiclePage() {
                   </Input>
                   <Input name="purchasingDate" label="Tanggal Pembelian Kendaraan" isFill={methods.watch().purchasingDate?.toString()} placeholder="Input your password" type="date" />
                   <Input name="licensePlate" label="Plat Nomor" isFill={methods.watch().licensePlate} placeholder="Confirm your password" type="text" />
-                  <Input name="lastMaintenance" label="Terakhir Bulan" isFill={methods.watch().lastMaintenance?.toString()} placeholder="Input your password" type="date" />
+                  <Input name="lastMaintenance" label="Perawatan Terakhir" isFill={methods.watch().lastMaintenance?.toString()} type="date" />
                   <div className="flex flex-col gap-2 mt-7">
                     <Button className="py-6 text-lg font-semibold" type="submit" isLoading={registerVehicle.isPending} disabled={isSuccess && (vehicles as IVehicleResponse[]).some((vehicle) => vehicle.status === "pending")}>
-                      Send
+                      Kirim
                     </Button>
                   </div>
                 </form>

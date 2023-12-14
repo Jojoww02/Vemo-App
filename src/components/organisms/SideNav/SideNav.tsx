@@ -8,21 +8,33 @@ import { useNavigate } from "react-router-dom";
 import useLogoutUser from "@/hooks/useLogoutUser";
 import IconVemo from "../../../assets/iconVemo.svg";
 import { ADMIN_DASHBOARD_PAGE, DASHBOARD_PAGE } from "@/lib/constants/routes";
-
-const sideBarItem = [
-  {
-    title: "Profile",
-    icon: <IconUserSquareRounded size={35} />,
-    navigateTo: "/profile",
-  },
-  { title: "Services", icon: <History size={35} />, navigateTo: "/services" },
-  { title: "About Us", icon: <Info size={35} />, navigateTo: "/about/vemo" },
-];
+import { IconMotorbike } from "@tabler/icons-react";
+import useVehicleList from "@/hooks/useVehicleList";
 
 export default function SideNav() {
   const navigate = useNavigate();
+
   const [isSideNavOpen, setIsSideNavOpen] = React.useState(false);
   const { handleLogoutUser } = useLogoutUser();
+  const { isVehicleListEnabled } = useVehicleList();
+
+  const sideBarItem = [
+    {
+      title: "Profile",
+      icon: <IconUserSquareRounded size={35} />,
+      navigateTo: "/profile",
+    },
+    { title: "Services", icon: <History size={35} />, navigateTo: "/services" },
+    { title: "About Us", icon: <Info size={35} />, navigateTo: "/about/vemo" },
+  ];
+
+  if (isVehicleListEnabled) {
+    sideBarItem.splice(1, 0, {
+      title: "List kendaraan",
+      icon: <IconMotorbike size={35} />,
+      navigateTo: "/vehicles",
+    });
+  }
 
   return (
     <div className={cn("relative my-5 ml-5 p-5 pt-8 hidden lg:block rounded-3xl border-2 shadow-md duration-300 w-24 z-50", isSideNavOpen && "w-72")}>
@@ -31,15 +43,15 @@ export default function SideNav() {
       </span>
 
       <div className="absolute left-5 flex gap-2 z-50">
-        <img src={IconVemo} alt="icon vemo" width={50} className="cursor-pointer" onClick={() => navigate(DASHBOARD_PAGE)}/>
+        <img src={IconVemo} alt="icon vemo" width={50} className="cursor-pointer" onClick={() => navigate(DASHBOARD_PAGE)} />
         {isSideNavOpen && <h1 className="text-3xl font-semibold italic text-[#898989] pt-1">VEMO</h1>}
       </div>
 
       <Separator className="w-full flex mt-16 bg-[#898989]" />
       {window.location.pathname !== ADMIN_DASHBOARD_PAGE && (
-          <div className="flex flex-col absolute mt-7 left-7 gap-5 text-[#898989]">
+        <div className="flex flex-col absolute mt-7 left-7 gap-5 text-[#898989]">
           {sideBarItem.map((item, index) => (
-            <div key={index} className={cn("flex cursor-pointer font-medium text-lg items-center")} onClick={() => item.navigateTo && navigate(item.navigateTo)}>
+            <div key={index} className={cn("flex cursor-pointer font-medium text-baseyy items-center")} onClick={() => item.navigateTo && navigate(item.navigateTo)}>
               {item.icon}
               <span className={cn("ml-5", !isSideNavOpen && "hidden")}>{item.title}</span>
             </div>

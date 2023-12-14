@@ -1,5 +1,5 @@
-import { IUpdateUser } from "@/api/types";
 import { create } from "zustand";
+import { IUpdateUser } from "@/api/types";
 
 interface UpdateProfile {
   dataUserToBeUpdate: IUpdateUser;
