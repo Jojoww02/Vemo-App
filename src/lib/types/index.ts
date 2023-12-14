@@ -1,4 +1,4 @@
-export type VehicleType = "manual" | "matic";
+export type VehicleType =  "manual" | "matic";
 
 export interface VehicleCondition {
   image: string;
