@@ -13,23 +13,23 @@ const registerSchema = zod
   .object({
     name: zod
       .string()
-      .min(1, "Name is required")
-      .min(3, "Name must be more than 3 characters")
-      .max(50, "Password must be less than 50 characters"),
+      .min(1, "Nama diperlukan")
+      .min(3, "Nama harus lebih dari 3 karakter")
+      .max(50, "Password harus kurang dari 50 karakter"),
     email: zod
       .string()
-      .min(1, "Email address is required")
-      .email("Email Address is invalid"),
+      .min(1, "Email diperlukan")
+      .email("Email tidak ditemukan"),
     password: zod
       .string()
-      .min(1, "Password is required")
-      .min(8, "Password must be more than 8 characters")
-      .max(32, "Password must be less than 32 characters"),
-    confirmPassword: zod.string().min(1, "Please confirm your password"),
+      .min(1, "Password diperlukan")
+      .min(8, "Password harus lebih dari 8 karakter")
+      .max(32, "Password harus kurang dari 32 karakter"),
+    confirmPassword: zod.string().min(1, "Konfirmasi Password"),
   })
   .refine((data) => data.password === data.confirmPassword, {
     path: ["confirmPassword"],
-    message: "Passwords do not match",
+    message: "Passwords tidak sama",
   });
 
 export type RegisterInput = zod.TypeOf<typeof registerSchema>;
@@ -51,7 +51,7 @@ export default function RegisterPageMobile():JSX.Element {
     <div className="p-5">
       <div className="sm:relative ">
         <h1 className="text-3xl leading-10 font-bold w-full mt-5 mb-10 xs:text-3xl xs:w-[90%] xs:mx-auto sm:text-4xl ">
-          Hello! Create an account to get started
+          Hallo! Buat akun untuk mulai
         </h1>
         <div className="my-5 w-full xs:w-[90%] sm:pt-8 m-auto gap-4">
             <FormProvider {...methods}>
@@ -67,7 +67,7 @@ export default function RegisterPageMobile():JSX.Element {
                     )}
                     <Input
                         name="name"
-                        label="Name"
+                        label="Nama"
                         isFill={methods.watch().name}
                         placeholder="Input your name"
                         type="text"
@@ -88,7 +88,7 @@ export default function RegisterPageMobile():JSX.Element {
                     />
                     <Input
                         name="confirmPassword"
-                        label="Confirm Password"
+                        label="Konfirmasi Password"
                         isFill={methods.watch().confirmPassword}
                         placeholder="Confirm your password"
                         type="password"
@@ -99,15 +99,15 @@ export default function RegisterPageMobile():JSX.Element {
                         disabled={!isObjectEmpty(methods.formState.errors)}
                         isLoading={registerUser.isPending}
                     >
-                        Register
+                        Daftar
                     </Button>
                 </form>
             </FormProvider>
         </div>
         <div className="flex mt-10 justify-center font-medium tracking-wide gap-1 sm:text-xl">
-          <p className="">Already have an account?</p>
+          <p className="">Sudah mempunyai akun?</p>
           <Link to={LOGIN_PAGE}>
-            <p className="text-[#0587BE]">Login</p>
+            <p className="text-[#0587BE]">Masuk</p>
           </Link>
         </div>
       </div>

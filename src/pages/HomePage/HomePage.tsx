@@ -14,23 +14,23 @@ const registerSchema = zod
   .object({
     name: zod
       .string()
-      .min(1, "Name is required")
-      .min(3, "Name must be more than 3 characters")
-      .max(50, "Password must be less than 50 characters"),
+      .min(1, "Nama diperlukan")
+      .min(3, "Nama harus lebih dari 3 karakter")
+      .max(50, "Password harus kurang dari 50 karakter"),
     email: zod
       .string()
-      .min(1, "Email address is required")
-      .email("Email Address is invalid"),
+      .min(1, "Email diperlukan")
+      .email("Email tidak ditemukan"),
     password: zod
       .string()
-      .min(1, "Password is required")
-      .min(8, "Password must be more than 8 characters")
-      .max(32, "Password must be less than 32 characters"),
-    confirmPassword: zod.string().min(1, "Please confirm your password"),
+      .min(1, "Password diperlukan")
+      .min(8, "Password harus lebih dari 8 karakter")
+      .max(32, "Password harus kurang dari 32 karakter"),
+    confirmPassword: zod.string().min(1, "Konfirmasi password anda"),
   })
   .refine((data) => data.password === data.confirmPassword, {
     path: ["confirmPassword"],
-    message: "Passwords do not match",
+    message: "Password tidak sama",
   });
 
 export type RegisterInput = zod.TypeOf<typeof registerSchema>;
@@ -58,9 +58,9 @@ export default function HomePage(): JSX.Element {
           {/* Content Left Start */}
           <div className="w-2/5 flex flex-col justify-evenly px-10">
             <div>
-              <h1 className="text-6xl font-bold">Welcome!</h1>
+              <h1 className="text-5xl font-bold">Selamat Datang!</h1>
               <div className="flex items-center text-3xl xl:text-4xl ml-2 mt-1">
-                <p className="font-medium">to</p>
+                <p className="font-medium">di</p>
                 <span className="flex items-center ml-5">
                   <img
                     src="/src/assets/iconVemo.svg"
@@ -73,16 +73,11 @@ export default function HomePage(): JSX.Element {
                 </span>
               </div>
             </div>
-            <div className="2xl:text-xl text-md text-[#8391A1] font-medium flex flex-col gap-6 overflow-y-auto">
+            <div className="2xl:text-xl text-xl text-[#8391A1] font-medium flex flex-col gap-6 overflow-y-auto">
               <p>
-                VEMO is an app website that provides repairing your two-wheeled
-                vehicle, you can find out the condition of your engine and
-                motorcycle performance.
-              </p>
-              <p>
-                VEMO adalah sebuah website app yang menyediakan memperbaiki
-                kendaraan beroda dua anda, anda bisa mengetahui kondisi mesin dan
-                peforma motor anda.
+                VEMO adalah sebuah website app yang menyediakan perbaikan atau service
+                kendaraan beroda dua anda secara berkala, anda bisa mengetahui kondisi mesin serta
+                peforma motor anda disini.
               </p>
             </div>
             <div className="flex items-center">
@@ -98,7 +93,7 @@ export default function HomePage(): JSX.Element {
               </span>
               <p className="mx-2 font-medium text-lg">|</p>
               <p className="font-medium text-xs xl:text-base">
-                The best place for your vehicle
+                Tempat Terbaik Untuk Kendaraan Anda
               </p>
             </div>
           </div>
@@ -111,7 +106,7 @@ export default function HomePage(): JSX.Element {
             {/* Card */}
             <div className="w-3/5 xl:w-1/2 p-8 rounded-[2rem] bg-white z-10 shadow-[0px_2px_7px_5px_#00000040]">
               <p className="font-bold text-2xl mb-6 text-center">
-                Create an Account
+                Buat Sebuah Akun
               </p>
               <FormProvider {...methods}>
                 <form
@@ -127,7 +122,7 @@ export default function HomePage(): JSX.Element {
                   )}
                   <Input
                     name="name"
-                    label="Name"
+                    label="Nama"
                     isFill={methods.watch().name}
                     placeholder="Input your name"
                     type="text"
@@ -148,7 +143,7 @@ export default function HomePage(): JSX.Element {
                   />
                   <Input
                     name="confirmPassword"
-                    label="Confirm Password"
+                    label="Konfirmasi Password"
                     isFill={methods.watch().confirmPassword}
                     placeholder="Confirm your password"
                     type="password"
@@ -160,14 +155,14 @@ export default function HomePage(): JSX.Element {
                       disabled={!isObjectEmpty(methods.formState.errors)}
                       isLoading={registerUser.isPending}
                     >
-                      Sign Up
+                      Daftar
                     </Button>
                     <Button
                       className="py-6 text-lg font-semibold bg-dark hover:bg-dark/80"
                       asChild
                     >
                       <Link className="w-full text-center" to="/login">
-                        Log In
+                        Masuk
                       </Link>
                     </Button>
                   </div>

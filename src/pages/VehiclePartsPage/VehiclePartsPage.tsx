@@ -64,7 +64,7 @@ export default function VehiclePartsPage(): JSX.Element {
           <img src={IconArrow} alt="" className="absolute top-6 left-0 lg:left-5 xl:w-[2rem]  md:w-32 xl:h-[2rem] w-[1.4rem] h-[1.5rem] cursor-pointer" onClick={() => navigate(REQUEST_MAINTENANCE_VEHICLE_PAGE)} />
         </div>
         <div className="flex justify-center font-bold md:text-4xl xl:text-4xl text-3xl">
-          <h1 className="">Conditional</h1>
+          <h1 className="">Kondisi Part</h1>
         </div>
       </div>
       <div className="relative">
@@ -83,37 +83,53 @@ export default function VehiclePartsPage(): JSX.Element {
       <div className="w-full flex place-items-center pt-7 px-14 xs:px-24 sm:px-20 lg:px-48 mb-10">
         <Dialog>
           <DialogTrigger asChild>
-            <Dialog>
-              <DialogTrigger asChild>
-                <button type="button" className="py-3 text-white rounded-md text-base bg-primary xl:text-lg font-medium w-full">
-                  Request Perawatan
-                </button>
-              </DialogTrigger>
-              <DialogContent className="sm:w-[500px] sm:h-[500px] bg-white">
-                <DialogHeader className="flex flex-col items-center justify-center">
-                  <DialogTitle className="text-2xl font-semibold">Form Request Perawatan</DialogTitle>
-                  <DialogDescription className="text-center">Silahkan isi form berikut untuk merequest perawatan kendaraan</DialogDescription>
-                </DialogHeader>
-                <div className="w-full flex flex-col px-7">
-                  <FormProvider {...methods}>
-                    <form autoComplete="off" className="flex flex-col gap-5" onSubmit={methods.handleSubmit(onSubmitHandler)}>
-                      <Input defaultValue={(user as IUserResponse).email} name="emailAndPhoneNumber" label="Email/Phone Number" isFill={methods.watch().emailAndPhoneNumber} placeholder="Enter Email/Phone Number" type="text" />
-                      <Input name="distanceVehicle" label="Distance Vehicle / km" isFill={methods.watch().distanceVehicle} placeholder="Enter Distance Vehicle" type="number" min={0} />
-                      <Input name="notesMechanic" label="Notes for Mechanic" isFill={methods.watch().notesMechanic} placeholder="Enter Notes for Mechanic" type="text" />
-                      <Button type="submit" className="py-6 mt-4 text-lg font-semibold">
-                        Enter
-                      </Button>
-                    </form>
-                  </FormProvider>
-                </div>
-              </DialogContent>
-            </Dialog>
+            <button type="button" className="py-3 text-white rounded-md text-base bg-primary xl:text-lg font-medium w-full">
+              Request Perawatan
+            </button>
           </DialogTrigger>
           <DialogContent className="sm:w-[500px] sm:h-[500px] bg-white">
             <DialogHeader className="flex flex-col items-center justify-center">
               <DialogTitle className="text-2xl font-semibold">Form Request Perawatan</DialogTitle>
-              <DialogDescription className="text-center">Silahkan isi form berikut untuk merequest perawatan kendaraan</DialogDescription>
+              <DialogDescription className="text-center">
+                Silahkan isi form berikut untuk merequest perawatan kendaraan
+              </DialogDescription>
             </DialogHeader>
+              <div className="w-full flex flex-col px-7">
+                <FormProvider {...methods}>
+                  <form
+                    autoComplete="off"
+                    className="flex flex-col gap-5"
+                    onSubmit={methods.handleSubmit(onSubmitHandler)}
+                  >
+                  <Input
+                    defaultValue={(user as IUserResponse).email}
+                    name="emailAndPhoneNumber" 
+                    label="Email/Phone Number" 
+                    isFill={methods.watch().emailAndPhoneNumber} 
+                    placeholder="Enter Email/Phone Number" 
+                    type="text" 
+                  />
+                  <Input 
+                    name="distanceVehicle" 
+                    label="Distance Vehicle / km" 
+                    isFill={methods.watch().distanceVehicle} 
+                    placeholder="Enter Distance Vehicle" 
+                    type="number"
+                    min={0}
+                  />
+                  <Input 
+                    name="notesMechanic" 
+                    label="Notes for Mechanic" 
+                    isFill={methods.watch().notesMechanic} 
+                    placeholder="Enter Notes for Mechanic" 
+                    type="text" 
+                  />
+                  <Button type="submit" className="py-6 mt-4 text-lg font-semibold">
+                    Kirim
+                  </Button>
+                </form>
+              </FormProvider>
+            </div>
           </DialogContent>
         </Dialog>
       </div>

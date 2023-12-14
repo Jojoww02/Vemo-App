@@ -100,7 +100,7 @@ export default function UpdateProfilePage() {
           />
         </div>
         <h1 className="font-bold text-xl sm:text-3xl lg:text-4xl mt-10">
-          Update Profile
+          Perbaharui Profile
         </h1>
       </div>
       <div className=" px-4 mt-10">
@@ -113,7 +113,7 @@ export default function UpdateProfilePage() {
             <Input
               defaultValue={(user as IUserResponse).name}
               name="name"
-              label="Name"
+              label="Nama"
               isFill={methods.watch().name}
               placeholder="Input your name"
               type="text"
