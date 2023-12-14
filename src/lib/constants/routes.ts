@@ -4,7 +4,7 @@ import { IVehicleStatus } from "@/api/types";
 export const NOT_FOUND_PAGE = "*";
 export const INDEX_PAGE = "/";
 export const LOGIN_PAGE = "/login";
-export const    REGISTER_USER_PAGE = "/register";
+export const REGISTER_USER_PAGE = "/register";
 export const DASHBOARD_PAGE = "/dashboard";
 export const ABOUT_US_PAGE = "/about/vemo";
 export const VEHICLE_LIST_PAGE = "/vehicles";

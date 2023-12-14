@@ -10,7 +10,7 @@ interface Props {
 
 export default function VehicleCard({ vehicleData }: Props): JSX.Element {
   return vehicleData.status === "approved" ? (
-    <div className="flex px-4 md:py-2 gap-6 w-full lg:px-8 bg-white rounded-xl shadow-[0px_3px_7px_5px_#00000040]">
+    <div className="flex  px-4 md:py-2 gap-6 w-full lg:px-8 bg-white rounded-xl shadow-[0px_3px_7px_5px_#00000040]">
       <div className="self-center">
         <VehicleIcon type={vehicleData.vehicleType} />
       </div>
