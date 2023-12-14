@@ -58,8 +58,8 @@ export default function VehicleDetailsPage() {
       <div className="w-full md:w-[480px] md:mx-auto lg:w-full flex gap-5 flex-col lg:flex-row">
         <div className="lg:w-1/2 bg-[#F7F8F9] rounded-xl py-5 px-5 h-full min-h-[660px]">
           <div className="w-full flex flex-col justify-center items-center">
-            <VehicleIcon type={isSuccess ? (vehicle as IVehicleResponse).type : "matic"} />
-            <h1 className="font-semibold text-xl lg:text-2xl mt-4 devide mb-5">{isSuccess && (vehicle as IVehicleResponse).name}</h1>
+            <VehicleIcon type={isSuccess ? (vehicle as IVehicleResponse).vehicleType : "matic"} />
+            <h1 className="font-semibold text-xl lg:text-2xl mt-4 devide mb-5">{isSuccess && (vehicle as IVehicleResponse).vehicleName}</h1>
           </div>
           <div>
             <Tabs defaultValue="account" className="w-full flex flex-col justify-center">
@@ -87,7 +87,7 @@ export default function VehicleDetailsPage() {
                       <h4 className="text-lg lg:text-xl">Nama Kendaraan Dan Tipe :</h4>
                     </div>
                     <div className="text-lg">
-                      {isSuccess && (vehicle as IVehicleResponse).name} | {isSuccess && (vehicle as IVehicleResponse).type}
+                      {isSuccess && (vehicle as IVehicleResponse).vehicleName} | {isSuccess && (vehicle as IVehicleResponse).vehicleType}
                     </div>
                   </div>
                   <div className="flex flex-col gap-2">

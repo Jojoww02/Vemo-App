@@ -52,7 +52,7 @@ export default function VehicleDetailPageMobile() {
         <div className="pt-3 flex flex-col justify-center items-center text-center gap-4 bg-white">
           <img src={image1} alt="" className="" />
           <h1 className="font-semibold text-2xl mb-3 sm:text-3xl sm:mb-5">
-            {isSuccess && (vehicle as IVehicleResponse).name}
+            {isSuccess && (vehicle as IVehicleResponse).vehicleName}
           </h1>
         </div>
 
@@ -94,8 +94,8 @@ export default function VehicleDetailPageMobile() {
                   <h4 className="text-xl">Nama Kendaraan Dan Tipe :</h4>
                 </div>
                 <div className="text-lg">
-                  {isSuccess && (vehicle as IVehicleResponse).name} |{" "}
-                  {isSuccess && (vehicle as IVehicleResponse).type}
+                  {isSuccess && (vehicle as IVehicleResponse).vehicleName} |{" "}
+                  {isSuccess && (vehicle as IVehicleResponse).vehicleType}
                 </div>
               </div>
               <div className="flex flex-col gap-2">
