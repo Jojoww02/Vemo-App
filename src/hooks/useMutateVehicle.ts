@@ -14,5 +14,8 @@ export default function useMutateVehicle() {
         await approveVehicleFn(vehicleId);
       },
     }),
+    getVehiclePartByVehicleId: useMutation({
+      // from vehicle service
+    })
   };
 }
