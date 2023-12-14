@@ -1,4 +1,5 @@
 import React from "react";
+import zod from "zod";
 import { FormProvider, useForm } from "react-hook-form";
 import gradient from "../../assets/requestPageImage/gradient-img.svg";
 import ImageVehicle from "../../assets/requestPageImage/register-vehicle-mobile-image.png";
@@ -10,19 +11,28 @@ import { IUserResponse, IVehicleResponse } from "@/api/types";
 import { useNavigate } from "react-router-dom";
 import { getVehiclesByUserIdFn } from "@/api/services/vehicle";
 import { DASHBOARD_PAGE } from "@/lib/constants/routes";
+import { zodResolver } from "@hookform/resolvers/zod";
 
+const RegisterVehicleSchema = zod.object({
+  fullName: zod.string().min(1, "Nama diperlukan")
+  .min(3, "Nama harus lebih dari 3 karakter")
+  .max(50, "Password harus kurang dari 50 karakter"),
+  vehicleName: zod.string().min(1, "Nama kendaraan diperlukan")
+  .min(3, "Nama kendaraan harus lebih dari 3 karakter")
+  .max(50, "Password harus kurang dari 50 karakter"),
+  vehicleType: zod.string().min(1, "Tipe kendaraan diperlukan"),
+  purchasingDate: zod.string().min(1, "Tanggal pembelian kendaraan tidak valid"),
+  licensePlate: zod.string().min(1, "Plat kendaraan diperlukan"),
+  lastMaintenance: zod.number().min(1, "Tanggal terakhir perawatan kendaraan tidak valid"),
+});
 
-interface RegisterVehicle {
-  fullName: string;
-  vehicleName: string;
-  vehicleType: VehicleType;
-  purchasingDate: Date;
-  licensePlate: string;
-}
+export type RegisterVehicle = zod.TypeOf<typeof RegisterVehicleSchema>;
 
 export default function RegisterVehiclePageMobile() {
   const navigate = useNavigate();
-  const methods = useForm<RegisterVehicle>();
+  const methods = useForm<RegisterVehicle>({
+    resolver: zodResolver(RegisterVehicleSchema),
+  });
   const { data: user } = useQuery<IUserResponse>({ queryKey: ["me"] });
   const { registerVehicle } = useMutateVehicle();
 
@@ -30,10 +40,11 @@ export default function RegisterVehiclePageMobile() {
     registerVehicle.mutateAsync({
       ownerName: data.fullName,
       vehicleName: data.vehicleName,
+      vehicleType: data.vehicleType as VehicleType,
       licensePlate: data.licensePlate,
-      vehicleType: data.vehicleType,
       purchasingDate: new Date(data.purchasingDate).toISOString(),
       userId: (user as IUserResponse).userId,
+      lastMaintenance: calculateMonthsAgo(data.lastMaintenance.toString()),
     });
   }
 
@@ -47,6 +58,16 @@ export default function RegisterVehiclePageMobile() {
       navigate(DASHBOARD_PAGE);
     }
   }, [registerVehicle.isSuccess]);
+
+  const calculateMonthsAgo = (selectedDate: string) => {
+    const currentDate: Date = new Date();
+    const selectedDateObject: Date = new Date(selectedDate);
+
+    const timeDiff: number = currentDate.getTime() - selectedDateObject.getTime();
+    const monthsAgo: number = Math.floor(timeDiff / (1000 * 60 * 60 * 24 * 30.44));
+
+    return monthsAgo;
+  };
 
   return (
     <main className="flex flex-col gap-8 mb-10">
@@ -115,6 +136,12 @@ export default function RegisterVehiclePageMobile() {
                 placeholder="Confirm your password"
                 type="text"
               />
+              <Input 
+                name="lastMaintenance"
+                label="Perawatan Terakhir"
+                isFill={methods.watch().lastMaintenance?.toString()}
+                type="date"
+              />
               <div className="flex flex-col gap-2 mt-7">
                 <Button
                   className="py-6 text-lg font-semibold"
@@ -122,7 +149,7 @@ export default function RegisterVehiclePageMobile() {
                   isLoading={registerVehicle.isPending}
                   disabled={isSuccess && (vehicles as IVehicleResponse[]).some((vehicle) => vehicle.status === "pending")}
                 >
-                  Send
+                  Kirim
                 </Button>
               </div>
             </form>

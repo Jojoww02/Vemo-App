@@ -13,19 +13,36 @@ import { FormProvider, useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { zodResolver } from "@hookform/resolvers/zod";
 
-const RegisterVehicleSchema = zod.object({
-  fullName: zod.string().min(1, "Name is required")
-  .min(3, "Name must be more than 3 characters")
-  .max(50, "Password must be less than 50 characters"),
-  vehicleName: zod.string().min(1, "Name is required")
-  .min(3, "Name must be more than 3 characters")
-  .max(50, "Password must be less than 50 characters"),
-  vehicleType: zod.string().min(1, "Email address is required"),
-  purchasingDate: zod.string().min(1, "Email address is required"),
-  licensePlate: zod.string().min(1, "Plat nomor sudah terdaftar"),
-  lastMaintenance: zod.number().min(1, "Tanggal terakhir perawatan kendaraan tidak valid"),
-});
-
+const RegisterVehicleSchema = zod
+  .object({
+    fullName: zod
+      .string()
+      .min(1, "Nama diperlukan")
+      .min(3, "Nama harus lebih dari 3 karakter")
+      .max(50, "Password harus kurang dari 50 karakter"),
+    vehicleName: zod
+      .string()
+      .min(1, "Nama kendaraan diperlukan")
+      .min(3, "Nama kendaraan harus lebih dari 3 karakter")
+      .max(50, "Password harus kurang dari 50 karakter"),
+    vehicleType: zod
+      .string()
+      .refine(value => ["matic", "manual"]
+      .includes(value), {
+        message: "Pilih jenis kendaraan yang valid"
+      }),
+    purchasingDate: zod
+      .string()
+      .min(1, "Tanggal pembelian kendaraan tidak valid"),
+    licensePlate: zod
+      .string()
+      .min(1, "Plat kendaraan diperlukan"),
+    lastMaintenance: zod
+      .string()
+      .refine((value) => !isNaN(new Date(value).getTime()), {
+        message: "Tanggal terakhir perawatan kendaraan tidak valid"
+      }),
+  });
 export type RegisterVehicle = zod.TypeOf<typeof RegisterVehicleSchema>;
 
 
@@ -62,15 +79,6 @@ export default function RegisterVehiclePage() {
     }
   }, [registerVehicle.isSuccess]);
 
-  // const handleRegisterVehicle = (data: any) => {
-  //   // Convert the selected date to months ago
-  //   const monthsAgo = calculateMonthsAgo(data.lastMaintenance);
-  //   console.log("Form Data:", { ...data, lastMaintenance: monthsAgo });
-  //   // ...
-
-  //   // Your existing logic here
-  // };
-
   const calculateMonthsAgo = (selectedDate: string) => {
     const currentDate: Date = new Date();
     const selectedDateObject: Date = new Date(selectedDate);
@@ -98,9 +106,9 @@ export default function RegisterVehiclePage() {
 
           {/* Content Right Start */}
           <div className="w-1/2 mb-2 justify-center flex">
-            <div className="w-[80%] mt-5">
+            <div className="w-[80%]">
               <FormProvider {...methods}>
-                <form autoComplete="off" onSubmit={methods.handleSubmit(handleRegisterVehicle)} className="flex-col flex gap-6">
+                <form autoComplete="off" onSubmit={methods.handleSubmit(handleRegisterVehicle)} className="flex-col flex gap-5">
                 {registerVehicle.isError && (
                   <AlertForm 
                     title={(registerVehicle.error as any).response.data.message} 
@@ -115,10 +123,10 @@ export default function RegisterVehiclePage() {
                   </Input>
                   <Input name="purchasingDate" label="Tanggal Pembelian Kendaraan" isFill={methods.watch().purchasingDate?.toString()} placeholder="Input your password" type="date" />
                   <Input name="licensePlate" label="Plat Nomor" isFill={methods.watch().licensePlate} placeholder="Confirm your password" type="text" />
-                  <Input name="lastMaintenance" label="Terakhir Bulan" isFill={methods.watch().lastMaintenance?.toString()} placeholder="Input your password" type="date" />
-                  <div className="flex flex-col gap-2 mt-7">
+                  <Input name="lastMaintenance" label="Perawatan Terakhir" isFill={methods.watch().lastMaintenance?.toString()} placeholder="Input your password" type="date" />
+                  <div className="flex flex-col gap-2 mt-5">
                     <Button className="py-6 text-lg font-semibold" type="submit" isLoading={registerVehicle.isPending} disabled={isSuccess && (vehicles as IVehicleResponse[]).some((vehicle) => vehicle.status === "pending")}>
-                      Send
+                      Kirim
                     </Button>
                   </div>
                 </form>
