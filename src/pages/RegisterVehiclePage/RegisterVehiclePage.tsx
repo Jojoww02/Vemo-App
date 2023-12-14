@@ -27,9 +27,8 @@ const RegisterVehicleSchema = zod
       .max(50, "Password harus kurang dari 50 karakter"),
     vehicleType: zod
       .string()
-      .refine(value => ["matic", "manual"]
-      .includes(value), {
-        message: "Pilih jenis kendaraan yang valid"
+      .refine((value) => value === null || ["matic", "manual"].includes(value as string), {
+        message: "Pilih jenis kendaraan yang valid",
       }),
     purchasingDate: zod
       .string()
@@ -39,10 +38,11 @@ const RegisterVehicleSchema = zod
       .min(1, "Plat kendaraan diperlukan"),
     lastMaintenance: zod
       .string()
-      .refine((value) => !isNaN(new Date(value).getTime()), {
-        message: "Tanggal terakhir perawatan kendaraan tidak valid"
-      }),
-  });
+      .min(1, "Tanggal terakhir perawatan diperlukan")
+  })
+  .refine((value) => !isNaN(new Date(value as any).getTime()), {
+    message: "Tanggal terakhir perawatan kendaraan tidak valid"
+  })
 export type RegisterVehicle = zod.TypeOf<typeof RegisterVehicleSchema>;
 
 

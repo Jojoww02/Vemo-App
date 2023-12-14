@@ -13,19 +13,36 @@ import { getVehiclesByUserIdFn } from "@/api/services/vehicle";
 import { DASHBOARD_PAGE } from "@/lib/constants/routes";
 import { zodResolver } from "@hookform/resolvers/zod";
 
-const RegisterVehicleSchema = zod.object({
-  fullName: zod.string().min(1, "Nama diperlukan")
-  .min(3, "Nama harus lebih dari 3 karakter")
-  .max(50, "Password harus kurang dari 50 karakter"),
-  vehicleName: zod.string().min(1, "Nama kendaraan diperlukan")
-  .min(3, "Nama kendaraan harus lebih dari 3 karakter")
-  .max(50, "Password harus kurang dari 50 karakter"),
-  vehicleType: zod.string().min(1, "Tipe kendaraan diperlukan"),
-  purchasingDate: zod.string().min(1, "Tanggal pembelian kendaraan tidak valid"),
-  licensePlate: zod.string().min(1, "Plat kendaraan diperlukan"),
-  lastMaintenance: zod.number().min(1, "Tanggal terakhir perawatan kendaraan tidak valid"),
-});
-
+const RegisterVehicleSchema = zod
+  .object({
+    fullName: zod
+      .string()
+      .min(1, "Nama diperlukan")
+      .min(3, "Nama harus lebih dari 3 karakter")
+      .max(50, "Password harus kurang dari 50 karakter"),
+    vehicleName: zod
+      .string()
+      .min(1, "Nama kendaraan diperlukan")
+      .min(3, "Nama kendaraan harus lebih dari 3 karakter")
+      .max(50, "Password harus kurang dari 50 karakter"),
+    vehicleType: zod
+      .string()
+      .refine(value => ["matic", "manual"]
+      .includes(value), {
+        message: "Pilih jenis kendaraan yang valid"
+      }),
+    purchasingDate: zod
+      .string()
+      .min(1, "Tanggal pembelian kendaraan tidak valid"),
+    licensePlate: zod
+      .string()
+      .min(1, "Plat kendaraan diperlukan"),
+    lastMaintenance: zod
+      .string()
+      .refine((value) => !isNaN(new Date(value).getTime()), {
+        message: "Tanggal terakhir perawatan kendaraan tidak valid"
+      }),
+  });
 export type RegisterVehicle = zod.TypeOf<typeof RegisterVehicleSchema>;
 
 export default function RegisterVehiclePageMobile() {
