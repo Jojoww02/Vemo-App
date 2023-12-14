@@ -3,11 +3,9 @@ import useMutateAuth from "@/hooks/useMutateAuth";
 import { FORGOT_PASSWORD_REQUEST_PAGE, REGISTER_USER_PAGE } from "@/lib/constants/routes";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { AlertForm, Button, Input } from "@/components/atoms";
-import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { isObjectEmpty } from "@/lib/utils/common";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
-import { AlertTriangle } from "lucide-react";
 
 const loginSchema = zod.object({
     email: zod
@@ -36,7 +34,7 @@ export default function LoginPageMobile():JSX.Element {
   };
   return (
     <div className="sm:w-[640px] sm:mx-auto h-screen pt-8 px-6 sm:px-20 sm:mt-10">
-      <h1 className="text-4xl leading-10 font-bold mb-10 pl-4">Selamat datang, senang melihatmu kembali!</h1>
+      <h1 className="text-3xl leading-10 font-bold mb-10 xs:pl-4">Selamat datang, senang melihatmu kembali!</h1>
       <div className="my-5 w-full xs:w-[90%] sm:pt-8 m-auto gap-4">
         <FormProvider {...methods}>
             <form 
@@ -61,7 +59,7 @@ export default function LoginPageMobile():JSX.Element {
                     placeholder="Enter Your Password"
                     type="password"
                 />
-                <div className="text-[#6a707c] text-end font-semibold mt-3">
+                <div className="text-[#6a707c] text-end font-medium mt-3">
                     <Link to={FORGOT_PASSWORD_REQUEST_PAGE}>
                         <p>Lupa Password?</p>
                     </Link>
