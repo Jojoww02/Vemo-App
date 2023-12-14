@@ -21,7 +21,7 @@ export default function VehicleListPage(): JSX.Element {
         {isPending ? (
           <p>Loading...</p>
         ) : isSuccess && vehicles ? (
-          (vehicles as IVehicleResponse[]).map((vehicle: IVehicleResponse) => <VehicleCard vehicleData={vehicle} key={vehicle.id} />)
+          (vehicles as IVehicleResponse[]).map((vehicle: IVehicleResponse) => <VehicleCard vehicleData={vehicle} key={vehicle.vehicleId} />)
         ) : (
           <div className="w-full flex flex-col items-center text-center gap-4">
             <BadgeAlert className="text-white" size={50} />
