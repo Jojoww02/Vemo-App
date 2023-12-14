@@ -39,6 +39,7 @@ export interface IVehicle {
   purchasingDate: string;
   licensePlate: string;
   vehicleType: VehicleType;
+  lastMaintenance: number;
   userId: string;
 }
 
