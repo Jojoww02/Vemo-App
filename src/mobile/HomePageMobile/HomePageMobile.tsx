@@ -21,10 +21,10 @@ export default function HomePageMobile(): JSX.Element {
             />
           </div>
           <div className="w-full bg-white py-8 -mt-1 sm:hidden">
-            <h1 className="text-5xl font-bold sm:hidden">Welcome!</h1>
-            <p className="text-xl font-medium my-2 sm:text-2xl sm:hidden">to</p>
+            <h1 className="text-5xl font-bold sm:hidden">Selamat Datang!</h1>
+            <p className="text-xl font-medium my-2 sm:text-2xl sm:hidden">di</p>
             <div className="flex items-center justify-center gap-2 mb-12 sm:hidden">
-              <img src="/src/assets/iconVemo.svg" alt="" className="w-[15%]" />
+              <img src="/src/assets/iconVemo.svg" alt="" className="w-16" />
               <h3 className="text-2xl font-semibold text-primary italic sm:text-3xl">
                 VEMO
               </h3>
@@ -32,7 +32,7 @@ export default function HomePageMobile(): JSX.Element {
             <div className="sm:hidden w-full px-10 flex flex-col gap-3 mb-4">
               <Button asChild className="py-6 text-lg font-semibold">
                 <Link to={REGISTER_USER_PAGE} className="w-full">
-                  Register
+                  Daftar
                 </Link>
               </Button>
               <Button
@@ -40,20 +40,20 @@ export default function HomePageMobile(): JSX.Element {
                 className="py-6 text-lg font-semibold bg-dark hover:bg-dark/80"
               >
                 <Link to={LOGIN_PAGE} className="w-full">
-                  Log In
+                  Masuk
                 </Link>
               </Button>
             </div>
           </div>
         </div>
 
-        <div className="hidden sm:flex sm:flex-col sm:justify-evenly sm:items-center sm:bg-white sm:z-10 sm:pt-10 sm:w-1/2 sm:rounded-[2rem]">
+        <div className="hidden px-8 sm:flex sm:flex-col sm:justify-evenly sm:items-center sm:bg-white sm:z-10 sm:pt-10 sm:w-1/2 sm:rounded-[2rem]">
           <div>
-            <h1 className="text-5xl font-bold mt-5 ">Selamat Datang!</h1>
+            <h1 className="text-5xl font-bold mt-5">Selamat Datang!</h1>
             <p className="text-xl font-medium my-2 sm:text-3xl">di</p>
             <div className="flex items-center justify-center mb-12">
-              <img src="/src/assets/iconVemo.svg" alt="" className="w-[27%]" />
-              <h3 className="text-2xl font-semibold text-primary italic sm:text-3xl">
+              <img src="/src/assets/iconVemo.svg" alt="" className="w-16" />
+              <h3 className="text-2xl font-semibold text-primary italic sm:text-3xl ml-2">
                 VEMO
               </h3>
             </div>
