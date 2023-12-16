@@ -1,15 +1,23 @@
+import React from "react";
 import { NotificationCard } from "@/components/molecules";
 import { Button } from "@/components/ui/button";
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 import { notificationData } from "@/lib/data";
 import { DotsVerticalIcon } from "@radix-ui/react-icons";
 import { Trash2 } from "lucide-react";
-import { useState } from "react";
+import { cn } from "@/lib/utils/style";
 
 export default function NontificationPage(): JSX.Element {
-  const [activeTabEmail, setActiveTabEmail] = useState("");
-
-  const [deleteMode, setDeleteMode] = useState(false);
+  const [activeTabEmail, setActiveTabEmail] = React.useState("");
+  const [deleteMode, setDeleteMode] = React.useState(false);
+  const [checkedItems, setCheckedItems] = React.useState<string[]>([]);
+  const [selectAll, setSelectAll] = React.useState(false);
 
   const tabs = [
     {
@@ -27,14 +35,34 @@ export default function NontificationPage(): JSX.Element {
   }
 
   function handleDeleteOptionClick() {
+    // reset checkedItems when cancel delete
+    if (deleteMode) {
+      setCheckedItems([]);
+    }
     setDeleteMode(!deleteMode);
   }
+
+  const handleCheckboxChange = (id: string) => {
+    if (checkedItems.includes(id)) {
+      setCheckedItems((prev) => prev.filter((item) => item !== id));
+    } else {
+      setCheckedItems((prev) => [...prev, id]);
+    }
+  };
+
+  const handleSelectAll = () => {
+    const allIds = notificationData.map((data) => data.id);
+    setCheckedItems(selectAll ? [] : allIds);
+    setSelectAll((prev) => !prev);
+  };
 
   return (
     <div className="md:w-[640px] md:mx-auto mb-10 ">
       <div className="flex flex-col w-full items-center">
         <div className="w-full">
-          <h1 className="font-semibold text-xl xl:text-4xl">Inbox Notifikasi</h1>
+          <h1 className="font-semibold text-xl xl:text-4xl">
+            Inbox Notifikasi
+          </h1>
 
           <div className="flex justify-between w-full mt-5 mb-10">
             <div className="flex gap-2">
@@ -44,28 +72,59 @@ export default function NontificationPage(): JSX.Element {
                   type="button"
                   onClick={() => handleCategoryClick(tab.id)}
                   key={index}
-                  className={`rounded-lg border-2 px-4 lg:px-7 ${tab.id === activeTabEmail ? "bg-[#F4B400] border-[#F4B400] text-white" : "border-[#F4B400] text-[#F4B400]  "}`}
+                  className={`rounded-lg border-2 px-4 lg:px-7 ${
+                    tab.id === activeTabEmail
+                      ? "bg-[#F4B400] border-[#F4B400] text-white"
+                      : "border-[#F4B400] text-[#F4B400]  "
+                  }`}
                 >
                   {tab.name}
                 </button>
               ))}
             </div>
-            <div className="flex items-center gap-4">
-              {deleteMode && <Trash2 size={20} />}
+            <div className="flex items-center gap-6">
+              {deleteMode && (
+                <Trash2
+                  size={30}
+                  onClick={() => console.log(checkedItems)}
+                  className={cn(checkedItems.length > 0 && "text-red-600")}
+                />
+              )}
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
-                  <Button variant="ghost" className="h-8 w-8 p-0 bg-slate-300">
+                  <Button
+                    variant="ghost"
+                    className="h-9 w-9 p-0 bg-slate-200 lg:bg-white"
+                  >
                     <span className="sr-only">Open menu</span>
-                    <DotsVerticalIcon className="h-4 w-4" />
+                    <DotsVerticalIcon className="h-5 w-5" />
                   </Button>
                 </DropdownMenuTrigger>
-                <DropdownMenuContent align="end">
-                  <DropdownMenuItem>
-                    <p className="text-xs sm:text-lg">{deleteMode ? "Pilih semua" : "Tandain semua telah dibaca"}</p>
-                  </DropdownMenuItem>
-                  <DropdownMenuItem onClick={handleDeleteOptionClick}>
-                    <p className="text-xs sm:text-lg">{deleteMode ? "Hapus" : "Pilih untuk hapus"}</p>
-                  </DropdownMenuItem>
+                <DropdownMenuContent
+                  align="end"
+                  className="text-xs sm:text-base md:text-lg"
+                >
+                  {deleteMode ? (
+                    <React.Fragment>
+                      <DropdownMenuItem onClick={handleSelectAll}>
+                        <p>Pilih semua</p>
+                      </DropdownMenuItem>
+                      <DropdownMenuSeparator />
+                      <DropdownMenuItem onClick={handleDeleteOptionClick}>
+                        <p>Batal</p>
+                      </DropdownMenuItem>
+                    </React.Fragment>
+                  ) : (
+                    <React.Fragment>
+                      <DropdownMenuItem>
+                        <p>Tandai semua telah dibaca</p>
+                      </DropdownMenuItem>
+                      <DropdownMenuSeparator />
+                      <DropdownMenuItem onClick={handleDeleteOptionClick}>
+                        <p>Pilih untuk hapus</p>
+                      </DropdownMenuItem>
+                    </React.Fragment>
+                  )}
                 </DropdownMenuContent>
               </DropdownMenu>
             </div>
@@ -77,7 +136,13 @@ export default function NontificationPage(): JSX.Element {
           {notificationData
             .filter((data) => data.status === 0)
             .map((data) => (
-              <NotificationCard key={data.id} data={data} deleteMode={deleteMode} />
+              <NotificationCard
+                key={data.id}
+                data={data}
+                deleteMode={deleteMode}
+                checked={checkedItems.includes(data.id)}
+                onCheckboxChange={() => handleCheckboxChange(data.id)}
+              />
             ))}
         </div>
       ) : (
@@ -89,7 +154,13 @@ export default function NontificationPage(): JSX.Element {
         // </div>
         <div className="flex h-[72%] flex-col pt-2 overflow-y-auto">
           {notificationData.map((data) => (
-            <NotificationCard key={data.id} data={data} deleteMode={deleteMode} />
+            <NotificationCard
+              key={data.id}
+              data={data}
+              deleteMode={deleteMode}
+              checked={checkedItems.includes(data.id)}
+              onCheckboxChange={() => handleCheckboxChange(data.id)}
+            />
           ))}
         </div>
       )}

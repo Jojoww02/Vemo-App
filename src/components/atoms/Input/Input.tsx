@@ -44,12 +44,14 @@ export default function Input(props: Props): JSX.Element {
 
   return (
     <div>
+      {/* Input */}
       <div
         className={cn(
           "relative border-2 border-gray-400 rounded-lg px-4",
           (errors[name]?.message as string) && "border-red-500"
         )}
       >
+        {/* Label */}
         <label
           htmlFor={name}
           className={cn(
@@ -59,6 +61,7 @@ export default function Input(props: Props): JSX.Element {
         >
           {label}
         </label>
+        {/* Input type select */}
         {type === "select" ? (
           <Controller
             name={name}
@@ -73,7 +76,9 @@ export default function Input(props: Props): JSX.Element {
             )}
           />
         ) : (
-          <>
+          // Input type other than select type
+          <React.Fragment>
+            {/* Editable input */}
             {editable ? (
               <input
                 {...register(name)}
@@ -91,6 +96,7 @@ export default function Input(props: Props): JSX.Element {
                 disabled={!isEdit}
               />
             ) : (
+              // Non-editable input
               <input
                 {...register(name)}
                 {...otherProps}
@@ -104,6 +110,7 @@ export default function Input(props: Props): JSX.Element {
                 defaultValue={defaultValue}
               />
             )}
+            {/* Input type password */}
             {type === "password" && (
               <span className="absolute right-[5%] top-1/2 -translate-y-1/2 text-gray-700">
                 <ToogleIcon
@@ -114,6 +121,7 @@ export default function Input(props: Props): JSX.Element {
                 />
               </span>
             )}
+            {/* Edit option if editable input */}
             {editable && (
               <span className="absolute right-[5%] top-1/2 -translate-y-1/2 text-blue-400">
                 <ToogleIcon
@@ -130,9 +138,10 @@ export default function Input(props: Props): JSX.Element {
                 />
               </span>
             )}
-          </>
+          </React.Fragment>
         )}
       </div>
+      {/* Error message */}
       {!isObjectEmpty(errors) && (
         <p className="pl-1 mt-1 text-xs text-red-300 italic">
           {errors[name]?.message as string}
