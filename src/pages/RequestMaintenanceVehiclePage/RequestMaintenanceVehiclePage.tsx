@@ -36,7 +36,7 @@ export default function RequestMaintenanceVehiclePage(): JSX.Element {
                   (vehicles as IVehicleResponse[])
                     .filter((vehicle: IVehicleResponse) => vehicle.condition <= 30)
                     .map((filteredVehicle: IVehicleResponse) => (
-                      <div key={filteredVehicle.id}>
+                      <div key={filteredVehicle.vehicleId}>
                         <VehicleCard vehicleData={filteredVehicle} />
                       </div>
                     ))
