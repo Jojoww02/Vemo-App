@@ -1,3 +1,4 @@
+import React from "react";
 import zod from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
@@ -8,12 +9,15 @@ import { Link, useNavigate } from "react-router-dom";
 import { PROFILE_PAGE, UPDATE_PROFILE_PAGE } from "@/lib/constants/routes";
 import useUpdateProfile from "@/hooks/useUpdateProfile";
 import useUpdateEmail from "@/hooks/useUpdateEmail";
-import React from "react";
 
 import IconArrow from "../../assets/notification/Icon-arrow.svg";
 
 const verifyPasswordSchema = zod.object({
-  password: zod.string().min(1, "Password is required").min(8, "Password must be more than 8 characters").max(32, "Password must be less than 32 characters"),
+  password: zod
+    .string()
+    .min(1, "Password is required")
+    .min(8, "Password must be more than 8 characters")
+    .max(32, "Password must be less than 32 characters"),
 });
 
 export type VerifyPasswordInput = zod.TypeOf<typeof verifyPasswordSchema>;
@@ -29,10 +33,13 @@ export default function VerifyPasswordPage() {
   });
 
   const mutation = useMutation({
-    mutationFn: async (password: string) => await verifyPasswordUserFn(password),
+    mutationFn: async (password: string) =>
+      await verifyPasswordUserFn(password),
   });
 
-  const onSubmitHandler: SubmitHandler<VerifyPasswordInput> = ({ password }: VerifyPasswordInput) => {
+  const onSubmitHandler: SubmitHandler<VerifyPasswordInput> = ({
+    password,
+  }: VerifyPasswordInput) => {
     mutation.mutate(password);
   };
 
@@ -50,20 +57,36 @@ export default function VerifyPasswordPage() {
         <img src={IconArrow} alt="" className="left-4 w-5 lg:w-7 absolute" />
       </Link>
       <div className="flex flex-col items-center justify-center px-4 lg:pt-6">
-        <h1 className="font-bold text-xl sm:text-2xl lg:text-3xl pt-6">Masukkan password anda untuk tahap selanjutnya</h1>
+        <h1 className="font-bold text-xl sm:text-2xl lg:text-3xl pt-6">
+          Masukkan password anda untuk perbarui profile
+        </h1>
       </div>
       <div className=" px-4 mt-10">
         <FormProvider {...methods}>
-          <form autoComplete="off" onSubmit={methods.handleSubmit(onSubmitHandler)} className="flex flex-col gap-5 w-full">
-          {mutation.isError && (
-                  <AlertForm 
-                    title={(mutation.error as any).response.data.message} 
-                    description={(mutation.error as any).response.data.errors} 
-                  />
-                )}
-            <Input name="password" label="Password" isFill={methods.watch().password} placeholder="Enter Your Password" type="password" />
+          <form
+            autoComplete="off"
+            onSubmit={methods.handleSubmit(onSubmitHandler)}
+            className="flex flex-col gap-5 w-full"
+          >
+            {mutation.isError && (
+              <AlertForm
+                title={(mutation.error as any).response.data.message}
+                description={(mutation.error as any).response.data.errors}
+              />
+            )}
+            <Input
+              name="password"
+              label="Password"
+              isFill={methods.watch().password}
+              placeholder="Enter Your Password"
+              type="password"
+            />
             <div className="flex flex-col gap-2 mt-14">
-              <Button className="py-6 text-lg font-semibold" type="submit" isLoading={mutation.isPending}>
+              <Button
+                className="py-6 text-lg font-semibold"
+                type="submit"
+                isLoading={mutation.isPending}
+              >
                 Kirim
               </Button>
             </div>

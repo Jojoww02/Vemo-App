@@ -110,14 +110,12 @@ export default function VerifyOtpPage(): JSX.Element {
   return (
     <div className="w-full">
       <div className="flex flex-col px-4 lg:items-center lg:justify-center md:pl-10">
-        <div className="flex ">
-          <img
-            src={IconArrow}
-            alt=""
-            className="lg:w-[2rem] w-4 sm:w-6 absolute lg:items-center lg:left-10 cursor-pointer"
-            onClick={() => navigate(PROFILE_PAGE)}
-          />
-        </div>
+        <img
+          src={IconArrow}
+          alt=""
+          className="lg:w-[2rem] w-4 sm:w-6 absolute lg:items-center lg:left-10 cursor-pointer"
+          onClick={() => navigate(PROFILE_PAGE)}
+        />
         <h1 className="font-semibold lg:text-5xl text-xl sm:text-2xl  mt-10 md:text-3xl">
           Verifikasi OTP
         </h1>

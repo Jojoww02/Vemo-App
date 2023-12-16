@@ -27,3 +27,17 @@ export function toCamelCase(input: string): string {
 export function isObjectEmpty(object: AnyObject): boolean {
   return Object.keys(object).length === 0;
 }
+
+/**
+ * Generates a random string of a specified length.
+ * @param {number} length - The length of the random string.
+ * @returns {string} The generated random string.
+ */
+export const generateRandomString = (length: number): string =>
+  Array.from(
+    { length },
+    () =>
+      "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789"[
+        Math.floor(Math.random() * 62)
+      ]
+  ).join("");

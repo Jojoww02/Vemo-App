@@ -17,6 +17,7 @@ export interface IUserResponse {
   name: string;
   email: string;
   role: IUserRole;
+  photo: string;
 }
 
 export interface IToken {

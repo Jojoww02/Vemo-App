@@ -1,1 +1,1 @@
-export { default } from './UpdateProfilePage'
+export { default } from './UpdateProfilePage';

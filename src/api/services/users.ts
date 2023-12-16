@@ -7,7 +7,6 @@ export const registerUserFn = async (user: IUser): Promise<IToken> => {
   return response.data;
 };
 
-
 export const getMeFn = async (): Promise<IUserResponse> => {
   const response = await privateApi.get<IUserResponse>(API.GET_CURRENT_USER_SERVICE);
   return response.data;
@@ -27,3 +26,12 @@ export const changePasswordFn = async (changePasswordData: IChangePasswordData):
   const response = await privateApi.patch<IGenericResponse>(API.CHANGE_PASSWORD_SERVICE, changePasswordData);
   return response.data;
 };
+
+export const updatePhotoProfileFn = async (photo: FormData): Promise<IGenericResponse> => {
+  const response = await privateApi.patch<IGenericResponse>(API.UPDATE_PHOTO_PROFILE_SERVICE, photo, {
+    headers: {
+      "Content-Type": "multipart/form-data",
+    }
+  });
+  return response.data;
+}

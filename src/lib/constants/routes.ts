@@ -11,7 +11,7 @@ export const VEHICLE_LIST_PAGE = "/vehicles";
 export const VEHICLE_PARTS_PAGE = "/vehicles/parts";
 export const REGISTER_VEHICLE_PAGE = "/vehicles/register";
 export const VEHICLE_DETAILS_PAGE = (vehicleId: string) => `/vehicles/details/${vehicleId}`;
-export const REQUEST_MAINTENANCE_VEHICLE_PAGE = "/request-maintenance"; // -> nanti ganti
+export const REQUEST_MAINTENANCE_VEHICLE_PAGE = "/vehicles/maintenance/request"; // -> nanti ganti
 export const FORGOT_PASSWORD_REQUEST_PAGE = "/forgot-password";
 export const FORGOT_PASSWORD_PAGE = (token: string) => `/forgot-password/${token}`; // -> perlu ganti (?)
 export const PROFILE_PAGE = "/profile";
@@ -39,8 +39,9 @@ export const LOGOUT_SERVICE = "auth/logout";
 /* USERS SERVICES */
 export const REGISTER_USER_SERVICE = "users";
 export const UPDATE_USER_SERVICE = "users";
-export const GET_CURRENT_USER_SERVICE = "users/me"; //ini
+export const GET_CURRENT_USER_SERVICE = "users/me";
 export const CHANGE_PASSWORD_SERVICE = "users/password";
+export const UPDATE_PHOTO_PROFILE_SERVICE = "users/photo";
 
 /* VEHICLE SERVICE */
 export const REGISTER_VEHICLE_SERVICE = "vehicles";
