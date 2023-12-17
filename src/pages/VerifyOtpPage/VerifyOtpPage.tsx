@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import moment from "moment";
 import IconArrow from "../../assets/notification/Icon-arrow.svg";
 import { PROFILE_PAGE } from "@/lib/constants/routes";
-import { Button } from "@/components/atoms";
+import { AlertForm, Button } from "@/components/atoms";
 import useMutateAuth from "@/hooks/useMutateAuth";
 import useMutateUser from "@/hooks/useMutateUser";
 import useUpdateEmail from "@/hooks/useUpdateEmail";
@@ -123,9 +123,10 @@ export default function VerifyOtpPage(): JSX.Element {
           Masukkan kode OTP yang baru saja kami berikan di email anda.
         </p>
       </div>
-      <div className="flex justify-center items-center lg:pt-14">
+      <div className="flex justify-center items-center mt-10">
         <div>
-          <div className="flex items-center justify-center lg:space-x-10 space-x-5 mt-12">
+          {verifyOtp.isError && <AlertForm title={(verifyOtp.error as any).response.data.message} description={(verifyOtp.error as any).response.data.errors} />}
+          <div className="flex items-center justify-center lg:space-x-10 space-x-5 mt-5">
             {otp.map((digit, index) => (
               <div key={index}>
                 <label htmlFor={`otp-input-${index}`} className="sr-only">
