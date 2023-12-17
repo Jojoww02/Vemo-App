@@ -13,7 +13,7 @@ import { REGISTER_VEHICLE_PAGE, REQUEST_MAINTENANCE_VEHICLE_PAGE } from "@/lib/c
 
 export default function AboutPageMobile() {
   return (
-    <>
+    <div className="overflow-x-hidden">
       <div className="text-center text-white bg-gradient-to-br from-yellow-400 via-yellow-500 to-yellow-800 px-6 py-6 leading-8 flex flex-col gap-4">
         <h3 className="font-semibold xs:text-xl sm:text-2xl">Making the company a place that can help and keep users happy, one app at a time.</h3>
         <p className="text-xs xs:text-base font-thin sm:text-xl">We think that we can help users in making it easier through this web app. Our mission is to provide full-featured software, everything runs smoothly for every user.</p>
@@ -104,6 +104,6 @@ export default function AboutPageMobile() {
       <div className="bg-[#0F141C] py-2 xs:py-4 sm:py-6">
         <h1 className="text-white font-light text-center text-sm  xs:text-lg sm:text-xl"> Copyright 2023 VEMO</h1>
       </div>
-    </>
+    </div>
   );
 }
