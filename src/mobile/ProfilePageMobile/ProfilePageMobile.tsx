@@ -7,6 +7,7 @@ import { CHANGE_PASSWORD_PAGE, DASHBOARD_PAGE, VERIFY_PASSWORD_PAGE } from "@/li
 import useLogoutUser from "@/hooks/useLogoutUser";
 import { useQuery } from "@tanstack/react-query";
 import { IUserResponse } from "@/api/types";
+import { Avatar, AvatarFallback, AvatarImage } from "@radix-ui/react-avatar";
 
 function ProfileMobile() {
   const { data: user } = useQuery<IUserResponse>({ queryKey: ["me"] });
@@ -14,20 +15,26 @@ function ProfileMobile() {
   return (
     <div className="md:w-[480px] mx-auto">
       <div className="relative">
-        <div className="pl-5 ">
+        <div className="pl-5">
           <Link to={DASHBOARD_PAGE}>
             <img src={arrow} alt="" className="z-40 absolute left-0 top-0 w-4 xs:w-6 sm:w-8" />
           </Link>
         </div>
-        <div className="flex flex-col items-center gap-4 mt-5 text-center relative sm:mt-4 ">
+        <div className="flex flex-col items-center gap-4 text-center relative sm:mt-4 ">
           <h1 className=" -z-50 text-[1.5rem] font-semibold tracking-wide sm:text-5xl xs:text-[2.3rem] xs:">Profile</h1>
-          <img src={UserProfileIcon} alt="" className="inset-0 m-auto w-24 sm:w-32 xs:w-[6rem] " />
-          <Link to={VERIFY_PASSWORD_PAGE} style={{ display: "flex", alignItems: "center", gap: "8px" }}>
-            <IconPencil size={25} /> <p className="text-[#0586BE] sm:text-xl">Perbaharui Profile</p>
+          <Avatar className="w-28 h-28 my-4">
+            <AvatarImage src={`/PhotoProfile/${user?.photo}`} />
+            <AvatarFallback>
+              <img src="/user-profile-icon.svg" alt="" />
+            </AvatarFallback>
+          </Avatar>
+          <Link to={VERIFY_PASSWORD_PAGE} className="flex text-[#0586BE] text-sm items-center cursor-pointer hover:underline">
+            <IconPencil size={25} />
+            <p className="sm:text-xl">Perbarui Profile</p>
           </Link>
         </div>
       </div>
-      <div className="px-4   pt-5 mt-8 sm:mt-8 flex-col flex sm:text-start ">
+      <div className="px-4   pt-5 sm:mt-8 flex-col flex sm:text-start ">
         <div className="mb-6 pb-3 border-b-2">
           <h1 className="text-2xl font-semibold xs:text-3xl sm:text-[2.5rem]">Informasi Saya</h1>
         </div>
