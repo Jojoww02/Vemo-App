@@ -4,7 +4,6 @@ import PartVehicleCard from "@/components/molecules/PartVehicleCard";
 import { useNavigate, useParams } from "react-router-dom";
 
 import { REQUEST_MAINTENANCE_VEHICLE_PAGE } from "@/lib/constants/routes";
-import { componentsData } from "@/lib/data";
 import { Button, Input } from "@/components/atoms";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { useQuery } from "@tanstack/react-query";
@@ -19,20 +18,36 @@ interface RequestMaintenanceVehicle {
 
 export default function VehiclePartsPage(): JSX.Element {
   const methods = useForm<RequestMaintenanceVehicle>();
-  const { vehicleId } = useParams()
+  const { vehicleId } = useParams();
 
   const onSubmitHandler: SubmitHandler<RequestMaintenanceVehicle> = async (data) => {
     console.log("Form Data", data);
 
     const selectedCheckboxes = conditionArray
-    ?.filter(part => part.partName !== undefined)
+    ?.filter((part, index) => part.partName !== undefined)
     .map((part, index) => ({
       id: index + 1,
+      partsId: part.partId,
       name: part.partName,
       checked: checkboxStates?.[index] || false,
     }));
 
     console.log("Selected Checkboxes:", selectedCheckboxes);
+
+    const listPartId = selectedCheckboxes
+      ?.filter(checkbox => checkbox.checked)
+      .map(checkbox => checkbox.partsId);
+
+    console.log("listPartId:", listPartId);
+
+    const requestData = {
+      contact: data.emailAndPhoneNumber,
+      description: data.notesMechanic,
+      vehicleId: vehicleId,
+      listPartId: listPartId || [],
+    };
+
+    console.log("Backend Request Data:", requestData);
   };
 
   const { data: user } = useQuery<IUserResponse>({ queryKey: ["me"] });

@@ -75,6 +75,7 @@ export interface IParts {
   vehicleId: string;
   conditionPartId: string;
   partId: string;
+  listPartId: string;
   partName: string;
   condition: number;
   userId: string;
