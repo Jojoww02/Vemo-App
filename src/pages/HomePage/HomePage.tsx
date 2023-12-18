@@ -52,8 +52,14 @@ export default function HomePage(): JSX.Element {
               <div className="flex items-center text-3xl xl:text-4xl ml-2 mt-1">
                 <p className="font-medium">di</p>
                 <span className="flex items-center ml-5">
-                  <img src="/src/assets/iconVemo.svg" alt="" className="w-[60px] xl:w-[80px]" />
-                  <p className="text-[#F4B400] font-semibold italic ml-3 tracking-wide">VEMO</p>
+                  <img
+                    src="/iconVemo.svg"
+                    alt=""
+                    className="w-[60px] xl:w-[80px]"
+                  />
+                  <p className="text-[#F4B400] font-semibold italic ml-3 tracking-wide">
+                    VEMO
+                  </p>
                 </span>
               </div>
             </div>
@@ -62,8 +68,14 @@ export default function HomePage(): JSX.Element {
             </div>
             <div className="flex items-center">
               <span className="flex items-center">
-                <img src="/src/assets/iconVemo.svg" alt="" className="w-[30px] xl:w-[40px]" />
-                <p className="text-[#F4B400] font-semibold italic ml-2 tracking-wide xl:text-lg">VEMO</p>
+                <img
+                  src="/iconVemo.svg"
+                  alt=""
+                  className="w-[30px] xl:w-[40px]"
+                />
+                <p className="text-[#F4B400] font-semibold italic ml-2 tracking-wide xl:text-lg">
+                  VEMO
+                </p>
               </span>
               <p className="mx-2 font-medium text-lg">|</p>
               <p className="font-medium text-xs xl:text-base">Tempat Terbaik Untuk Kendaraan Anda</p>

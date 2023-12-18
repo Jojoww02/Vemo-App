@@ -18,7 +18,7 @@ export const PROFILE_PAGE = "/profile";
 export const UPDATE_PROFILE_PAGE = "/profile/update";
 export const CHANGE_PASSWORD_PAGE = "/profile/update/password";
 export const NOTIFICATION_PAGE = "/notifications";
-export const NOTIFICATION_DETAILS_PAGE = "/notifications/details"; // -> nanti ganti
+export const NOTIFICATION_DETAILS_PAGE = (notificationId: string) => `/notifications/${notificationId}`;
 export const VERIFY_PASSWORD_PAGE = "/verify/password";
 export const VERIFY_OTP_PAGE = "/verify/otp";
 
@@ -49,3 +49,9 @@ export const GET_VEHICLES_BY_USERID_SERVICE = (userId: string) => `vehicles?user
 export const GET_VEHICLES_BY_STATUS_SERVICE = (status: IVehicleStatus) => `vehicles?status=${status}`;
 export const GET_VEHICLE_BY_ID_SERVICE = (vehicleId: string | undefined) => `vehicles/${vehicleId}`;
 export const APPROVE_VEHICLE_SERVICE = (vehicleId: string | undefined) => `vehicles/approve/${vehicleId}`;
+
+/* NOTIFICATION SERVICE */
+export const GET_NOTIFICATIONS_SERVICE = "notifications";
+export const GET_COUNT_UNREAD_NOTIFICATIONS_SERVICE = "notifications?count=true&unread=true";
+export const READ_NOTIFICATION_SERVICE = "notifications/read";
+export const DELETE_NOTIFICATIONS_SERVICE = "notifications";

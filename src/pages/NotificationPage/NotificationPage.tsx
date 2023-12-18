@@ -12,12 +12,49 @@ import { notificationData } from "@/lib/data";
 import { DotsVerticalIcon } from "@radix-ui/react-icons";
 import { Trash2 } from "lucide-react";
 import { cn } from "@/lib/utils/style";
+import { useQuery } from "@tanstack/react-query";
+import { getNotificationsFn } from "@/api/services/notification";
+import useMutateNotification from "@/hooks/useMutateNotification";
+import { IUserResponse } from "@/api/types";
+import { useToast } from "@/components/ui/use-toast";
 
 export default function NontificationPage(): JSX.Element {
   const [activeTabEmail, setActiveTabEmail] = React.useState("");
   const [deleteMode, setDeleteMode] = React.useState(false);
   const [checkedItems, setCheckedItems] = React.useState<string[]>([]);
   const [selectAll, setSelectAll] = React.useState(false);
+
+  const { toast } = useToast();
+  const { data: user } = useQuery({ queryKey: ["me"] });
+  const { deleteNotifications } = useMutateNotification();
+
+  const {
+    data: notifications,
+    isSuccess,
+    refetch: refetchNotification,
+  } = useQuery({
+    queryKey: ["notifications"],
+    queryFn: async () => await getNotificationsFn(),
+  });
+
+  const handleDelete = async () => {
+    await deleteNotifications.mutateAsync({
+      userId: (user as IUserResponse).userId,
+      listNotificationId: checkedItems,
+    });
+  };
+
+  React.useEffect(() => {
+    if (deleteNotifications.isSuccess) {
+      refetchNotification();
+      toast({
+        title: "Success",
+        description: "Berhasil menghapus notification",
+      });
+      setDeleteMode(false);
+      setCheckedItems([]);
+    }
+  }, [deleteNotifications.isSuccess]);
 
   const tabs = [
     {
@@ -85,8 +122,8 @@ export default function NontificationPage(): JSX.Element {
             <div className="flex items-center gap-6">
               {deleteMode && (
                 <Trash2
-                  size={25}
-                  onClick={() => console.log(checkedItems)}
+                  size={30}
+                  onClick={handleDelete}
                   className={cn(checkedItems.length > 0 && "text-red-600")}
                 />
               )}
@@ -131,11 +168,24 @@ export default function NontificationPage(): JSX.Element {
           </div>
         </div>
       </div>
-      {activeTabEmail == "unread" ? (
-        <div className="flex flex-col pt-2 overflow-y-auto">
-          {notificationData
-            .filter((data) => data.status === 0)
-            .map((data) => (
+      {isSuccess && notifications ? (
+        activeTabEmail == "unread" ? (
+          <div className="flex flex-col pt-2 overflow-y-auto">
+            {notifications
+              .filter((data) => data.read === false)
+              .map((data) => (
+                <NotificationCard
+                  key={data.id}
+                  data={data}
+                  deleteMode={deleteMode}
+                  checked={checkedItems.includes(data.id)}
+                  onCheckboxChange={() => handleCheckboxChange(data.id)}
+                />
+              ))}
+          </div>
+        ) : (
+          <div className="flex h-[72%] flex-col pt-2 overflow-y-auto">
+            {notifications.map((data) => (
               <NotificationCard
                 key={data.id}
                 data={data}
@@ -144,24 +194,16 @@ export default function NontificationPage(): JSX.Element {
                 onCheckboxChange={() => handleCheckboxChange(data.id)}
               />
             ))}
-        </div>
+          </div>
+        )
       ) : (
-        // ketika inbox kosong
-        // <div className="flex flex-col items-center justify-center text-center">
-        //   <img src={InboxIcon} alt="" className="w-[20rem] h-[20rem]"/>
-        //   <h1 className="font-semibold text-dark text-3xl mb-5">No Inbox Notification!</h1>
-        //   <p className="font-normal text-dark tex-1xl">Your Inbox Is Empty</p>
-        // </div>
-        <div className="flex h-[72%] flex-col pt-2 overflow-y-auto">
-          {notificationData.map((data) => (
-            <NotificationCard
-              key={data.id}
-              data={data}
-              deleteMode={deleteMode}
-              checked={checkedItems.includes(data.id)}
-              onCheckboxChange={() => handleCheckboxChange(data.id)}
-            />
-          ))}
+        // ketika notification kosong
+        <div className="flex flex-col items-center justify-center text-center">
+          <img src={""} alt="" className="w-[20rem] h-[20rem]" />
+          <h1 className="font-semibold text-dark text-3xl mb-5">
+            No Inbox Notification!
+          </h1>
+          <p className="font-normal text-dark tex-1xl">Your Inbox Is Empty</p>
         </div>
       )}
     </div>
