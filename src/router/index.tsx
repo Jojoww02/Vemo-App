@@ -120,7 +120,7 @@ const privateRoutes: RouteObject = {
               element: <VehicleListPage />,
             },
             {
-              path: APP.VEHICLE_PARTS_PAGE,
+              path: APP.VEHICLE_PARTS_PAGE(":vehicleId"),
               element: <VehiclePartsPage />,
             },
             {

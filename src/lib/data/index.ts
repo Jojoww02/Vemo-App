@@ -62,31 +62,31 @@ export const notificationData = [
 
 export const componentsData = [
   {
-    name: "Mesin",
+    name: "Oli",
     condition: 90,
   },
   {
-    name: "Aki",
+    name: "Busi",
     condition: 70,
   },
   {
-    name: "Busi",
+    name: "Aki",
     condition: 100,
   },
   {
-    name: "Rem",
+    name: "Kampas Kopling",
     condition: 30,
   },
   {
-    name: "Oli",
+    name: "Rem",
     condition: 20,
   },
   {
-    name: "Rantai",
+    name: "Radiator",
     condition: 45,
   },
   {
-    name: "Per",
+    name: "Rantai dan Gear",
     condition: 35,
   },
 ];

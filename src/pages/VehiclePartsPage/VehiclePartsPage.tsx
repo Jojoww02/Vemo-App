@@ -1,15 +1,16 @@
 import React from "react";
 import IconArrow from "../../assets/notification/Icon-arrow.svg";
 import PartVehicleCard from "@/components/molecules/PartVehicleCard";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 import { REQUEST_MAINTENANCE_VEHICLE_PAGE } from "@/lib/constants/routes";
 import { componentsData } from "@/lib/data";
 import { Button, Input } from "@/components/atoms";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { useQuery } from "@tanstack/react-query";
-import { IUserResponse } from "@/api/types";
+import { IParts, IUserResponse } from "@/api/types";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import { getVehiclePartsConditionFn } from "@/api/services/vehicle";
 interface RequestMaintenanceVehicle {
   emailAndPhoneNumber: string;
   distanceVehicle: string;
@@ -18,13 +19,17 @@ interface RequestMaintenanceVehicle {
 
 export default function VehiclePartsPage(): JSX.Element {
   const methods = useForm<RequestMaintenanceVehicle>();
+  const { vehicleId } = useParams()
 
   const onSubmitHandler: SubmitHandler<RequestMaintenanceVehicle> = async (data) => {
     console.log("Form Data", data);
 
-    const selectedCheckboxes = checkboxStates.map((checked, index) => ({
-      name: componentsData[index]?.name,
-      checked: checked,
+    const selectedCheckboxes = conditionArray
+    ?.filter(part => part.partName !== undefined)
+    .map((part, index) => ({
+      id: index + 1,
+      name: part.partName,
+      checked: checkboxStates?.[index] || false,
     }));
 
     console.log("Selected Checkboxes:", selectedCheckboxes);
@@ -32,15 +37,20 @@ export default function VehiclePartsPage(): JSX.Element {
 
   const { data: user } = useQuery<IUserResponse>({ queryKey: ["me"] });
 
+  const { data: conditionArray } = useQuery<IParts[], Error>({
+    queryKey: ["parts", vehicleId],
+    queryFn: async () => await getVehiclePartsConditionFn(""),
+  });
+
   const navigate = useNavigate();
 
-  const [checkboxStates, setCheckboxStates] = React.useState(componentsData.map(() => false));
+  const [checkboxStates, setCheckboxStates] = React.useState(conditionArray?.map(() => false));
   const [selectAllText, setSelectAllText] = React.useState("Select All");
 
   const handleClickSelectAll = () => {
     setCheckboxStates((prevCheckboxStates) => {
-      const allSelected = prevCheckboxStates.every((state) => state);
-      const newCheckboxStates = prevCheckboxStates.map(() => !allSelected, {
+      const allSelected = prevCheckboxStates?.every((state) => state);
+      const newCheckboxStates = prevCheckboxStates?.map(() => !allSelected, {
         /* ? false : componentsData[index]?.condition < 60 */
       });
       setSelectAllText(allSelected ? "Select All" : "Unselect All");
@@ -50,7 +60,7 @@ export default function VehiclePartsPage(): JSX.Element {
 
   const handleCheckboxChange = (index: number) => {
     setCheckboxStates((prevCheckboxStates) => {
-      const newCheckboxStates = [...prevCheckboxStates];
+      const newCheckboxStates = [...(prevCheckboxStates as boolean[])];
       newCheckboxStates[index] = !newCheckboxStates[index];
       setSelectAllText("Select All");
       return newCheckboxStates;
@@ -73,8 +83,8 @@ export default function VehiclePartsPage(): JSX.Element {
         </button>
         <div className="flex w-full">
           <div className="w-full flex flex-wrap lg:justify-evenly pt-5 gap-2">
-            {componentsData.map((component, index) => (
-              <PartVehicleCard key={index} title={component?.name} condition={component?.condition} image={component?.name} checked={checkboxStates[index]} onCheckboxChange={() => handleCheckboxChange(index)} />
+            {conditionArray?.map((part, index) => (
+              <PartVehicleCard key={index} title={part.partName} condition={part.condition} image={part.partName} checked={checkboxStates?.[index] ?? false} onCheckboxChange={() => handleCheckboxChange(index)} />
             ))}
           </div>
         </div>
@@ -108,14 +118,6 @@ export default function VehiclePartsPage(): JSX.Element {
                     isFill={methods.watch().emailAndPhoneNumber} 
                     placeholder="Enter Email/Phone Number" 
                     type="text" 
-                  />
-                  <Input 
-                    name="distanceVehicle" 
-                    label="Distance Vehicle / km" 
-                    isFill={methods.watch().distanceVehicle} 
-                    placeholder="Enter Distance Vehicle" 
-                    type="number"
-                    min={0}
                   />
                   <Input 
                     name="notesMechanic" 

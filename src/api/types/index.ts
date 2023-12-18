@@ -71,3 +71,12 @@ export interface IForgotPasswordUser {
   token: string | undefined;
   newPassword: string;
 }
+
+export interface IParts {
+  vehicleId: string;
+  conditionPartId: string;
+  partId: string;
+  partName: string;
+  condition: number;
+  userId: string;
+}
