@@ -1,1 +1,1 @@
-export { default } from './AboutPageMobile'
+export { default } from "./AboutPageMobile";
