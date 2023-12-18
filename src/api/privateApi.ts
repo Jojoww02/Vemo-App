@@ -41,7 +41,7 @@ privateApi.interceptors.response.use(
           errMessage &&
           errMessage.includes("invalid_refresh_token")
         ) {
-          window.location.href = "/";
+          console.log("need login");
         }
       }
       return privateApi(originalRequest);
