@@ -60,19 +60,19 @@ export default function NontificationPage(): JSX.Element {
     <div className="md:w-[640px] md:mx-auto mb-10 ">
       <div className="flex flex-col w-full items-center">
         <div className="w-full">
-          <h1 className="font-semibold text-xl xl:text-4xl">
+          <h1 className="font-semibold text-xl lg:text-3xl xl:text-4xl">
             Inbox Notifikasi
           </h1>
 
           <div className="flex justify-between w-full mt-5 mb-10">
-            <div className="flex gap-2">
-              <p className="lg:text-base font-normal">Kategori</p>
+            <div className="flex gap-2 sm:gap-4 items-center ">
+              <p className="text-base sm:text-lg lg:text-xl font-normal">Kategori</p>
               {tabs.map((tab, index) => (
                 <button
                   type="button"
                   onClick={() => handleCategoryClick(tab.id)}
                   key={index}
-                  className={`rounded-lg border-2 px-4 lg:px-7 ${
+                  className={`text-[10px] sm:text-sm rounded-lg border-2 py-1 px-4 lg:px-7 ${
                     tab.id === activeTabEmail
                       ? "bg-[#F4B400] border-[#F4B400] text-white"
                       : "border-[#F4B400] text-[#F4B400]  "
@@ -85,7 +85,7 @@ export default function NontificationPage(): JSX.Element {
             <div className="flex items-center gap-6">
               {deleteMode && (
                 <Trash2
-                  size={30}
+                  size={25}
                   onClick={() => console.log(checkedItems)}
                   className={cn(checkedItems.length > 0 && "text-red-600")}
                 />

@@ -1,5 +1,4 @@
 import arrow from "../../assets/notification/Icon-arrow.svg";
-import UserProfileIcon from "../../assets/profile/user-profile-icon.svg";
 import { Link } from "react-router-dom";
 
 import { IconLock, IconLogout2, IconMailFilled, IconPencil, IconUser } from "@tabler/icons-react";
@@ -55,7 +54,7 @@ function ProfileMobile() {
           </div>
           <p className="font-medium sm:text-lg mt-1">{(user as IUserResponse).email}</p>
         </div>
-        <div className="absolute bottom-10">
+        <div className="md:absolute md:bottom-10">
           <Link
             to={CHANGE_PASSWORD_PAGE}
             style={{
