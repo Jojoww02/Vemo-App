@@ -1,5 +1,6 @@
+import React from "react";
 import useMobile from "@/hooks/useMobile";
-import ProfileMobile from "@/mobile/ProfilePageMobile";
+import { ProfilePageMobile } from "@/mobile";
 import { useQuery } from "@tanstack/react-query";
 import { Link } from "react-router-dom";
 import { IUserResponse } from "@/api/types";
@@ -21,7 +22,7 @@ export default function ProfilePage(): JSX.Element {
   const { data: user } = useQuery<IUserResponse>({ queryKey: ["me"] });
 
   return (
-    <>
+    <React.Fragment>
       {isMobile ? (
         <main className="flex mt-10 gap-10 mb-5 text-dark">
           {/* Left Content Start */}
@@ -82,8 +83,8 @@ export default function ProfilePage(): JSX.Element {
           {/* Right Content End */}
         </main>
       ) : (
-        <ProfileMobile />
+        <ProfilePageMobile />
       )}
-    </>
+    </React.Fragment>
   );
 }
