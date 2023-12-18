@@ -1,7 +1,6 @@
 import { VehicleType } from "@/lib/types";
 
 type ICustomer = "customer";
-
 export type IVehicleStatus = "pending" | "approved";
 export type IUserRole = "admin" | "customer";
 
@@ -79,4 +78,19 @@ export interface IParts {
   partName: string;
   condition: number;
   userId: string;
+}
+
+export interface INotificationResponse {
+  id: string;
+  userId: string;
+  title: string;
+  description: string;
+  read: boolean;
+  category: string;
+  createdAt: string;
+}
+
+export interface INotificationDelete {
+  userId: string;
+  listNotificationId: string[];
 }

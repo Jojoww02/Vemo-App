@@ -7,7 +7,6 @@ import {
   CHANGE_PASSWORD_PAGE,
   VERIFY_PASSWORD_PAGE,
 } from "@/lib/constants/routes";
-import UserProfileIcon from "../../assets/profile/user-profile-icon.svg";
 import {
   IconLock,
   IconLogout2,

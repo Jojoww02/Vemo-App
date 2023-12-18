@@ -35,7 +35,12 @@ privateApi.interceptors.response.use(
         const data = await refreshTokenFn(getToken());
         setToken(data.accessToken);
       } catch (error) {
-        if ((error as any).response.status === 403) {
+        const errMessage = (error as any).response?.data?.errors as string[];
+        if (
+          (error as any).response.status === 403 &&
+          errMessage &&
+          errMessage.includes("invalid_refresh_token")
+        ) {
           console.log("need login");
         }
       }
