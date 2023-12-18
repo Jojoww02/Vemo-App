@@ -10,8 +10,22 @@ import { PROFILE_PAGE } from "@/lib/constants/routes";
 
 const ForgotPasswordSchema = zod
   .object({
-    newPassword: zod.string().min(1, "Password diperlukan").min(8, "Password harus lebih dari 8 karakter").max(32, "Password harus lebih kurang dari 32 karakter"),
-    confirmNewPassword: zod.string().min(1, "Konfirmasi password diperlukan").min(8, "Password baru harus lebih dari 8 karakter").max(32, "Password baru harus lebih kurang dari 32 karakter"),
+    newPassword: zod
+      .string()
+      .min(1, "Password diperlukan")
+      .min(8, "Password harus lebih dari 8 karakter")
+      .max(32, "Password harus kurang dari 32 karakter")
+      .refine((password) => /\d/.test(password), {
+        message: "Password harus mengandung setidaknya satu angka",
+      }),
+    confirmNewPassword: zod
+      .string()
+      .min(1, "Password diperlukan")
+      .min(8, "Password harus lebih dari 8 karakter")
+      .max(32, "Password harus kurang dari 32 karakter")
+      .refine((password) => /\d/.test(password), {
+        message: "Password harus mengandung setidaknya satu angka",
+      }),
   })
   .refine((data) => data.newPassword === data.confirmNewPassword, {
     path: ["confirmNewPassword"],
@@ -23,21 +37,21 @@ export default function ForgotPasswordPage(): JSX.Element {
   const methods = useForm<ForgotPasswordInput>({
     resolver: zodResolver(ForgotPasswordSchema),
   });
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
-  const { forgotPasswordUser } = useMutateAuth()
+  const { forgotPasswordUser } = useMutateAuth();
 
   const { token } = useParams<{ token: string }>();
 
   const onSubmitHandler: SubmitHandler<ForgotPasswordInput> = async (newPassword: ForgotPasswordInput) => {
-    await forgotPasswordUser.mutateAsync( {
+    await forgotPasswordUser.mutateAsync({
       token: token,
-      newPassword: newPassword.newPassword
+      newPassword: newPassword.newPassword,
     });
   };
-  
+
   if (forgotPasswordUser.isSuccess) {
-    navigate(PROFILE_PAGE)
+    navigate(PROFILE_PAGE);
   }
 
   const isMobile = useMobile();
