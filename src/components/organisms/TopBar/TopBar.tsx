@@ -84,7 +84,7 @@ export default function TopBar() {
     });
   }
   return (
-    <header className="bg-white w-full h-20 sticky top-0 flex justify-between items-center px-6 md:px-10 z-50">
+    <header className="bg-white w-full h-20 sticky top-0 flex justify-between items-center px-6 md:px-10 z-50 lg:z-40">
       <span className="flex justify-center items-center">
         <Sheet open={isOpen}>
           <SheetTrigger asChild>
