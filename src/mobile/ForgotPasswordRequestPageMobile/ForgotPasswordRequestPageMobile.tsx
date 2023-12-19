@@ -12,6 +12,7 @@ const ForgotPasswordRequestSchema = zod.object({
 });
 
 export type ForgotPasswordRequestInput = zod.TypeOf<typeof ForgotPasswordRequestSchema>;
+
 export default function ForgotPasswordRequestPageMobile(): JSX.Element {
   const methods = useForm<ForgotPasswordRequestInput>({
     resolver: zodResolver(ForgotPasswordRequestSchema),

@@ -1,5 +1,5 @@
 import { NOTIFICATION_PAGE } from "@/lib/constants/routes";
-import IconArrow from "../../../assets/notification/Icon-arrow.svg"
+import IconArrow from "../../../assets/notification/Icon-arrow.svg";
 
 import MailIcon from "../../../assets/notification/Icon-mail copy.svg";
 import { useNavigate } from "react-router-dom";
@@ -8,11 +8,10 @@ import { INotificationResponse } from "@/api/types";
 interface NotificationDetailCardProps {
   data: INotificationResponse;
 }
-export default function NotifikationDetailcard(props: NotificationDetailCardProps) {
+export default function NotificationDetailcard(props: NotificationDetailCardProps) {
   const { data } = props;
-  console.log('data', data);
-  
-  const navigate = useNavigate()
+
+  const navigate = useNavigate();
   return (
     <div>
       <div className="flex flex-col ">

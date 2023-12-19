@@ -3,24 +3,14 @@ import ProfileMobile from "@/mobile/ProfilePageMobile";
 import { useQuery } from "@tanstack/react-query";
 import { Link } from "react-router-dom";
 import { IUserResponse } from "@/api/types";
-import {
-  CHANGE_PASSWORD_PAGE,
-  VERIFY_PASSWORD_PAGE,
-} from "@/lib/constants/routes";
-import {
-  IconLock,
-  IconLogout2,
-  IconMailFilled,
-  IconPencil,
-  IconUser,
-} from "@tabler/icons-react";
+import { CHANGE_PASSWORD_PAGE, FORGOT_PASSWORD_PAGE, FORGOT_PASSWORD_REQUEST_PAGE, VERIFY_PASSWORD_PAGE } from "@/lib/constants/routes";
+import { IconLock, IconLogout2, IconMailFilled, IconPencil, IconUser } from "@tabler/icons-react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { KeyRound } from "lucide-react";
 
 export default function ProfilePage(): JSX.Element {
   const isMobile = useMobile();
   const { data: user } = useQuery<IUserResponse>({ queryKey: ["me"] });
-  console.log(user);
-  
 
   return (
     <>
@@ -35,21 +25,19 @@ export default function ProfilePage(): JSX.Element {
                   <img src="/user-profile-icon.svg" alt="" />
                 </AvatarFallback>
               </Avatar>
-              <Link
-                to={VERIFY_PASSWORD_PAGE}
-                className="flex text-[#0586BE] text-lg font-medium items-center cursor-pointer hover:underline"
-              >
+              <Link to={VERIFY_PASSWORD_PAGE} className="flex text-[#0586BE] text-lg font-medium items-center cursor-pointer hover:underline">
                 <IconPencil size={25} />
                 <span>Perbarui Profil</span>
               </Link>
             </div>
-            <div className="h-32 flex flex-col mt-10 bg-milk rounded-xl justify-center px-10 gap-5">
-              <Link
-                to={CHANGE_PASSWORD_PAGE}
-                className="flex text-[#0586BE] text-lg font-medium items-center gap-2 cursor-pointer hover:underline"
-              >
+            <div className="h-44 flex flex-col mt-10 bg-milk rounded-xl justify-center px-10 gap-5">
+              <Link to={CHANGE_PASSWORD_PAGE} className="flex text-[#0586BE] text-lg font-medium items-center gap-2 cursor-pointer hover:underline">
                 <IconLock size={25} />
                 <span>Ubah Password</span>
+              </Link>
+              <Link to={FORGOT_PASSWORD_REQUEST_PAGE} className="flex text-[#0586BE] text-lg font-medium items-center gap-2 cursor-pointer hover:underline">
+                <KeyRound size={25} />
+                <span>Lupa Password</span>
               </Link>
               <button className="flex text-lg font-medium items-center gap-2 hover:underline">
                 <IconLogout2 size={25} />
@@ -68,16 +56,12 @@ export default function ProfilePage(): JSX.Element {
                   <IconUser size={25} />
                   <p>Nama</p>
                 </span>
-                <p className="font-medium text-lg ml-1">
-                  {(user as IUserResponse).name}
-                </p>
+                <p className="font-medium text-lg ml-1">{(user as IUserResponse).name}</p>
                 <span className="flex items-center mt-4 gap-2 ml-1 text-lg">
                   <IconMailFilled size={25} />
                   <p>Email</p>
                 </span>
-                <p className="font-medium text-lg ml-1">
-                  {(user as IUserResponse).email}
-                </p>
+                <p className="font-medium text-lg ml-1">{(user as IUserResponse).email}</p>
               </div>
             </div>
           </div>

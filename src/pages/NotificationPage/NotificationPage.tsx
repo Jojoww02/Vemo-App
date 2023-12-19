@@ -53,8 +53,6 @@ export default function NontificationPage(): JSX.Element {
     refetchNotification();
   }
 
-  // console.log("data", notifications);
-
   const handleDelete = async () => {
     await deleteNotifications.mutateAsync({
       userId: (user as IUserResponse).userId,

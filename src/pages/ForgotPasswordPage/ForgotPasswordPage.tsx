@@ -33,6 +33,7 @@ const ForgotPasswordSchema = zod
   });
 
 export type ForgotPasswordInput = zod.TypeOf<typeof ForgotPasswordSchema>;
+
 export default function ForgotPasswordPage(): JSX.Element {
   const methods = useForm<ForgotPasswordInput>({
     resolver: zodResolver(ForgotPasswordSchema),
