@@ -3,7 +3,7 @@ import ProfileMobile from "@/mobile/ProfilePageMobile";
 import { useQuery } from "@tanstack/react-query";
 import { Link } from "react-router-dom";
 import { IUserResponse } from "@/api/types";
-import { CHANGE_PASSWORD_PAGE, FORGOT_PASSWORD_PAGE, FORGOT_PASSWORD_REQUEST_PAGE, VERIFY_PASSWORD_PAGE } from "@/lib/constants/routes";
+import { CHANGE_PASSWORD_PAGE, FORGOT_PASSWORD_REQUEST_PAGE, VERIFY_PASSWORD_PAGE } from "@/lib/constants/routes";
 import { IconLock, IconLogout2, IconMailFilled, IconPencil, IconUser } from "@tabler/icons-react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { KeyRound } from "lucide-react";
