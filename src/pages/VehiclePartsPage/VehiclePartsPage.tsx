@@ -5,12 +5,11 @@ import { useNavigate, useParams } from "react-router-dom";
 
 import { REQUEST_MAINTENANCE_VEHICLE_PAGE } from "@/lib/constants/routes";
 import { Button, Input } from "@/components/atoms";
-import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
+import { FormProvider, useForm } from "react-hook-form";
 import { useQuery } from "@tanstack/react-query";
-import { IParts, IUserResponse } from "@/api/types";
+import { IParts } from "@/api/types";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { getVehiclePartsConditionFn } from "@/api/services/vehicle";
-import { privateApi } from "@/api";
 interface RequestMaintenanceVehicle {
   contact: string;
   description: string;
@@ -25,7 +24,6 @@ export default function VehiclePartsPage(): JSX.Element {
 
   const methods = useForm<RequestMaintenanceVehicle>();
 
-  const { data: user } = useQuery<IUserResponse>({ queryKey: ["me"] });
   const { data: parts } = useQuery<IParts[], Error>({
     queryKey: ["parts", vehicleId],
     queryFn: async () => await getVehiclePartsConditionFn(vehicleId),
