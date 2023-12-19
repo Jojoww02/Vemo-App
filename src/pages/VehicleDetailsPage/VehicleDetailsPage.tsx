@@ -120,10 +120,10 @@ export default function VehicleDetailsPage() {
             </Tabs>
           </div>
         </div>
-        <div className="lg:w-1/2 lg:bg-[#F7F8F9] rounded-xl py-5 px-5 h-full min-h-[660px]">
+        <div className="lg:w-1/2 lg:bg-[#F7F8F9] rounded-xl py-5 px-5">
           <h1 className="text-[#898989] py-2 px-4 text-lg">Kondisi Part :</h1>
-          <div className="w-full px-2 flex mt-7 mb-10 flex-col gap-5 justify-center h-[24rem]  overflow-y-auto">
-            <div className="flex flex-col gap-4 mt-44 lg:gap-2 lg:mt-64 px-4">
+          <div className="w-full px-2 flex mt-7 mb-10 flex-col gap-5 justify-center h-[24rem] overflow-y-auto">
+            <div className="flex flex-col mt-[30rem] lg:mt-[45rem] gap-4 lg:gap-2 px-4">
             {isConditionSuccess &&
               conditionArray.map((part, index) => (
                 <DetailVehicleCard
@@ -137,7 +137,7 @@ export default function VehicleDetailsPage() {
             </div>
           </div>
           <div className="w-full flex flex-col justify-center mb-10 ">
-            <Button onClick={() => navigate(VEHICLE_PARTS_PAGE(vehicleId))}>Request Perawatan</Button>
+            <Button onClick={() => navigate(VEHICLE_PARTS_PAGE(vehicleId))}>Detail Komponen</Button>
           </div>
         </div>
       </div>

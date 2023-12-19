@@ -22,7 +22,7 @@ export const getVehiclesByStatusFn = async (status: IVehicleStatus): Promise<IVe
   return response.data;
 }
 
-export const getVehiclePartsConditionFn = async (vehicleId: string): Promise<IParts[]> => {
+export const getVehiclePartsConditionFn = async (vehicleId: string | undefined): Promise<IParts[]> => {
   const response = await privateApi.get<IParts[]>(API.VEHICLE_PARTS_PAGE(vehicleId));
   return response.data;
 };

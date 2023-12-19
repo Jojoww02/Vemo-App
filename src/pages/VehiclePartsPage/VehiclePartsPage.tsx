@@ -54,13 +54,13 @@ export default function VehiclePartsPage(): JSX.Element {
 
   const { data: conditionArray } = useQuery<IParts[], Error>({
     queryKey: ["parts", vehicleId],
-    queryFn: async () => await getVehiclePartsConditionFn(""),
+    queryFn: async () => await getVehiclePartsConditionFn(vehicleId),
   });
 
   const navigate = useNavigate();
 
   const [checkboxStates, setCheckboxStates] = React.useState(conditionArray?.map(() => false));
-  const [selectAllText, setSelectAllText] = React.useState("Select All");
+  const [selectAllText, setSelectAllText] = React.useState("Pilih Semua");
 
   const handleClickSelectAll = () => {
     setCheckboxStates((prevCheckboxStates) => {
@@ -68,7 +68,7 @@ export default function VehiclePartsPage(): JSX.Element {
       const newCheckboxStates = prevCheckboxStates?.map(() => !allSelected, {
         /* ? false : componentsData[index]?.condition < 60 */
       });
-      setSelectAllText(allSelected ? "Select All" : "Unselect All");
+      setSelectAllText(allSelected ? "Pilih Semua" : "Batal");
       return newCheckboxStates;
     });
   };
@@ -77,7 +77,7 @@ export default function VehiclePartsPage(): JSX.Element {
     setCheckboxStates((prevCheckboxStates) => {
       const newCheckboxStates = [...(prevCheckboxStates as boolean[])];
       newCheckboxStates[index] = !newCheckboxStates[index];
-      setSelectAllText("Select All");
+      setSelectAllText("Pilih Semua");
       return newCheckboxStates;
     });
   };
