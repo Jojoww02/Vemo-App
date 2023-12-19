@@ -19,6 +19,8 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 export default function ProfilePage(): JSX.Element {
   const isMobile = useMobile();
   const { data: user } = useQuery<IUserResponse>({ queryKey: ["me"] });
+  console.log(user);
+  
 
   return (
     <>

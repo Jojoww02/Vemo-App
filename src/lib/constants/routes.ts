@@ -32,7 +32,7 @@ export const REFRESH_TOKEN_SERVICE = (accessToken: string | null) => `auth/refre
 export const VERIFY_PASSWORD_USER_SERVICE = (password: string) => `auth/password?verify=${password}`;
 export const FORGOT_PASSWORD_REQUEST_SERVICE = (email: string) => `auth/password/reset?email=${email}`;
 export const FORGOT_PASSWORD_SERVICE = "auth/password/reset";
-export const SEND_OTP_SERVICE =  (email: string) => `auth/otp?email=${email}`;
+export const SEND_OTP_SERVICE = (email: string) => `auth/otp?email=${email}`;
 export const VERIFY_OTP_SERVICE = (otp: number) => `auth/otp?verify=${otp}`;
 export const LOGOUT_SERVICE = "auth/logout";
 
@@ -55,3 +55,4 @@ export const GET_NOTIFICATIONS_SERVICE = "notifications";
 export const GET_COUNT_UNREAD_NOTIFICATIONS_SERVICE = "notifications?count=true&unread=true";
 export const READ_NOTIFICATION_SERVICE = "notifications/read";
 export const DELETE_NOTIFICATIONS_SERVICE = "notifications";
+export const GET_NOTIFICATIONS_DETAILS_SERVICE = (notificationId: string | undefined) => `notifications/${notificationId}`;
