@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 import { IUserResponse } from "@/api/types";
 import {
   CHANGE_PASSWORD_PAGE,
+  FORGOT_PASSWORD_REQUEST_PAGE,
   VERIFY_PASSWORD_PAGE,
 } from "@/lib/constants/routes";
 import {
@@ -16,10 +17,13 @@ import {
   IconUser,
 } from "@tabler/icons-react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { KeyRound } from "lucide-react";
+import useLogoutUser from "@/hooks/useLogoutUser";
 
 export default function ProfilePage(): JSX.Element {
   const isMobile = useMobile();
   const { data: user } = useQuery<IUserResponse>({ queryKey: ["me"] });
+  const { handleLogoutUser } = useLogoutUser();
 
   return (
     <React.Fragment>
@@ -42,7 +46,7 @@ export default function ProfilePage(): JSX.Element {
                 <span>Perbarui Profil</span>
               </Link>
             </div>
-            <div className="h-32 flex flex-col mt-10 bg-milk rounded-xl justify-center px-10 gap-5">
+            <div className="h-44 flex flex-col mt-10 bg-milk rounded-xl justify-center px-10 gap-5">
               <Link
                 to={CHANGE_PASSWORD_PAGE}
                 className="flex text-[#0586BE] text-lg font-medium items-center gap-2 cursor-pointer hover:underline"
@@ -50,7 +54,17 @@ export default function ProfilePage(): JSX.Element {
                 <IconLock size={25} />
                 <span>Ubah Password</span>
               </Link>
-              <button className="flex text-lg font-medium items-center gap-2 hover:underline">
+              <Link
+                to={FORGOT_PASSWORD_REQUEST_PAGE}
+                className="flex text-[#0586BE] text-lg font-medium items-center gap-2 cursor-pointer hover:underline"
+              >
+                <KeyRound size={25} />
+                <span>Lupa Password</span>
+              </Link>
+              <button
+                className="flex text-lg font-medium items-center gap-2 hover:underline"
+                onClick={handleLogoutUser}
+              >
                 <IconLogout2 size={25} />
                 <span>Keluar</span>
               </button>

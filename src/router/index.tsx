@@ -1,14 +1,7 @@
 import type { RouteObject } from "react-router-dom";
 import * as APP from "@/lib/constants/routes";
 import { Layout } from "@/components/templates";
-import {
-  AdminRouteGuard,
-  AuthRouteGuard,
-  CustomerRouteGuard,
-  PrivateRouteGuard,
-  SendOtpGuard,
-  UpdateProfileGuard,
-} from "@/lib/guard";
+import { AdminRouteGuard, AuthRouteGuard, CustomerRouteGuard, PrivateRouteGuard, SendOtpGuard, UpdateProfileGuard } from "@/lib/guard";
 import {
   HomePage,
   NotFoundPage,
@@ -39,6 +32,14 @@ const publicRoutes: RouteObject = {
       path: APP.NOT_FOUND_PAGE,
       element: <NotFoundPage />,
     },
+    {
+      path: APP.FORGOT_PASSWORD_REQUEST_PAGE,
+      element: <ForgotPasswordRequestPage />,
+    },
+    {
+      path: APP.FORGOT_PASSWORD_PAGE(":token"),
+      element: <ForgotPasswordPage />,
+    },
   ],
 };
 
@@ -57,14 +58,6 @@ const authRoutes: RouteObject = {
     {
       path: APP.LOGIN_PAGE,
       element: <LoginPage />,
-    },
-    {
-      path: APP.FORGOT_PASSWORD_REQUEST_PAGE,
-      element: <ForgotPasswordRequestPage />,
-    },
-    {
-      path: APP.FORGOT_PASSWORD_PAGE(":token"),
-      element: <ForgotPasswordPage />,
     },
   ],
 };
@@ -108,7 +101,7 @@ const privateRoutes: RouteObject = {
               element: <NotificationPage />,
             },
             {
-              path: APP.NOTIFICATION_DETAILS_PAGE,
+              path: APP.NOTIFICATION_DETAILS_PAGE(":notificationId"),
               element: <NotificationDetailsPage />,
             },
             {
@@ -120,7 +113,7 @@ const privateRoutes: RouteObject = {
               element: <VehicleListPage />,
             },
             {
-              path: APP.VEHICLE_PARTS_PAGE,
+              path: APP.VEHICLE_PARTS_PAGE(":vehicleId"),
               element: <VehiclePartsPage />,
             },
             {

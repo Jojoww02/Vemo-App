@@ -13,7 +13,7 @@ import { REGISTER_VEHICLE_PAGE, REQUEST_MAINTENANCE_VEHICLE_PAGE } from "@/lib/c
 
 export default function AboutPageMobile() {
   return (
-    <>
+    <div className="overflow-x-hidden">
       <div className="text-center text-white bg-gradient-to-br from-yellow-400 via-yellow-500 to-yellow-800 px-6 py-6 leading-8 flex flex-col gap-4">
         <h3 className="font-semibold xs:text-xl sm:text-2xl">Making the company a place that can help and keep users happy, one app at a time.</h3>
         <p className="text-xs xs:text-base font-thin sm:text-xl">We think that we can help users in making it easier through this web app. Our mission is to provide full-featured software, everything runs smoothly for every user.</p>
@@ -73,8 +73,8 @@ export default function AboutPageMobile() {
         </div>
         <div className="grid grid-cols-3 gap-2">
           <div className="">
-            <h1 className="xs:text-lg sm:text-xl">Layanan</h1>
-            <ul className="leading-8 text-[10px] xs:leading-9 sm:leading-10 xs:text-xs sm:text-base">
+            <h1 className="text-[9px] xs:text-lg sm:text-xl">Layanan</h1>
+            <ul className="leading-5 text-[8px] xs:leading-9 sm:leading-10 xs:text-xs sm:text-base">
               <li>Index</li>
               <Link to={REGISTER_VEHICLE_PAGE}>
                 <li>Daftar Kendaraan</li>
@@ -85,13 +85,13 @@ export default function AboutPageMobile() {
             </ul>
           </div>
           <div>
-            <h1 className="xs:text-lg pb-[0.7rem] sm:text-xl">Etc</h1>
-            <ul className="xs:text-xs sm:text-base">
+            <h1 className="text-[9px] xs:text-lg pb-[0.7rem] sm:text-xl">Etc</h1>
+            <ul className="text-[8px] xs:text-xs sm:text-base">
               <li>Hubungin Kami</li>
             </ul>
           </div>
           <div className="">
-            <h1 className="border-b-[1.5px] text-[10px] pb-2 xs:text-sm sm:text-xl w-52">Social Media Kami :</h1>
+            <h1 className="border-b-[1.5px] text-[9px] pb-2 xs:text-sm sm:text-xl w-26 ">Social Media Kami :</h1>
             <div className="flex gap-2 sm:gap-4 py-2 ">
               <IconBrandFacebook style={{ height: "20px" }} />
               <IconBrandGithubFilled style={{ height: "20px" }} />
@@ -104,6 +104,6 @@ export default function AboutPageMobile() {
       <div className="bg-[#0F141C] py-2 xs:py-4 sm:py-6">
         <h1 className="text-white font-light text-center text-sm  xs:text-lg sm:text-xl"> Copyright 2023 VEMO</h1>
       </div>
-    </>
+    </div>
   );
 }

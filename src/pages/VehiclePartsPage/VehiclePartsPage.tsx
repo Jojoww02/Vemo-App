@@ -1,59 +1,55 @@
 import React from "react";
 import IconArrow from "../../assets/notification/Icon-arrow.svg";
 import PartVehicleCard from "@/components/molecules/PartVehicleCard";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 import { REQUEST_MAINTENANCE_VEHICLE_PAGE } from "@/lib/constants/routes";
-import { componentsData } from "@/lib/data";
 import { Button, Input } from "@/components/atoms";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { useQuery } from "@tanstack/react-query";
-import { IUserResponse } from "@/api/types";
+import { IParts, IUserResponse } from "@/api/types";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import { getVehiclePartsConditionFn } from "@/api/services/vehicle";
+import { privateApi } from "@/api";
 interface RequestMaintenanceVehicle {
-  emailAndPhoneNumber: string;
-  distanceVehicle: string;
-  notesMechanic: string;
+  contact: string;
+  description: string;
 }
 
 export default function VehiclePartsPage(): JSX.Element {
-  const methods = useForm<RequestMaintenanceVehicle>();
-
-  const onSubmitHandler: SubmitHandler<RequestMaintenanceVehicle> = async (data) => {
-    console.log("Form Data", data);
-
-    const selectedCheckboxes = checkboxStates.map((checked, index) => ({
-      name: componentsData[index]?.name,
-      checked: checked,
-    }));
-
-    console.log("Selected Checkboxes:", selectedCheckboxes);
-  };
-
-  const { data: user } = useQuery<IUserResponse>({ queryKey: ["me"] });
-
+  const { vehicleId } = useParams();
   const navigate = useNavigate();
 
-  const [checkboxStates, setCheckboxStates] = React.useState(componentsData.map(() => false));
-  const [selectAllText, setSelectAllText] = React.useState("Select All");
+  const [checkedItems, setCheckedItems] = React.useState<string[]>([]);
+  const [selectAll, setSelectAll] = React.useState(false);
 
-  const handleClickSelectAll = () => {
-    setCheckboxStates((prevCheckboxStates) => {
-      const allSelected = prevCheckboxStates.every((state) => state);
-      const newCheckboxStates = prevCheckboxStates.map(() => !allSelected, {
-        /* ? false : componentsData[index]?.condition < 60 */
-      });
-      setSelectAllText(allSelected ? "Select All" : "Unselect All");
-      return newCheckboxStates;
-    });
+  const methods = useForm<RequestMaintenanceVehicle>();
+
+  const { data: user } = useQuery<IUserResponse>({ queryKey: ["me"] });
+  const { data: parts } = useQuery<IParts[], Error>({
+    queryKey: ["parts", vehicleId],
+    queryFn: async () => await getVehiclePartsConditionFn(vehicleId),
+  });
+
+  const handleCheckboxChange = (id: string) => {
+    if (checkedItems.includes(id)) {
+      setCheckedItems((prev) => prev.filter((item) => item !== id));
+    } else {
+      setCheckedItems((prev) => [...prev, id]);
+    }
   };
 
-  const handleCheckboxChange = (index: number) => {
-    setCheckboxStates((prevCheckboxStates) => {
-      const newCheckboxStates = [...prevCheckboxStates];
-      newCheckboxStates[index] = !newCheckboxStates[index];
-      setSelectAllText("Select All");
-      return newCheckboxStates;
+  const handleSelectAll = () => {
+    const allIds = parts!.filter((part) => part.condition <= 60).map((part) => part.partId);
+    setCheckedItems(selectAll ? [] : allIds);
+    setSelectAll((prev) => !prev);
+  };
+
+  const onSubmitHandler = (data: RequestMaintenanceVehicle) => {
+    console.log({
+      ...data,
+      vehicleId,
+      listPartid: checkedItems,
     });
   };
 
@@ -68,62 +64,33 @@ export default function VehiclePartsPage(): JSX.Element {
         </div>
       </div>
       <div className="relative">
-        <button className="absolute -right-1 -top-[3.2rem] md:-top-10 lg:-top-16 items-center text-xs xs:text-base md:text-lg text-white bg-primary rounded-lg px-2 py-1" onClick={handleClickSelectAll}>
-          {selectAllText}
+        <button className="absolute -right-1 -top-[3.2rem] md:-top-10 lg:-top-16 items-center text-[10px] xs:text-base md:text-lg text-white bg-primary rounded-lg px-2 py-[6px] xs:py-1" onClick={handleSelectAll}>
+          {selectAll ? "Batal" : "Pilih Semua"}
         </button>
-        <div className="flex w-full">
-          <div className="w-full flex flex-wrap lg:justify-evenly pt-5 gap-2">
-            {componentsData.map((component, index) => (
-              <PartVehicleCard key={index} title={component?.name} condition={component?.condition} image={component?.name} checked={checkboxStates[index]} onCheckboxChange={() => handleCheckboxChange(index)} />
-            ))}
-          </div>
+        <div className="flex flex-wrap mx-auto items-center md:w-[70%] lg:w-full lg:justify-evenly pt-5 gap-2">
+          {parts?.map((part) => (
+            <PartVehicleCard key={part.partId} data={part} checked={checkedItems.includes(part.partId)} onCheckboxChange={() => handleCheckboxChange(part.partId)} />
+          ))}
         </div>
       </div>
       {/* Button */}
       <div className="w-full flex place-items-center pt-7 px-14 xs:px-24 sm:px-20 lg:px-48 mb-10">
         <Dialog>
           <DialogTrigger asChild>
-            <button type="button" className="py-3 text-white rounded-md text-base bg-primary xl:text-lg font-medium w-full">
+            <Button type="button" className="py-6 text-white rounded-md text-base bg-primary xl:text-lg font-medium w-full" disabled={checkedItems.length <= 0}>
               Request Perawatan
-            </button>
+            </Button>
           </DialogTrigger>
-          <DialogContent className="sm:w-[500px] sm:h-[500px] bg-white">
+          <DialogContent className="w-4/5 bg-white">
             <DialogHeader className="flex flex-col items-center justify-center">
               <DialogTitle className="text-2xl font-semibold">Form Request Perawatan</DialogTitle>
-              <DialogDescription className="text-center">
-                Silahkan isi form berikut untuk merequest perawatan kendaraan
-              </DialogDescription>
+              <DialogDescription className="text-center">Silahkan isi form berikut untuk merequest perawatan kendaraan</DialogDescription>
             </DialogHeader>
-              <div className="w-full flex flex-col px-7">
-                <FormProvider {...methods}>
-                  <form
-                    autoComplete="off"
-                    className="flex flex-col gap-5"
-                    onSubmit={methods.handleSubmit(onSubmitHandler)}
-                  >
-                  <Input
-                    defaultValue={(user as IUserResponse).email}
-                    name="emailAndPhoneNumber" 
-                    label="Email/Phone Number" 
-                    isFill={methods.watch().emailAndPhoneNumber} 
-                    placeholder="Enter Email/Phone Number" 
-                    type="text" 
-                  />
-                  <Input 
-                    name="distanceVehicle" 
-                    label="Distance Vehicle / km" 
-                    isFill={methods.watch().distanceVehicle} 
-                    placeholder="Enter Distance Vehicle" 
-                    type="number"
-                    min={0}
-                  />
-                  <Input 
-                    name="notesMechanic" 
-                    label="Notes for Mechanic" 
-                    isFill={methods.watch().notesMechanic} 
-                    placeholder="Enter Notes for Mechanic" 
-                    type="text" 
-                  />
+            <div className="w-full flex flex-col px-7">
+              <FormProvider {...methods}>
+                <form autoComplete="off" className="flex flex-col gap-5" onSubmit={methods.handleSubmit(onSubmitHandler)}>
+                  <Input name="contact" label="Email / Nomor Telepon" isFill={methods.watch().contact} placeholder="Masukan Email / Nomor Telepon" type="text" />
+                  <Input name="description" label="Catatan untuk Mekanik" isFill={methods.watch().description} placeholder="Masukan catatan disini..." type="textarea" className="h-24" />
                   <Button type="submit" className="py-6 mt-4 text-lg font-semibold">
                     Kirim
                   </Button>

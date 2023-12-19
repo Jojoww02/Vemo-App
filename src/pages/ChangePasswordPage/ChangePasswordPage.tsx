@@ -12,9 +12,30 @@ import useMutateUser from "@/hooks/useMutateUser";
 
 const changePaswwordSchema = zod
   .object({
-    previousPassword: zod.string().min(1, "Password is required").min(8, "Password must be more than 8 characters").max(32, "Password must be less than 32 characters"),
-    newPassword: zod.string().min(1, "Password is required").min(8, "Password must be more than 8 characters").max(32, "Password must be less than 32 characters"),
-    confirmNewPassword: zod.string().min(1, "Password is required").min(8, "Password must be more than 8 characters").max(32, "Password must be less than 32 characters"),
+    previousPassword: zod
+      .string()
+      .min(1, "Password diperlukan")
+      .min(8, "Password harus lebih dari 8 karakter")
+      .max(32, "Password harus kurang dari 32 karakter")
+      .refine((password) => /\d/.test(password), {
+        message: "Password harus mengandung setidaknya satu angka",
+      }),
+    newPassword: zod
+      .string()
+      .min(1, "Password diperlukan")
+      .min(8, "Password harus lebih dari 8 karakter")
+      .max(32, "Password harus kurang dari 32 karakter")
+      .refine((password) => /\d/.test(password), {
+        message: "Password harus mengandung setidaknya satu angka",
+      }),
+    confirmNewPassword: zod
+      .string()
+      .min(1, "Password diperlukan")
+      .min(8, "Password harus lebih dari 8 karakter")
+      .max(32, "Password harus kurang dari 32 karakter")
+      .refine((password) => /\d/.test(password), {
+        message: "Password harus mengandung setidaknya satu angka",
+      }),
   })
   .refine((data) => data.newPassword === data.confirmNewPassword, {
     path: ["confirmNewPassword"],
@@ -27,7 +48,7 @@ export default function ChangePasswordPage() {
   const methods = useForm<ChangePasswordInput>({
     resolver: zodResolver(changePaswwordSchema),
   });
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const { changePassword } = useMutateUser();
   const { data: user } = useQuery({ queryKey: ["me"] });
 
@@ -40,7 +61,7 @@ export default function ChangePasswordPage() {
   };
 
   if (changePassword.isSuccess) {
-    navigate(PROFILE_PAGE)
+    navigate(PROFILE_PAGE);
   }
 
   return (
@@ -54,12 +75,7 @@ export default function ChangePasswordPage() {
         </div>
         <div className="my-5 xs:w-full m-auto">
           <form onSubmit={methods.handleSubmit(onSubmitHandler)} className="flex flex-col gap-5">
-            {changePassword.isError && (
-                  <AlertForm 
-                    title={(changePassword.error as any).response.data.message} 
-                    description={(changePassword.error as any).response.data.errors} 
-                  />
-                )}
+            {changePassword.isError && <AlertForm title={(changePassword.error as any).response.data.message} description={(changePassword.error as any).response.data.errors} />}
             <div className="border-b-slate-400 border-b-[1.5px] pb-4">
               <Input name="previousPassword" label="Previous Password" isFill={methods.watch().previousPassword} placeholder="Input your password" type="password" />
             </div>

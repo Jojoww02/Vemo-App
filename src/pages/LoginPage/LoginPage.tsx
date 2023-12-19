@@ -11,7 +11,14 @@ import { Link } from "react-router-dom";
 
 const loginSchema = zod.object({
   email: zod.string().min(1, "Email diperlukan").email("Email tidak ditemukan"),
-  password: zod.string().min(1, "Password diperlukan").min(8, "Password harus lebih dari 8 karakter").max(32, "Password harus kurang dari 32 karakter"),
+  password: zod
+    .string()
+    .min(1, "Password diperlukan")
+    .min(8, "Password harus lebih dari 8 karakter")
+    .max(32, "Password harus kurang dari 32 karakter")
+    .refine((password) => /\d/.test(password), {
+      message: "Password harus mengandung setidaknya satu angka",
+    }),
 });
 
 export type LoginInput = zod.TypeOf<typeof loginSchema>;
