@@ -77,12 +77,12 @@ export default function ChangePasswordPage() {
           <form onSubmit={methods.handleSubmit(onSubmitHandler)} className="flex flex-col gap-5">
             {changePassword.isError && <AlertForm title={(changePassword.error as any).response.data.message} description={(changePassword.error as any).response.data.errors} />}
             <div className="border-b-slate-400 border-b-[1.5px] pb-4">
-              <Input name="previousPassword" label="Previous Password" isFill={methods.watch().previousPassword} placeholder="Input your password" type="password" />
+              <Input name="previousPassword" label="Kata Sandi Sebelumnya" isFill={methods.watch().previousPassword} placeholder="Kata Sandi Sebelumnya" type="password" />
             </div>
 
-            <Input name="newPassword" label="NewPassword" isFill={methods.watch().newPassword} placeholder="Input your password" type="password" />
+            <Input name="newPassword" label="Password Baru" isFill={methods.watch().newPassword} placeholder="Password Baru" type="password" />
 
-            <Input name="confirmNewPassword" label="Confirm New Password" isFill={methods.watch().confirmNewPassword} placeholder="Input your password" type="password" />
+            <Input name="confirmNewPassword" label="Konfirmasi Kata Sandi Baru" isFill={methods.watch().confirmNewPassword} placeholder="Konfirmasi Kata Sandi Baru" type="password" />
             <div className="mt-12 sm:text-">
               <Button className="py-6 w-full text-lg font-semibold" type="submit" isLoading={changePassword.isPending}>
                 Kirim
