@@ -1,5 +1,5 @@
-import { approveVehicleFn, registerVehicleFn } from "@/api/services/vehicle";
-import { IVehicle } from "@/api/types";
+import { approveVehicleFn, registerVehicleFn, requestMaintenanceFn } from "@/api/services/vehicle";
+import { IRequestMaintenance, IVehicle } from "@/api/types";
 import { useMutation } from "@tanstack/react-query";
 
 export default function useMutateVehicle() {
@@ -13,6 +13,11 @@ export default function useMutateVehicle() {
       mutationFn: async (vehicleId: string) => {
         await approveVehicleFn(vehicleId);
       },
+    }),
+    requestMaintenance: useMutation({
+      mutationFn: async (dataToRequest: IRequestMaintenance) => {
+        await requestMaintenanceFn(dataToRequest);
+      }
     })
   };
 }

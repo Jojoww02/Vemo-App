@@ -27,39 +27,6 @@ export default function VehicleDetailsPage() {
     queryFn: async () => await getVehiclePartsConditionFn(validVehicleId),
   });
 
-  // const detailsService = [
-  //   {
-  //     item: "Aki",
-  //     qty: 1,
-  //     price: 250000,
-  //   },
-  //   {
-  //     item: "Busi",
-  //     qty: 1,
-  //     price: 12000,
-  //   },
-  //   {
-  //     item: "Mesin",
-  //     qty: 1,
-  //     price: 30000,
-  //   },
-  //   {
-  //     item: "Oli",
-  //     qty: 1,
-  //     price: 80000,
-  //   },
-  // ];
-
-  // const motorcyleInformation = {
-  //   name: "Maulvi Ilmullah",
-  //   vehicle: "Jupiter mx old",
-  //   date: Date.now(),
-  // };
-
-  // const [open, setOpen] = useState(false);
-
-  // const onOpenModal = () => setOpen(true);
-
   return (
     <>
       <div className="w-full md:w-[480px] md:mx-auto lg:w-full flex gap-5 flex-col lg:flex-row">
@@ -123,7 +90,7 @@ export default function VehicleDetailsPage() {
                 </TabsContent>
               </div>
             </Tabs>
-            <a href="#parts" className="w-full flex justify-center mt-10 text-primary">
+            <a href="#parts" className="w-full flex justify-center mt-10 text-primary lg:hidden">
               <ChevronsDown size={40} className="animate-bounce" />
             </a>
           </div>

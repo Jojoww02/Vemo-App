@@ -1,5 +1,5 @@
 import { NotificationIcon } from "@/components/atoms";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { History, Info, Menu } from "lucide-react";
 import {
   IconSquareRoundedChevronLeftFilled,
@@ -16,7 +16,7 @@ import {
 import IconVemo from "../../../assets/iconVemo.svg";
 import { cn } from "@/lib/utils/style";
 import { IconLogout2 } from "@tabler/icons-react";
-import { useState } from "react";
+import React, { useState } from "react";
 import {
   ABOUT_US_PAGE,
   ADMIN_DASHBOARD_PAGE,
@@ -29,7 +29,7 @@ import useLogoutUser from "@/hooks/useLogoutUser";
 import useWindowPathname from "@/hooks/useWindowPathname";
 import { IconMotorbike } from "@tabler/icons-react";
 import useVehicleList from "@/hooks/useVehicleList";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { getCountUnreadNotificationFn } from "@/api/services/notification";
 
 interface SideBarItem {
@@ -41,11 +41,19 @@ interface SideBarItem {
 export default function TopBar() {
   const [isOpen, setIsOpen] = useState(false);
   const navigate = useNavigate();
+  const location = useLocation();
+
+  const queryClient = useQueryClient();
 
   const { data: notificationCount, isSuccess } = useQuery({
     queryKey: ["notificationUnreadCount"],
     queryFn: async () => await getCountUnreadNotificationFn(),
+    enabled: true,
   });
+
+  React.useEffect(() => {
+    queryClient.invalidateQueries({queryKey: ["notificationUnreadCount"]});
+  }, [location]);
 
   const handleIconClick = () => {
     setIsOpen((prevIsOpen) => !prevIsOpen);

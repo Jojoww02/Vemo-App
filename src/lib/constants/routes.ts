@@ -1,4 +1,4 @@
-import { IVehicleStatus } from "@/api/types";
+import { IRequestMaintenance, IVehicleStatus } from "@/api/types";
 
 /* CUSTOMER PAGES ROUTES */
 export const NOT_FOUND_PAGE = "*";
@@ -49,6 +49,7 @@ export const GET_VEHICLES_BY_USERID_SERVICE = (userId: string) => `vehicles?user
 export const GET_VEHICLES_BY_STATUS_SERVICE = (status: IVehicleStatus) => `vehicles?status=${status}`;
 export const GET_VEHICLE_BY_ID_SERVICE = (vehicleId: string | undefined) => `vehicles/${vehicleId}`; 
 export const APPROVE_VEHICLE_SERVICE = (vehicleId: string | undefined) => `vehicles/approve/${vehicleId}`;
+export const REQUEST_MAINTENANCE_SERVICE = "vehicles/maintenance";
 
 /* NOTIFICATION SERVICE */
 export const GET_NOTIFICATIONS_SERVICE = "notifications";

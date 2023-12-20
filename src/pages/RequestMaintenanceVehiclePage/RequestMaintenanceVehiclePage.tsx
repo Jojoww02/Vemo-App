@@ -32,7 +32,7 @@ export default function RequestMaintenanceVehiclePage(): JSX.Element {
             <div className="w-full flex flex-col gap-6">
               <h3 className="font-medium text-[#8391A1] text-lg xl:text-1xl ">List kendaraan :</h3>
               <div className="w-full flex-col grid gap-2 place-items-center justify-center h-[25rem] xl:h-[20rem] overflow-y-auto">
-                {vehicles && isSuccess ? (
+                {isSuccess && vehicles && (vehicles as IVehicleResponse[]).length > 0 ? (
                   (vehicles as IVehicleResponse[])
                     .filter((vehicle: IVehicleResponse) => vehicle.condition <= 30)
                     .map((filteredVehicle: IVehicleResponse) => (
