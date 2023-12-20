@@ -1,9 +1,9 @@
 import React from "react";
 import IconArrow from "../../assets/notification/Icon-arrow.svg";
 import PartVehicleCard from "@/components/molecules/PartVehicleCard";
-import { useNavigate, useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 
-import { REQUEST_MAINTENANCE_VEHICLE_PAGE } from "@/lib/constants/routes";
+import { VEHICLE_DETAILS_PAGE } from "@/lib/constants/routes";
 import { Button, Input } from "@/components/atoms";
 import { FormProvider, useForm } from "react-hook-form";
 import { useQuery } from "@tanstack/react-query";
@@ -28,7 +28,6 @@ interface RequestMaintenanceVehicle {
 
 export default function VehiclePartsPage(): JSX.Element {
   const { vehicleId } = useParams();
-  const navigate = useNavigate();
 
   const [checkedItems, setCheckedItems] = React.useState<string[]>([]);
   const [selectAll, setSelectAll] = React.useState(false);
@@ -66,6 +65,7 @@ export default function VehiclePartsPage(): JSX.Element {
     });
   };
 
+
   React.useEffect(() => {
     requestMaintenance.isSuccess && window.location.reload();
   }, [requestMaintenance.isSuccess]);
@@ -80,14 +80,9 @@ export default function VehiclePartsPage(): JSX.Element {
   return (
     <div className="w-full relative">
       <div className="pt-5 px-10  w-full mb-5">
-        <div className=" w-[5rem]">
-          <img
-            src={IconArrow}
-            alt=""
-            className="absolute top-6 left-0 lg:left-5 xl:w-[2rem]  md:w-32 xl:h-[2rem] w-[1.4rem] h-[1.5rem] cursor-pointer"
-            onClick={() => navigate(REQUEST_MAINTENANCE_VEHICLE_PAGE)}
-          />
-        </div>
+        <Link to={VEHICLE_DETAILS_PAGE(vehicleId!)} className=" w-[5rem]">
+          <img src={IconArrow} alt="" className="absolute top-6 left-0 lg:left-5 xl:w-[2rem]  md:w-32 xl:h-[2rem] w-[1.4rem] h-[1.5rem] cursor-pointer"/>
+        </Link>
         <div className="flex justify-center font-bold md:text-4xl xl:text-4xl text-3xl">
           <h1 className="">Kondisi Part</h1>
         </div>

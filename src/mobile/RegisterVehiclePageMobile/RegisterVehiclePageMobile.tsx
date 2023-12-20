@@ -86,14 +86,14 @@ export default function RegisterVehiclePageMobile() {
           <FormProvider {...methods}>
             <form autoComplete="off" onSubmit={methods.handleSubmit(handleRegisterVehicle)} className="flex-col flex gap-6">
               {registerVehicle.isError && <AlertForm title={(registerVehicle.error as any).response.data.message} description={(registerVehicle.error as any).response.data.errors} />}
-              <Input name="fullName" label="Nama Lengkap" isFill={methods.watch().fullName} placeholder="Input your name" type="text" />
-              <Input name="vehicleName" label="Nama Kendaraan" isFill={methods.watch().vehicleName} placeholder="Input your email" type="text" />
+              <Input name="fullName" label="Nama Lengkap" isFill={methods.watch().fullName} placeholder="Masukkan nama lengkap" type="text" />
+              <Input name="vehicleName" label="Nama Kendaraan" isFill={methods.watch().vehicleName} placeholder="Masukkan nama kendaraan" type="text" />
               <Input name="vehicleType" label="Jenis Kendaraan" isFill={methods.watch().vehicleType} placeholder="Pilih jenis kendaraan" type="select">
                 <option value="matic">Matic</option>
                 <option value="manual">Manual</option>
               </Input>
+              <Input name="licensePlate" label="Plat Nomor" isFill={methods.watch().licensePlate} placeholder="Masukkan plat nomor" type="text" />
               <Input name="purchasingDate" label="Tanggal Pembelian Kendaraan" isFill={methods.watch().purchasingDate?.toString()} placeholder="Input your password" type="date" />
-              <Input name="licensePlate" label="Plat Nomor" isFill={methods.watch().licensePlate} placeholder="Confirm your password" type="text" />
               <Input name="lastMaintenance" label="Perawatan Terakhir" isFill={methods.watch().lastMaintenance?.toString()} type="date" />
               <div className="flex flex-col gap-2 mt-7">
                 <Button className="py-6 text-lg font-semibold" type="submit" isLoading={registerVehicle.isPending} disabled={isSuccess && (vehicles as IVehicleResponse[]).some((vehicle) => vehicle.status === "pending")}>
