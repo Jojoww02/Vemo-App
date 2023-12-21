@@ -1,11 +1,11 @@
 import { Link } from "react-router-dom";
 import { Info, Timer } from "lucide-react";
 import { Tooltip, VehicleCondition, VehicleIcon } from "@/components/atoms";
+import { IVehicleResponse } from "@/api/types";
 import {
   REQUEST_MAINTENANCE_VEHICLE_PAGE,
   VEHICLE_DETAILS_PAGE,
 } from "@/lib/constants/routes";
-import { IVehicleResponse } from "@/api/types";
 
 interface Props {
   vehicleData: IVehicleResponse;
