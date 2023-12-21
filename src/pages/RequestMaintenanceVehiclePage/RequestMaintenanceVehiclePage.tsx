@@ -1,14 +1,16 @@
 import { VehicleCard } from "@/components/molecules";
 import { useQuery } from "@tanstack/react-query";
-import { IVehicleResponse } from "@/api/types";
+import { IUserResponse } from "@/api/types";
 import { BadgeAlert } from "lucide-react";
 import useMobile from "@/hooks/useMobile";
 import { RequestMaintenanceVehicleMobile } from "@/mobile";
-
+import { getVehiclesByUserIdFn } from "@/api/services/vehicle";
 
 export default function RequestMaintenanceVehiclePage(): JSX.Element {
+  const { data: user } = useQuery({ queryKey: ["me"] });
   const { data: vehicles, isSuccess } = useQuery({
     queryKey: ["vehicles"],
+    queryFn: async () => await getVehiclesByUserIdFn((user as IUserResponse).userId),
   });
 
   const isMobile = useMobile();
@@ -33,17 +35,31 @@ export default function RequestMaintenanceVehiclePage(): JSX.Element {
               <h3 className="font-medium text-[#8391A1] text-lg xl:text-1xl ">List kendaraan :</h3>
               <div className="w-full flex-col grid gap-2 place-items-center justify-center h-[25rem] xl:h-[20rem] overflow-y-auto">
                 {vehicles && isSuccess ? (
-                  (vehicles as IVehicleResponse[])
-                    .filter((vehicle: IVehicleResponse) => vehicle.condition <= 30)
-                    .map((filteredVehicle: IVehicleResponse) => (
-                      <div key={filteredVehicle.vehicleId}>
-                        <VehicleCard vehicleData={filteredVehicle} />
+                  vehicles.length > 0 ? (
+                    vehicles.some((vehicle) => vehicle.status !== "pending" && vehicle.condition <= 30) ? (
+                      vehicles
+                        .filter((vehicle) => vehicle.status !== "pending" && vehicle.condition <= 30)
+                        .map((filteredVehicle) => (
+                          <div key={filteredVehicle.vehicleId}>
+                            <VehicleCard vehicleData={filteredVehicle} />
+                          </div>
+                        ))
+                    ) : (
+                      <div className="w-full flex flex-col items-center text-center gap-4">
+                        <BadgeAlert className="text-dark" size={50} />
+                        <h1 className="text-dark sm:text-xl mb-10">Oops! Anda belum mendaftarkan kendaraan Anda, daftar dulu yuk!</h1>
                       </div>
-                    ))
+                    )
+                  ) : (
+                    <div className="w-full flex flex-col items-center text-center gap-4">
+                      <BadgeAlert className="text-dark" size={50} />
+                      <h1 className="text-dark sm:text-xl mb-10">Oops! Anda belum mendaftarkan kendaraan Anda, daftar dulu yuk!</h1>
+                    </div>
+                  )
                 ) : (
                   <div className="w-full flex flex-col items-center text-center gap-4">
                     <BadgeAlert className="text-dark" size={50} />
-                    <h1 className="text-dark sm:text-xl mb-10">Opps! Anda belum mendaftarkan kendaraan Anda, daftar dulu yuk!</h1>
+                    <h1 className="text-dark sm:text-xl mb-10">Oops! Anda belum mendaftarkan kendaraan Anda, daftar dulu yuk!</h1>
                   </div>
                 )}
               </div>
