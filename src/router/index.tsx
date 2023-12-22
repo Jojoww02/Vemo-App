@@ -1,7 +1,14 @@
 import type { RouteObject } from "react-router-dom";
 import * as APP from "@/lib/constants/routes";
 import { Layout } from "@/components/templates";
-import { AdminRouteGuard, AuthRouteGuard, CustomerRouteGuard, PrivateRouteGuard, SendOtpGuard, UpdateProfileGuard } from "@/lib/guard";
+import {
+  AdminRouteGuard,
+  AuthRouteGuard,
+  CustomerRouteGuard,
+  PrivateRouteGuard,
+  SendOtpGuard,
+  UpdateProfileGuard,
+} from "@/lib/guard";
 import {
   HomePage,
   NotFoundPage,
