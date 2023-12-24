@@ -33,7 +33,7 @@ export default function DashboardPage(): JSX.Element {
         <div className="w-full flex justify-between mb-3">
           <p className="text-white text-xs md:text-xl">List kendaraan :</p>
           {isSuccess && vehicles && vehicles.length > 2 && (
-            <p className="text-white cursor-pointer hover:text-yellow-300 hover:underline transition ease-linear" onClick={() => navigate(VEHICLE_LIST_PAGE)}>
+            <p className="text-[10px] md:text-xl text-white cursor-pointer hover:text-yellow-300 hover:underline transition ease-linear" onClick={() => navigate(VEHICLE_LIST_PAGE)}>
               Lihat semua kendaraan
             </p>
           )}
