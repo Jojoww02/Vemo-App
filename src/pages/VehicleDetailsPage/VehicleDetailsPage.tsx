@@ -123,7 +123,7 @@ export default function VehicleDetailsPage() {
                 </TabsContent>
               </div>
             </Tabs>
-            <a href="#parts" className="w-full flex justify-center mt-10 text-primary">
+            <a href="#parts" className="w-full flex justify-center mt-10 text-primary lg:hidden">
               <ChevronsDown size={40} className="animate-bounce" />
             </a>
           </div>
