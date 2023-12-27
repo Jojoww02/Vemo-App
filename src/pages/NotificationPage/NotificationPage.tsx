@@ -1,8 +1,6 @@
 import React from "react";
 import { NotificationCard } from "@/components/molecules";
 import { Button } from "@/components/ui/button";
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
-import { notificationData } from "@/lib/data";
 import { DotsVerticalIcon } from "@radix-ui/react-icons";
 import { Trash2 } from "lucide-react";
 import { cn } from "@/lib/utils/style";
@@ -11,8 +9,7 @@ import { getNotificationsFn } from "@/api/services/notification";
 import useMutateNotification from "@/hooks/useMutateNotification";
 import { IUserResponse } from "@/api/types";
 import { useToast } from "@/components/ui/use-toast";
-import { NOTIFICATION_DETAILS_PAGE } from "@/lib/constants/routes";
-import { useNavigate } from "react-router-dom";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 
 export default function NontificationPage(): JSX.Element {
   const [activeTabEmail, setActiveTabEmail] = React.useState("");
@@ -77,7 +74,7 @@ export default function NontificationPage(): JSX.Element {
 
   const tabs = [
     {
-      name: "Unread",
+      name: "Belum dibaca",
       id: "unread",
     },
   ];
@@ -120,7 +117,6 @@ export default function NontificationPage(): JSX.Element {
 
           <div className="flex justify-between w-full mt-5 mb-10">
             <div className="flex gap-2 sm:gap-4 items-center ">
-              <p className="text-base sm:text-lg lg:text-xl font-normal">Kategori</p>
               {tabs.map((tab, index) => (
                 <button
                   type="button"

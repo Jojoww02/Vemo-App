@@ -188,25 +188,6 @@ export default function AdminDashboardPage() {
       ),
     },
     {
-      id: "approval",
-      enableHiding: false,
-      cell: ({ row }) => {
-        const vehicle = row.original;
-
-        return (
-          <_Button onClick={() => handleApproveVehicle(vehicle)} size="icon">
-            <Tooltip text="Approve this vehicles">
-              {isLoading || approveVehicle.isPending ? (
-                <Loader2 className="animate-spin" />
-              ) : (
-                <IconCircleCheck />
-              )}
-            </Tooltip>
-          </_Button>
-        );
-      },
-    },
-    {
       id: "actions",
       enableHiding: false,
       cell: ({ row }) => {
