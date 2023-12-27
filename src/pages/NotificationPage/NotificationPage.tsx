@@ -178,8 +178,8 @@ export default function NontificationPage(): JSX.Element {
             {notifications.filter((data) => data.read === false).length === 0 && (
               <div className="flex flex-col items-center justify-center text-center">
                 <img src="/mail.svg" alt="" className="w-[20rem] h-[20rem]" />
-                <h1 className="font-semibold text-dark text-3xl mb-5">Tidak ada notif nih!</h1>
-                <p className="font-normal text-dark tex-1xl">Inbox kamu sedang kosong</p>
+                <h1 className="font-semibold text-dark text-xl lg:text-3xl mb-5">Tidak ada notif nih!</h1>
+                <p className="font-normal text-dark texl-xl">Inbox kamu sedang kosong</p>
               </div>
             )}
           </>
@@ -194,7 +194,7 @@ export default function NontificationPage(): JSX.Element {
         // ketika notification kosong
         <div className="flex flex-col items-center justify-center text-center">
           <img src="/mail.svg" alt="" className="w-[20rem] h-[20rem]" />
-          <h1 className="font-semibold text-dark text-3xl mb-5">Tidak ada notif nih!</h1>
+          <h1 className="font-semibold text-dark text-xl lg:text-3xl mb-5">Tidak ada notif nih!</h1>
           <p className="font-normal text-dark tex-1xl">Inbox kamu sedang kosong</p>
         </div>
       )}
