@@ -54,7 +54,7 @@ function ProfileMobile() {
           </div>
           <p className="font-medium sm:text-lg mt-1">{(user as IUserResponse).email}</p>
         </div>
-        <div className="md:absolute md:bottom-10">
+        <div className="md:absolute bottom-5 md:bottom-10">
           <Link
             to={CHANGE_PASSWORD_PAGE}
             style={{
