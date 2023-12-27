@@ -31,7 +31,12 @@ export default function VehicleCard({ vehicleData }: Props): JSX.Element {
         </h3>
         <div className="w-full flex justify-between items-center gap-2">
           {vehicleData.status === "requested" ? (
-            "permintaan perawatan"
+            <div className="overflow-hidden w-28">
+              <div className="animate-marquee whitespace-nowrap w-full text-sm">
+              Sedang diproses untuk perawatan kendaraan
+            </div>
+            </div>
+            
           ) : (
             <VehicleCondition condition={vehicleData.condition} />
           )}

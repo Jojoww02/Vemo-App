@@ -1,5 +1,5 @@
 import { useMutation } from "@tanstack/react-query";
-import { deleteNotificationsFn, getNotificationsDetailsFn, readNotificationFn } from "@/api/services/notification";
+import { deleteNotificationsFn, getNotificationCategoriesFn, getNotificationsDetailsFn, readNotificationFn } from "@/api/services/notification";
 import { INotificationDelete } from "@/api/types";
 
 export default function useMutateNotification() {
@@ -17,6 +17,11 @@ export default function useMutateNotification() {
     notificationDetails: useMutation({
       mutationFn: async (notification: string) => {
         await getNotificationsDetailsFn(notification);
+      },
+    }),
+    notificationCategory: useMutation({
+      mutationFn: async (category: string) => {
+        await getNotificationCategoriesFn(category);
       },
     }),
   };

@@ -71,7 +71,7 @@ export interface IForgotPasswordUser {
   newPassword: string;
 }
 
-export interface IParts {
+export interface IConditionParts {
   vehicleId: string;
   conditionPartId: string;
   partId: string;
@@ -101,4 +101,15 @@ export interface IRequestMaintenance {
   description: string;
   vehicleId: string | undefined;
   listPartId: string[];
+}
+
+export interface IPartResponse {
+  name: string;
+  ageInMonth: number;
+  maintenancePrice: number;
+  maintenanceServicePrice: number;
+  vehicleType: string | null;
+  createdAt: string;
+  updatedAt: string | null;
+  id: string;
 }

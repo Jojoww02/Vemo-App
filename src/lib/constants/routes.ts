@@ -50,6 +50,7 @@ export const GET_VEHICLES_BY_STATUS_SERVICE = (status: IVehicleStatus) => `vehic
 export const GET_VEHICLE_BY_ID_SERVICE = (vehicleId: string | undefined) => `vehicles/${vehicleId}`; 
 export const APPROVE_VEHICLE_SERVICE = (vehicleId: string | undefined) => `vehicles/approve/${vehicleId}`;
 export const REQUEST_MAINTENANCE_SERVICE = "vehicles/maintenance";
+export const GET_PARTS_BY_VEHICLEID = (vehicleId: string | undefined) => `vehicles/parts?vehicleId=${vehicleId}`;
 
 /* NOTIFICATION SERVICE */
 export const GET_NOTIFICATIONS_SERVICE = "notifications";

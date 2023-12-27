@@ -1,5 +1,5 @@
 import { getVehicleByIdFn, getVehiclePartsConditionFn } from "@/api/services/vehicle";
-import { IParts, IVehicleResponse } from "@/api/types";
+import { IConditionParts, IVehicleResponse } from "@/api/types";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { IconBike, IconCalendarEvent, IconUser } from "@tabler/icons-react";
 import { useQuery } from "@tanstack/react-query";
@@ -17,12 +17,12 @@ export default function VehicleDetailsPage() {
 
   const validVehicleId = vehicleId || "";
 
-  const { data: vehicle, isSuccess: isVehicleSuccess } = useQuery<IVehicleResponse>({
+  const { data: vehicle, isSuccess: isVehicleSuccess } = useQuery<IVehicleResponse, Error>({
     queryKey: ["vehicle", vehicleId],
     queryFn: async () => await getVehicleByIdFn(vehicleId),
   });
 
-  const { data: conditionArray, isSuccess: isConditionSuccess } = useQuery<IParts[], Error>({
+  const { data: conditionArray, isSuccess: isConditionSuccess } = useQuery<IConditionParts[], Error>({
     queryKey: ["parts", validVehicleId],
     queryFn: async () => await getVehiclePartsConditionFn(validVehicleId),
   });

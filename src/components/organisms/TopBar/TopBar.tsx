@@ -1,30 +1,13 @@
 import { NotificationIcon } from "@/components/atoms";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { History, Info, Menu } from "lucide-react";
-import {
-  IconSquareRoundedChevronLeftFilled,
-  IconUserSquareRounded,
-} from "@tabler/icons-react";
-import {
-  Sheet,
-  SheetClose,
-  SheetContent,
-  SheetHeader,
-  SheetTitle,
-  SheetTrigger,
-} from "@/components/ui/sheet";
+import { IconSquareRoundedChevronLeftFilled, IconUserSquareRounded } from "@tabler/icons-react";
+import { Sheet, SheetClose, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import IconVemo from "../../../assets/iconVemo.svg";
 import { cn } from "@/lib/utils/style";
 import { IconLogout2 } from "@tabler/icons-react";
 import React, { useState } from "react";
-import {
-  ABOUT_US_PAGE,
-  ADMIN_DASHBOARD_PAGE,
-  DASHBOARD_PAGE,
-  INDEX_PAGE,
-  PROFILE_PAGE,
-  VEHICLE_LIST_PAGE,
-} from "@/lib/constants/routes";
+import { ABOUT_US_PAGE, ADMIN_DASHBOARD_PAGE, DASHBOARD_PAGE, INDEX_PAGE, PROFILE_PAGE, VEHICLE_LIST_PAGE } from "@/lib/constants/routes";
 import useLogoutUser from "@/hooks/useLogoutUser";
 import useWindowPathname from "@/hooks/useWindowPathname";
 import { IconMotorbike } from "@tabler/icons-react";
@@ -52,7 +35,7 @@ export default function TopBar() {
   });
 
   React.useEffect(() => {
-    queryClient.invalidateQueries({queryKey: ["notificationUnreadCount"]});
+    queryClient.invalidateQueries({ queryKey: ["notificationUnreadCount"] });
   }, [location]);
 
   const handleIconClick = () => {
@@ -96,54 +79,33 @@ export default function TopBar() {
       <span className="flex justify-center items-center">
         <Sheet open={isOpen}>
           <SheetTrigger asChild>
-            <Menu
-              className="text-slate-900 lg:hidden mr-4 xs:scale-125 lg:scale-150"
-              onClick={handleIconClick}
-            />
+            <Menu className="text-slate-900 lg:hidden mr-4 xs:scale-125 lg:scale-150" onClick={handleIconClick} />
           </SheetTrigger>
           <SheetContent className="w-72">
             <SheetHeader className="flex flex-row font-semibold italic items-center justify-between">
-              <img
-                src={IconVemo}
-                alt="vemo-icon"
-                className="w-[20%] cursor-pointer"
-                onClick={() => navigate(DASHBOARD_PAGE)}
-              />
-              <SheetTitle
-                className="text-2xl text-[#F4B400] pr-20 cursor-pointer"
-                onClick={() => navigate(DASHBOARD_PAGE)}
-              >
+              <img src={IconVemo} alt="vemo-icon" className="w-[20%] cursor-pointer" onClick={() => navigate(DASHBOARD_PAGE)} />
+              <SheetTitle className="text-2xl text-[#F4B400] pr-20 cursor-pointer" onClick={() => navigate(DASHBOARD_PAGE)}>
                 VEMO
               </SheetTitle>
               <SheetClose>
-                <IconSquareRoundedChevronLeftFilled
-                  size={35}
-                  style={{ color: "#898989" }}
-                  onClick={handleCloseSheet}
-                />
+                <IconSquareRoundedChevronLeftFilled size={35} style={{ color: "#898989" }} onClick={handleCloseSheet} />
               </SheetClose>
             </SheetHeader>
             <div className="w-full h-[0.05rem] mt-7 bg-[#898989]" />
             <div className="flex flex-col mt-10 gap-7 text-[#898989]">
-              {sideBarItem.map((item, index) => (
-                <Link
-                  to={item.path}
-                  key={index}
-                  className={cn(
-                    "flex cursor-pointer font-medium text-lg items-center"
-                  )}
-                  onClick={() => handleClick(item.path)}
-                >
-                  {item.icon}
-                  <span className="ml-5">{item.title}</span>
-                </Link>
-              ))}
+              {window.location.pathname !== ADMIN_DASHBOARD_PAGE && (
+                <>
+                  {sideBarItem.map((item, index) => (
+                    <Link to={item.path} key={index} className={cn("flex cursor-pointer font-medium text-lg items-center", !isOpen && "hidden")} onClick={() => handleClick(item.path)}>
+                      {item.icon}
+                      <span className="ml-5">{item.title}</span>
+                    </Link>
+                  ))}
+                </>
+              )}
             </div>
             <div className="w-full h-[0.05rem] bg-[#898989] mt-10" />
-            <div
-              className="flex mt-7 flex-row text-[#898989] cursor-pointer font-medium text-lg items-center"
-              onClick={handleLogoutUser}
-            >
+            <div className="absolute bottom-20 lg:fixed  flex mt-7 flex-row text-[#898989] cursor-pointer font-medium text-lg items-center" onClick={handleLogoutUser}>
               <IconLogout2 size={35} />
               <span className="ml-5">Log Out</span>
             </div>
@@ -151,23 +113,15 @@ export default function TopBar() {
         </Sheet>
         {isWindow ? (
           <Link to={DASHBOARD_PAGE}>
-            <h1 className="font-bold text-[#F4B400] text-xl xs:text-2xl lg:text-3xl italic">
-              Dashboard
-            </h1>
+            <h1 className="font-bold text-[#F4B400] text-xl xs:text-2xl lg:text-3xl italic">Dashboard</h1>
           </Link>
         ) : (
           <Link to={DASHBOARD_PAGE}>
-            <h1 className="font-bold text-[#F4B400] text-xl xs:text-2xl lg:text-3xl italic">
-              Admin Dashboard
-            </h1>
+            <h1 className="font-bold text-[#F4B400] text-xl xs:text-2xl lg:text-3xl italic">Admin Dashboard</h1>
           </Link>
         )}
       </span>
-      {window.location.pathname !== ADMIN_DASHBOARD_PAGE && (
-        <NotificationIcon
-          notificationCount={isSuccess ? notificationCount : 0}
-        />
-      )}
+      {window.location.pathname !== ADMIN_DASHBOARD_PAGE && <NotificationIcon notificationCount={isSuccess ? notificationCount : 0} />}
     </header>
   );
 }

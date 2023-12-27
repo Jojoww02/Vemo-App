@@ -81,7 +81,7 @@ export default function ProfilePageMobile(): JSX.Element {
             {(user as IUserResponse).email}
           </p>
         </div>
-        <div className="mb-10 md:absolute md:top-24 md:right-0">
+        <div className="md:absolute bottom-5 md:bottom-10">
           <Link
             to={CHANGE_PASSWORD_PAGE}
             style={{
