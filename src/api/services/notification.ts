@@ -26,3 +26,8 @@ export const getNotificationsDetailsFn = async (notificationId: string | undefin
   const response = await privateApi.get<INotificationResponse>(API.GET_NOTIFICATIONS_DETAILS_SERVICE(notificationId));
   return response.data;
 };
+
+export const getNotificationCategoriesFn = async (notificationCategory: string): Promise<INotificationResponse[]> => {
+  const response = await privateApi.get<INotificationResponse[]>(API.GET_NOTIFICATIONS_DETAILS_SERVICE(notificationCategory));
+  return response.data;
+};

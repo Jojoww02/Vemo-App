@@ -48,7 +48,7 @@ export default function NotificationCard(props: NotificationCardProps) {
       <div onClick={handleNotificationClick}>
         <div className="flex mt-3 px-4 lg:px-10 ">
           <img src={MailIcon} alt="" className="w-4 lg:w-6" />
-          <p className="px-2 font-extralight text-dark text-xs lg:text-base">Mail • {data.createdAt && format(new Date(data.createdAt), "dd MMMM yyyy", { locale: id })}</p>
+          <p className="px-2 font-extralight text-dark text-xs lg:text-base">Mail dari {data.category} • {data.createdAt && format(new Date(data.createdAt), "dd MMMM yyyy", { locale: id })}</p>
         </div>
         <div className="flex flex-col gap-2 px-4 lg:px-10">
           <p className="font-semibold text-dark text-sm sm:text-lg md:text-xl lg:text-2xl">{data.title}</p>

@@ -1,11 +1,9 @@
 import IconArrow from "../../assets/notification/Icon-arrow.svg";
 import MailIcon from "../../assets/notification/Icon-mail copy.svg";
 import { useNavigate, useParams } from "react-router-dom";
-import { DASHBOARD_PAGE, NOTIFICATION_PAGE } from "@/lib/constants/routes";
+import { NOTIFICATION_PAGE } from "@/lib/constants/routes";
 import { useQuery } from "@tanstack/react-query";
-import { getNotificationsDetailsFn, getNotificationsFn } from "@/api/services/notification";
-import useMutateNotification from "@/hooks/useMutateNotification";
-import { string } from "zod";
+import { getNotificationsDetailsFn } from "@/api/services/notification";
 import { format } from "date-fns";
 import { id } from "date-fns/locale";
 
@@ -31,7 +29,7 @@ export default function NotificationDetailPage(): JSX.Element {
           </div>
           <div className="flex flex-row mt-8 items-center">
             <img src={MailIcon} alt="" className="lg:w-[1.5rem] w-6" />
-            <p className="px-5 font-extralight text-base lg:text-lg">Mail • {notification.createdAt && format(new Date(notification.createdAt), "dd MMMM yyyy", { locale: id })} </p>
+            <p className="px-5 font-extralight text-base lg:text-lg">Mail dari {notification.category} • {notification.createdAt && format(new Date(notification.createdAt), "dd MMMM yyyy", { locale: id })} </p>
           </div>
           <div className="rounded-xl p-4 py-5 pb-6 mt-5 relative rounded-l-lg bg-[#E8ECF4]">
             <h2 className="font-regular text-base lg:text-lg">{notification.description}</h2>
