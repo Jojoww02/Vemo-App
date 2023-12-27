@@ -1,9 +1,9 @@
-import { IParts } from "@/api/types";
+import { IConditionParts } from "@/api/types";
 import { Checkbox } from "@/components/ui/checkbox";
 import { IconEditCircle } from "@tabler/icons-react";
 
 interface PartVehicleCardProps {
-  data: IParts;
+  data: IConditionParts;
   checked: boolean;
   onCheckboxChange: () => void;
   isCheck: boolean;
