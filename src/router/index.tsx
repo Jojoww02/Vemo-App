@@ -23,7 +23,7 @@ import {
   VehicleListPage,
   VehiclePartsPage,
 } from "@/pages";
-import { AdminDashboardPage } from "@/pages/_admin";
+import { AdminApproveMaintenancePage, AdminDashboardPage } from "@/pages/_admin";
 import { RegisterPageMobile } from "@/mobile";
 
 const publicRoutes: RouteObject = {
@@ -151,6 +151,10 @@ const privateRoutes: RouteObject = {
             {
               path: APP.ADMIN_DASHBOARD_PAGE,
               element: <AdminDashboardPage />,
+            },
+            {
+              path: APP.ADMIN_APPROVE_MAINTENANCE_PAGE,
+              element: <AdminApproveMaintenancePage />,
             },
           ],
         },

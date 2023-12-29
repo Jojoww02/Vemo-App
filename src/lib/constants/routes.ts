@@ -25,6 +25,7 @@ export const VERIFY_OTP_PAGE = "/verify/otp";
 /* ADMIN PAGES ROUTES */
 const ADMIN_PAGE = "/admin";
 export const ADMIN_DASHBOARD_PAGE = `${ADMIN_PAGE}/dashboard`;
+export const ADMIN_APPROVE_MAINTENANCE_PAGE = `${ADMIN_PAGE}/approve-maintenance`;
 
 /* AUTH SERVICES */
 export const LOGIN_SERVICE = "auth/login";
