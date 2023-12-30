@@ -31,7 +31,7 @@ export default function DashboardPage(): JSX.Element {
     <React.Fragment>
       <div className="relative p-4 md:p-7 md:px-10 rounded-2xl shadow-[0px_0px_7px_#00000040] bg-[#898989]">
         <div className="w-full flex justify-between mb-3">
-          <p className="text-white text-xs md:text-xl">List kendaraan :</p>
+          <p className="text-white text-xs md:text-xl">Daftar kendaraan :</p>
           {isSuccess && vehicles && vehicles.length > 2 && (
             <p className="text-[10px] md:text-lg text-white cursor-pointer hover:text-yellow-300 hover:underline transition ease-linear" onClick={() => navigate(VEHICLE_LIST_PAGE)}>
               Lihat semua kendaraan

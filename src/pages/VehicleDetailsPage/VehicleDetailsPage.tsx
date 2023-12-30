@@ -48,7 +48,7 @@ export default function VehicleDetailsPage() {
               <div className="pl-4">
                 <TabsContent value="information">
                   <div className="text-start mt-5 sm:text-2xl flex flex-col gap-6">
-                    <h1 className="font-semibold text-lg sm:text-2xl">
+                    <h1 className="font-semibold text-xl sm:text-2xl">
                       <a href="#parts">Informasi Kendaraan</a>
                     </h1>
                     <div className="flex flex-col gap-2">

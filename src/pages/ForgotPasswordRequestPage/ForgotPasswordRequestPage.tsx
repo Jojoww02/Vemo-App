@@ -37,7 +37,7 @@ export default function ForgotPasswordRequestPage(): JSX.Element {
             <p className="mt-3 font-medium text-[#8391A1] text-md text-center">Jangan khawatir! masukkan alamat email yang tertaut dengan akun anda.</p>
             <FormProvider {...methods}>
               <form onSubmit={methods.handleSubmit(onSubmitHandler)} className="flex flex-col mt-10 gap-32 xl:gap-40">
-                <Input name="email" label="Email" isFill={methods.watch().email} placeholder="Enter Your Email" type="email" />
+                <Input name="email" label="Email" isFill={methods.watch().email} placeholder="Masukkan Email Anda" type="email" />
                 <Button className="py-6 text-lg font-semibold" disabled={!isObjectEmpty(methods.formState.errors)} type="submit">
                   Kirim Kode
                 </Button>

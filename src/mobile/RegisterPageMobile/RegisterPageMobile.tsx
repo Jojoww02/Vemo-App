@@ -69,28 +69,28 @@ export default function RegisterPageMobile():JSX.Element {
                         name="name"
                         label="Nama"
                         isFill={methods.watch().name}
-                        placeholder="Input your name"
+                        placeholder="Masukkan Nama Anda"
                         type="text"
                     />
                     <Input
                         name="email"
                         label="Email"
                         isFill={methods.watch().email}
-                        placeholder="Input your email"
+                        placeholder="Masukkan email"
                         type="email"
                     />
                     <Input
                         name="password"
                         label="Password"
                         isFill={methods.watch().password}
-                        placeholder="Input your password"
+                        placeholder="Masukkan password"
                         type="password"
                     />
                     <Input
                         name="confirmPassword"
                         label="Konfirmasi Password"
                         isFill={methods.watch().confirmPassword}
-                        placeholder="Confirm your password"
+                        placeholder="Konfirmasi Password Anda"
                         type="password"
                     />
                     <Button 

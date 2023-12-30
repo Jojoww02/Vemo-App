@@ -93,10 +93,10 @@ export default function HomePage(): JSX.Element {
               <FormProvider {...methods}>
                 <form autoComplete="off" onSubmit={methods.handleSubmit(onSubmitHandler)} className="flex-col flex gap-4">
                   {registerUser.isError && <AlertForm title={(registerUser.error as any).response.data.message} description={(registerUser.error as any).response.data.errors} />}
-                  <Input name="name" label="Nama" isFill={methods.watch().name} placeholder="Input your name" type="text" />
-                  <Input name="email" label="Email" isFill={methods.watch().email} placeholder="Input your email" type="email" />
-                  <Input name="password" label="Password" isFill={methods.watch().password} placeholder="Input your password" type="password" />
-                  <Input name="confirmPassword" label="Konfirmasi Password" isFill={methods.watch().confirmPassword} placeholder="Confirm your password" type="password" />
+                  <Input name="name" label="Nama" isFill={methods.watch().name} placeholder="Masukkan Nama anda" type="text" />
+                  <Input name="email" label="Email" isFill={methods.watch().email} placeholder="Masukkan Email anda" type="email" />
+                  <Input name="password" label="Password" isFill={methods.watch().password} placeholder="Masukkan Password anda" type="password" />
+                  <Input name="confirmPassword" label="Konfirmasi Password" isFill={methods.watch().confirmPassword} placeholder="Masukkan Password Anda" type="password" />
                   <div className="flex flex-col gap-2 cursor-pointer">
                     <Button className="py-6 text-lg font-semibold" type="submit" disabled={!isObjectEmpty(methods.formState.errors)} isLoading={registerUser.isPending}>
                       Daftar

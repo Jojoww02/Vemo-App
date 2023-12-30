@@ -68,8 +68,8 @@ export default function ForgotPasswordPage(): JSX.Element {
             <h3 className="font-medium text-[#8390a1] text-sm xl:text-base mt-5 text-center">Your new password must be unique from those previously used.</h3>
             <FormProvider {...methods}>
               <form onSubmit={methods.handleSubmit(onSubmitHandler)} className="flex flex-col mt-10 gap-5">
-                <Input name="newPassword" label="Password Baru" isFill={methods.watch().newPassword} placeholder="Your New Password" type="password" />
-                <Input name="confirmNewPassword" label="Confirm Password Baru" isFill={methods.watch().confirmNewPassword} placeholder="Your New Password" type="password" />
+                <Input name="newPassword" label="Password Baru" isFill={methods.watch().newPassword} placeholder="Masukkan Password Baru Anda" type="password" />
+                <Input name="confirmNewPassword" label="Confirm Password Baru" isFill={methods.watch().confirmNewPassword} placeholder="Konfirmasi Password Baru Anda" type="password" />
                 <Button className="py-6 mt-20 text-lg font-semibold" type="submit" disabled={!isObjectEmpty(methods.formState.errors)}>
                   Reset Password
                 </Button>

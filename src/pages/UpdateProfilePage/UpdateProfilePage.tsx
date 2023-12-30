@@ -140,12 +140,12 @@ export default function UpdateProfilePage() {
               <input type="file" accept="image/*" onChange={handleImageChange} className=""/>
             </span>
 
-            <Input defaultValue={(user as IUserResponse).name} name="name" label="Nama" isFill={methods.watch().name} placeholder="Input your name" type="text" />
-            <Input defaultValue={(user as IUserResponse).email} name="email" label="Email" isFill={methods.watch().email} placeholder="Enter Your email" type="email" disabled editable />
+            <Input defaultValue={(user as IUserResponse).name} name="name" label="Nama" isFill={methods.watch().name} placeholder="Masukkan nama Anda" type="text" />
+            <Input defaultValue={(user as IUserResponse).email} name="email" label="Email" isFill={methods.watch().email} placeholder="Masukkan Email Anda" type="email" disabled editable />
             {isUpdateEmail && <p className="pl-1 -mt-3 text-sm text-yellow-500 italic">* Ketika update email akan dimintai kode otp di email yang terbaru</p>}
             <div className="flex flex-col gap-2 mt-7">
               <Button className="py-6 text-lg font-semibold" type="submit" isLoading={updateUser.isPending || sendOtpByEmail.isPending}>
-                Send
+                Kirim
               </Button>
             </div>
           </form>
