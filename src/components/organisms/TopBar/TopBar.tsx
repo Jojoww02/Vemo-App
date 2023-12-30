@@ -1,6 +1,6 @@
 import { NotificationIcon } from "@/components/atoms";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { History, Info, Menu } from "lucide-react";
+import { History, Info, Menu, Wrench } from "lucide-react";
 import { IconSquareRoundedChevronLeftFilled, IconUserSquareRounded } from "@tabler/icons-react";
 import { Sheet, SheetClose, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import IconVemo from "../../../assets/iconVemo.svg";
@@ -14,17 +14,17 @@ import { IconMotorbike } from "@tabler/icons-react";
 import useVehicleList from "@/hooks/useVehicleList";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { getCountUnreadNotificationFn } from "@/api/services/notification";
+import { IUserResponse } from "@/api/types";
 
-interface SideBarItem {
-  title: string;
-  icon: React.ReactNode;
-  path: string;
-}
 
 export default function TopBar() {
   const [isOpen, setIsOpen] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
+
+  const ADMIN_PAGE = "/admin";
+  const { data: user } = useQuery({ queryKey: ["me"] });
+  
 
   const queryClient = useQueryClient();
 
@@ -57,14 +57,28 @@ export default function TopBar() {
 
   const { isVehicleListEnabled } = useVehicleList();
 
-  const sideBarItem: SideBarItem[] = [
+  const sideBarItem = [
     {
       title: "Profile",
       icon: <IconUserSquareRounded size={35} />,
       path: PROFILE_PAGE,
+      show: user && (user as IUserResponse).role === "customer",
     },
-    { title: "Services", icon: <History size={35} />, path: INDEX_PAGE },
-    { title: "About Us", icon: <Info size={35} />, path: ABOUT_US_PAGE },
+    { title: "Services",
+      icon: <History size={35} />,
+      path: INDEX_PAGE,
+     show: user && (user as IUserResponse).role === "customer" 
+    },
+    { title: "About Us",
+     icon: <Info size={35} />, 
+     path: ABOUT_US_PAGE, 
+     show: user && (user as IUserResponse).role === "customer" 
+    },
+    { title: "Approve Maintenance",
+     icon: <Wrench size={35} />, 
+     path: `${ADMIN_PAGE}/approve-maintenance`,
+     show: user && (user as IUserResponse).role === "admin" 
+    },
   ];
 
   if (isVehicleListEnabled) {
@@ -72,6 +86,7 @@ export default function TopBar() {
       title: "List kendaraan",
       icon: <IconMotorbike size={35} />,
       path: VEHICLE_LIST_PAGE,
+      show: user && (user as IUserResponse).role === "customer",
     });
   }
   return (
@@ -93,15 +108,14 @@ export default function TopBar() {
             </SheetHeader>
             <div className="w-full h-[0.05rem] mt-7 bg-[#898989]" />
             <div className="flex flex-col mt-10 gap-7 text-[#898989]">
-              {window.location.pathname !== ADMIN_DASHBOARD_PAGE && (
-                <>
-                  {sideBarItem.map((item, index) => (
+              {sideBarItem.map(
+                (item, index) =>
+                  item.show !== false && (
                     <Link to={item.path} key={index} className={cn("flex cursor-pointer font-medium text-lg items-center", !isOpen && "hidden")} onClick={() => handleClick(item.path)}>
                       {item.icon}
                       <span className="ml-5">{item.title}</span>
                     </Link>
-                  ))}
-                </>
+                  )
               )}
             </div>
             <div className="w-full h-[0.05rem] bg-[#898989] mt-10" />
