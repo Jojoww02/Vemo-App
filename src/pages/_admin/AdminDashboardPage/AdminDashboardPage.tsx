@@ -17,7 +17,7 @@ import {
   useReactTable,
 } from "@tanstack/react-table";
 import { Button } from "@/components/ui/button";
-import { Tooltip, Button as _Button } from "@/components/atoms";
+import { Button as _Button } from "@/components/atoms";
 import {
   DropdownMenu,
   DropdownMenuCheckboxItem,
@@ -40,7 +40,6 @@ import { IVehicleResponse } from "@/api/types";
 import { useQuery } from "@tanstack/react-query";
 import { getVehiclesByStatusFn } from "@/api/services/vehicle";
 import useMutateVehicle from "@/hooks/useMutateVehicle";
-import { IconCircleCheck } from "@tabler/icons-react";
 import { format } from "date-fns";
 import { id } from "date-fns/locale";
 import { Loader2 } from "lucide-react";
