@@ -27,7 +27,7 @@ const ADMIN_PAGE = "/admin";
 export const ADMIN_DASHBOARD_PAGE = `${ADMIN_PAGE}/dashboard`;
 export const ADMIN_APPROVE_MAINTENANCE_PAGE = `${ADMIN_PAGE}/maintenances`;
 export const ADMIN_VEHICLES = `${ADMIN_PAGE}/vehicles/pending`;
-export const ADMIN_DETAILS_MAINTENANCE_VEHICLE_PAGE = `${ADMIN_PAGE}/vehicle/details`;
+export const ADMIN_DETAILS_MAINTENANCE_VEHICLE_PAGE = (vehicleId: string) => `${ADMIN_PAGE}/vehicle/details/${vehicleId}`;
 
 /* AUTH SERVICES */
 export const LOGIN_SERVICE = "auth/login";

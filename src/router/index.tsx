@@ -173,7 +173,7 @@ const privateRoutes: RouteObject = {
               element: <AdminVehiclesPending />,
             },
             {
-              path: APP.ADMIN_DETAILS_MAINTENANCE_VEHICLE_PAGE,
+              path: APP.ADMIN_DETAILS_MAINTENANCE_VEHICLE_PAGE(":vehicleId"),
               element: <AdminDetailsMaintenanceVehiclePage/>,
             },
           ],
