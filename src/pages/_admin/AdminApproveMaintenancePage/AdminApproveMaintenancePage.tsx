@@ -80,7 +80,7 @@ export default function AdminDashboardPage() {
 
   const handleApproveVehicle = async (vehicle: IVehicleResponse) => {
     await approveVehicle.mutateAsync(vehicle.vehicleId);
-    navigate(`${ADMIN_PAGE}/vehicle/details${vehicle.vehicleId}`);
+    navigate(`${ADMIN_PAGE}/vehicle/details/${vehicle.vehicleId}`);
   };
 
   const columns: ColumnDef<IVehicleResponse>[] = [
