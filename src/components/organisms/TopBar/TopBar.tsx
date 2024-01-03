@@ -1,18 +1,8 @@
 import { NotificationIcon } from "@/components/atoms";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { History, Info, Menu, Wrench } from "lucide-react";
-import {
-  IconSquareRoundedChevronLeftFilled,
-  IconUserSquareRounded,
-} from "@tabler/icons-react";
-import {
-  Sheet,
-  SheetClose,
-  SheetContent,
-  SheetHeader,
-  SheetTitle,
-  SheetTrigger,
-} from "@/components/ui/sheet";
+import { History, Info, Menu, TableProperties, Wrench } from "lucide-react";
+import { IconLayoutDashboard, IconSquareRoundedChevronLeftFilled, IconUserSquareRounded } from "@tabler/icons-react";
+import { Sheet, SheetClose, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import IconVemo from "../../../assets/iconVemo.svg";
 import { cn } from "@/lib/utils/style";
 import { IconLogout2 } from "@tabler/icons-react";
@@ -79,24 +69,11 @@ export default function TopBar() {
       path: PROFILE_PAGE,
       show: user && (user as IUserResponse).role === "customer",
     },
-    {
-      title: "Services",
-      icon: <History size={35} />,
-      path: INDEX_PAGE,
-      show: user && (user as IUserResponse).role === "customer",
-    },
-    {
-      title: "About Us",
-      icon: <Info size={35} />,
-      path: ABOUT_US_PAGE,
-      show: user && (user as IUserResponse).role === "customer",
-    },
-    {
-      title: "Approve Maintenance",
-      icon: <Wrench size={35} />,
-      path: `${ADMIN_PAGE}/approve-maintenance`,
-      show: user && (user as IUserResponse).role === "admin",
-    },
+    { title: "Services", icon: <History size={35} />, path: INDEX_PAGE, show: user && (user as IUserResponse).role === "customer" },
+    { title: "About Us", icon: <Info size={35} />, path: ABOUT_US_PAGE, show: user && (user as IUserResponse).role === "customer" },
+    { title: "Dashboard", icon: <IconLayoutDashboard size={35} />, path: `${ADMIN_PAGE}/dashboard`, show: user && (user as IUserResponse).role === "admin" },
+    { title: "Vehicles", icon: <IconMotorbike size={35} />, path: `${ADMIN_PAGE}/vehicles/pending`, show: user && (user as IUserResponse).role === "admin" },
+    { title: "Approve Maintenance", icon: <Wrench size={35} />, path: `${ADMIN_PAGE}/maintenances`, show: user && (user as IUserResponse).role === "admin" },
   ];
 
   if (isVehicleListEnabled) {
@@ -176,18 +153,14 @@ export default function TopBar() {
             </h1>
           </Link>
         ) : (
-          <Link to={DASHBOARD_PAGE}>
+          <Link to={ADMIN_DASHBOARD_PAGE}>
             <h1 className="font-bold text-[#F4B400] text-xl xs:text-2xl lg:text-3xl italic">
               Admin Dashboard
             </h1>
           </Link>
         )}
       </span>
-      {window.location.pathname !== ADMIN_DASHBOARD_PAGE && (
-        <NotificationIcon
-          notificationCount={isSuccess ? notificationCount : 0}
-        />
-      )}
+      {window.location.pathname !== ADMIN_DASHBOARD_PAGE && (user as IUserResponse)?.role === "customer" && <NotificationIcon notificationCount={isSuccess ? notificationCount : 0} />}
     </header>
   );
 }

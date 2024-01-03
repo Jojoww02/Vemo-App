@@ -42,13 +42,10 @@ import { getVehiclesByStatusFn } from "@/api/services/vehicle";
 import useMutateVehicle from "@/hooks/useMutateVehicle";
 import { format } from "date-fns";
 import { id } from "date-fns/locale";
-import { ArrowRightCircle, Loader2, MoveRight } from "lucide-react";
+import { Loader2 } from "lucide-react";
 import { useToast } from "@/components/ui/use-toast";
-import { Link, useNavigate } from "react-router-dom";
 
 export default function AdminDashboardPage() {
-  const navigate = useNavigate()
-  const ADMIN_PAGE = '/admin'
   const [sorting, setSorting] = React.useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
     []
@@ -63,9 +60,9 @@ export default function AdminDashboardPage() {
     refetch,
     isLoading,
   } = useQuery({
-    queryKey: ["vehicles", "requested"],
+    queryKey: ["vehicles", "pending"],
     queryFn: async (): Promise<IVehicleResponse[]> =>
-      await getVehiclesByStatusFn("requested"),
+      await getVehiclesByStatusFn("pending"),
   });
 
   let data: IVehicleResponse[] = [];
@@ -80,7 +77,11 @@ export default function AdminDashboardPage() {
 
   const handleApproveVehicle = async (vehicle: IVehicleResponse) => {
     await approveVehicle.mutateAsync(vehicle.vehicleId);
-    navigate(`${ADMIN_PAGE}/vehicle/details${vehicle.vehicleId}`);
+    await refetch();
+    toast({
+      title: `${vehicle.vehicleName} |  ${vehicle.licensePlate}`,
+      description: "Berhasil menerima kendaraan",
+    });
   };
 
   const columns: ColumnDef<IVehicleResponse>[] = [
@@ -193,7 +194,7 @@ export default function AdminDashboardPage() {
 
         return (
           <DropdownMenu>
-            {/* <DropdownMenuTrigger asChild>
+            <DropdownMenuTrigger asChild>
               <Button variant="ghost" className="h-8 w-8 p-0">
                 <span className="sr-only">Buka menu</span>
                 <DotsHorizontalIcon className="h-4 w-4" />
@@ -212,11 +213,7 @@ export default function AdminDashboardPage() {
               <DropdownMenuItem>
                 <p>Detail kendaraan</p>
               </DropdownMenuItem>
-            </DropdownMenuContent> */}
-
-            <div onClick={() => handleApproveVehicle(vehicle)}>
-            <ArrowRightCircle />
-            </div>
+            </DropdownMenuContent>
           </DropdownMenu>
         );
       },

@@ -1,8 +1,9 @@
 import React from "react";
+import { IconLogout2, IconUserSquareRounded, IconSquareRoundedChevronLeftFilled, IconSquareRoundedChevronRightFilled, IconLayoutDashboard } from "@tabler/icons-react";
 import { cn } from "@/lib/utils/style";
 import { ToogleIcon } from "@/components/atoms";
 import { Separator } from "@/components/ui/separator";
-import { History, Info, Wrench } from "lucide-react";
+import { History, Info, TableProperties, Wrench } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import useLogoutUser from "@/hooks/useLogoutUser";
 import IconVemo from "@/assets/iconVemo.svg";
@@ -11,12 +12,6 @@ import { IconMotorbike } from "@tabler/icons-react";
 import useVehicleList from "@/hooks/useVehicleList";
 import { useQuery } from "@tanstack/react-query";
 import { IUserResponse } from "@/api/types";
-import {
-  IconLogout2,
-  IconUserSquareRounded,
-  IconSquareRoundedChevronLeftFilled,
-  IconSquareRoundedChevronRightFilled,
-} from "@tabler/icons-react";
 
 export default function SideNav() {
   const navigate = useNavigate();
@@ -48,9 +43,21 @@ export default function SideNav() {
       show: user && (user as IUserResponse).role === "customer",
     },
     {
+      title: "Dashboard",
+      icon: <IconLayoutDashboard size={35} />,
+      navigateTo: `${ADMIN_PAGE}/dashboard`,
+      show: user && (user as IUserResponse).role === "admin",
+    },
+    {
+      title: "Vehicles",
+      icon: <IconMotorbike size={35}/>,
+      navigateTo: `${ADMIN_PAGE}/vehicles/pending`,
+      show: user && (user as IUserResponse).role === "admin",
+    },
+    {
       title: "Approve Maintenance",
       icon: <Wrench size={35} />,
-      navigateTo: `${ADMIN_PAGE}/approve-maintenance`,
+      navigateTo: `${ADMIN_PAGE}/maintenances`,
       show: user && (user as IUserResponse).role === "admin",
     },
   ];
