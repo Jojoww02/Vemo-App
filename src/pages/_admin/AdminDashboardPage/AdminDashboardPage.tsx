@@ -1,7 +1,7 @@
 import "./AdminDashboardPage.scss";
 import { Card, CardContent } from "@/components/ui/card";
 import { ActiveUsersCard } from "./AdminDashboardCards";
-import { Cell, Pie, PieChart, ResponsiveContainer, Tooltip } from "recharts";
+import { Area, AreaChart, CartesianGrid, Cell, Pie, PieChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
 
 const data = [
   { name: "Matic", value: 400, color: "#0088FE" },
@@ -12,6 +12,52 @@ const data2 = [
   { name: "Approve", value2: 200, color: "#F4B400" },
   { name: "Requested", value2: 300, color: "#94a3b8" },
 ];
+
+const data3 = [
+  {
+    name: 'Page A',
+    value: 4000,
+    value2: 2400,
+    amt: 2400,
+  },
+  {
+    name: 'Page B',
+    value: 3000,
+    value2: 1398,
+    amt: 2210,
+  },
+  {
+    name: 'Page C',
+    value: 2000,
+    value2: 9800,
+    amt: 2290,
+  },
+  {
+    name: 'Page D',
+    value: 2780,
+    value2: 3908,
+    amt: 2000,
+  },
+  {
+    name: 'Page E',
+    value: 1890,
+    value2: 4800,
+    amt: 2181,
+  },
+  {
+    name: 'Page F',
+    value: 2390,
+    value2: 3800,
+    amt: 2500,
+  },
+  {
+    name: 'Page G',
+    value: 3490,
+    value2: 4300,
+    amt: 2100,
+  },
+];
+
 const COLORS = ["#F4B400", "#94a3b8"];
 
 export default function AdminDashboardPage() {
@@ -104,7 +150,50 @@ export default function AdminDashboardPage() {
       </Card>
       <Card className="box box5">
         <CardContent>
-          <p>Box 5</p>
+          <div className="flex flex-col items-center justify-center">
+            <h1 className="text-2xl font-semibold text-center">Jumlah Register Vehicle</h1>
+            <ResponsiveContainer width="100%" height={200}>
+              <AreaChart
+                width={500}
+                height={200}
+                data={data3}
+                syncId="anyId"
+                margin={{
+                  top: 10,
+                  right: 30,
+                  left: 0,
+                  bottom: 0,
+                }}
+              >
+                <CartesianGrid strokeDasharray="3 3" />
+                <XAxis dataKey="name" />
+                <YAxis />
+                <Tooltip />
+                <Area type="monotone" dataKey="uv" stroke="#8884d8" fill="#8884d8" />
+              </AreaChart>
+            </ResponsiveContainer>
+            <h1 className="text-2xl font-semibold text-center">Jumlah request maintenance</h1>
+            <ResponsiveContainer width="100%" height={200}>
+              <AreaChart
+                width={500}
+                height={200}
+                data={data3}
+                syncId="anyId"
+                margin={{
+                  top: 10,
+                  right: 30,
+                  left: 0,
+                  bottom: 0,
+                }}
+              >
+                <CartesianGrid strokeDasharray="3 3" />
+                <XAxis dataKey="name" />
+                <YAxis />
+                <Tooltip />
+                <Area type="monotone" dataKey="pv" stroke="#82ca9d" fill="#82ca9d" />
+              </AreaChart>
+            </ResponsiveContainer>
+          </div>
         </CardContent>
       </Card>
     </main>
