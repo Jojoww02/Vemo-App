@@ -113,3 +113,11 @@ export interface IPartResponse {
   updatedAt: string | null;
   id: string;
 }
+
+export interface ICountVehiclesResponse {
+  vehicles: number;
+  matic: number;
+  manual: number;
+  pending: number;
+  requested: number;
+}

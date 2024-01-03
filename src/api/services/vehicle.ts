@@ -1,5 +1,5 @@
 import { privateApi } from "@/api";
-import { IGenericResponse, IConditionParts, IRequestMaintenance, IVehicle, IVehicleResponse, IVehicleStatus, IPartResponse } from "@/api/types";
+import { IGenericResponse, IConditionParts, IRequestMaintenance, IVehicle, IVehicleResponse, IVehicleStatus, IPartResponse, ICountVehiclesResponse } from "@/api/types";
 import * as API from "@/lib/constants/routes";
 
 export const registerVehicleFn = async (registerVehicleData: IVehicle): Promise<IGenericResponse> => {
@@ -40,4 +40,9 @@ export const requestMaintenanceFn = async (dataToRequest: IRequestMaintenance) =
 export const getPartByVehicleIdFn = async (vehicleId: string | undefined): Promise<IPartResponse[]> => {
   const response = await privateApi.get<IPartResponse[]>(API.GET_PARTS_BY_VEHICLEID(vehicleId));
   return response.data;
+}
+
+export const getCountVehiclesFn = async (): Promise<ICountVehiclesResponse> => {
+  const response = await privateApi.get<ICountVehiclesResponse>(API.ADMIN_COUNT_VEHICLES);
+  return response.data
 }
