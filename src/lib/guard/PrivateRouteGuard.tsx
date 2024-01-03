@@ -3,8 +3,8 @@ import { Navigate, Outlet } from "react-router-dom";
 import { IUserResponse } from "@/api/types";
 import { getMeFn } from "@/api/services/users";
 import { isTokenSet } from "@/lib/utils/token";
-import { IconLoader3 } from "@tabler/icons-react";
 import { LOGIN_PAGE } from "@/lib/constants/routes";
+import { BarLoader } from "react-spinners";
 
 export default function PrivateRouteGuard() {
   const query = useQuery({
@@ -22,7 +22,7 @@ export default function PrivateRouteGuard() {
   if (query.isLoading) {
     return (
       <div className="min-h-screen w-full grid place-items-center">
-        <IconLoader3 size={50} className="animate-spin text-primary" />
+        <BarLoader color="#F4B400" />
       </div>
     );
   }

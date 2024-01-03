@@ -31,14 +31,8 @@ privateApi.interceptors.response.use(
       !originalRequest._retry
     ) {
       originalRequest._retry = true;
-      try {
-        const data = await refreshTokenFn(getToken());
-        setToken(data.accessToken);
-      } catch (error) {
-        if ((error as any).response.status === 403) {
-          console.log("need login");
-        }
-      }
+      const data = await refreshTokenFn(getToken());
+      setToken(data.accessToken);
       return privateApi(originalRequest);
     }
     return Promise.reject(error);

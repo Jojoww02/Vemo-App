@@ -8,7 +8,9 @@ interface useVehicleList {
 const useVehicleList = create<useVehicleList>()((set) => ({
   isVehicleListEnabled: false,
   setIsVehicleListEnabled: (condition: boolean): void => {
-    set((state) => ({ isVehicleListEnabled: (state.isVehicleListEnabled = condition) }));
+    set((state) => ({
+      isVehicleListEnabled: (state.isVehicleListEnabled = condition),
+    }));
   },
 }));
 

@@ -1,7 +1,14 @@
 import type { RouteObject } from "react-router-dom";
 import * as APP from "@/lib/constants/routes";
 import { Layout } from "@/components/templates";
-import { AdminRouteGuard, AuthRouteGuard, CustomerRouteGuard, PrivateRouteGuard, SendOtpGuard, UpdateProfileGuard } from "@/lib/guard";
+import {
+  AdminRouteGuard,
+  AuthRouteGuard,
+  CustomerRouteGuard,
+  PrivateRouteGuard,
+  SendOtpGuard,
+  UpdateProfileGuard,
+} from "@/lib/guard";
 import {
   HomePage,
   NotFoundPage,
@@ -23,7 +30,12 @@ import {
   VehicleListPage,
   VehiclePartsPage,
 } from "@/pages";
-import { AdminApproveMaintenancePage, AdminDashboardPage, AdminDetailsMaintenanceVehiclePage, AdminVehicles } from "@/pages/_admin";
+import {
+  AdminApproveMaintenancePage,
+  AdminDashboardPage,
+  AdminDetailsMaintenanceVehiclePage,
+  AdminVehiclesPending,
+} from "@/pages/_admin";
 import { RegisterPageMobile } from "@/mobile";
 
 const publicRoutes: RouteObject = {
@@ -158,7 +170,7 @@ const privateRoutes: RouteObject = {
             },
             {
               path: APP.ADMIN_VEHICLES,
-              element: <AdminVehicles />,
+              element: <AdminVehiclesPending />,
             },
             {
               path: APP.ADMIN_DETAILS_MAINTENANCE_VEHICLE_PAGE,
