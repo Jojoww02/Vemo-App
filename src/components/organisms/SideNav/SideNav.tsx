@@ -9,7 +9,7 @@ import {
 import { cn } from "@/lib/utils/style";
 import { ToogleIcon } from "@/components/atoms";
 import { Separator } from "@/components/ui/separator";
-import { History, Info, Wrench } from "lucide-react";
+import { History, Info, Loader2, Wrench } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import useLogoutUser from "@/hooks/useLogoutUser";
 import IconVemo from "@/assets/iconVemo.svg";
@@ -26,7 +26,7 @@ export default function SideNav() {
   const { data: user } = useQuery({ queryKey: ["me"] });
 
   const [isSideNavOpen, setIsSideNavOpen] = React.useState(false);
-  const { handleLogoutUser } = useLogoutUser();
+  const { handleLogoutUser, isLogoutLoading } = useLogoutUser();
   const { isVehicleListEnabled } = useVehicleList();
 
   const sideBarItem = [
@@ -132,7 +132,11 @@ export default function SideNav() {
         className="absolute bottom-10 left-6 text-[#898989] cursor-pointer font-medium text-lg flex items-center"
         onClick={handleLogoutUser}
       >
-        <IconLogout2 size={35} />
+        {isLogoutLoading ? (
+          <Loader2 size={35} className="animate-spin" />
+        ) : (
+          <IconLogout2 size={35} />
+        )}
         <span className={cn("ml-5", !isSideNavOpen && "hidden")}>Logout</span>
       </div>
     </div>

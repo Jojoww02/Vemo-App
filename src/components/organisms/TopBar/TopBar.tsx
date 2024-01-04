@@ -1,6 +1,6 @@
 import { NotificationIcon } from "@/components/atoms";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { History, Info, Menu, Wrench } from "lucide-react";
+import { History, Info, Loader2, Menu, Wrench } from "lucide-react";
 import {
   IconLayoutDashboard,
   IconSquareRoundedChevronLeftFilled,
@@ -67,7 +67,7 @@ export default function TopBar() {
     setIsOpen(false);
   };
 
-  const { handleLogoutUser } = useLogoutUser();
+  const { handleLogoutUser, isLogoutLoading } = useLogoutUser();
 
   const isWindow = useWindowPathname();
 
@@ -189,7 +189,11 @@ export default function TopBar() {
               className="absolute bottom-20 lg:fixed  flex mt-7 flex-row text-[#898989] cursor-pointer font-medium text-lg items-center"
               onClick={handleLogoutUser}
             >
-              <IconLogout2 size={35} />
+              {isLogoutLoading ? (
+                <Loader2 size={35} className="animate-spin" />
+              ) : (
+                <IconLogout2 size={35} />
+              )}
               <span className="ml-5">Log Out</span>
             </div>
           </SheetContent>

@@ -10,5 +10,8 @@ export default function useLogoutUser() {
     window.location.reload();
   }
 
-  return { handleLogoutUser };
+  return {
+    handleLogoutUser,
+    isLogoutLoading: logoutUser.isPending,
+  };
 }

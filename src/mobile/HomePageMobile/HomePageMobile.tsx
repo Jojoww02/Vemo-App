@@ -24,7 +24,7 @@ export default function HomePageMobile(): JSX.Element {
             <h1 className="text-5xl font-bold sm:hidden">Selamat Datang!</h1>
             <p className="text-xl font-medium my-2 sm:text-2xl sm:hidden">di</p>
             <div className="flex items-center justify-center gap-2 mb-12 sm:hidden">
-              <img src="/src/assets/iconVemo.svg" alt="" className="w-16" />
+              <img src="/iconVemo.svg" alt="" className="w-16" />
               <h3 className="text-2xl font-semibold text-primary italic sm:text-3xl">
                 VEMO
               </h3>
