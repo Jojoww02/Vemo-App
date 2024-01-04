@@ -37,7 +37,14 @@ export default function UpdateProfilePage() {
 
   const handlePhotoUpdate = async () => {
     const formData = new FormData();
-    formData.append("image", selectedImage!, `${generateRandomString(8)}.${selectedImage!.name.split(".").pop()?.toLowerCase()}`);
+    formData.append(
+      "image",
+      selectedImage!,
+      `${generateRandomString(8)}.${selectedImage!.name
+        .split(".")
+        .pop()
+        ?.toLowerCase()}`
+    );
     await updatePhotoProfile.mutateAsync(formData);
   };
 
@@ -58,7 +65,10 @@ export default function UpdateProfilePage() {
 
   const handleEmailUpdate = async (data: any) => {
     // cek apakah email sama dengan sebelumnya
-    if (data.email === undefined || data.email === (user as IUserResponse).email) {
+    if (
+      data.email === undefined ||
+      data.email === (user as IUserResponse).email
+    ) {
       alert("Email tidak boleh sama dengan sebelumnya");
     }
     // cek apakah nama sama dengan sebelumnya, jika iya mutate dengan data nama null
@@ -123,28 +133,77 @@ export default function UpdateProfilePage() {
     <main className="md:w-[480px] md:mx-auto mb-10">
       <div className="flex flex-col items-center justify-center relative">
         <div className="flex">
-          <img src={IconArrow} alt="" className="absolute left-4 w-5 lg:w-7 cursor-pointer" onClick={() => navigate(PROFILE_PAGE)} />
+          <img
+            src={IconArrow}
+            alt=""
+            className="absolute left-4 w-5 lg:w-7 cursor-pointer"
+            onClick={() => navigate(PROFILE_PAGE)}
+          />
         </div>
-        <h1 className="font-bold text-xl sm:text-3xl lg:text-4xl mt-10">Perbarui Profile</h1>
+        <h1 className="font-bold text-xl sm:text-3xl lg:text-4xl mt-10">
+          Perbarui Profile
+        </h1>
       </div>
       <div className="px-4 mt-10">
         <FormProvider {...methods}>
-          <form autoComplete="off" onSubmit={methods.handleSubmit(onSubmitHandler)} className="flex-col flex gap-5">
+          <form
+            autoComplete="off"
+            onSubmit={methods.handleSubmit(onSubmitHandler)}
+            className="flex-col flex gap-5"
+          >
             <span className="flex gap-5 items-center mb-6">
               <Avatar className="w-16 h-16">
-                <AvatarImage src={previewImage ? previewImage : `/PhotoProfile/${user?.photo}`} />
+                <AvatarImage
+                  src={
+                    previewImage ? previewImage : `/PhotoProfile/${user?.photo}`
+                  }
+                />
                 <AvatarFallback>
                   <img src="/user-profile-icon.svg" alt="" />
                 </AvatarFallback>
               </Avatar>
-              <input type="file" accept="image/*" onChange={handleImageChange} className=""/>
+              <input
+                type="file"
+                accept="image/*"
+                onChange={handleImageChange}
+                className=""
+              />
             </span>
 
-            <Input defaultValue={(user as IUserResponse).name} name="name" label="Nama" isFill={methods.watch().name} placeholder="Masukkan nama Anda" type="text" />
-            <Input defaultValue={(user as IUserResponse).email} name="email" label="Email" isFill={methods.watch().email} placeholder="Masukkan Email Anda" type="email" disabled editable />
-            {isUpdateEmail && <p className="pl-1 -mt-3 text-sm text-yellow-500 italic">* Ketika update email akan dimintai kode otp di email yang terbaru</p>}
+            <Input
+              defaultValue={(user as IUserResponse).name}
+              name="name"
+              label="Nama"
+              isFill={methods.watch().name}
+              placeholder="Masukkan nama Anda"
+              type="text"
+            />
+            <Input
+              defaultValue={(user as IUserResponse).email}
+              name="email"
+              label="Email"
+              isFill={methods.watch().email}
+              placeholder="Masukkan Email Anda"
+              type="email"
+              disabled
+              editable
+            />
+            {isUpdateEmail && (
+              <p className="pl-1 -mt-3 text-sm text-yellow-500 italic">
+                * Ketika update email akan dimintai kode otp di email yang
+                terbaru
+              </p>
+            )}
             <div className="flex flex-col gap-2 mt-7">
-              <Button className="py-6 text-lg font-semibold" type="submit" isLoading={updateUser.isPending || sendOtpByEmail.isPending}>
+              <Button
+                className="py-6 text-lg font-semibold"
+                type="submit"
+                isLoading={
+                  updateUser.isPending ||
+                  sendOtpByEmail.isPending ||
+                  updatePhotoProfile.isPending
+                }
+              >
                 Kirim
               </Button>
             </div>
