@@ -1,4 +1,4 @@
-import { IRequestMaintenance, IVehicleStatus } from "@/api/types";
+import { IVehicleStatus } from "@/api/types";
 
 /* CUSTOMER PAGES ROUTES */
 export const NOT_FOUND_PAGE = "*";

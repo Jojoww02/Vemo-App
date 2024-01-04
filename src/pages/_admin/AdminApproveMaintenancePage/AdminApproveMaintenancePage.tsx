@@ -1,24 +1,19 @@
 import React from "react";
-import { CaretSortIcon, ChevronDownIcon, DotsHorizontalIcon } from "@radix-ui/react-icons";
+import { CaretSortIcon, ChevronDownIcon } from "@radix-ui/react-icons";
 import { ColumnDef, ColumnFiltersState, SortingState, VisibilityState, flexRender, getCoreRowModel, getFilteredRowModel, getPaginationRowModel, getSortedRowModel, useReactTable } from "@tanstack/react-table";
 import { Button } from "@/components/ui/button";
 import { Button as _Button } from "@/components/atoms";
-import { DropdownMenu, DropdownMenuCheckboxItem, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
+import { DropdownMenu, DropdownMenuCheckboxItem, DropdownMenuContent, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { Input } from "@/components/ui/input";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { IVehicleResponse } from "@/api/types";
 import { useQuery } from "@tanstack/react-query";
 import { getVehiclesByStatusFn } from "@/api/services/vehicle";
-import useMutateVehicle from "@/hooks/useMutateVehicle";
 import { format } from "date-fns";
 import { id } from "date-fns/locale";
-import { ArrowRightCircle, Loader2, MoveRight } from "lucide-react";
-import { useToast } from "@/components/ui/use-toast";
-import { Link, useNavigate } from "react-router-dom";
+import { ArrowRightCircle } from "lucide-react";
 
 export default function AdminDashboardPage() {
-  const navigate = useNavigate();
-  const ADMIN_PAGE = "/admin";
   const [sorting, setSorting] = React.useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>([]);
   const [columnVisibility, setColumnVisibility] = React.useState<VisibilityState>({});
@@ -27,8 +22,6 @@ export default function AdminDashboardPage() {
   const {
     data: pendingVehicles,
     isSuccess,
-    refetch,
-    isLoading,
   } = useQuery({
     queryKey: ["vehicles", "requested"],
     queryFn: async (): Promise<IVehicleResponse[]> => await getVehiclesByStatusFn("requested"),
@@ -124,8 +117,8 @@ export default function AdminDashboardPage() {
     {
       id: "actions",
       enableHiding: false,
-      cell: ({ row }) => {
-        const vehicle = row.original;
+      cell: ({  }) => {
+        // const vehicle = row.original;
 
         return (
           <DropdownMenu>

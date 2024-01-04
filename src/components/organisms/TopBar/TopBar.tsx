@@ -1,6 +1,6 @@
 import { NotificationIcon } from "@/components/atoms";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { History, Info, Menu, TableProperties, Wrench } from "lucide-react";
+import { History, Info, Menu, Wrench } from "lucide-react";
 import {
   IconLayoutDashboard,
   IconSquareRoundedChevronLeftFilled,

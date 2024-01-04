@@ -1,4 +1,4 @@
-import { IUserResponse, IVehicleResponse } from "@/api/types";
+import { IUserResponse } from "@/api/types";
 import { VehicleCard } from "@/components/molecules";
 import { useQuery } from "@tanstack/react-query";
 import { BadgeAlert } from "lucide-react";

@@ -5,8 +5,6 @@ import { LOGIN_PAGE } from "@/lib/constants/routes";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
-import { AlertTriangle } from "lucide-react";
 import { isObjectEmpty } from "@/lib/utils/common";
 
 const registerSchema = zod

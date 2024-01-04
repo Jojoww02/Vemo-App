@@ -4,8 +4,6 @@ import IconArrow from "../../../assets/notification/Icon-arrow.svg";
 import MailIcon from "../../../assets/notification/Icon-mail copy.svg";
 import { useNavigate } from "react-router-dom";
 import { INotificationResponse } from "@/api/types";
-import { format } from "date-fns";
-import { id } from "date-fns/locale";
 
 interface NotificationDetailCardProps {
   data: INotificationResponse;
