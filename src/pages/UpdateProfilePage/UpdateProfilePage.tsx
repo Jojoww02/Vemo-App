@@ -141,7 +141,7 @@ export default function UpdateProfilePage() {
           />
         </div>
         <h1 className="font-bold text-xl sm:text-3xl lg:text-4xl mt-10">
-          Perbarui Profile
+          Update Profile
         </h1>
       </div>
       <div className="px-4 mt-10">

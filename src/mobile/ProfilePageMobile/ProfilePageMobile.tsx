@@ -8,14 +8,14 @@ import {
 } from "@tabler/icons-react";
 import {
   CHANGE_PASSWORD_PAGE,
-  DASHBOARD_PAGE,
+  FORGOT_PASSWORD_REQUEST_PAGE,
   VERIFY_PASSWORD_PAGE,
 } from "@/lib/constants/routes";
 import useLogoutUser from "@/hooks/useLogoutUser";
 import { useQuery } from "@tanstack/react-query";
 import { IUserResponse } from "@/api/types";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import arrow from "../../assets/notification/Icon-arrow.svg";
+import { KeyRound } from "lucide-react";
 
 export default function ProfilePageMobile(): JSX.Element {
   const { data: user } = useQuery<IUserResponse>({ queryKey: ["me"] });
@@ -23,34 +23,23 @@ export default function ProfilePageMobile(): JSX.Element {
 
   return (
     <div className="md:w-[480px] mx-auto">
-      <div className="relative">
-        <div className="pl-5">
-          <Link to={DASHBOARD_PAGE}>
-            <img
-              src={arrow}
-              alt=""
-              className="z-40 absolute left-0 top-0 w-4 xs:w-6 sm:w-8"
-            />
-          </Link>
-        </div>
-        <div className="flex flex-col items-center gap-4 text-center relative sm:mt-4 ">
-          <h1 className=" -z-50 text-[1.5rem] font-semibold tracking-wide sm:text-5xl xs:text-[2.3rem] xs:">
-            Profile
-          </h1>
-          <Avatar className="w-28 h-28 my-4">
-            <AvatarImage src={`/PhotoProfile/${user?.photo}`} />
-            <AvatarFallback>
-              <img src="/user-profile-icon.svg" alt="" />
-            </AvatarFallback>
-          </Avatar>
-          <Link
-            to={VERIFY_PASSWORD_PAGE}
-            className="flex text-[#0586BE] text-sm items-center cursor-pointer hover:underline"
-          >
-            <IconPencil size={25} />
-            <p className="sm:text-xl">Perbarui Profile</p>
-          </Link>
-        </div>
+      <div className="flex flex-col items-center gap-4 text-center relative sm:mt-4 ">
+        <h1 className=" -z-50 text-[1.5rem] font-semibold tracking-wide sm:text-5xl xs:text-[2.3rem] xs:">
+          Profile
+        </h1>
+        <Avatar className="w-28 h-28 my-4">
+          <AvatarImage src={`/PhotoProfile/${user?.photo}`} />
+          <AvatarFallback>
+            <img src="/user-profile-icon.svg" alt="" />
+          </AvatarFallback>
+        </Avatar>
+        <Link
+          to={VERIFY_PASSWORD_PAGE}
+          className="flex text-[#0586BE] text-sm items-center cursor-pointer hover:underline gap-1"
+        >
+          <IconPencil size={20} />
+          <p className="sm:text-xl">Update Profile</p>
+        </Link>
       </div>
       <div className="px-4 pt-5 sm:mt-8 flex-col flex sm:text-start relative">
         <div className="mb-6 pb-3 border-b-2">
@@ -91,6 +80,18 @@ export default function ProfilePageMobile(): JSX.Element {
           >
             <IconLock size={20} className="cursor-pointer" />
             <p className="text-[#0586BE] text-sm sm:text-lg">Ubah Password</p>
+          </Link>
+          <Link
+            to={FORGOT_PASSWORD_REQUEST_PAGE}
+            style={{
+              display: "flex",
+              alignItems: "center",
+              gap: "8px",
+              marginBottom: "16px",
+            }}
+          >
+            <KeyRound size={20} className="cursor-pointer" />
+            <p className="text-[#0586BE] text-sm sm:text-lg">Lupa Password</p>
           </Link>
           <button
             type="button"

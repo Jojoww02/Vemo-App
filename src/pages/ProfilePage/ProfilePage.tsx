@@ -40,10 +40,10 @@ export default function ProfilePage(): JSX.Element {
               </Avatar>
               <Link
                 to={VERIFY_PASSWORD_PAGE}
-                className="flex text-[#0586BE] text-lg font-medium items-center cursor-pointer hover:underline"
+                className="flex text-[#0586BE] text-lg font-medium items-center cursor-pointer hover:underline gap-1"
               >
                 <IconPencil size={25} />
-                <span>Perbarui Profil</span>
+                <span>Update Profile</span>
               </Link>
             </div>
             <div className="h-44 flex flex-col mt-10 bg-milk rounded-xl justify-center px-10 gap-5">
