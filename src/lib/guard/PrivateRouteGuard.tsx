@@ -5,7 +5,9 @@ import { useUserQuery } from "./useUserQuery";
 import { FullScreenLoader } from "@/components/templates";
 
 export default function PrivateRouteGuard() {
-  const { userQuery } = useUserQuery();
+  const { userQuery } = useUserQuery({
+    refetchInterval: 60 * 1000,
+  });
 
   if (
     (userQuery.isError && (userQuery.error as any)?.response?.status === 401) ||
