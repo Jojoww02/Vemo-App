@@ -7,7 +7,6 @@ export function useUserQuery() {
     userQuery: useQuery({
       queryKey: ["me"],
       queryFn: async (): Promise<IUserResponse> => await getMeFn(),
-      refetchInterval: 60 * 1000,
     }),
   };
 }
