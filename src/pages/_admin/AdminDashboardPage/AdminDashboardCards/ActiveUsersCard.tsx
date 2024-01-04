@@ -7,7 +7,7 @@ export default function ActiveUsersCard() {
   const { data, isSuccess } = useQuery({
     queryKey: ["activeUser"],
     queryFn: async () => await getActiveUsersFn(),
-    refetchInterval: 30 * 1000,
+    refetchInterval: 50 * 1000,
   });
 
   return (
