@@ -146,7 +146,7 @@ export default function VehiclePartsPage(): JSX.Element {
       <div className="relative">
         {isVehicleSuccess && vehicle.status !== "requested" && (
           <button
-            className="absolute -right-1 -top-[3.2rem] md:-top-10 lg:-top-16 items-center text-[10px] xs:text-base md:text-lg text-white bg-primary rounded-lg px-2 py-[6px] xs:py-1"
+            className="absolute -right-1 -top-[3.2rem] md:-top-10 lg:-top-16 items-center text-[9px] xs:text-base md:text-lg text-white bg-primary rounded-lg px-2 py-[7px] xs:py-1"
             onClick={handleSelectAll}
           >
             {selectAll ? "Batal" : "Pilih Semua"}

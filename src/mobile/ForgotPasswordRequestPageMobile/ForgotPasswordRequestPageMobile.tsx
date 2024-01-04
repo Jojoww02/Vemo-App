@@ -31,7 +31,7 @@ export default function ForgotPasswordRequestPageMobile(): JSX.Element {
       <div className="mt-10 flex flex-col">
         <FormProvider {...methods}>
           <form onSubmit={methods.handleSubmit(onSubmitHandler)} className="flex-col w-full flex gap-5">
-            <Input name="email" label="Email" isFill={methods.watch().email} placeholder="Enter Your Email" type="email" />
+            <Input name="email" label="Email" isFill={methods.watch().email} placeholder="Masukkan Email Anda" type="email" />
             <Button className="flex mt-7 items-center justify-center py-6 text-lg font-semibold" type="submit" disabled={!isObjectEmpty(methods.formState.errors)}>
               Kirim Kode
             </Button>

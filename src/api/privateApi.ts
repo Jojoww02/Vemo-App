@@ -35,10 +35,9 @@ privateApi.interceptors.response.use(
         const data = await refreshTokenFn(getToken());
         setToken(data.accessToken);
       } catch (error) {
-        if ((error as any).response.status === 403) {
-          console.log("need login");
-        }
+        console.log("need login");
       }
+
       return privateApi(originalRequest);
     }
     return Promise.reject(error);

@@ -1,33 +1,24 @@
-import { useQuery } from "@tanstack/react-query";
 import { Navigate, Outlet } from "react-router-dom";
-import { IUserResponse } from "@/api/types";
-import { getMeFn } from "@/api/services/users";
 import { isTokenSet } from "@/lib/utils/token";
-import { IconLoader3 } from "@tabler/icons-react";
 import { LOGIN_PAGE } from "@/lib/constants/routes";
+import { useUserQuery } from "./useUserQuery";
+import { FullScreenLoader } from "@/components/templates";
 
 export default function PrivateRouteGuard() {
-  const query = useQuery({
-    queryKey: ["me"],
-    queryFn: async (): Promise<IUserResponse> => await getMeFn(),
-  });
+  const { userQuery } = useUserQuery();
 
   if (
-    (query.isError && (query.error as any)?.response?.status === 401) ||
+    (userQuery.isError && (userQuery.error as any)?.response?.status === 401) ||
     !isTokenSet()
   ) {
     return <Navigate to={LOGIN_PAGE} />;
   }
 
-  if (query.isLoading) {
-    return (
-      <div className="min-h-screen w-full grid place-items-center">
-        <IconLoader3 size={50} className="animate-spin text-primary" />
-      </div>
-    );
+  if (userQuery.isLoading) {
+    return <FullScreenLoader />;
   }
 
-  if (query.isSuccess) {
+  if (userQuery.isSuccess) {
     return <Outlet />;
   }
 }

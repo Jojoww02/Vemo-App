@@ -19,8 +19,8 @@ export default function PartVehicleCard(props: PartVehicleCardProps) {
         className="w-16 xs:w-20 sm:w-24 md:w-28"
       />
       <div className="relative flex flex-col justify-center px-5 w-full font-semibold text-dark">
-        <h1 className="text-lg md:text-xl">{data.partName} Motor</h1>
-        <p className="font-normal text-base xl:text-lg">
+        <h1 className="text-[0.9rem] sm:text-lg md:text-xl">{data.partName} Motor</h1>
+        <p className="font-normal text-[0.8rem] sm:text-lg xl:text-lg">
           Kondisi {data.partName} Motor
         </p>
         {isCheck && (

@@ -1,16 +1,11 @@
-import { logoutUserFn } from "@/api/services/auth";
 import { removeToken } from "@/lib/utils/token";
-import { useQuery } from "@tanstack/react-query";
+import useMutateAuth from "./useMutateAuth";
 
 export default function useLogoutUser() {
-  const logoutUser = useQuery({
-    queryKey: ["logout"],
-    queryFn: async () => await logoutUserFn(),
-    enabled: false,
-  });
+  const { logoutUser } = useMutateAuth();
 
   async function handleLogoutUser() {
-    await logoutUser.refetch();
+    await logoutUser.mutateAsync();
     removeToken();
     window.location.reload();
   }

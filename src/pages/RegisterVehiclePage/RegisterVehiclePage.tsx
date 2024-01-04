@@ -14,16 +14,30 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { VehicleType } from "@/lib/types";
 
 const RegisterVehicleSchema = zod.object({
-  fullName: zod.string().min(1, "Nama diperlukan").min(3, "Nama harus lebih dari 3 karakter").max(50, "Password harus kurang dari 50 karakter"),
-  vehicleName: zod.string().min(1, "Nama kendaraan diperlukan").min(3, "Nama kendaraan harus lebih dari 3 karakter").max(50, "Password harus kurang dari 50 karakter"),
-  vehicleType: zod.string().refine((value) => ["matic", "manual"].includes(value), {
-    message: "Pilih jenis kendaraan yang valid",
-  }),
-  purchasingDate: zod.string().min(1, "Tanggal pembelian kendaraan tidak valid"),
+  fullName: zod
+    .string()
+    .min(1, "Nama diperlukan")
+    .min(3, "Nama harus lebih dari 3 karakter")
+    .max(50, "Password harus kurang dari 50 karakter"),
+  vehicleName: zod
+    .string()
+    .min(1, "Nama kendaraan diperlukan")
+    .min(3, "Nama kendaraan harus lebih dari 3 karakter")
+    .max(50, "Password harus kurang dari 50 karakter"),
+  vehicleType: zod
+    .string()
+    .refine((value) => ["matic", "manual"].includes(value), {
+      message: "Pilih jenis kendaraan yang valid",
+    }),
+  purchasingDate: zod
+    .string()
+    .min(1, "Tanggal pembelian kendaraan tidak valid"),
   licensePlate: zod.string().min(1, "Plat kendaraan diperlukan"),
-  lastMaintenance: zod.string().refine((value) => !isNaN(new Date(value).getTime()), {
-    message: "Tanggal terakhir perawatan kendaraan tidak valid",
-  }),
+  lastMaintenance: zod
+    .string()
+    .refine((value) => !isNaN(new Date(value).getTime()), {
+      message: "Tanggal terakhir perawatan kendaraan tidak valid",
+    }),
 });
 export type RegisterVehicle = zod.TypeOf<typeof RegisterVehicleSchema>;
 
@@ -54,7 +68,8 @@ export default function RegisterVehiclePage() {
 
   const { data: vehicles, isSuccess } = useQuery({
     queryKey: ["vehicles"],
-    queryFn: async () => await getVehiclesByUserIdFn((user as IUserResponse).userId),
+    queryFn: async () =>
+      await getVehiclesByUserIdFn((user as IUserResponse).userId),
   });
 
   React.useEffect(() => {
@@ -67,8 +82,11 @@ export default function RegisterVehiclePage() {
     const currentDate: Date = new Date();
     const selectedDateObject: Date = new Date(selectedDate);
 
-    const timeDiff: number = currentDate.getTime() - selectedDateObject.getTime();
-    const monthsAgo: number = Math.floor(timeDiff / (1000 * 60 * 60 * 24 * 30.44));
+    const timeDiff: number =
+      currentDate.getTime() - selectedDateObject.getTime();
+    const monthsAgo: number = Math.floor(
+      timeDiff / (1000 * 60 * 60 * 24 * 30.44)
+    );
 
     return monthsAgo;
   };
@@ -92,19 +110,77 @@ export default function RegisterVehiclePage() {
           <div className="w-1/2 mb-2 justify-center flex">
             <div className="w-[80%]">
               <FormProvider {...methods}>
-                <form autoComplete="off" onSubmit={methods.handleSubmit(handleRegisterVehicle)} className="flex-col flex gap-6">
-                  {registerVehicle.isError && <AlertForm title={(registerVehicle.error as any).response.data.message} description={(registerVehicle.error as any).response.data.errors} />}
-                  <Input name="fullName" label="Nama Lengkap" isFill={methods.watch().fullName} placeholder="Masukkan nama lengkap" type="text" />
-                  <Input name="vehicleName" label="Nama Kendaraan" isFill={methods.watch().vehicleName} placeholder="Masukkan nama kendaraan" type="text" />
-                  <Input name="vehicleType" label="Jenis Kendaraan" isFill={methods.watch().vehicleType} placeholder="Pilih jenis kendaraan" type="select">
+                <form
+                  autoComplete="off"
+                  onSubmit={methods.handleSubmit(handleRegisterVehicle)}
+                  className="flex-col flex gap-6"
+                >
+                  {registerVehicle.isError && (
+                    <AlertForm
+                      title={
+                        (registerVehicle.error as any).response.data.message
+                      }
+                      description={
+                        (registerVehicle.error as any).response.data.errors
+                      }
+                    />
+                  )}
+                  <Input
+                    name="fullName"
+                    label="Nama Lengkap"
+                    isFill={methods.watch().fullName}
+                    placeholder="Masukkan nama lengkap"
+                    type="text"
+                  />
+                  <Input
+                    name="vehicleName"
+                    label="Nama Kendaraan"
+                    isFill={methods.watch().vehicleName}
+                    placeholder="Masukkan nama kendaraan"
+                    type="text"
+                  />
+                  <Input
+                    name="vehicleType"
+                    label="Jenis Kendaraan"
+                    isFill={methods.watch().vehicleType}
+                    placeholder="Pilih jenis kendaraan"
+                    type="select"
+                  >
                     <option value="matic">Matic</option>
                     <option value="manual">Manual</option>
                   </Input>
-                  <Input name="licensePlate" label="Plat Nomor" isFill={methods.watch().licensePlate} placeholder="Masukkan plat nomor" type="text" />
-                  <Input name="purchasingDate" label="Tanggal Pembelian Kendaraan" isFill={methods.watch().purchasingDate?.toString()} placeholder="Input your Vehicle Purchase" type="date" />
-                  <Input name="lastMaintenance" label="Perawatan Terakhir" isFill={methods.watch().lastMaintenance?.toString()} type="date" />
+                  <Input
+                    name="licensePlate"
+                    label="Plat Nomor"
+                    isFill={methods.watch().licensePlate}
+                    placeholder="Masukkan plat nomor"
+                    type="text"
+                  />
+                  <Input
+                    name="purchasingDate"
+                    label="Tanggal Pembelian Kendaraan"
+                    isFill={methods.watch().purchasingDate?.toString()}
+                    placeholder="Input your Vehicle Purchase"
+                    type="date"
+                  />
+                  <Input
+                    name="lastMaintenance"
+                    label="Perawatan Terakhir"
+                    isFill={methods.watch().lastMaintenance?.toString()}
+                    type="date"
+                  />
                   <div className="flex flex-col gap-2 mt-7">
-                    <Button className="py-6 text-lg font-semibold" type="submit" isLoading={registerVehicle.isPending} disabled={isSuccess && (vehicles as IVehicleResponse[]).some((vehicle) => vehicle.status === "pending")}>
+                    <Button
+                      className="py-6 text-lg font-semibold"
+                      type="submit"
+                      isLoading={registerVehicle.isPending}
+                      disabled={
+                        isSuccess &&
+                        (vehicles as IVehicleResponse[]).some(
+                          (vehicle) => vehicle.status === "pending"
+                        )
+                      }
+                    >
                       Kirim
                     </Button>
                   </div>

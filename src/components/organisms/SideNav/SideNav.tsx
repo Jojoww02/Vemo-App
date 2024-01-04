@@ -4,20 +4,26 @@ import {
   IconUserSquareRounded,
   IconSquareRoundedChevronLeftFilled,
   IconSquareRoundedChevronRightFilled,
+  IconLayoutDashboard,
 } from "@tabler/icons-react";
 import { cn } from "@/lib/utils/style";
 import { ToogleIcon } from "@/components/atoms";
 import { Separator } from "@/components/ui/separator";
-import { History, Info } from "lucide-react";
+import { History, Info, Wrench } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import useLogoutUser from "@/hooks/useLogoutUser";
-import IconVemo from "../../../assets/iconVemo.svg";
-import { ADMIN_DASHBOARD_PAGE, DASHBOARD_PAGE } from "@/lib/constants/routes";
+import IconVemo from "@/assets/iconVemo.svg";
+import { DASHBOARD_PAGE } from "@/lib/constants/routes";
 import { IconMotorbike } from "@tabler/icons-react";
 import useVehicleList from "@/hooks/useVehicleList";
+import { useQuery } from "@tanstack/react-query";
+import { IUserResponse } from "@/api/types";
 
 export default function SideNav() {
   const navigate = useNavigate();
+  const ADMIN_PAGE = "/admin";
+
+  const { data: user } = useQuery({ queryKey: ["me"] });
 
   const [isSideNavOpen, setIsSideNavOpen] = React.useState(false);
   const { handleLogoutUser } = useLogoutUser();
@@ -28,9 +34,38 @@ export default function SideNav() {
       title: "Profile",
       icon: <IconUserSquareRounded size={35} />,
       navigateTo: "/profile",
+      show: user && (user as IUserResponse).role === "customer",
     },
-    { title: "Services", icon: <History size={35} />, navigateTo: "/services" },
-    { title: "About Us", icon: <Info size={35} />, navigateTo: "/about/vemo" },
+    {
+      title: "Services",
+      icon: <History size={35} />,
+      navigateTo: "/services",
+      show: user && (user as IUserResponse).role === "customer",
+    },
+    {
+      title: "About Us",
+      icon: <Info size={35} />,
+      navigateTo: "/about/vemo",
+      show: user && (user as IUserResponse).role === "customer",
+    },
+    {
+      title: "Dashboard",
+      icon: <IconLayoutDashboard size={35} />,
+      navigateTo: `${ADMIN_PAGE}/dashboard`,
+      show: user && (user as IUserResponse).role === "admin",
+    },
+    {
+      title: "Vehicles",
+      icon: <IconMotorbike size={35} />,
+      navigateTo: `${ADMIN_PAGE}/vehicles/pending`,
+      show: user && (user as IUserResponse).role === "admin",
+    },
+    {
+      title: "Approve Maintenance",
+      icon: <Wrench size={35} />,
+      navigateTo: `${ADMIN_PAGE}/maintenances`,
+      show: user && (user as IUserResponse).role === "admin",
+    },
   ];
 
   if (isVehicleListEnabled) {
@@ -38,6 +73,7 @@ export default function SideNav() {
       title: "List kendaraan",
       icon: <IconMotorbike size={35} />,
       navigateTo: "/vehicles",
+      show: user && (user as IUserResponse).role === "customer",
     });
   }
 
@@ -48,7 +84,7 @@ export default function SideNav() {
         isSideNavOpen && "w-72"
       )}
     >
-      <span className="absolute -right-6 top-16 cursor-pointer bg-white text-[#898989] hover:scale-105 duration-500 hover:text-[#595959]">
+      <span className="absolute -right-6 top-16 cursor-pointer bg-white text-[#898989] z-50 hover:scale-105 duration-500 hover:text-[#595959]">
         <ToogleIcon
           iconOpen={<IconSquareRoundedChevronRightFilled size={40} />}
           iconClose={<IconSquareRoundedChevronLeftFilled size={40} />}
@@ -73,24 +109,25 @@ export default function SideNav() {
       </div>
 
       <Separator className="w-full flex mt-16 bg-[#898989]" />
-      {window.location.pathname !== ADMIN_DASHBOARD_PAGE && (
-        <div className="flex flex-col absolute mt-7 left-7 gap-5 text-[#898989]">
-          {sideBarItem.map((item, index) => (
-            <div
-              key={index}
-              className={cn(
-                "flex cursor-pointer font-medium text-baseyy items-center"
-              )}
-              onClick={() => item.navigateTo && navigate(item.navigateTo)}
-            >
-              {item.icon}
-              <span className={cn("ml-5", !isSideNavOpen && "hidden")}>
-                {item.title}
-              </span>
-            </div>
-          ))}
-        </div>
-      )}
+      <div className="flex flex-col absolute mt-7 left-7 gap-5 text-[#898989]">
+        {sideBarItem.map(
+          (item, index) =>
+            item.show !== false && (
+              <div
+                key={index}
+                className={cn(
+                  "flex cursor-pointer font-medium text-baseyy items-center"
+                )}
+                onClick={() => item.navigateTo && navigate(item.navigateTo)}
+              >
+                {item.icon}
+                <span className={cn("ml-5", !isSideNavOpen && "hidden")}>
+                  {item.title}
+                </span>
+              </div>
+            )
+        )}
+      </div>
       <div
         className="absolute bottom-10 left-6 text-[#898989] cursor-pointer font-medium text-lg flex items-center"
         onClick={handleLogoutUser}

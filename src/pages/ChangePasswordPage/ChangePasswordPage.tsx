@@ -80,9 +80,9 @@ export default function ChangePasswordPage() {
               <Input name="previousPassword" label="Kata Sandi Sebelumnya" isFill={methods.watch().previousPassword} placeholder="Kata Sandi Sebelumnya" type="password" />
             </div>
 
-            <Input name="newPassword" label="Password Baru" isFill={methods.watch().newPassword} placeholder="Password Baru" type="password" />
+            <Input name="newPassword" label="Password Baru" isFill={methods.watch().newPassword} placeholder="Masukkan Password Baru Anda" type="password" />
 
-            <Input name="confirmNewPassword" label="Konfirmasi Kata Sandi Baru" isFill={methods.watch().confirmNewPassword} placeholder="Konfirmasi Kata Sandi Baru" type="password" />
+            <Input name="confirmNewPassword" label="Konfirmasi Kata Sandi Baru" isFill={methods.watch().confirmNewPassword} placeholder="Konfirmasi Kata Sandi Baru Anda" type="password" />
             <div className="mt-12 sm:text-">
               <Button className="py-6 w-full text-lg font-semibold" type="submit" isLoading={changePassword.isPending}>
                 Kirim

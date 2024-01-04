@@ -12,11 +12,6 @@ export const refreshTokenFn = async (accessToken: string | null): Promise<IToken
   return response.data;
 };
 
-export const logoutUserFn = async (): Promise<IGenericResponse> => {
-  const response = await baseApi.get<IGenericResponse>(API.LOGOUT_SERVICE);
-  return response.data;
-};
-
 export const sendOtpByEmailFn = async (email: string): Promise<IGenericResponse> => {
   const response = await privateApi.post<IGenericResponse>(API.SEND_OTP_SERVICE(email));
   return response.data;
@@ -36,3 +31,8 @@ export const forgotPasswordFn = async (forgotPasswordUser: IForgotPasswordUser) 
   const response = await privateApi.post<IToken>(API.FORGOT_PASSWORD_SERVICE, forgotPasswordUser);
   return response.data
 }
+
+export const logoutUserFn = async () => {
+  const response = await privateApi.delete(API.LOGOUT_SERVICE);
+  return response.data;
+};

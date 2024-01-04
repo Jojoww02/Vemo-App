@@ -63,7 +63,7 @@ export default function VerifyPasswordPage() {
         <FormProvider {...methods}>
           <form autoComplete="off" onSubmit={methods.handleSubmit(onSubmitHandler)} className="flex flex-col gap-5 w-full">
             {mutation.isError && <AlertForm title={(mutation.error as any).response.data.message} description={(mutation.error as any).response.data.errors} />}
-            <Input name="password" label="Password" isFill={methods.watch().password} placeholder="Enter Your Password" type="password" />
+            <Input name="password" label="Password" isFill={methods.watch().password} placeholder="Masukkan Password Anda" type="password" />
             <div className="flex flex-col gap-2 mt-14">
               <Button className="py-6 text-lg font-semibold" type="submit" isLoading={mutation.isPending}>
                 Kirim

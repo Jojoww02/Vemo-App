@@ -58,14 +58,14 @@ export default function LoginPageMobile(): JSX.Element {
               name="email"
               label="Email"
               isFill={methods.watch().email}
-              placeholder="Enter Your Email"
+              placeholder="Masukkan Email Anda"
               type="email"
             />
             <Input
               name="password"
               label="Password"
               isFill={methods.watch().password}
-              placeholder="Enter Your Password"
+              placeholder="Masukkan Password Anda"
               type="password"
             />
             <div className="text-[#6a707c] text-end font-medium mt-3">

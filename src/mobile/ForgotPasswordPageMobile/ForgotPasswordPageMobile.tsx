@@ -41,20 +41,20 @@ export default function ForgotPasswordPageMobile(): JSX.Element {
               name="newEmail"
               label="Email Baru"
               isFill={methods.watch().newEmail}
-              placeholder="Your New Email"
+              placeholder="Masukkan Email Baru Anda"
               type="email"
             />
             <Input
               name="newPassword"
               label="Password Baru"
               isFill={methods.watch().newPassword}
-              placeholder="Your New Password"
+              placeholder="Masukkan Password Baru Anda"
               type="password"
             />
             <Button
+              className="flex mt-7 items-center justify-center py-6 text-lg font-semibold"
               type="submit"
               disabled={!isObjectEmpty(methods.formState.errors)}
-              className="flex mt-7 items-center justify-center py-6 text-lg font-semibold"
             >
               Reset Password
             </Button>

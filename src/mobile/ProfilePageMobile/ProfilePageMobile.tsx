@@ -9,15 +9,13 @@ import {
 import {
   CHANGE_PASSWORD_PAGE,
   DASHBOARD_PAGE,
-  FORGOT_PASSWORD_REQUEST_PAGE,
   VERIFY_PASSWORD_PAGE,
 } from "@/lib/constants/routes";
+import useLogoutUser from "@/hooks/useLogoutUser";
 import { useQuery } from "@tanstack/react-query";
 import { IUserResponse } from "@/api/types";
-import useLogoutUser from "@/hooks/useLogoutUser";
-import arrow from "../../assets/notification/Icon-arrow.svg";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { KeyRound } from "lucide-react";
+import arrow from "../../assets/notification/Icon-arrow.svg";
 
 export default function ProfilePageMobile(): JSX.Element {
   const { data: user } = useQuery<IUserResponse>({ queryKey: ["me"] });
@@ -92,18 +90,6 @@ export default function ProfilePageMobile(): JSX.Element {
             }}
           >
             <IconLock size={20} className="cursor-pointer" />
-            <p className="text-[#0586BE] text-sm sm:text-lg">Ubah Password</p>
-          </Link>
-          <Link
-            to={FORGOT_PASSWORD_REQUEST_PAGE}
-            style={{
-              display: "flex",
-              alignItems: "center",
-              gap: "8px",
-              marginBottom: "16px",
-            }}
-          >
-            <KeyRound size={20} />
             <p className="text-[#0586BE] text-sm sm:text-lg">Ubah Password</p>
           </Link>
           <button
