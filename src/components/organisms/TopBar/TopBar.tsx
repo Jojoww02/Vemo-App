@@ -1,8 +1,19 @@
 import { NotificationIcon } from "@/components/atoms";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { History, Info, Menu, TableProperties, Wrench } from "lucide-react";
-import { IconLayoutDashboard, IconSquareRoundedChevronLeftFilled, IconUserSquareRounded } from "@tabler/icons-react";
-import { Sheet, SheetClose, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
+import {
+  IconLayoutDashboard,
+  IconSquareRoundedChevronLeftFilled,
+  IconUserSquareRounded,
+} from "@tabler/icons-react";
+import {
+  Sheet,
+  SheetClose,
+  SheetContent,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from "@/components/ui/sheet";
 import IconVemo from "../../../assets/iconVemo.svg";
 import { cn } from "@/lib/utils/style";
 import { IconLogout2 } from "@tabler/icons-react";
@@ -69,11 +80,36 @@ export default function TopBar() {
       path: PROFILE_PAGE,
       show: user && (user as IUserResponse).role === "customer",
     },
-    { title: "Services", icon: <History size={35} />, path: INDEX_PAGE, show: user && (user as IUserResponse).role === "customer" },
-    { title: "About Us", icon: <Info size={35} />, path: ABOUT_US_PAGE, show: user && (user as IUserResponse).role === "customer" },
-    { title: "Dashboard", icon: <IconLayoutDashboard size={35} />, path: `${ADMIN_PAGE}/dashboard`, show: user && (user as IUserResponse).role === "admin" },
-    { title: "Vehicles", icon: <IconMotorbike size={35} />, path: `${ADMIN_PAGE}/vehicles/pending`, show: user && (user as IUserResponse).role === "admin" },
-    { title: "Approve Maintenance", icon: <Wrench size={35} />, path: `${ADMIN_PAGE}/maintenances`, show: user && (user as IUserResponse).role === "admin" },
+    {
+      title: "Services",
+      icon: <History size={35} />,
+      path: INDEX_PAGE,
+      show: user && (user as IUserResponse).role === "customer",
+    },
+    {
+      title: "About Us",
+      icon: <Info size={35} />,
+      path: ABOUT_US_PAGE,
+      show: user && (user as IUserResponse).role === "customer",
+    },
+    {
+      title: "Dashboard",
+      icon: <IconLayoutDashboard size={35} />,
+      path: `${ADMIN_PAGE}/dashboard`,
+      show: user && (user as IUserResponse).role === "admin",
+    },
+    {
+      title: "Vehicles",
+      icon: <IconMotorbike size={35} />,
+      path: `${ADMIN_PAGE}/vehicles/pending`,
+      show: user && (user as IUserResponse).role === "admin",
+    },
+    {
+      title: "Approve Maintenance",
+      icon: <Wrench size={35} />,
+      path: `${ADMIN_PAGE}/maintenances`,
+      show: user && (user as IUserResponse).role === "admin",
+    },
   ];
 
   if (isVehicleListEnabled) {
@@ -84,6 +120,18 @@ export default function TopBar() {
       show: user && (user as IUserResponse).role === "customer",
     });
   }
+
+  function getTitle() {
+    switch (window.location.pathname) {
+      case "/admin/vehicles/pending":
+        return "Pending Vehicles";
+      case "/admin/maintenances":
+        return "Requested Maintenance";
+      default:
+        return "Admin Dashboard";
+    }
+  }
+
   return (
     <header className="bg-white w-full h-20 sticky top-0 flex justify-between items-center px-6 md:px-10 z-40">
       <span className="flex justify-center items-center">
@@ -155,12 +203,17 @@ export default function TopBar() {
         ) : (
           <Link to={ADMIN_DASHBOARD_PAGE}>
             <h1 className="font-bold text-[#F4B400] text-xl xs:text-2xl lg:text-3xl italic">
-              Admin Dashboard
+              {getTitle()}
             </h1>
           </Link>
         )}
       </span>
-      {window.location.pathname !== ADMIN_DASHBOARD_PAGE && (user as IUserResponse)?.role === "customer" && <NotificationIcon notificationCount={isSuccess ? notificationCount : 0} />}
+      {window.location.pathname !== ADMIN_DASHBOARD_PAGE &&
+        (user as IUserResponse)?.role === "customer" && (
+          <NotificationIcon
+            notificationCount={isSuccess ? notificationCount : 0}
+          />
+        )}
     </header>
   );
 }

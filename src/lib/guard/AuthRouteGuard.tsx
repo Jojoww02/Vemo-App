@@ -1,29 +1,20 @@
-import { useQuery } from "@tanstack/react-query";
-import { IUserResponse } from "@/api/types";
-import { getMeFn } from "@/api/services/users";
 import { Navigate, Outlet } from "react-router-dom";
 import { DASHBOARD_PAGE } from "../constants/routes";
-import { BarLoader } from "react-spinners";
+import { useUserQuery } from "./useUserQuery";
+import { FullScreenLoader } from "@/components/templates";
 
 export default function AuthRouteGuard() {
-  const query = useQuery({
-    queryKey: ["me"],
-    queryFn: async (): Promise<IUserResponse> => await getMeFn(),
-  });
+  const { userQuery } = useUserQuery();
 
-  if (query.isError && (query.error as any)?.response?.status === 401) {
+  if (userQuery.isError && (userQuery.error as any)?.response?.status === 401) {
     return <Outlet />;
   }
 
-  if (query.isLoading) {
-    return (
-      <div className="min-h-screen w-full grid place-items-center">
-        <BarLoader color="#F4B400" />
-      </div>
-    );
+  if (userQuery.isLoading) {
+    return <FullScreenLoader />;
   }
 
-  if (query.isSuccess) {
+  if (userQuery.isSuccess) {
     return <Navigate to={DASHBOARD_PAGE} />;
   }
 }
