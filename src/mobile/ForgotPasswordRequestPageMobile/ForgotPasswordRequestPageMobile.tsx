@@ -4,8 +4,7 @@ import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { AlertForm, Button, Input } from "@/components/atoms";
 import { isObjectEmpty } from "@/lib/utils/common";
-import useMutateAuth from "@/hooks/useMutateAuth";
-import IconArrow from "../../assets/notification/Icon-arrow.svg";
+import useMutateAuth from "@/hooks/mutations/useMutateAuth";
 import { LOGIN_PAGE } from "@/lib/constants/routes";
 
 const ForgotPasswordRequestSchema = zod.object({
@@ -31,7 +30,7 @@ export default function ForgotPasswordRequestPageMobile(): JSX.Element {
   return (
     <div className="pt-8 px-6 h-screen">
       <div onClick={() => navigate(-1)}>
-        <img src={IconArrow} alt="" className="py-5 w-5 lg:w-7 " />
+        <img src={"/Icon-arrow.svg"} alt="" className="py-5 w-5 lg:w-7 " />
       </div>
       <h1 className="font-bold text-3xl sm:text-4xl">Lupa Password?</h1>
       <p className="pt-3 sm:text-lg sm:w-3/4">Jangan khawatir! masukkan alamat email yang tertaut dengan akun anda.</p>

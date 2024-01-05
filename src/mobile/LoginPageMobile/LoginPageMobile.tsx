@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import zod from "zod";
-import useMutateAuth from "@/hooks/useMutateAuth";
+import useMutateAuth from "@/hooks/mutations/useMutateAuth";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { AlertForm, Button, Input } from "@/components/atoms";
 import { isObjectEmpty } from "@/lib/utils/common";

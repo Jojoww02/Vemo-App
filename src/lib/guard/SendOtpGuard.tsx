@@ -1,6 +1,6 @@
 import { Navigate, Outlet } from "react-router-dom";
 import { PROFILE_PAGE } from "../constants/routes";
-import useUpdateEmail from "@/hooks/useUpdateEmail";
+import useUpdateEmail from "@/hooks/store/useUpdateEmail";
 
 export default function SendOtpGuard() {
   const { email } = useUpdateEmail();

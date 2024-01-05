@@ -11,11 +11,11 @@ import { ToogleIcon } from "@/components/atoms";
 import { Separator } from "@/components/ui/separator";
 import { History, Info, Loader2, Wrench } from "lucide-react";
 import { useNavigate } from "react-router-dom";
-import useLogoutUser from "@/hooks/useLogoutUser";
+import useLogoutUser from "@/hooks/mutations/useLogoutUser";
 import IconVemo from "@/assets/iconVemo.svg";
 import { DASHBOARD_PAGE } from "@/lib/constants/routes";
 import { IconMotorbike } from "@tabler/icons-react";
-import useVehicleList from "@/hooks/useVehicleList";
+import useVehicleList from "@/hooks/store/useVehicleList";
 import { useQuery } from "@tanstack/react-query";
 import { IUserResponse } from "@/api/types";
 

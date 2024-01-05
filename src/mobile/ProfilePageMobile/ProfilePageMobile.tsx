@@ -11,7 +11,7 @@ import {
   FORGOT_PASSWORD_REQUEST_PAGE,
   VERIFY_PASSWORD_PAGE,
 } from "@/lib/constants/routes";
-import useLogoutUser from "@/hooks/useLogoutUser";
+import useLogoutUser from "@/hooks/mutations/useLogoutUser";
 import { useQuery } from "@tanstack/react-query";
 import { IUserResponse } from "@/api/types";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";

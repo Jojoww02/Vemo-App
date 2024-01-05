@@ -1,5 +1,5 @@
 import zod from "zod"
-import useMutateAuth from "@/hooks/useMutateAuth";
+import useMutateAuth from "@/hooks/mutations/useMutateAuth";
 import { AlertForm, Button, Input } from "@/components/atoms";
 import { LOGIN_PAGE } from "@/lib/constants/routes";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";

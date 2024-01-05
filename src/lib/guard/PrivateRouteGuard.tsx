@@ -1,7 +1,7 @@
 import { Navigate, Outlet } from "react-router-dom";
 import { isTokenSet } from "@/lib/utils/token";
 import { LOGIN_PAGE } from "@/lib/constants/routes";
-import { useUserQuery } from "./useUserQuery";
+import { useUserQuery } from "../../hooks/queries/useUserQuery";
 import { FullScreenLoader } from "@/components/templates";
 
 export default function PrivateRouteGuard() {

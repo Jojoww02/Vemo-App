@@ -4,7 +4,7 @@ import { FormProvider, useForm } from "react-hook-form";
 import gradient from "../../assets/requestPageImage/gradient-img.svg";
 import ImageVehicle from "../../assets/requestPageImage/register-vehicle-mobile-image.png";
 import { useQuery } from "@tanstack/react-query";
-import useMutateVehicle from "@/hooks/useMutateVehicle";
+import useMutateVehicle from "@/hooks/mutations/useMutateVehicle";
 import { AlertForm, Button, Input } from "@/components/atoms";
 import { VehicleType } from "@/lib/types";
 import { IUserResponse, IVehicleResponse } from "@/api/types";

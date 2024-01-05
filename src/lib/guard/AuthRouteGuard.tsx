@@ -1,6 +1,6 @@
 import { Navigate, Outlet } from "react-router-dom";
 import { DASHBOARD_PAGE } from "../constants/routes";
-import { useUserQuery } from "./useUserQuery";
+import { useUserQuery } from "../../hooks/queries/useUserQuery";
 import { FullScreenLoader } from "@/components/templates";
 
 export default function AuthRouteGuard() {

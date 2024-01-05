@@ -1,7 +1,7 @@
 import { Navigate, Outlet } from "react-router-dom";
 import { IUserResponse } from "@/api/types";
 import { DASHBOARD_PAGE } from "@/lib/constants/routes";
-import { useUserQuery } from "./useUserQuery";
+import { useUserQuery } from "../../hooks/queries/useUserQuery";
 
 export default function AdminRouteGuard() {
   const { userQuery } = useUserQuery();

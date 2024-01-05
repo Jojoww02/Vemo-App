@@ -1,4 +1,4 @@
-import useUpdateProfile from "@/hooks/useUpdateProfile";
+import useUpdateProfile from "@/hooks/store/useUpdateProfile";
 import { Navigate, Outlet } from "react-router-dom";
 import { VERIFY_PASSWORD_PAGE } from "../constants/routes";
 
