@@ -1,7 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import moment from "moment";
-import IconArrow from "../../assets/notification/Icon-arrow.svg";
 import { PROFILE_PAGE } from "@/lib/constants/routes";
 import { AlertForm, Button } from "@/components/atoms";
 import useMutateAuth from "@/hooks/mutations/useMutateAuth";
@@ -111,7 +110,7 @@ export default function VerifyOtpPage(): JSX.Element {
     <div className="w-full">
       <div className="flex flex-col px-4 lg:items-center lg:justify-center md:pl-10">
         <img
-          src={IconArrow}
+          src={"/Icon-arrow.svg"}
           alt=""
           className="lg:w-[2rem] w-4 sm:w-6 absolute lg:items-center lg:left-10 cursor-pointer"
           onClick={() => navigate(PROFILE_PAGE)}

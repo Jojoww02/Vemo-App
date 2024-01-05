@@ -1,5 +1,4 @@
-import IconArrow from "../../assets/notification/Icon-arrow.svg";
-import MailIcon from "../../assets/notification/Icon-mail copy.svg";
+import MailIcon from "../../../assets/notification/Icon-mail copy.svg";
 import { useNavigate, useParams } from "react-router-dom";
 import { NOTIFICATION_PAGE } from "@/lib/constants/routes";
 import { useQuery } from "@tanstack/react-query";
@@ -22,7 +21,7 @@ export default function NotificationDetailPage(): JSX.Element {
         <>
           <div className="flex flex-col">
             <img
-              src={IconArrow}
+              src={"/Icon-arrow.svg"}
               alt=""
               className="lg:w-[1rem] w-4 cursor-pointer my-4"
               onClick={() => navigate(NOTIFICATION_PAGE)}

@@ -1,7 +1,6 @@
 import React from "react";
 import useUpdateEmail from "@/hooks/store/useUpdateEmail";
 import useMutateUser from "@/hooks/mutations/useMutateUser";
-import IconArrow from "../../assets/notification/Icon-arrow.svg";
 import { FormProvider, useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
@@ -134,7 +133,7 @@ export default function UpdateProfilePage() {
       <div className="flex flex-col items-center justify-center relative">
         <div className="flex">
           <img
-            src={IconArrow}
+            src={"/Icon-arrow.svg"}
             alt=""
             className="absolute left-4 w-5 lg:w-7 cursor-pointer"
             onClick={() => navigate(PROFILE_PAGE)}

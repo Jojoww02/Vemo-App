@@ -1,7 +1,5 @@
 import zod from "zod";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
-
-import IconArrow from "../../assets/notification/Icon-arrow.svg";
 import { AlertForm, Button, Input } from "@/components/atoms";
 import { Link, useNavigate } from "react-router-dom";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -68,7 +66,7 @@ export default function ChangePasswordPage() {
     <FormProvider {...methods}>
       <div className="md:w-[480px] md:mx-auto mb-10">
         <Link to="/profile">
-          <img src={IconArrow} alt="" className="scale-100 cursor-pointer w-4 sm:w-6 sm:h-12 " />
+          <img src={"/Icon-arrow.svg"} alt="" className="scale-100 cursor-pointer w-4 sm:w-6 sm:h-12 " />
         </Link>
         <div>
           <h1 className="font-bold text-xl lg:text-3xl py-4 leading-[3rem] sm:text-2xl md:text-3xl">Ubah Password Anda</h1>

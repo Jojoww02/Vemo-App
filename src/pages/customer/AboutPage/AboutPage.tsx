@@ -1,11 +1,10 @@
-import Background from "../../assets/aboutUs/bg1.webp";
-import Background2 from "../../assets/aboutUs/bg2.webp";
-import Background3 from "../../assets/aboutUs/bg3.webp";
-import Logo from "../../assets/aboutUs/about-us.svg";
-import ProfileEka from "../../assets/aboutUs/Eka.svg";
-import ProfileMaulvi from "../../assets/aboutUs/Maul.svg";
-import ProfileJo from "../../assets/aboutUs/Jo.svg";
-import LogoVemo from "../../assets/aboutUs/vemo-logo.svg";
+import Background2 from "../../../assets/aboutUs/bg2.webp";
+import Background3 from "../../../assets/aboutUs/bg3.webp";
+import Logo from "../../../assets/aboutUs/about-us.svg";
+import ProfileEka from "../../../assets/aboutUs/Eka.svg";
+import ProfileMaulvi from "../../../assets/aboutUs/Maul.svg";
+import ProfileJo from "../../../assets/aboutUs/Jo.svg";
+import LogoVemo from "../../../assets/aboutUs/vemo-logo.svg";
 import { IconBrandFacebook, IconBrandGithubFilled, IconBrandInstagram, IconBrandWhatsapp } from "@tabler/icons-react";
 import useMobile from "@/hooks/useMobile";
 import AboutPageMobile from "@/mobile/AboutPageMobile";
@@ -33,7 +32,7 @@ export default function AboutPage() {
               <p className="xs:text-base sm:text-xl">VEMO adalah sebuah website app yang menyediakan memperbaiki kendaraan beroda dua anda, anda bisa mengetahui kondisi mesin dan peforma motor anda.</p>
             </div>
             <div className="flex justify-between py-4 xs:justify-evenly ">
-              <img src={Background} alt="" className="w-40 md:w-60" />
+              <img src={"/bg1.webp"} alt="" className="w-40 md:w-60" />
               <img src={Background2} alt="" className="w-40 md:w-60" />
             </div>
             <h1 className="font-bold py-4 xs:text-2xl">Apa Yang Membuat VEMO Berbeda?</h1>

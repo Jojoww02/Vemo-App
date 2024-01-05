@@ -1,6 +1,4 @@
 import { NOTIFICATION_PAGE } from "@/lib/constants/routes";
-import IconArrow from "../../../assets/notification/Icon-arrow.svg";
-
 import MailIcon from "../../../assets/notification/Icon-mail copy.svg";
 import { useNavigate } from "react-router-dom";
 import { INotificationResponse } from "@/api/types";
@@ -15,7 +13,7 @@ export default function NotificationDetailcard(props: NotificationDetailCardProp
   return (
     <div>
       <div className="flex flex-col ">
-        <img src={IconArrow} alt="" className="lg:w-[1rem] w-4 cursor-pointer" onClick={() => navigate(NOTIFICATION_PAGE)} />
+        <img src={"/Icon-arrow.svg"} alt="" className="lg:w-[1rem] w-4 cursor-pointer" onClick={() => navigate(NOTIFICATION_PAGE)} />
         <h1 className="lg:mt-10 mt-4  font-semibold lg:text-2xl">{data.title}</h1>
         <button type="button" className="flex items-center justify-center font-regular rounded-lg bg-primary text-white text-1xl w-[4rem] h-[2rem] mt-5 cursor-default">
           Inbox

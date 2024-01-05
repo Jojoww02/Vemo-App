@@ -1,5 +1,4 @@
 import React from "react";
-import IconArrow from "../../assets/notification/Icon-arrow.svg";
 import PartVehicleCard from "@/components/molecules/PartVehicleCard";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { DASHBOARD_PAGE, VEHICLE_DETAILS_PAGE } from "@/lib/constants/routes";
@@ -134,7 +133,7 @@ export default function VehiclePartsPage(): JSX.Element {
       <div className="pt-5 px-10  w-full mb-5">
         <Link to={VEHICLE_DETAILS_PAGE(vehicleId!)} className=" w-[5rem]">
           <img
-            src={IconArrow}
+            src={"/Icon-arrow.svg"}
             alt=""
             className="absolute top-6 left-0 lg:left-5 xl:w-[2rem]  md:w-32 xl:h-[2rem] w-[1.4rem] h-[1.5rem] cursor-pointer"
           />
