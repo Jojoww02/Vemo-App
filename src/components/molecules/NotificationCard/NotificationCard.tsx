@@ -3,7 +3,7 @@ import MailIcon from "../../../assets/notification/Icon-mail.svg";
 import { NOTIFICATION_DETAILS_PAGE } from "@/lib/constants/routes";
 import { Checkbox } from "@/components/ui/checkbox";
 import { INotificationResponse } from "@/api/types";
-import useMutateNotification from "@/hooks/useMutateNotification";
+import useMutateNotification from "@/hooks/mutations/useMutateNotification";
 import { format } from "date-fns";
 import { id } from "date-fns/locale";
 

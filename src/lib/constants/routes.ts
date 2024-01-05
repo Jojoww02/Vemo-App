@@ -29,6 +29,8 @@ export const ADMIN_APPROVE_MAINTENANCE_PAGE = `${ADMIN_PAGE}/maintenances`;
 export const ADMIN_VEHICLES = `${ADMIN_PAGE}/vehicles/pending`;
 export const ADMIN_DETAILS_MAINTENANCE_VEHICLE_PAGE = (vehicleId: string) => `${ADMIN_PAGE}/vehicle/details/${vehicleId}`;
 
+// ========================================================================================================================================
+
 /* AUTH SERVICES */
 export const LOGIN_SERVICE = "auth/login";
 export const REFRESH_TOKEN_SERVICE = (accessToken: string | null) => `auth/refresh?accessToken=${accessToken}`;

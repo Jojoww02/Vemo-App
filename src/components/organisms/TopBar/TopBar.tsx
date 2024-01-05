@@ -26,10 +26,10 @@ import {
   PROFILE_PAGE,
   VEHICLE_LIST_PAGE,
 } from "@/lib/constants/routes";
-import useLogoutUser from "@/hooks/useLogoutUser";
+import useLogoutUser from "@/hooks/mutations/useLogoutUser";
 import useWindowPathname from "@/hooks/useWindowPathname";
 import { IconMotorbike } from "@tabler/icons-react";
-import useVehicleList from "@/hooks/useVehicleList";
+import useVehicleList from "@/hooks/store/useVehicleList";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { getCountUnreadNotificationFn } from "@/api/services/notification";
 import { IUserResponse } from "@/api/types";

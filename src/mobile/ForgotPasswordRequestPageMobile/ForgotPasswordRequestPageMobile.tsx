@@ -4,7 +4,7 @@ import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { AlertForm, Button, Input } from "@/components/atoms";
 import { isObjectEmpty } from "@/lib/utils/common";
-import useMutateAuth from "@/hooks/useMutateAuth";
+import useMutateAuth from "@/hooks/mutations/useMutateAuth";
 import IconArrow from "../../assets/notification/Icon-arrow.svg";
 import { LOGIN_PAGE } from "@/lib/constants/routes";
 

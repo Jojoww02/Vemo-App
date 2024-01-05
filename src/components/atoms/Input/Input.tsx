@@ -5,7 +5,7 @@ import { Controller, useFormContext } from "react-hook-form";
 import { IconEdit, IconEye, IconEyeOff } from "@tabler/icons-react";
 import { ToogleIcon } from "@/components/atoms";
 import { XCircle } from "lucide-react";
-import useUpdateEmail from "@/hooks/useUpdateEmail";
+import useUpdateEmail from "@/hooks/store/useUpdateEmail";
 
 interface Props extends React.InputHTMLAttributes<HTMLInputElement> {
   name: string;

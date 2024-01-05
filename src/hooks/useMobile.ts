@@ -1,4 +1,4 @@
-import * as React from "react";
+import React from "react";
 
 export default function useMobile() {
   const [isMobile, setIsMobile] = React.useState(window.innerWidth >= 1000);

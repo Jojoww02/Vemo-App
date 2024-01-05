@@ -29,13 +29,13 @@ import {
   UpdateProfilePage,
   VehicleListPage,
   VehiclePartsPage,
-} from "@/pages";
+} from "@/pages/customer";
 import {
   AdminApproveMaintenancePage,
   AdminDashboardPage,
   AdminDetailsMaintenanceVehiclePage,
   AdminVehiclesPending,
-} from "@/pages/_admin";
+} from "@/pages/admin";
 import { RegisterPageMobile } from "@/mobile";
 
 const publicRoutes: RouteObject = {
@@ -174,7 +174,7 @@ const privateRoutes: RouteObject = {
             },
             {
               path: APP.ADMIN_DETAILS_MAINTENANCE_VEHICLE_PAGE(":vehicleId"),
-              element: <AdminDetailsMaintenanceVehiclePage/>,
+              element: <AdminDetailsMaintenanceVehiclePage />,
             },
           ],
         },
