@@ -211,11 +211,8 @@ export default function NontificationPage(): JSX.Element {
               0 && (
               <div className="flex flex-col items-center justify-center text-center">
                 <img src="/mail.svg" alt="" className="w-[20rem] h-[20rem]" />
-                <h1 className="font-semibold text-dark text-xl lg:text-3xl mb-5">
-                  Tidak ada notif nih!
-                </h1>
                 <p className="font-normal text-dark texl-xl">
-                  Inbox kamu sedang kosong
+                  Semua Inbox kamu sudah terbaca
                 </p>
               </div>
             )}
