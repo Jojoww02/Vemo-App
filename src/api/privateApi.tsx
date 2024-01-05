@@ -1,6 +1,7 @@
 import axios from "axios";
 import { refreshTokenFn } from "@/api/services/auth";
 import { getToken, isTokenSet, setToken } from "@/lib/utils/token";
+import { ErrorConnection } from "@/components/templates";
 
 const privateApi = axios.create({
   baseURL: import.meta.env.VITE_APP_BASE_API_URL,
@@ -24,6 +25,8 @@ privateApi.interceptors.response.use(
   async (error) => {
     const originalRequest = error?.config;
     const errMessage = error?.response?.data?.errors as string[];
+
+    // 401
     if (
       error?.response?.status === 401 &&
       errMessage &&
@@ -35,11 +38,18 @@ privateApi.interceptors.response.use(
         const data = await refreshTokenFn(getToken());
         setToken(data.accessToken);
       } catch (error) {
+        // 403
         console.log("need login");
       }
 
       return privateApi(originalRequest);
     }
+
+    // 500
+    if (error?.response?.status === 500) {
+      return <ErrorConnection />;
+    }
+
     return Promise.reject(error);
   }
 );
