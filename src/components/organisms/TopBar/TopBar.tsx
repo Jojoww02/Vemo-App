@@ -123,12 +123,18 @@ export default function TopBar() {
 
   function getTitle() {
     switch (window.location.pathname) {
+      case "/profile":
+        return "Profile";
+      case "/about/vemo":
+        return "About Vemo";
+      case "/admin/dashboard":
+        return "Admin Dashboard";
       case "/admin/vehicles/pending":
         return "Pending Vehicles";
       case "/admin/maintenances":
         return "Requested Maintenance";
       default:
-        return "Admin Dashboard";
+        return "Dashboard";
     }
   }
 
@@ -201,7 +207,7 @@ export default function TopBar() {
         {isWindow ? (
           <Link to={DASHBOARD_PAGE}>
             <h1 className="font-bold text-[#F4B400] text-xl xs:text-2xl lg:text-3xl italic">
-              Dashboard
+              {getTitle()}
             </h1>
           </Link>
         ) : (
