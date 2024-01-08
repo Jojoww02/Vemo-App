@@ -11,11 +11,13 @@ import { CaretSortIcon, DotsHorizontalIcon } from "@radix-ui/react-icons";
 import { ColumnDef } from "@tanstack/react-table";
 import { format } from "date-fns";
 import { id } from "date-fns/locale";
-import { Loader2 } from "lucide-react";
+import { Check, Info, Loader2, X } from "lucide-react";
 import { useToast } from "@/components/ui/use-toast";
 import { useVehiclesPending } from "./useVehiclesPending";
 import { Button } from "@/components/ui/button";
+import { Button as _Button } from "@/components/atoms";
 import useMutateVehicle from "@/hooks/mutations/useMutateVehicle";
+import React from "react";
 
 export default function Columns() {
   const { vehiclesPendingQuery } = useVehiclesPending();
@@ -134,28 +136,37 @@ export default function Columns() {
         const vehicle = row.original;
 
         return (
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <Button variant="ghost" className="h-8 w-8 p-0">
-                <span className="sr-only">Buka menu</span>
-                <DotsHorizontalIcon className="h-4 w-4" />
-              </Button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent align="end">
-              <DropdownMenuLabel>Menu</DropdownMenuLabel>
-              <DropdownMenuItem onClick={() => handleApproveVehicle(vehicle)}>
-                {vehiclesPendingQuery.isLoading || approveVehicle.isPending ? (
-                  <Loader2 className="animate-spin" />
-                ) : (
-                  <p>Terima kendaraan</p>
-                )}
-              </DropdownMenuItem>
-              <DropdownMenuSeparator />
-              <DropdownMenuItem>
-                <p>Detail kendaraan</p>
-              </DropdownMenuItem>
-            </DropdownMenuContent>
-          </DropdownMenu>
+          <React.Fragment>
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button variant="ghost" className="h-8 w-8 p-0">
+                  <span className="sr-only">Buka menu</span>
+                  <DotsHorizontalIcon className="h-4 w-4" />
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end">
+                <DropdownMenuLabel>Menu</DropdownMenuLabel>
+                <DropdownMenuItem>
+                  <Info size={15} className="ml-2 mr-3" />
+                  <p>Detail</p>
+                </DropdownMenuItem>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem onClick={() => handleApproveVehicle(vehicle)}>
+                  <Check size={15} className="ml-2 mr-3" />
+                  {vehiclesPendingQuery.isLoading ||
+                  approveVehicle.isPending ? (
+                    <Loader2 className="animate-spin" />
+                  ) : (
+                    <p>Terima</p>
+                  )}
+                </DropdownMenuItem>
+                <DropdownMenuItem>
+                  <X size={15} className="ml-2 mr-3" />
+                  <p>Tolak</p>
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+          </React.Fragment>
         );
       },
     },
