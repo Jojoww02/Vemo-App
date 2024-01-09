@@ -35,7 +35,7 @@ export default function DashboardPage(): JSX.Element {
           <p className="text-white text-xs md:text-xl">Daftar kendaraan :</p>
           {isSuccess && vehicles && vehicles.length > 2 && (
             <p
-              className="text-[10px] md:text-lg text-white cursor-pointer hover:text-yellow-300 hover:underline transition ease-linear"
+              className="text-[10px] md:text-lg text-white cursor-pointer active:text-yellow-300 md:hover:text-yellow-300 hover:underline transition ease-linear"
               onClick={() => navigate(VEHICLE_LIST_PAGE)}
             >
               Lihat semua kendaraan
