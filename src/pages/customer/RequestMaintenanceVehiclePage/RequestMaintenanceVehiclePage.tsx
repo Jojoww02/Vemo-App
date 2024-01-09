@@ -33,14 +33,14 @@ export default function RequestMaintenanceVehiclePage(): JSX.Element {
           <div className="w-1/2 mb-28">
             <div className="w-full flex flex-col gap-6">
               <h3 className="font-medium text-[#8391A1] text-lg xl:text-1xl ">Daftar kendaraan :</h3>
-              <div className="w-full flex-col grid gap-2 place-items-center justify-center h-[25rem] xl:h-[20rem] overflow-y-auto">
+              <div className="w-full flex-col lg:px-16 xl:px-20 justify-center h-[19.5rem] overflow-y-auto">
                 {vehicles && isSuccess ? (
                   vehicles.length > 0 ? (
                     vehicles.some((vehicle) => vehicle.status !== "pending" && vehicle.condition <= 30) ? (
                       vehicles
                         .filter((vehicle) => vehicle.status !== "pending" && vehicle.condition <= 30)
                         .map((filteredVehicle) => (
-                          <div key={filteredVehicle.vehicleId}>
+                          <div key={filteredVehicle.vehicleId} className="my-5">
                             <VehicleCard vehicleData={filteredVehicle} />
                           </div>
                         ))

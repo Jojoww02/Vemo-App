@@ -18,12 +18,12 @@ export default function VehicleCard({ vehicleData }: Props): JSX.Element {
       <h1 className="text-white text-xs xs:text-sm w-4/5 ">{`Kendaraan ${vehicleData.vehicleName} dengan plat ${vehicleData.licensePlate} anda sedang status pending `}</h1>
     </div>
   ) : (
-    <div className="flex px-4 py-4 md:py-2 gap-10 w-full lg:px-8 bg-white rounded-xl shadow-[0px_3px_7px_5px_#00000040]">
-      <div className="self-center">
+    <div className="flex px-4 py-5 md:py-2 gap-10 w-full lg:px-8 bg-white rounded-xl shadow-[0px_3px_7px_5px_#00000040]">
+      <div className="self-center pt-2">
         <VehicleIcon type={vehicleData.vehicleType} />
       </div>
-      <div className="pt-4 pb-3 w-full">
-        <h1 className="font-semibold text-sm xs:text-base lg:text-xl md:text-2xl tracking-wide sm:mb-1 md:mb-0">
+      <div className="pt-2 w-full">
+        <h1 className="font-semibold text-base xs:text-lg lg:text-xl md:text-2xl tracking-wide sm:mb-1 md:mb-0">
           {vehicleData.vehicleName}
         </h1>
         <h3 className="font-semibold text-[.6rem] xs:text-xs md:text-lg lg:text-lg lg:pb-3 text-[#898989]">
