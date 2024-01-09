@@ -48,6 +48,7 @@ export const GET_CURRENT_USER_SERVICE = "users/me";
 export const CHANGE_PASSWORD_SERVICE = "users/password";
 export const UPDATE_PHOTO_PROFILE_SERVICE = "users/photo";
 export const GET_ACTIVE_USERS = "/users/active";
+export const GET_VEHICLE_USER = (userId: string) => `/users/${userId}`;
 
 /* VEHICLE SERVICE */
 export const REGISTER_VEHICLE_SERVICE = "vehicles";

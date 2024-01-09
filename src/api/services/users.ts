@@ -40,3 +40,8 @@ export const getActiveUsersFn = async (): Promise<IUserResponse[]> => {
   const response = await privateApi.get<IUserResponse[]>(API.GET_ACTIVE_USERS);
   return response.data;
 };
+
+export const getVehicleUserFn = async (userId: string): Promise<IUserResponse[]> => {
+  const response = await privateApi.get<IUserResponse[]>(API.GET_VEHICLE_USER(userId));
+  return response.data;
+};
