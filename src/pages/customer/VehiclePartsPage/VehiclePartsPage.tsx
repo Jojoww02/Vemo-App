@@ -128,6 +128,11 @@ export default function VehiclePartsPage(): JSX.Element {
 
   const total = price1 + price2;
 
+  const onSubmit = (data: any) => {
+    console.log(data);
+  };
+
+
   return (
     <div className="w-full relative">
       <div className="pt-5 px-10  w-full mb-5">
@@ -196,7 +201,7 @@ export default function VehiclePartsPage(): JSX.Element {
             </DialogHeader>
             <div className="w-full flex flex-col px-7">
               <FormProvider {...methods}>
-                <form autoComplete="off" className="flex flex-col gap-5">
+                <form autoComplete="off" className="flex flex-col gap-5" onSubmit={methods.handleSubmit(onSubmit)}>
                   <Input
                     name="contact"
                     label="Email / Nomor Telepon"
@@ -214,7 +219,7 @@ export default function VehiclePartsPage(): JSX.Element {
                   />
                   <AlertDialog>
                     <AlertDialogTrigger asChild>
-                      <Button className="w-full">Lihat estimasi harga</Button>
+                      <Button className="w-full" type="submit">Lihat estimasi harga</Button>
                     </AlertDialogTrigger>
                     <AlertDialogContent className="w-[95%]">
                       <AlertDialogHeader>

@@ -1,12 +1,5 @@
 import { IVehicleResponse } from "@/api/types";
-import {
-  DropdownMenu,
-  DropdownMenuTrigger,
-  DropdownMenuContent,
-  DropdownMenuLabel,
-  DropdownMenuItem,
-  DropdownMenuSeparator,
-} from "@/components/ui/dropdown-menu";
+import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuLabel, DropdownMenuItem, DropdownMenuSeparator } from "@/components/ui/dropdown-menu";
 import { CaretSortIcon, DotsHorizontalIcon } from "@radix-ui/react-icons";
 import { ColumnDef } from "@tanstack/react-table";
 import { format } from "date-fns";
@@ -14,16 +7,25 @@ import { id } from "date-fns/locale";
 import { Check, Info, Loader2, X } from "lucide-react";
 import { useToast } from "@/components/ui/use-toast";
 import { useVehiclesPending } from "./useVehiclesPending";
-import { Button } from "@/components/ui/button";
-import { Button as _Button } from "@/components/atoms";
 import useMutateVehicle from "@/hooks/mutations/useMutateVehicle";
 import React from "react";
+import { Input, Button as _Button } from "@/components/atoms";
+
+import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import { FormProvider, useForm } from "react-hook-form";
+import { Button } from "@/components/ui/button";
 
 export default function Columns() {
   const { vehiclesPendingQuery } = useVehiclesPending();
   const { approveVehicle } = useMutateVehicle();
 
+  const methods = useForm();
+
   const { toast } = useToast();
+
+  const onSubmit = (data: any) => {
+    console.log(data);
+  };
 
   const handleApproveVehicle = async (vehicle: IVehicleResponse) => {
     await approveVehicle.mutateAsync(vehicle.vehicleId);
@@ -48,10 +50,7 @@ export default function Columns() {
       accessorKey: "vehicleName",
       header: ({ column }) => {
         return (
-          <Button
-            variant="ghost"
-            onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-          >
+          <Button variant="ghost" onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}>
             Nama Kendaraan
             <CaretSortIcon className="ml-2 h-4 w-4" />
           </Button>
@@ -63,10 +62,7 @@ export default function Columns() {
       accessorKey: "ownerName",
       header: ({ column }) => {
         return (
-          <Button
-            variant="ghost"
-            onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-          >
+          <Button variant="ghost" onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}>
             Pemilik Kendaraan
             <CaretSortIcon className="ml-2 h-4 w-4" />
           </Button>
@@ -78,44 +74,31 @@ export default function Columns() {
       accessorKey: "licensePlate",
       header: ({ column }) => {
         return (
-          <Button
-            variant="ghost"
-            onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-          >
+          <Button variant="ghost" onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}>
             Plat Nomor
             <CaretSortIcon className="ml-2 h-4 w-4" />
           </Button>
         );
       },
-      cell: ({ row }) => (
-        <div className="uppercase">{row.getValue("licensePlate")}</div>
-      ),
+      cell: ({ row }) => <div className="uppercase">{row.getValue("licensePlate")}</div>,
     },
     {
       accessorKey: "vehicleType",
       header: ({ column }) => {
         return (
-          <Button
-            variant="ghost"
-            onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-          >
+          <Button variant="ghost" onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}>
             Tipe Kendaraan
             <CaretSortIcon className="ml-2 h-4 w-4" />
           </Button>
         );
       },
-      cell: ({ row }) => (
-        <div className="capitalize">{row.getValue("vehicleType")}</div>
-      ),
+      cell: ({ row }) => <div className="capitalize">{row.getValue("vehicleType")}</div>,
     },
     {
       accessorKey: "purchasingDate",
       header: ({ column }) => {
         return (
-          <Button
-            variant="ghost"
-            onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-          >
+          <Button variant="ghost" onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}>
             Tanggal Pembelian
             <CaretSortIcon className="ml-2 h-4 w-4" />
           </Button>
@@ -153,17 +136,35 @@ export default function Columns() {
                 <DropdownMenuSeparator />
                 <DropdownMenuItem onClick={() => handleApproveVehicle(vehicle)}>
                   <Check size={15} className="ml-2 mr-3" />
-                  {vehiclesPendingQuery.isLoading ||
-                  approveVehicle.isPending ? (
-                    <Loader2 className="animate-spin" />
-                  ) : (
-                    <p>Terima</p>
-                  )}
+                  {vehiclesPendingQuery.isLoading || approveVehicle.isPending ? <Loader2 className="animate-spin" /> : <p>Terima</p>}
                 </DropdownMenuItem>
-                <DropdownMenuItem>
-                  <X size={15} className="ml-2 mr-3" />
-                  <p>Tolak</p>
-                </DropdownMenuItem>
+                <DropdownMenuSeparator />
+                <Dialog>
+                  <DialogTrigger asChild>
+                    <div className="pl-2 flex items-center mt-1 mb-2 ">
+                    <X size={15} className="ml-2 mr-3"  />
+                      <p className="text-[0.9rem]">Tolak</p>
+                    </div>
+                  </DialogTrigger>
+                  <DialogContent className="w-96 flex flex-col justify-center items-center">
+                    <FormProvider {...methods}>
+                      <form autoComplete="off" onSubmit={methods.handleSubmit(onSubmit)}>
+                        <DialogHeader>
+                          <DialogTitle>Alasannya?</DialogTitle>
+                          <DialogDescription>Alasan kenapa harus menolak kendaraan ini</DialogDescription>
+                        </DialogHeader>
+                        <div className="w-full mt-10">
+                          <div>
+                            <Input name="description" label="Alasannya kenapa" placeholder="Masukan catatan disini..." type="textarea" className="h-24" />
+                          </div>
+                        </div>
+                        <DialogFooter className="sm:flex sm:justify-center mt-4">
+                          <_Button type="submit">Kirim</_Button>
+                        </DialogFooter>
+                      </form>
+                    </FormProvider>
+                  </DialogContent>
+                </Dialog>
               </DropdownMenuContent>
             </DropdownMenu>
           </React.Fragment>
