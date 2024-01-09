@@ -12,12 +12,15 @@ import { getVehiclesByStatusFn } from "@/api/services/vehicle";
 import { format } from "date-fns";
 import { id } from "date-fns/locale";
 import { ArrowRightCircle } from "lucide-react";
+import { useNavigate } from "react-router-dom";
+import { ADMIN_DETAILS_MAINTENANCE_VEHICLE_PAGE } from "@/lib/constants/routes";
 
 export default function AdminDashboardPage() {
   const [sorting, setSorting] = React.useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>([]);
   const [columnVisibility, setColumnVisibility] = React.useState<VisibilityState>({});
   const [rowSelection, setRowSelection] = React.useState({});
+  const navigate = useNavigate();
 
   const {
     data: pendingVehicles,
@@ -117,12 +120,12 @@ export default function AdminDashboardPage() {
     {
       id: "actions",
       enableHiding: false,
-      cell: ({  }) => {
-        // const vehicle = row.original;
+      cell: ({ row }) => {
+        const vehicle = row.original;
 
         return (
           <DropdownMenu>
-            <div onClick={() => {}}>
+            <div className="cursor-pointer" onClick={() => navigate(ADMIN_DETAILS_MAINTENANCE_VEHICLE_PAGE(vehicle.vehicleId))}>
               <ArrowRightCircle />
             </div>
           </DropdownMenu>
