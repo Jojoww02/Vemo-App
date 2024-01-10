@@ -1,6 +1,6 @@
 import { baseApi, privateApi } from "@/api";
 import * as API from "@/lib/constants/routes";
-import { IChangePasswordData, IGenericResponse, IToken, IUpdateUser, IUser, IUserResponse } from "@/api/types";
+import { IChangePasswordData, IGenericResponse, IToken, IUpdateUser, IUser, IUserResponse, IVehicleResponse } from "@/api/types";
 
 export const registerUserFn = async (user: IUser): Promise<IToken> => {
   const response = await baseApi.post<IToken>(API.REGISTER_USER_SERVICE, user);
@@ -41,7 +41,7 @@ export const getActiveUsersFn = async (): Promise<IUserResponse[]> => {
   return response.data;
 };
 
-export const getVehicleUserFn = async (userId: string): Promise<IUserResponse[]> => {
-  const response = await privateApi.get<IUserResponse[]>(API.GET_VEHICLE_USER(userId));
+export const getUserByIdFn = async (userId: string | undefined): Promise<IUserResponse> => {
+  const response = await privateApi.get<IUserResponse>(API.GET_VEHICLE_USER(userId));
   return response.data;
 };

@@ -58,6 +58,7 @@ export interface IVehicleResponse {
   vehicleType: VehicleType;
   condition: number;
   status: IVehicleStatus;
+  userId: string;
 }
 
 export interface IChangePasswordData {

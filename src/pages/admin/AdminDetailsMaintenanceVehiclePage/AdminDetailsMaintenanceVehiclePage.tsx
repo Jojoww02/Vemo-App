@@ -1,4 +1,4 @@
-import { getVehicleUserFn } from "@/api/services/users";
+import { getUserByIdFn } from "@/api/services/users";
 import { getVehicleByIdFn } from "@/api/services/vehicle";
 import { IUserResponse, IVehicleResponse } from "@/api/types";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -9,15 +9,18 @@ import { useParams } from "react-router-dom";
 
 export default function AdminDetailsMaintenanceVehiclePage() {
   const { vehicleId } = useParams();
-  
+
   const { data: vehicle } = useQuery<IVehicleResponse, Error>({
     queryKey: ["vehicle", vehicleId],
     queryFn: async () => await getVehicleByIdFn(vehicleId),
   });
 
-  const { data: user } = useQuery<IUserResponse>({
-    queryKey: ["vehicleUser"]
+  const { data: user } = useQuery<IUserResponse, Error>({
+    queryKey: ["vehicleUser", vehicle?.userId],
+    queryFn: async () => await getUserByIdFn(vehicle?.userId),
   });
+
+  console.log("data:", user);
 
   return (
     <div className="w-full px-3">
@@ -26,7 +29,7 @@ export default function AdminDetailsMaintenanceVehiclePage() {
           <div className="flex flex-col gap-4 font-semibold text-xl">
             <h1>Motorcycle Information</h1>
             <div className="flex items-center">
-              <IconBike size={30}/>
+              <IconBike size={30} />
               <h1 className="text-xl pl-3 font-normal">Nama Kendaraan Dan Tipe :</h1>
             </div>
             <div className="flex flex-col text-lg font-medium">
@@ -34,17 +37,15 @@ export default function AdminDetailsMaintenanceVehiclePage() {
             </div>
             <div className="flex flex-col mt-7 gap-4">
               <h1>Request By</h1>
-                <div key={(user as IUserResponse)?.userId} className="flex font-medium text-lg items-center">
-                  <Avatar className="w-14 h-14">
-                    <AvatarImage src={`/PhotoProfile/${user?.photo}`}/>
-                    <AvatarFallback>
-                      <img src="/user-profile-icon.svg" alt="" />
-                    </AvatarFallback>
-                  </Avatar>
-                  <div className="pl-4">
-                    {(user as IUserResponse)?.name}
-                  </div>
-                </div>
+              <div className="flex font-medium text-lg items-center">
+                <Avatar className="w-14 h-14">
+                  <AvatarImage src={`/PhotoProfile/${user?.photo}`}/>
+                  <AvatarFallback>
+                    <img src="/user-profile-icon.svg" alt="" />
+                  </AvatarFallback>
+                </Avatar>
+                <div className="pl-4">{(user as IUserResponse)?.name}</div>
+              </div>
             </div>
           </div>
         </div>
@@ -60,9 +61,7 @@ export default function AdminDetailsMaintenanceVehiclePage() {
         </div>
       </div>
       <Separator className="mt-7" />
-      <div className="flex flex-wrap mx-auto items-center md:w-[70%] lg:w-full lg:justify-evenly pt-5 gap-2">
-        
-      </div>
+      <div className="flex flex-wrap mx-auto items-center md:w-[70%] lg:w-full lg:justify-evenly pt-5 gap-2"></div>
     </div>
-  )
+  );
 }
