@@ -1,6 +1,7 @@
 import { getUserByIdFn } from "@/api/services/users";
-import { getVehicleByIdFn } from "@/api/services/vehicle";
-import { IUserResponse, IVehicleResponse } from "@/api/types";
+import { getVehicleByIdFn, getVehiclePartsConditionFn } from "@/api/services/vehicle";
+import { IConditionParts, IUserResponse, IVehicleResponse } from "@/api/types";
+import PartVehicleCard from "@/components/molecules/PartVehicleCard";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Separator } from "@/components/ui/separator";
 import { IconBike } from "@tabler/icons-react";
@@ -20,7 +21,10 @@ export default function AdminDetailsMaintenanceVehiclePage() {
     queryFn: async () => await getUserByIdFn(vehicle?.userId),
   });
 
-  console.log("data:", user);
+  const { data: partsRequest } = useQuery<IConditionParts[], Error>({
+    queryKey: ["partsRequest", ["vehicleId", vehicleId]],
+    queryFn: async () => await getVehiclePartsConditionFn(vehicleId),
+  });
 
   return (
     <div className="w-full px-3">
@@ -56,12 +60,25 @@ export default function AdminDetailsMaintenanceVehiclePage() {
           </div>
           <div className="flex flex-col gap-3 font-semibold text-xl">
             <h1>Email / Phone Number :</h1>
-            <p className="font-normal text-lg">jojoww02@gmail.com</p>
+            <p className="font-normal text-lg">{(user as IUserResponse)?.email}</p>
           </div>
         </div>
       </div>
       <Separator className="mt-7" />
-      <div className="flex flex-wrap mx-auto items-center md:w-[70%] lg:w-full lg:justify-evenly pt-5 gap-2"></div>
+      <div className="flex flex-wrap mx-auto items-center md:w-[70%] lg:w-full lg:justify-evenly pt-5 gap-2">
+        {partsRequest
+          ?.filter((requestPart) => requestPart.condition < 60)
+          .map((requestPart) => (
+            <PartVehicleCard 
+              key={requestPart.partId}
+              data={requestPart}
+              checked={false}
+              onCheckboxChange={() => {}}
+              isCheck={false}
+              isAdmin={true}
+            />
+        ))}
+      </div>
     </div>
   );
 }

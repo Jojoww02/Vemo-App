@@ -23,8 +23,6 @@ import useLogoutUser from "@/hooks/mutations/useLogoutUser";
 export default function ProfilePage(): JSX.Element {
   const isMobile = useMobile();
   const { data: user } = useQuery<IUserResponse>({ queryKey: ["me"] });
-  console.log("data:", user);
-
   const { handleLogoutUser } = useLogoutUser();
 
   return (

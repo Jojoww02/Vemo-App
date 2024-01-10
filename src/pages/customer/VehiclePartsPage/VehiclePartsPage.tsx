@@ -164,6 +164,7 @@ export default function VehiclePartsPage(): JSX.Element {
                 handleCheckboxChange(conditionPart.partId)
               }
               isCheck={vehicle?.status !== "requested"}
+              isAdmin={false}
             />
           ))}
         </div>
