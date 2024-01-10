@@ -22,8 +22,8 @@ import {
   ABOUT_US_PAGE,
   ADMIN_DASHBOARD_PAGE,
   DASHBOARD_PAGE,
-  INDEX_PAGE,
   PROFILE_PAGE,
+  SERVICES_PAGE,
   VEHICLE_LIST_PAGE,
 } from "@/lib/constants/routes";
 import useLogoutUser from "@/hooks/mutations/useLogoutUser";
@@ -83,7 +83,7 @@ export default function TopBar() {
     {
       title: "Services",
       icon: <History size={35} />,
-      path: INDEX_PAGE,
+      path: SERVICES_PAGE,
       show: user && (user as IUserResponse).role === "customer",
     },
     {

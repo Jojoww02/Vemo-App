@@ -6,6 +6,7 @@ export const INDEX_PAGE = "/";
 export const LOGIN_PAGE = "/login";
 export const REGISTER_USER_PAGE = "/register";
 export const DASHBOARD_PAGE = "/dashboard";
+export const SERVICES_PAGE = "/services";
 export const ABOUT_US_PAGE = "/about/vemo";
 export const VEHICLE_LIST_PAGE = "/vehicles";
 export const VEHICLE_PARTS_PAGE = (vehicleId: string | undefined) => `/vehicles/${vehicleId}/parts`;

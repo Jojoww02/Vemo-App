@@ -29,6 +29,7 @@ import {
   UpdateProfilePage,
   VehicleListPage,
   VehiclePartsPage,
+  ServicesHistoryPage,
 } from "@/pages/customer";
 import {
   AdminApproveMaintenancePage,
@@ -95,6 +96,10 @@ const privateRoutes: RouteObject = {
             {
               path: APP.PROFILE_PAGE,
               element: <ProfilePage />,
+            },
+            {
+              path: APP.SERVICES_PAGE,
+              element: <ServicesHistoryPage />
             },
             {
               path: APP.REQUEST_MAINTENANCE_VEHICLE_PAGE,
