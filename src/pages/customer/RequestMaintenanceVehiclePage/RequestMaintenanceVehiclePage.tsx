@@ -5,9 +5,10 @@ import { BadgeAlert } from "lucide-react";
 import useMobile from "@/hooks/useMobile";
 import { RequestMaintenanceVehicleMobile } from "@/mobile";
 import { getVehiclesByUserIdFn } from "@/api/services/vehicle";
+import { useNavigate } from "react-router-dom";
 
 export default function RequestMaintenanceVehiclePage(): JSX.Element {
-  const { data: user } = useQuery({ queryKey: ["me"] });
+    const { data: user } = useQuery({ queryKey: ["me"] });
   const { data: vehicles, isSuccess } = useQuery({
     queryKey: ["vehicles"],
     queryFn: async () => await getVehiclesByUserIdFn((user as IUserResponse).userId),
@@ -19,7 +20,7 @@ export default function RequestMaintenanceVehiclePage(): JSX.Element {
       {isMobile ? (
         <div className="flex gap-10 mt-10 overflow-y-hidden">
           {/* Content Left */}
-          <div className="relative w-1/2 bg-cover grid rounded-xl  bg-[url('/src/assets/requestPageImage/request-vehicle-image.webp')]">
+          <div className="relative w-1/2 bg-cover rounded-xl  bg-[url('/src/assets/requestPageImage/request-vehicle-image.webp')]">
             <div className="absolute bottom-0 font-bold text-white text-5xl xl:text-6xl px-8 z-10 mb-20">
               Request
               <br />
@@ -38,7 +39,7 @@ export default function RequestMaintenanceVehiclePage(): JSX.Element {
                   vehicles.length > 0 ? (
                     vehicles.some((vehicle) => vehicle.status !== "pending" && vehicle.condition <= 30) ? (
                       vehicles
-                        .filter((vehicle) => vehicle.status !== "pending" && vehicle.condition <= 30)
+                        .filter((vehicle) => vehicle.status !== "pending" && vehicle.status !== "requested" &&  vehicle.condition <= 30)
                         .map((filteredVehicle) => (
                           <div key={filteredVehicle.vehicleId} className="my-5">
                             <VehicleCard vehicleData={filteredVehicle} />
