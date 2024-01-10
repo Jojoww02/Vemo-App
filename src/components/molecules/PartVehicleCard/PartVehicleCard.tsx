@@ -15,13 +15,11 @@ interface PartVehicleCardProps {
 
 export default function PartVehicleCard(props: PartVehicleCardProps) {
   const { data, checked, onCheckboxChange, isCheck, isAdmin } = props;
-  const methods = useForm();
+  const methods = useForm<{ editMaintenanceDate: Date }>();
 
-  const onSubmitHandler = (data: any) => {
-    // Konversi nilai 'Edit' ke ISO String
-    const isoDateString = new Date(data.Edit).toISOString();
-    console.log(isoDateString);
-  }
+  const onSubmitHandler = (value: { editMaintenanceDate: Date }) => {
+    console.log({ editMaintenanceDate: new Date(value.editMaintenanceDate).toISOString(), partId: data.partId });
+  };
 
   return (
     <div className="w-full flex xl:w-[30rem] h-[6.7rem] xl:h-[7rem] xl:px-5 xl:p-2 px-2 p-2 my-2 rounded-[0.50rem] bg-white shadow-[0px_2px_7px_5px_#00000040] cursor-pointer">
@@ -44,9 +42,11 @@ export default function PartVehicleCard(props: PartVehicleCardProps) {
                 </DialogHeader>
                 <FormProvider {...methods}>
                   <form onSubmit={methods.handleSubmit(onSubmitHandler)} className="flex flex-col justify-center">
-                    <Input type="date" placeholder="silahkan edit" name="Edit" label="Edit"  />
+                    <Input type="date" placeholder="silahkan edit" name="editMaintenanceDate" label="Edit" id={data.partId} />
                     <div className="flex justify-center mt-10 w-full">
-                    <Button type="submit" className="text-base">Kirim</Button>
+                      <Button type="submit" className="text-base">
+                        Kirim
+                      </Button>
                     </div>
                   </form>
                 </FormProvider>
