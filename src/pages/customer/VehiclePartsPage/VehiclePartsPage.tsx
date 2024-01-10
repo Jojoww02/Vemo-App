@@ -141,7 +141,7 @@ export default function VehiclePartsPage(): JSX.Element {
             <div className="w-full flex flex-col px-7">
               <FormProvider {...methods}>
                 <form autoComplete="off" className="flex flex-col gap-5">
-                  <Input name="contact" label="Email / Nomor Telepon" isFill={methods.watch().contact} placeholder="Masukan Email / Nomor Telepon" type="text" />
+                  <Input name="contact" label="Email / Nomor Telepon" isFill={methods.watch().contact} placeholder="Masukan Email / Nomor Telepon" type="text" className="" />
                   <Input name="description" label="Catatan untuk Mekanik" isFill={methods.watch().description} placeholder="Masukan catatan disini..." type="textarea" className="h-24" />
                   <AlertDialog>
                     <AlertDialogTrigger asChild>

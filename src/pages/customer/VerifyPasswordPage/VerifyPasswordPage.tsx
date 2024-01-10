@@ -54,7 +54,7 @@ export default function VerifyPasswordPage() {
       <Link to={PROFILE_PAGE}>
         <img src={"/Icon-arrow.svg"} alt="" className="left-4 w-5 lg:w-7 absolute" />
       </Link>
-      <div className="flex flex-col items-center justify-center px-4 lg:pt-6">
+      <div className="flex flex-col items-center justify-center px-4 pt-4 lg:pt-6">
         <h1 className="font-bold text-xl sm:text-2xl lg:text-3xl pt-6">Masukkan password anda untuk perbarui profile</h1>
       </div>
       <div className=" px-4 mt-10">
