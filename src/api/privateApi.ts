@@ -2,6 +2,8 @@ import axios from "axios";
 import { refreshTokenFn } from "@/api/services/auth";
 import { getToken, isTokenSet, setToken } from "@/lib/utils/token";
 import { ErrorConnection } from "@/components/templates";
+import React from "react";
+
 
 const privateApi = axios.create({
   baseURL: import.meta.env.VITE_APP_BASE_API_URL,
@@ -47,7 +49,7 @@ privateApi.interceptors.response.use(
 
     // 500
     if (error?.response?.status === 500) {
-      return <ErrorConnection />;
+      return React.createElement(ErrorConnection)
     }
 
     return Promise.reject(error);

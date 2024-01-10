@@ -1,5 +1,7 @@
-import { ErrorConnection } from "@/components/templates";
+import React from "react";
+
 import axios from "axios";
+import { ErrorConnection } from "@/components/templates";
 
 const baseApi = axios.create({
   baseURL: import.meta.env.VITE_APP_BASE_API_URL,
@@ -16,7 +18,7 @@ baseApi.interceptors.response.use(
   (error) => {
     // 500
     if (error?.response?.status === 500) {
-      return <ErrorConnection />;
+      return React.createElement(ErrorConnection);
     }
     return Promise.reject(error);
   }
