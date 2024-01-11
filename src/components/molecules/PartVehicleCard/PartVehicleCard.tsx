@@ -45,7 +45,7 @@ export default function PartVehicleCard(props: PartVehicleCardProps) {
           {data.partName} Motor
         </h1>
         {isAdmin ? (
-          <div className="font-normal text-[0.8rem] sm:text-lg xl:text-lg">
+          <div className="font-normal text-[1rem] ">
             <p>perawatan: {maintenanceData?.maintenanceFinalPrice}</p>
             <p>jasa: {maintenanceData?.maintenanceServiceFinalPrice}</p>
           </div>

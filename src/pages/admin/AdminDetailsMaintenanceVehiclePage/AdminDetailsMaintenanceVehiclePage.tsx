@@ -11,6 +11,7 @@ import {
   IUserResponse,
   IVehicleResponse,
 } from "@/api/types";
+import { Button } from "@/components/atoms";
 import PartVehicleCard from "@/components/molecules/PartVehicleCard";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Separator } from "@/components/ui/separator";
@@ -50,18 +51,30 @@ export default function AdminDetailsMaintenanceVehiclePage() {
     <div className="w-full px-3">
       <div className="w-full flex">
         <div className="w-1/2 flex flex-col mt-10">
-          <div className="flex flex-col gap-4 font-semibold text-xl">
+          <div className="flex flex-col gap-2 font-semibold text-xl">
             <h1>Motorcycle Information</h1>
             <div className="flex items-center">
               <IconBike size={30} />
-              <h1 className="text-xl pl-3 font-normal">
-                Nama Kendaraan Dan Tipe :
-              </h1>
+              <div className="flex flex-col gap-2">
+                <div className="flex gap-4">
+                  <h1 className="text-xl pl-3 font-normal flex gap-4">
+                    Nama Kendaraan:
+                  </h1>
+                  <p className="font-normal">
+                    {(vehicle as IVehicleResponse)?.vehicleName}
+                  </p>
+                </div>
+                <div className="flex gap-4">
+                  <h1 className="text-xl pl-3 font-normal flex gap-4">
+                    Tipe :
+                  </h1>
+                  <p className="font-normal">
+                    {(vehicle as IVehicleResponse)?.vehicleType}
+                  </p>
+                </div>
+              </div>
             </div>
-            <div className="flex flex-col text-lg font-medium">
-              {(vehicle as IVehicleResponse)?.vehicleName} |{" "}
-              {(vehicle as IVehicleResponse)?.vehicleType}
-            </div>
+            <div className="flex flex-col text-lg font-medium"> </div>
             <div className="flex flex-col mt-7 gap-4">
               <h1>Request By</h1>
               <div className="flex font-medium text-lg items-center">
@@ -113,6 +126,9 @@ export default function AdminDetailsMaintenanceVehiclePage() {
               />
             ))
         )}
+      </div>
+      <div className="text-center mt-4 mb-10">
+        <Button className="w-1/2 py-6">Bayar bang</Button>
       </div>
     </div>
   );
