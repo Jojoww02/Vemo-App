@@ -14,7 +14,7 @@ import { FormProvider, useForm } from "react-hook-form";
 
 interface PartVehicleCardProps {
   data: IConditionParts;
-  maintenanceData: IMaintenanceParts;
+  maintenanceData?: IMaintenanceParts;
   checked: boolean;
   onCheckboxChange: () => void;
   isCheck: boolean;
@@ -45,9 +45,10 @@ export default function PartVehicleCard(props: PartVehicleCardProps) {
           {data.partName} Motor
         </h1>
         {isAdmin ? (
-          <p className="font-normal text-[0.8rem] sm:text-lg xl:text-lg">
-            {maintenanceData.maintenanceFinalPrice}
-          </p>
+          <div className="font-normal text-[0.8rem] sm:text-lg xl:text-lg">
+            <p>perawatan: {maintenanceData?.maintenanceFinalPrice}</p>
+            <p>jasa: {maintenanceData?.maintenanceServiceFinalPrice}</p>
+          </div>
         ) : (
           <p className="font-normal text-[0.8rem] sm:text-lg xl:text-lg">
             Kondisi {data.partName} Motor
@@ -64,7 +65,7 @@ export default function PartVehicleCard(props: PartVehicleCardProps) {
               <DialogContent className="w-4/5">
                 <DialogHeader className="flex flex-col items-center justify-center">
                   <DialogTitle className="text-2xl font-semibold">
-                    mengedit
+                    Mengedit
                   </DialogTitle>
                   <DialogDescription className="text-center">
                     Silahkan kapan terakhir anda services parts ini

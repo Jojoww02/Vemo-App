@@ -5,6 +5,7 @@
 @tailwind utilities;
 
 *,
-input::placeholder {
+input::placeholder,
+textarea::placeholder {
   font-family: "Poppins", sans-serif;
 }

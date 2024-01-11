@@ -71,7 +71,12 @@ export default function AdminDetailsMaintenanceVehiclePage() {
                     <img src="/user-profile-icon.svg" alt="" />
                   </AvatarFallback>
                 </Avatar>
-                <div className="pl-4">{(user as IUserResponse)?.name}</div>
+                <div className="ml-5">
+                  <p>{(user as IUserResponse)?.name}</p>
+                  <p className="text-base font-normal text-gray-600">
+                    {(user as IUserResponse)?.email}
+                  </p>
+                </div>
               </div>
             </div>
           </div>
@@ -86,7 +91,7 @@ export default function AdminDetailsMaintenanceVehiclePage() {
           <div className="flex flex-col gap-3 font-semibold text-xl">
             <h1>Email / Phone Number :</h1>
             <p className="font-normal text-lg">
-              {(user as IUserResponse)?.email}
+              {maintenanceVehicle?.maintenanceVehicle.contact}
             </p>
           </div>
         </div>
