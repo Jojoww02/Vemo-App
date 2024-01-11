@@ -1,6 +1,6 @@
 import { baseApi, privateApi } from "@/api";
 import * as API from "@/lib/constants/routes";
-import { IChangePasswordData, IGenericResponse, IToken, IUpdateUser, IUser, IUserResponse, IVehicleResponse } from "@/api/types";
+import { IChangePasswordData, IGenericResponse, IToken, IUpdateUser, IUser, IUserResponse } from "@/api/types";
 
 export const registerUserFn = async (user: IUser): Promise<IToken> => {
   const response = await baseApi.post<IToken>(API.REGISTER_USER_SERVICE, user);

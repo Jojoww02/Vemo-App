@@ -5,7 +5,6 @@ import { BadgeAlert } from "lucide-react";
 import useMobile from "@/hooks/useMobile";
 import { RequestMaintenanceVehicleMobile } from "@/mobile";
 import { getVehiclesByUserIdFn } from "@/api/services/vehicle";
-import { useNavigate } from "react-router-dom";
 
 export default function RequestMaintenanceVehiclePage(): JSX.Element {
     const { data: user } = useQuery({ queryKey: ["me"] });

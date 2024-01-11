@@ -5,7 +5,6 @@ import { BadgeAlert } from "lucide-react";
 import ImageVehicle from "../../assets/requestPageImage/request-vehicle-mobile-image.png";
 import gradient from "../../assets/requestPageImage/gradient-img.svg";
 import { getVehiclesByUserIdFn } from "@/api/services/vehicle";
-import { useNavigate } from "react-router-dom";
 
 export default function RequestMaintenanceVehicleMobile(): JSX.Element {
   const { data: user } = useQuery({ queryKey: ["me"] });
