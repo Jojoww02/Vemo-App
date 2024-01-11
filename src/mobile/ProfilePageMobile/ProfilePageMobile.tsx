@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import {
   IconLock,
   IconLogout2,
@@ -8,7 +8,9 @@ import {
 } from "@tabler/icons-react";
 import {
   CHANGE_PASSWORD_PAGE,
+  DASHBOARD_PAGE,
   FORGOT_PASSWORD_REQUEST_PAGE,
+  PROFILE_PAGE,
   VERIFY_PASSWORD_PAGE,
 } from "@/lib/constants/routes";
 import useLogoutUser from "@/hooks/mutations/useLogoutUser";
@@ -20,10 +22,18 @@ import { KeyRound } from "lucide-react";
 export default function ProfilePageMobile(): JSX.Element {
   const { data: user } = useQuery<IUserResponse>({ queryKey: ["me"] });
   const { handleLogoutUser } = useLogoutUser();
+  const navigate = useNavigate()
 
   return (
     <div className="md:w-[480px] mx-auto">
+      
       <div className="flex flex-col items-center gap-4 text-center relative sm:mt-4 ">
+      <img
+            src={"/Icon-arrow.svg"}
+            alt=""
+            className="absolute top-3 left-4 w-5 lg:w-7 cursor-pointer"
+            onClick={() => navigate(DASHBOARD_PAGE)}
+          />
         <h1 className=" -z-50 text-[1.5rem] font-semibold tracking-wide sm:text-5xl xs:text-[2.3rem] xs:">
           Profile
         </h1>
