@@ -8,7 +8,7 @@ import { Input } from "@/components/ui/input";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { IVehicleResponse } from "@/api/types";
 import { useQuery } from "@tanstack/react-query";
-import { getVehiclesByStatusFn } from "@/api/services/vehicle";
+import { getVehiclesByMaintenancesStatusFn, getVehiclesByStatusFn } from "@/api/services/vehicle";
 import { format } from "date-fns";
 import { id } from "date-fns/locale";
 import { ArrowRightCircle } from "lucide-react";
@@ -22,12 +22,9 @@ export default function AdminDashboardPage() {
   const [rowSelection, setRowSelection] = React.useState({});
   const navigate = useNavigate();
 
-  const {
-    data: pendingVehicles,
-    isSuccess,
-  } = useQuery({
+  const { data: pendingVehicles, isSuccess } = useQuery({
     queryKey: ["vehicles", "requested"],
-    queryFn: async (): Promise<IVehicleResponse[]> => await getVehiclesByStatusFn("requested"),
+    queryFn: async (): Promise<IVehicleResponse[]> => await getVehiclesByMaintenancesStatusFn("requested"),
   });
 
   let data: IVehicleResponse[] = [];

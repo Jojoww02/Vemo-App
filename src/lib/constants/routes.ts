@@ -55,11 +55,13 @@ export const GET_VEHICLE_USER = (userId: string | undefined) => `/users/${userId
 export const REGISTER_VEHICLE_SERVICE = "vehicles";
 export const GET_VEHICLES_BY_USERID_SERVICE = (userId: string) => `vehicles?userId=${userId}`;
 export const GET_VEHICLES_BY_STATUS_SERVICE = (status: IVehicleStatus) => `vehicles?status=${status}`;
+export const GET_VEHICLES_BY_MAINTENANCE_STATUS_SERVICE = (maintenanceStatus: string) => `vehicles?maintenanceStatus=${maintenanceStatus}`;
 export const GET_VEHICLE_BY_ID_SERVICE = (vehicleId: string | undefined) => `vehicles/${vehicleId}`;
 export const APPROVE_VEHICLE_SERVICE = (vehicleId: string | undefined) => `vehicles/approve/${vehicleId}`;
-export const REQUEST_MAINTENANCE_SERVICE = "vehicles/maintenance";
-export const GET_PARTS_BY_VEHICLEID = (vehicleId: string | undefined) => `vehicles/parts?vehicleId=${vehicleId}`;
-export const ADMIN_COUNT_VEHICLES = "/vehicles/count";
+export const REQUEST_MAINTENANCE_SERVICE = "vehicles/maintenances";
+export const GET_PARTS_BY_VEHICLEID_SERVICE = (vehicleId: string | undefined) => `vehicles/parts?vehicleId=${vehicleId}`;
+export const ADMIN_COUNT_VEHICLES_SERVICE = "/vehicles/count";
+export const GET_MAINTENANCE_VEHICLE_BY_VEHICLEID_SERVICE = (vehicleId: string | undefined) => `vehicles/maintenances/${vehicleId}`;
 
 /* NOTIFICATION SERVICE */
 export const GET_NOTIFICATIONS_SERVICE = "notifications";

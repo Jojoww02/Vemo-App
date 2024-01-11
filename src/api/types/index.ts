@@ -59,6 +59,7 @@ export interface IVehicleResponse {
   condition: number;
   status: IVehicleStatus;
   userId: string;
+  maintenanceStatus: string;
 }
 
 export interface IChangePasswordData {
@@ -121,4 +122,29 @@ export interface ICountVehiclesResponse {
   manual: number;
   pending: number;
   requested: number;
+}
+
+export interface IMaintenanceVehicle {
+  contact: string;
+  description: string;
+  status: string;
+  vehicleId: string;
+  createdAt: string;
+  updateAt: string | null;
+  id: string;
+}
+
+export interface IMaintenanceParts {
+  maintenanceFinalPrice: number;
+  maintenanceServiceFinalPrice: number;
+  maintenanceVehicleId: string;
+  partId: string;
+  createdAt: string;
+  updatedAt: string | null;
+  id: string;
+}
+
+export interface IMaintenanceVehicleResponse {
+  maintenanceVehicle: IMaintenanceVehicle;
+  maintenanceParts: IMaintenanceParts[];
 }

@@ -13,7 +13,7 @@ interface PartVehicleCardProps {
   isAdmin: boolean;
 }
 
-export default function PartVehicleCard (props: PartVehicleCardProps) {
+export default function PartVehicleCard(props: PartVehicleCardProps) {
   const { data, checked, onCheckboxChange, isCheck, isAdmin } = props;
   const methods = useForm<{ editMaintenanceDate: Date }>();
 

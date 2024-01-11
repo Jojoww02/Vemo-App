@@ -27,7 +27,7 @@ export default function VehicleCard({ vehicleData }: Props): JSX.Element {
         <h1 className="font-semibold text-base xs:text-lg lg:text-xl md:text-2xl tracking-wide sm:mb-1 md:mb-0">{vehicleData.vehicleName}</h1>
         <h3 className="font-semibold text-[.6rem] xs:text-xs md:text-lg lg:text-lg lg:pb-3 text-[#898989]">{vehicleData.licensePlate}</h3>
         <div className="w-full py-2 flex justify-start items-center xs:justify-between xs:gap-2">
-          {vehicleData.status === "requested" ? (
+          {vehicleData.maintenanceStatus === "requested" ? (
             <div className="overflow-hidden w-14 md:w-20">
               <div className="animate-marquee whitespace-nowrap w-full text-[11px] xs:text-sm">Sedang diproses untuk perawatan kendaraan</div>
             </div>
