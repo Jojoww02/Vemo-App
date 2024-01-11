@@ -81,6 +81,7 @@ export interface IConditionParts {
   partName: string;
   condition: number;
   userId: string;
+  price: string;
 }
 
 export interface INotificationResponse {
