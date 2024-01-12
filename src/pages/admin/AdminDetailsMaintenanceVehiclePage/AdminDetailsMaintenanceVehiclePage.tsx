@@ -6,21 +6,42 @@ import {
 } from "@/api/services/vehicle";
 import {
   IConditionParts,
-  IMaintenanceVehicle,
   IMaintenanceVehicleResponse,
   IUserResponse,
   IVehicleResponse,
 } from "@/api/types";
-import { Button } from "@/components/atoms";
+import { Button, Tooltip } from "@/components/atoms";
 import PartVehicleCard from "@/components/molecules/PartVehicleCard";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Separator } from "@/components/ui/separator";
-import { IconNotebook } from "@tabler/icons-react";
+import {
+  IconAutomaticGearbox,
+  IconCheck,
+  IconClipboard,
+  IconManualGearbox,
+  IconNote,
+} from "@tabler/icons-react";
+import { IconTicket } from "@tabler/icons-react";
+import { IconAddressBook } from "@tabler/icons-react";
 import { IconBike } from "@tabler/icons-react";
 import { useQuery } from "@tanstack/react-query";
+import React from "react";
 import { useParams } from "react-router-dom";
 
+const dummyTikcetMaintenance = "bghuty67b";
+
 export default function AdminDetailsMaintenanceVehiclePage() {
+  const [isSuccessPaste, setIsSuccessPaste] = React.useState(false);
+
+  React.useEffect(() => {
+    isSuccessPaste && setTimeout(() => setIsSuccessPaste(false), 500);
+  }, [isSuccessPaste, setIsSuccessPaste]);
+
+  const handlePasteClick = () => {
+    navigator.clipboard.writeText(dummyTikcetMaintenance.toUpperCase());
+    setIsSuccessPaste(true);
+  };
+
   const { vehicleId } = useParams();
 
   const { data: vehicle } = useQuery<IVehicleResponse, Error>({
@@ -51,27 +72,63 @@ export default function AdminDetailsMaintenanceVehiclePage() {
   return (
     <div className="w-full px-3">
       <div className="w-full flex">
-        <div className="w-1/2 flex flex-col mt-10">
-          <div className="flex flex-col gap-2 ">
-            <h1 className="font-semibold text-xl">Informasi Kendaraan</h1>
-            <div className="flex gap-4 items-center mt-10">
-              <IconBike size={40} />
-              <div className="flex flex-col gap-4 ml-2">
-                <div>
-                  <h1 className="font-medium text-2xl text-gray-700 flex gap-4">
-                    Nama Kendaraan :
-                  </h1>
-                  <p className="text-2xl text-gray-500">
-                    {(vehicle as IVehicleResponse)?.vehicleName}
-                  </p>
+        <div className="w-1/2 flex flex-col">
+          <div className="flex flex-col gap-2">
+            <h1>Informasi Kendaraan</h1>
+            <div className="flex gap-4 items-center mt-4">
+              <div className="ml-2 flex flex-col gap-5">
+                <div className="flex gap-5">
+                  <IconTicket size={30} />
+                  <div>
+                    <h1 className="font-medium text-gray-500">
+                      Tiket Perawatan
+                    </h1>
+                    <span className="flex gap-2 items-center">
+                      <p className="text-lg text-dark font-semibold uppercase">
+                        {dummyTikcetMaintenance}
+                      </p>
+                      <Tooltip text={"Berhasil menyalin"} open={isSuccessPaste}>
+                        {isSuccessPaste ? (
+                          <IconCheck
+                            size={20}
+                            className="text-gray-600 cursor-pointer"
+                          />
+                        ) : (
+                          <IconClipboard
+                            size={20}
+                            className="text-gray-600 cursor-pointer"
+                            onClick={handlePasteClick}
+                          />
+                        )}
+                      </Tooltip>
+                    </span>
+                  </div>
                 </div>
-                <div>
-                  <h1 className="font-medium text-2xl text-gray-700 flex gap-4">
-                    Type :
-                  </h1>
-                  <p className="text-2xl text-gray-500">
-                    {(vehicle as IVehicleResponse)?.vehicleType}
-                  </p>
+                <div className="flex gap-5">
+                  <IconBike size={30} />
+                  <div>
+                    <h1 className="font-medium text-gray-500">
+                      Nama Kendaraan
+                    </h1>
+                    <p className="text-lg text-dark font-semibold">
+                      {(vehicle as IVehicleResponse)?.vehicleName}
+                    </p>
+                  </div>
+                </div>
+                <div className="flex gap-5">
+                  {(vehicle as IVehicleResponse)?.vehicleType === "matic" ? (
+                    <IconAutomaticGearbox size={30} />
+                  ) : (
+                    <IconManualGearbox size={30} />
+                  )}
+                  <div>
+                    <h1 className="font-medium text-gray-500">
+                      Tipe Kendaraan
+                    </h1>
+                    <p className="text-lg text-dark font-semibold capitalize">
+                      {(vehicle as IVehicleResponse)?.vehicleType}
+                    </p>
+                  </div>
                 </div>
               </div>
             </div>
@@ -94,23 +151,27 @@ export default function AdminDetailsMaintenanceVehiclePage() {
             </div>
           </div>
         </div>
-        <div className="w-1/2 flex flex-col bg-[#F7F8F9] rounded-2xl justify-evenly mt-10 px-5">
-        <div className="flex items-center gap-8">
-          <div className="flex flex-col gap-8">
-          <div className="flex flex-col gap-3 font-semibold">
-            <h1 className="mt-3 text-2xl">Catatan :</h1>
-            <p className="font-normal text-xl">
-              {maintenanceVehicle?.maintenanceVehicle?.description}
-            </p>
+        <div className="w-1/2 bg-[#F7F8F9] rounded-2xl px-5 py-4">
+          <div className="flex gap-8">
+            <div className="flex flex-col gap-8 w-full">
+              <div className="flex gap-5 w-full">
+                <IconNote size={30} />
+                <div className="w-full">
+                  <h1 className="font-medium">Catatan :</h1>
+                  <div className="bg-gray-400/25 rounded-lg h-40 w-full p-2 text-dark">
+                    <p>{maintenanceVehicle?.maintenanceVehicle.description}</p>
+                  </div>
+                </div>
+              </div>
+              <div className="flex gap-5">
+                <IconAddressBook size={30} />
+                <div>
+                  <h1 className="font-medium">Kontak yang bisa dihubungi :</h1>
+                  <p>{maintenanceVehicle?.maintenanceVehicle.contact}</p>
+                </div>
+              </div>
+            </div>
           </div>
-          <div className="flex flex-col gap-3 font-semibold text-xl">
-            <h1 className=" text-2xl">Kontak yang bisa dihubungi :</h1>
-            <p className="font-normal text-xl">
-              {maintenanceVehicle?.maintenanceVehicle.contact}
-            </p>
-          </div>
-          </div>
-        </div>
         </div>
       </div>
       <Separator className="mt-7" />
@@ -131,7 +192,7 @@ export default function AdminDetailsMaintenanceVehiclePage() {
             ))
         )}
       </div>
-      <div className="text-center flex mt-4 mb-10">
+      <div className="text-center flex mt-4 mb-10 gap-10">
         <Button className="w-1/2 py-6 bg-red-400">Batal</Button>
         <Button className="w-1/2 py-6">Selesai</Button>
       </div>

@@ -9,12 +9,13 @@ import {
 interface IProps {
   children: React.ReactNode;
   text: string;
+  open?: boolean;
 }
 
 export default function Tooltip(props: IProps): JSX.Element {
   return (
     <TooltipProvider>
-      <_Tooltip>
+      <_Tooltip open={props.open}>
         <TooltipTrigger>{props.children}</TooltipTrigger>
         <TooltipContent className="bg-slate-600 hidden lg:block">
           {props.text}
