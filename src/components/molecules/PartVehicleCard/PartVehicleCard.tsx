@@ -46,8 +46,8 @@ export default function PartVehicleCard(props: PartVehicleCardProps) {
         </h1>
         {isAdmin ? (
           <div className="font-normal text-[1rem] ">
-            <p>perawatan: {maintenanceData?.maintenanceFinalPrice}</p>
-            <p>jasa: {maintenanceData?.maintenanceServiceFinalPrice}</p>
+            <p>perawatan: Rp. {maintenanceData?.maintenanceFinalPrice}</p>
+            <p>jasa: Rp. {maintenanceData?.maintenanceServiceFinalPrice}</p>
           </div>
         ) : (
           <p className="font-normal text-[0.8rem] sm:text-lg xl:text-lg">
@@ -59,7 +59,7 @@ export default function PartVehicleCard(props: PartVehicleCardProps) {
             <Dialog>
               <DialogTrigger asChild>
                 <button type="button">
-                  <IconEditCircle className="" />
+                  <IconEditCircle />
                 </button>
               </DialogTrigger>
               <DialogContent className="w-4/5">

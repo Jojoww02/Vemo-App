@@ -193,8 +193,8 @@ export default function AdminDetailsMaintenanceVehiclePage() {
         )}
       </div>
       <div className="text-center flex mt-4 mb-10 gap-10">
-        <Button className="w-1/2 py-6 bg-red-400">Batal</Button>
-        <Button className="w-1/2 py-6">Selesai</Button>
+        <Button className="w-1/2 py-6 bg-red-400 hover:bg-red-400/80">Batalkan Service</Button>
+        <Button className="w-1/2 py-6">Selesai Service</Button>
       </div>
     </div>
   );
