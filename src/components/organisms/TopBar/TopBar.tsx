@@ -1,13 +1,31 @@
 import { NotificationIcon } from "@/components/atoms";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { History, Info, Loader2, Menu, Wrench } from "lucide-react";
-import { IconLayoutDashboard, IconSquareRoundedChevronLeftFilled, IconUserSquareRounded } from "@tabler/icons-react";
-import { Sheet, SheetClose, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
+import {
+  IconLayoutDashboard,
+  IconSquareRoundedChevronLeftFilled,
+  IconUserSquareRounded,
+} from "@tabler/icons-react";
+import {
+  Sheet,
+  SheetClose,
+  SheetContent,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from "@/components/ui/sheet";
 import IconVemo from "../../../assets/iconVemo.svg";
 import { cn } from "@/lib/utils/style";
 import { IconLogout2 } from "@tabler/icons-react";
 import React, { useState } from "react";
-import { ABOUT_US_PAGE, ADMIN_DASHBOARD_PAGE, DASHBOARD_PAGE, PROFILE_PAGE, SERVICES_PAGE, VEHICLE_LIST_PAGE } from "@/lib/constants/routes";
+import {
+  ABOUT_US_PAGE,
+  ADMIN_DASHBOARD_PAGE,
+  DASHBOARD_PAGE,
+  PROFILE_PAGE,
+  SERVICES_PAGE,
+  VEHICLE_LIST_PAGE,
+} from "@/lib/constants/routes";
 import useLogoutUser from "@/hooks/mutations/useLogoutUser";
 import useWindowPathname from "@/hooks/useWindowPathname";
 import { IconMotorbike } from "@tabler/icons-react";
@@ -15,6 +33,7 @@ import useVehicleList from "@/hooks/store/useVehicleList";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { getCountUnreadNotificationFn } from "@/api/services/notification";
 import { IUserResponse } from "@/api/types";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 export default function TopBar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -131,14 +150,27 @@ export default function TopBar() {
       <span className="flex justify-center items-center">
         <Sheet open={isOpen}>
           <SheetTrigger asChild>
-            <Menu className="text-slate-900 lg:hidden mr-4 xs:scale-125 lg:scale-150" onClick={handleIconClick} />
+            <Menu
+              className="text-slate-900 lg:hidden mr-4 xs:scale-125 lg:scale-150"
+              onClick={handleIconClick}
+            />
           </SheetTrigger>
           <SheetContent className="w-72">
             <SheetHeader className="flex flex-row font-semibold italic items-center justify-between">
-              <img src={IconVemo} alt="vemo-icon" className="w-[20%] cursor-pointer" />
-              <SheetTitle className="text-2xl text-[#F4B400] pr-20 cursor-pointer">VEMO</SheetTitle>
+              <img
+                src={IconVemo}
+                alt="vemo-icon"
+                className="w-[20%] cursor-pointer"
+              />
+              <SheetTitle className="text-2xl text-[#F4B400] pr-20 cursor-pointer">
+                VEMO
+              </SheetTitle>
               <SheetClose>
-                <IconSquareRoundedChevronLeftFilled size={35} style={{ color: "#898989" }} onClick={handleCloseSheet} />
+                <IconSquareRoundedChevronLeftFilled
+                  size={35}
+                  style={{ color: "#898989" }}
+                  onClick={handleCloseSheet}
+                />
               </SheetClose>
             </SheetHeader>
             <div className="w-full h-[0.05rem] mt-7 bg-[#898989]" />
@@ -146,7 +178,15 @@ export default function TopBar() {
               {sideBarItem.map(
                 (item, index) =>
                   item.show !== false && (
-                    <Link to={item.path} key={index} className={cn("flex cursor-pointer font-medium text-lg items-center", !isOpen && "hidden")} onClick={() => handleClick(item.path)}>
+                    <Link
+                      to={item.path}
+                      key={index}
+                      className={cn(
+                        "flex cursor-pointer font-medium text-lg items-center",
+                        !isOpen && "hidden"
+                      )}
+                      onClick={() => handleClick(item.path)}
+                    >
                       {item.icon}
                       <span className="ml-5">{item.title}</span>
                     </Link>
@@ -154,23 +194,54 @@ export default function TopBar() {
               )}
             </div>
             <div className="w-full h-[0.05rem] bg-[#898989] mt-10" />
-            <div className="absolute bottom-20 lg:fixed  flex mt-7 flex-row text-[#898989] cursor-pointer font-medium text-lg items-center" onClick={handleLogoutUser}>
-              {isLogoutLoading ? <Loader2 size={35} className="animate-spin" /> : <IconLogout2 size={35} />}
+            <div
+              className="absolute bottom-20 lg:fixed  flex mt-7 flex-row text-[#898989] cursor-pointer font-medium text-lg items-center"
+              onClick={handleLogoutUser}
+            >
+              {isLogoutLoading ? (
+                <Loader2 size={35} className="animate-spin" />
+              ) : (
+                <IconLogout2 size={35} />
+              )}
               <span className="ml-5">Log Out</span>
             </div>
           </SheetContent>
         </Sheet>
         {isWindow ? (
           <div>
-            <h1 className="font-bold text-[#F4B400] text-xl xs:text-2xl lg:text-3xl italic">{getTitle()}</h1>
+            <h1 className="font-bold text-[#F4B400] text-xl xs:text-2xl lg:text-3xl italic">
+              {getTitle()}
+            </h1>
           </div>
         ) : (
           <div>
-            <h1 className="font-bold text-[#F4B400] text-xl xs:text-2xl lg:text-3xl italic">{getTitle()}</h1>
+            <h1 className="font-bold text-[#F4B400] text-xl xs:text-2xl lg:text-3xl italic">
+              {getTitle()}
+            </h1>
           </div>
         )}
       </span>
-      {window.location.pathname !== ADMIN_DASHBOARD_PAGE && (user as IUserResponse)?.role === "customer" && <NotificationIcon notificationCount={isSuccess ? notificationCount : 0} />}
+      <div className="flex items-center justify-center gap-4">
+        <div className="hidden sm:flex">
+          <div className="flex items-center">
+            <Avatar className="w-10 h-10">
+              <AvatarImage src={`/PhotoProfile/${(user as IUserResponse)?.photo}`}/>
+              <AvatarFallback>
+                <img src="/user-profile-icon.svg" alt="" />
+              </AvatarFallback>
+            </Avatar>
+            <div className="ml-3">
+              <span className="font-medium text-sm">{(user as IUserResponse)?.name}</span>
+            </div>
+          </div>
+        </div>
+        {window.location.pathname !== ADMIN_DASHBOARD_PAGE &&
+          (user as IUserResponse)?.role === "customer" && (
+            <NotificationIcon
+              notificationCount={isSuccess ? notificationCount : 0}
+            />
+          )}
+      </div>
     </header>
   );
 }
