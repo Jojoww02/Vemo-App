@@ -15,6 +15,7 @@ import { Button } from "@/components/atoms";
 import PartVehicleCard from "@/components/molecules/PartVehicleCard";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Separator } from "@/components/ui/separator";
+import { IconNotebook } from "@tabler/icons-react";
 import { IconBike } from "@tabler/icons-react";
 import { useQuery } from "@tanstack/react-query";
 import { useParams } from "react-router-dom";
@@ -51,31 +52,30 @@ export default function AdminDetailsMaintenanceVehiclePage() {
     <div className="w-full px-3">
       <div className="w-full flex">
         <div className="w-1/2 flex flex-col mt-10">
-          <div className="flex flex-col gap-2 font-semibold text-xl">
-            <h1>Motorcycle Information</h1>
-            <div className="flex items-center">
-              <IconBike size={30} />
-              <div className="flex flex-col gap-2">
-                <div className="flex gap-4">
-                  <h1 className="text-xl pl-3 font-normal flex gap-4">
-                    Nama Kendaraan:
+          <div className="flex flex-col gap-2 ">
+            <h1 className="font-semibold text-xl">Informasi Kendaraan</h1>
+            <div className="flex gap-4 items-center mt-10">
+              <IconBike size={40} />
+              <div className="flex flex-col gap-4 ml-2">
+                <div>
+                  <h1 className="font-medium text-2xl text-gray-700 flex gap-4">
+                    Nama Kendaraan :
                   </h1>
-                  <p className="font-normal">
+                  <p className="text-2xl text-gray-500">
                     {(vehicle as IVehicleResponse)?.vehicleName}
                   </p>
                 </div>
-                <div className="flex gap-4">
-                  <h1 className="text-xl pl-3 font-normal flex gap-4">
-                    Tipe :
+                <div>
+                  <h1 className="font-medium text-2xl text-gray-700 flex gap-4">
+                    Type :
                   </h1>
-                  <p className="font-normal">
+                  <p className="text-2xl text-gray-500">
                     {(vehicle as IVehicleResponse)?.vehicleType}
                   </p>
                 </div>
               </div>
             </div>
-            <div className="flex flex-col text-lg font-medium"> </div>
-            <div className="flex flex-col mt-7 gap-4">
+            <div className="flex flex-col mt-4 gap-4">
               <h1>Request By</h1>
               <div className="flex font-medium text-lg items-center">
                 <Avatar className="w-14 h-14">
@@ -95,18 +95,22 @@ export default function AdminDetailsMaintenanceVehiclePage() {
           </div>
         </div>
         <div className="w-1/2 flex flex-col bg-[#F7F8F9] rounded-2xl justify-evenly mt-10 px-5">
-          <div className="flex flex-col gap-3 font-semibold text-xl">
-            <h1 className="mt-3">User Notes:</h1>
-            <p className="font-normal text-lg">
+        <div className="flex items-center gap-8">
+          <div className="flex flex-col gap-8">
+          <div className="flex flex-col gap-3 font-semibold">
+            <h1 className="mt-3 text-2xl">Catatan :</h1>
+            <p className="font-normal text-xl">
               {maintenanceVehicle?.maintenanceVehicle?.description}
             </p>
           </div>
           <div className="flex flex-col gap-3 font-semibold text-xl">
-            <h1>Email / Phone Number :</h1>
-            <p className="font-normal text-lg">
+            <h1 className=" text-2xl">Kontak yang bisa dihubungi :</h1>
+            <p className="font-normal text-xl">
               {maintenanceVehicle?.maintenanceVehicle.contact}
             </p>
           </div>
+          </div>
+        </div>
         </div>
       </div>
       <Separator className="mt-7" />
@@ -127,8 +131,9 @@ export default function AdminDetailsMaintenanceVehiclePage() {
             ))
         )}
       </div>
-      <div className="text-center mt-4 mb-10">
-        <Button className="w-1/2 py-6">Bayar bang</Button>
+      <div className="text-center flex mt-4 mb-10">
+        <Button className="w-1/2 py-6 bg-red-400">Batal</Button>
+        <Button className="w-1/2 py-6">Selesai</Button>
       </div>
     </div>
   );
