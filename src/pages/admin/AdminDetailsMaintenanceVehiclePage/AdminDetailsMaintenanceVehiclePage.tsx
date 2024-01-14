@@ -6,6 +6,7 @@ import {
 } from "@/api/services/vehicle";
 import {
   IConditionParts,
+  IMaintenanceByStatus,
   IMaintenanceVehicleResponse,
   IUserResponse,
   IVehicleResponse,
@@ -14,6 +15,7 @@ import { Button, Tooltip } from "@/components/atoms";
 import PartVehicleCard from "@/components/molecules/PartVehicleCard";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Separator } from "@/components/ui/separator";
+import useMutateVehicle from "@/hooks/mutations/useMutateVehicle";
 import {
   IconAutomaticGearbox,
   IconCheck,
@@ -24,25 +26,29 @@ import {
 import { IconTicket } from "@tabler/icons-react";
 import { IconAddressBook } from "@tabler/icons-react";
 import { IconBike } from "@tabler/icons-react";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import React from "react";
+import { useForm } from "react-hook-form";
 import { useParams } from "react-router-dom";
 
-const dummyTikcetMaintenance = "bghuty67b";
-
 export default function AdminDetailsMaintenanceVehiclePage() {
+  const queryClient = useQueryClient();
+
   const [isSuccessPaste, setIsSuccessPaste] = React.useState(false);
+  const methods = useForm<IMaintenanceByStatus>();
+  const { vehicleId } = useParams();
+
+  const { vehicleByStatus } = useMutateVehicle();
 
   React.useEffect(() => {
     isSuccessPaste && setTimeout(() => setIsSuccessPaste(false), 500);
   }, [isSuccessPaste, setIsSuccessPaste]);
 
   const handlePasteClick = () => {
-    navigator.clipboard.writeText(dummyTikcetMaintenance.toUpperCase());
+    const ticketValue = maintenanceVehicle?.maintenanceVehicle.contact || "";
+    navigator.clipboard.writeText(ticketValue.toUpperCase());
     setIsSuccessPaste(true);
   };
-
-  const { vehicleId } = useParams();
 
   const { data: vehicle } = useQuery<IVehicleResponse, Error>({
     queryKey: ["vehicle", vehicleId],
@@ -67,7 +73,21 @@ export default function AdminDetailsMaintenanceVehiclePage() {
     queryFn: async () => await getVehiclePartsConditionFn(vehicleId),
   });
 
-  console.log(maintenanceVehicle?.maintenanceParts);
+  const handleDeleteOptionClick = async () => {
+    await vehicleByStatus.mutateAsync({
+      vehicleId,
+      status: "service",
+    });
+  };
+
+  if (vehicleByStatus.isSuccess) {
+    queryClient.invalidateQueries({
+      queryKey: ["vehicle", vehicleId],
+    });
+    queryClient.invalidateQueries({
+      queryKey: ["maintenanceVehicle", vehicleId],
+    });
+  }
 
   return (
     <div className="w-full px-3">
@@ -85,7 +105,7 @@ export default function AdminDetailsMaintenanceVehiclePage() {
                     </h1>
                     <span className="flex gap-2 items-center">
                       <p className="text-lg text-dark font-semibold uppercase">
-                        {dummyTikcetMaintenance}
+                        {maintenanceVehicle?.maintenanceVehicle.ticket}
                       </p>
                       <Tooltip text={"Berhasil menyalin"} open={isSuccessPaste}>
                         {isSuccessPaste ? (
@@ -182,19 +202,44 @@ export default function AdminDetailsMaintenanceVehiclePage() {
             .map((requestPart) => (
               <PartVehicleCard
                 key={requestPart.partId}
-                data={requestPart}
-                maintenanceData={maintenancePart}
+                conditiondata={requestPart}
+                maintenancePartData={maintenancePart}
+                maintenanceVehicleData={maintenanceVehicle.maintenanceVehicle}
                 checked={false}
                 onCheckboxChange={() => {}}
-                isCheck={false}
+                isCheck={vehicle?.maintenanceStatus !== "requested"}
                 isAdmin={true}
+                isEdit={
+                  maintenanceVehicle.maintenanceVehicle.status === "service"
+                }
               />
             ))
         )}
       </div>
-      <div className="text-center flex mt-4 mb-10 gap-10">
-        <Button className="w-1/2 py-6 bg-red-400 hover:bg-red-400/80">Batalkan Service</Button>
-        <Button className="w-1/2 py-6">Selesai Service</Button>
+      <div className="my-10">
+        {maintenanceVehicle?.maintenanceVehicle.status === "requested" ? (
+          <div className="text-center flex mt-4 mb-10 gap-10">
+            <Button className="w-1/2 py-6 bg-red-400 hover:bg-red-400/80">
+              Tolak Service
+            </Button>
+            <Button
+              className="w-1/2 py-6"
+              onClick={methods.handleSubmit(handleDeleteOptionClick)}
+            >
+              Service
+            </Button>
+          </div>
+        ) : (
+          <div className="text-center flex mt-4 mb-10 gap-10">
+            <Button
+              className="w-1/2 py-6 bg-red-400 hover:bg-red-400/80"
+              onClick={methods.handleSubmit(handleDeleteOptionClick)}
+            >
+              Batalkan Service
+            </Button>
+            <Button className="w-1/2 py-6">Selesai Service</Button>
+          </div>
+        )}
       </div>
     </div>
   );

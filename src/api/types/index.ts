@@ -126,6 +126,7 @@ export interface ICountVehiclesResponse {
 }
 
 export interface IMaintenanceVehicle {
+  ticket: string;
   contact: string;
   description: string;
   status: string;
@@ -148,4 +149,14 @@ export interface IMaintenanceParts {
 export interface IMaintenanceVehicleResponse {
   maintenanceVehicle: IMaintenanceVehicle;
   maintenanceParts: IMaintenanceParts[];
+}
+
+export interface IMaintenanceByStatus {
+  vehicleId: string | undefined;
+  status: string;
+}
+
+export interface IMaintenancePrice {
+  maintenancePartId: string;
+  newPrice: number;
 }

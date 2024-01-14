@@ -1,10 +1,17 @@
 import {
   approveVehicleFn,
   getPartByVehicleIdFn,
+  patchMaintenaceByPriceFn,
+  patchMaintenanceByStatusFn,
   registerVehicleFn,
   requestMaintenanceFn,
 } from "@/api/services/vehicle";
-import { IRequestMaintenance, IVehicle } from "@/api/types";
+import {
+  IMaintenanceByStatus,
+  IMaintenancePrice,
+  IRequestMaintenance,
+  IVehicle,
+} from "@/api/types";
 import { useMutation } from "@tanstack/react-query";
 
 export default function useMutateVehicle() {
@@ -27,6 +34,16 @@ export default function useMutateVehicle() {
     getPartByVehicleId: useMutation({
       mutationFn: async (vehicleId: string | undefined) => {
         await getPartByVehicleIdFn(vehicleId);
+      },
+    }),
+    vehicleByStatus: useMutation({
+      mutationFn: async (statusvehicle: IMaintenanceByStatus) => {
+        await patchMaintenanceByStatusFn(statusvehicle);
+      },
+    }),
+    partPrice: useMutation({
+      mutationFn: async (price: IMaintenancePrice) => {
+        await patchMaintenaceByPriceFn(price);
       },
     }),
   };

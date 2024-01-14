@@ -158,12 +158,13 @@ export default function VehiclePartsPage(): JSX.Element {
           {conditionParts?.map((conditionPart) => (
             <PartVehicleCard
               key={conditionPart.partId}
-              data={conditionPart}
+              conditiondata={conditionPart}
               checked={checkedItems.includes(conditionPart.partId)}
               onCheckboxChange={() =>
                 handleCheckboxChange(conditionPart.partId)
               }
               isCheck={vehicle?.maintenanceStatus !== "requested"}
+              isEdit={vehicle?.maintenanceStatus !== "requested"}
               isAdmin={false}
             />
           ))}
