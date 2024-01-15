@@ -6,6 +6,7 @@ export { default as DashboardPage } from "./DashboardPage";
 export { default as RequestMaintenanceVehiclePage } from "./RequestMaintenanceVehiclePage";
 export { default as ProfilePage } from "./ProfilePage";
 export { default as ServicesHistoryPage } from "./ServicesHistoryPage";
+export { default as ServicesDetailPage } from "./ServicesDetailPage";
 export { default as RegisterVehiclePage } from "./RegisterVehiclePage";
 export { default as AboutPage } from "./AboutPage";
 export { default as NotFoundPage } from "./NotFoundPage";
