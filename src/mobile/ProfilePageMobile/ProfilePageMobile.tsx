@@ -10,7 +10,6 @@ import {
   CHANGE_PASSWORD_PAGE,
   DASHBOARD_PAGE,
   FORGOT_PASSWORD_REQUEST_PAGE,
-  PROFILE_PAGE,
   VERIFY_PASSWORD_PAGE,
 } from "@/lib/constants/routes";
 import useLogoutUser from "@/hooks/mutations/useLogoutUser";

@@ -1,7 +1,6 @@
 import {
   IConditionParts,
   IMaintenanceParts,
-  IMaintenancePrice,
   IMaintenanceVehicle,
 } from "@/api/types";
 import { Button, Input } from "@/components/atoms";
@@ -38,7 +37,6 @@ export default function PartVehicleCard(props: PartVehicleCardProps) {
     isCheck,
     isAdmin,
     isEdit,
-    maintenanceVehicleData,
   } = props;
 
   const { partPrice } = useMutateVehicle();
