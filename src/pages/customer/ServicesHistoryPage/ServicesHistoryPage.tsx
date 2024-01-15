@@ -6,13 +6,13 @@ import { Button as _Button } from "@/components/atoms";
 import { DropdownMenu } from "@/components/ui/dropdown-menu";
 import { Input } from "@/components/ui/input";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { IVehicleResponse } from "@/api/types";
+import { IMaintenanceVehicle, IUserResponse } from "@/api/types";
 import { useQuery } from "@tanstack/react-query";
-import { getVehiclesByMaintenancesStatusFn } from "@/api/services/vehicle";
+import { getMaintenancesByUserIdFn } from "@/api/services/vehicle";
 import { format } from "date-fns";
 import { id } from "date-fns/locale";
 import { useNavigate } from "react-router-dom";
-import { VEHICLE_SERVICES_PAGE } from "@/lib/constants/routes";
+import { VEHICLE_SERVICES_DETAILS_PAGE } from "@/lib/constants/routes";
 export default function ServicesHistoryPage() {
   const [sorting, setSorting] = React.useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>([]);
@@ -20,18 +20,19 @@ export default function ServicesHistoryPage() {
   const [rowSelection, setRowSelection] = React.useState({});
   const navigate = useNavigate();
 
-  const { data: pendingVehicles, isSuccess } = useQuery({
-    queryKey: ["vehicles", "requested"],
-    queryFn: async (): Promise<IVehicleResponse[]> => await getVehiclesByMaintenancesStatusFn("requested"),
+  const { data: user } = useQuery({ queryKey: ["me"] });
+  const { data: historyServices, isSuccess } = useQuery({
+    queryKey: ["historyServices"],
+    queryFn: async (): Promise<IMaintenanceVehicle[]> => await getMaintenancesByUserIdFn((user as IUserResponse).userId),
   });
 
-  let data: IVehicleResponse[] = [];
+  let data: IMaintenanceVehicle[] = [];
 
   if (isSuccess) {
-    data = pendingVehicles;
+    data = historyServices;
   }
 
-  const columns: ColumnDef<IVehicleResponse>[] = [
+  const columns: ColumnDef<IMaintenanceVehicle>[] = [
     {
       id: "index",
       enableHiding: false,
@@ -42,43 +43,43 @@ export default function ServicesHistoryPage() {
       },
     },
     {
-      accessorKey: "vehicleName",
+      accessorKey:"ticket",
       header: ({ column }) => {
         return (
           <Button variant="ghost" onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}>
-            Kendaraan
+            Ticket
             <CaretSortIcon className="ml-2 h-4 w-4" />
           </Button>
         );
       },
-      cell: ({ row }) => <div>{row.getValue("vehicleName")}</div>,
+      cell: ({ row }) => <div>{row.getValue("ticket")}</div>,
     },
     {
-      accessorKey: "licensePlate",
+      accessorKey: "status",
       header: ({ column }) => {
         return (
           <Button variant="ghost" onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}>
-            Plat Nomor
+            status
             <CaretSortIcon className="ml-2 h-4 w-4" />
           </Button>
         );
       },
-      cell: ({ row }) => <div className="uppercase">{row.getValue("licensePlate")}</div>,
+      cell: ({ row }) => <div className="uppercase">{row.getValue("status")}</div>,
     },
     {
-      accessorKey: "vehicleType",
+      accessorKey: "contact",
       header: ({ column }) => {
         return (
           <Button variant="ghost" onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}>
-            Tipe Kendaraan
+            Kontak
             <CaretSortIcon className="ml-2 h-4 w-4" />
           </Button>
         );
       },
-      cell: ({ row }) => <div className="capitalize">{row.getValue("vehicleType")}</div>,
+      cell: ({ row }) => <div className="capitalize">{row.getValue("contact")}</div>,
     },
     {
-      accessorKey: "purchasingDate",
+      accessorKey: "createdAt",
       header: ({ column }) => {
         return (
           <Button variant="ghost" onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}>
@@ -89,7 +90,7 @@ export default function ServicesHistoryPage() {
       },
       cell: ({ row }) => (
         <div>
-          {format(new Date(row.getValue("purchasingDate")), "dd MMMM yyyy", {
+          {format(new Date(row.getValue("createdAt")), "dd MMMM yyyy", {
             locale: id,
           })}
         </div>
@@ -98,12 +99,13 @@ export default function ServicesHistoryPage() {
     {
       id: "actions",
       enableHiding: false,
-      accessorKey: "status",
-      header: "Status",
-      cell: () => {
+      accessorKey: "lainnya",
+      header: "Lainnya",
+      cell: ({ row }) => {
+        const maintenance = row.original;
         return (
           <DropdownMenu>
-            <div className="cursor-pointer" onClick={() => navigate(VEHICLE_SERVICES_PAGE)}>
+            <div className="cursor-pointer" onClick={() => navigate(VEHICLE_SERVICES_DETAILS_PAGE(maintenance.id))}>
               <p className="text-primary font-medium text-sm hover:underline">Lihat detail</p>
             </div>
           </DropdownMenu>
@@ -136,8 +138,8 @@ export default function ServicesHistoryPage() {
       <div className="flex items-center py-4">
         <Input
           placeholder="Cari Kendaraan..."
-          value={(table.getColumn("ownerName")?.getFilterValue() as string) ?? ""}
-          onChange={(event) => table.getColumn("ownerName")?.setFilterValue(event.target.value)}
+          value={(table.getColumn("vehicleName")?.getFilterValue() as string) ?? ""}
+          onChange={(event) => table.getColumn("vehicleName")?.setFilterValue(event.target.value)}
           className="max-w-sm"
         />
       </div>

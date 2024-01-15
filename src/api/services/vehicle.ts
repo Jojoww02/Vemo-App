@@ -1,5 +1,5 @@
 import { privateApi } from "@/api";
-import { IGenericResponse, IConditionParts, IRequestMaintenance, IVehicle, IVehicleResponse, IVehicleStatus, IPartResponse, ICountVehiclesResponse, IMaintenanceVehicleResponse, IMaintenanceByStatus, IMaintenancePrice } from "@/api/types";
+import { IGenericResponse, IConditionParts, IRequestMaintenance, IVehicle, IVehicleResponse, IVehicleStatus, IPartResponse, ICountVehiclesResponse, IMaintenanceVehicleResponse, IMaintenanceByStatus, IMaintenancePrice, IMaintenanceVehicle } from "@/api/types";
 import * as API from "@/lib/constants/routes";
 
 export const registerVehicleFn = async (registerVehicleData: IVehicle): Promise<IGenericResponse> => {
@@ -60,9 +60,19 @@ export const getVehiclesByMaintenancesStatusFn = async (maintenanceStatus: strin
 export const patchMaintenanceByStatusFn = async (vehicleByStatus: IMaintenanceByStatus): Promise<IGenericResponse> => {
   const response = await privateApi.patch<IGenericResponse>(API.PATCH_MAINTENANCES_VEHICLE_BY_STATUS_SERVICE, vehicleByStatus)
   return response.data
-}
+};
 
 export const patchMaintenaceByPriceFn = async (price: IMaintenancePrice ): Promise<IGenericResponse> => {
   const response = await privateApi.patch<IGenericResponse>(API.PATCH_MAINTENANCES_PART_PRICE_SERVICE, price)
   return response.data
-}
+};
+
+export const getMaintenancesByUserIdFn = async (userId: string | undefined): Promise<IMaintenanceVehicle[]> => {
+  const response = await privateApi.get<IMaintenanceVehicle[]>(API.GET_MAINTENANCE_BY_VEHICLEID_SERVICE(userId));
+  return response.data;
+};
+
+export const getMaintenancesDetailByMaintenanceIdFn = async (maintenanceId: string | undefined): Promise<IMaintenanceVehicle> => {
+  const response = await privateApi.get<IMaintenanceVehicle>(API.GET_MAINTENANCE_BY_VEHICLEID_DETAILS_SERVICE(maintenanceId));
+  return response.data;
+};

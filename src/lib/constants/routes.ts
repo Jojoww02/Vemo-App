@@ -7,7 +7,7 @@ export const LOGIN_PAGE = "/login";
 export const REGISTER_USER_PAGE = "/register";
 export const DASHBOARD_PAGE = "/dashboard";
 export const SERVICES_PAGE = "/services";
-export const VEHICLE_SERVICES_PAGE = "/services/detail"
+export const VEHICLE_SERVICES_DETAILS_PAGE = (maintenanceId: string | undefined) => `/services/details/${maintenanceId}`;
 export const ABOUT_US_PAGE = "/about/vemo";
 export const VEHICLE_LIST_PAGE = "/vehicles";
 export const VEHICLE_PARTS_PAGE = (vehicleId: string | undefined) => `/vehicles/${vehicleId}/parts`;
@@ -63,8 +63,10 @@ export const REQUEST_MAINTENANCE_SERVICE = "vehicles/maintenances";
 export const GET_PARTS_BY_VEHICLEID_SERVICE = (vehicleId: string | undefined) => `vehicles/parts?vehicleId=${vehicleId}`;
 export const ADMIN_COUNT_VEHICLES_SERVICE = "/vehicles/count";
 export const GET_MAINTENANCE_VEHICLE_BY_VEHICLEID_SERVICE = (vehicleId: string | undefined) => `vehicles/maintenances/${vehicleId}/admin`;
-export const PATCH_MAINTENANCES_VEHICLE_BY_STATUS_SERVICE = '/vehicles/maintenances/status'
-export const PATCH_MAINTENANCES_PART_PRICE_SERVICE = '/vehicles/maintenances/part/price'
+export const GET_MAINTENANCE_BY_VEHICLEID_SERVICE = (userId: string | undefined) => `vehicles/maintenances/${userId}`;
+export const GET_MAINTENANCE_BY_VEHICLEID_DETAILS_SERVICE = (maintenanceId: string | undefined) => `vehicles/maintenances/details/${maintenanceId}`;
+export const PATCH_MAINTENANCES_VEHICLE_BY_STATUS_SERVICE = '/vehicles/maintenances/status';
+export const PATCH_MAINTENANCES_PART_PRICE_SERVICE = '/vehicles/maintenances/part/price';
 
 /* NOTIFICATION SERVICE */
 export const GET_NOTIFICATIONS_SERVICE = "notifications";

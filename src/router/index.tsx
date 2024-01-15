@@ -103,7 +103,7 @@ const privateRoutes: RouteObject = {
               element: <ServicesHistoryPage />
             },
             {
-              path: APP.VEHICLE_SERVICES_PAGE,
+              path: APP.VEHICLE_SERVICES_DETAILS_PAGE(":maintenanceId"),
               element: <ServicesDetailPage />
             },
             {
