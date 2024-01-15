@@ -157,6 +157,6 @@ export interface IMaintenanceByStatus {
 }
 
 export interface IMaintenancePrice {
-  maintenancePartId: string;
+  maintenancePartId: string | undefined;
   newPrice: number;
 }

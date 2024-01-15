@@ -32,13 +32,13 @@ import { useForm } from "react-hook-form";
 import { useParams } from "react-router-dom";
 
 export default function AdminDetailsMaintenanceVehiclePage() {
-  const queryClient = useQueryClient();
-
-  const [isSuccessPaste, setIsSuccessPaste] = React.useState(false);
-  const methods = useForm<IMaintenanceByStatus>();
   const { vehicleId } = useParams();
+  const [isSuccessPaste, setIsSuccessPaste] = React.useState(false);
 
-  const { vehicleByStatus } = useMutateVehicle();
+  const queryClient = useQueryClient();
+  const methods = useForm<IMaintenanceByStatus>();
+
+  const { vehicleByStatus, partPrice } = useMutateVehicle();
 
   React.useEffect(() => {
     isSuccessPaste && setTimeout(() => setIsSuccessPaste(false), 500);
@@ -88,6 +88,11 @@ export default function AdminDetailsMaintenanceVehiclePage() {
       queryKey: ["maintenanceVehicle", vehicleId],
     });
   }
+
+  partPrice.isSuccess &&
+    queryClient.invalidateQueries({
+      queryKey: ["maintenanceVehicle", vehicleId],
+    });
 
   return (
     <div className="w-full px-3">

@@ -8,7 +8,7 @@ import { Input } from "@/components/ui/input";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { IVehicleResponse } from "@/api/types";
 import { useQuery } from "@tanstack/react-query";
-import { getVehiclesByMaintenancesStatusFn, getVehiclesByStatusFn } from "@/api/services/vehicle";
+import { getVehiclesByMaintenancesStatusFn } from "@/api/services/vehicle";
 import { format } from "date-fns";
 import { id } from "date-fns/locale";
 import { ArrowRightCircle } from "lucide-react";
@@ -22,15 +22,21 @@ export default function AdminDashboardPage() {
   const [rowSelection, setRowSelection] = React.useState({});
   const navigate = useNavigate();
 
-  const { data: pendingVehicles, isSuccess } = useQuery({
+  const { data: requestedVehicles, isSuccess } = useQuery({
     queryKey: ["vehicles", "requested"],
     queryFn: async (): Promise<IVehicleResponse[]> => await getVehiclesByMaintenancesStatusFn("requested"),
   });
 
+  const { data: pendingVehicles } = useQuery({
+    queryKey: ["vehicles", "service"],
+    queryFn: async (): Promise<IVehicleResponse[]> =>
+      await getVehiclesByMaintenancesStatusFn("service"),
+  });
+  
   let data: IVehicleResponse[] = [];
-
+  
   if (isSuccess) {
-    data = pendingVehicles;
+    data = (requestedVehicles ?? []).concat(pendingVehicles ?? []);
   }
 
   const columns: ColumnDef<IVehicleResponse>[] = [
@@ -110,9 +116,9 @@ export default function AdminDashboardPage() {
       ),
     },
     {
-      accessorKey: "status",
+      accessorKey: "maintenanceStatus",
       header: "Status",
-      cell: ({ row }) => <div className="capitalize">{row.getValue("status")}</div>,
+      cell: ({ row }) => <div className="capitalize">{row.getValue("maintenanceStatus")}</div>,
     },
     {
       id: "actions",
