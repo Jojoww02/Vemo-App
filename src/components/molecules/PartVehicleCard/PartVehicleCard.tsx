@@ -13,6 +13,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
+import useMutateVehicle from "@/hooks/mutations/useMutateVehicle";
 import { IconEditCircle } from "@tabler/icons-react";
 import { FormProvider, useForm } from "react-hook-form";
 
@@ -36,11 +37,11 @@ export default function PartVehicleCard(props: PartVehicleCardProps) {
     isCheck,
     isAdmin,
     isEdit,
-    maintenanceVehicleData,
   } = props;
-  const methods = useForm<{ 
-    editMaintenanceDate: Date,
-    editMaintenanceText: string }>();
+
+  const { partPrice } = useMutateVehicle();
+
+  const methods = useForm<any>();
 
   const onSubmitHandlerDate = (value: { editMaintenanceDate: Date }) => {
     console.log({
@@ -49,12 +50,13 @@ export default function PartVehicleCard(props: PartVehicleCardProps) {
     });
   };
 
-  const onSubmitHandletext = (value: {editMaintenanceText: string}) => {
-    console.log({
-      partId: conditiondata.partId,
-      editMaintenanceText: value.editMaintenanceText})
-    
-  }
+  const onHandleEditPrice = async (data: { newPrice: number }) => {
+    // console.log();
+    await partPrice.mutateAsync({
+      ...data,
+      maintenancePartId: maintenancePartData?.id,
+    });
+  };
 
   return (
     <div className="w-full relative flex xl:w-[30rem] h-[6.7rem] xl:h-[7rem] xl:px-5 xl:p-2 px-2 p-2 my-2 rounded-[0.50rem] bg-white shadow-[0px_2px_7px_5px_#00000040] cursor-pointer">
@@ -149,14 +151,14 @@ export default function PartVehicleCard(props: PartVehicleCardProps) {
                   </DialogHeader>
                   <FormProvider {...methods}>
                     <form
-                      onSubmit={methods.handleSubmit(onSubmitHandletext)}
+                      onSubmit={methods.handleSubmit(onHandleEditPrice)}
                       className="flex flex-col justify-center"
                     >
                       <Input
-                        type="text"
-                        placeholder="silahkan edit"
-                        name="editMaintenanceText"
-                        label="Edit"
+                        type="number"
+                        placeholder="Silahkan masukan harga baru"
+                        name="newPrice"
+                        label="Perbarui harga"
                         id={conditiondata.partId}
                       />
                       <div className="flex justify-center mt-10 w-full">

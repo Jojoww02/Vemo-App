@@ -7,7 +7,6 @@ import { History, Info, Loader2, Wrench } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import useLogoutUser from "@/hooks/mutations/useLogoutUser";
 import IconVemo from "@/assets/iconVemo.svg";
-import { DASHBOARD_PAGE } from "@/lib/constants/routes";
 import { IconMotorbike } from "@tabler/icons-react";
 import useVehicleList from "@/hooks/store/useVehicleList";
 import { useQuery } from "@tanstack/react-query";
@@ -25,12 +24,6 @@ export default function SideNav() {
 
     const sideBarItem = [
       {
-        title: "Profile",
-        icon: <IconUserSquareRounded size={35} />,
-        navigateTo: "/profile",
-        show: user && (user as IUserResponse).role === "customer",
-      },
-      {
         title: "Dashboard",
         icon: <IconLayoutDashboard size={35} />,
         navigateTo: "/dashboard",
@@ -40,6 +33,12 @@ export default function SideNav() {
         title: "Services",
         icon: <History size={35} />,
         navigateTo: "/services",
+        show: user && (user as IUserResponse).role === "customer",
+      },
+      {
+        title: "Profile",
+        icon: <IconUserSquareRounded size={35} />,
+        navigateTo: "/profile",
         show: user && (user as IUserResponse).role === "customer",
       },
       {

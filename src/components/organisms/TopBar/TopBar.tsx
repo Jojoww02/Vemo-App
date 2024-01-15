@@ -76,12 +76,6 @@ export default function TopBar() {
 
   const sideBarItem = [
     {
-      title: "Profile",
-      icon: <IconUserSquareRounded size={35} />,
-      path: PROFILE_PAGE,
-      show: user && (user as IUserResponse).role === "customer",
-    },
-    {
       title: "Dashboard",
       icon: <IconLayoutDashboard size={35} />,
       path: DASHBOARD_PAGE,
@@ -91,6 +85,12 @@ export default function TopBar() {
       title: "Services",
       icon: <History size={35} />,
       path: SERVICES_PAGE,
+      show: user && (user as IUserResponse).role === "customer",
+    },
+    {
+      title: "Profile",
+      icon: <IconUserSquareRounded size={35} />,
+      path: PROFILE_PAGE,
       show: user && (user as IUserResponse).role === "customer",
     },
     {
