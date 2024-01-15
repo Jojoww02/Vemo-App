@@ -45,7 +45,7 @@ export default function AdminDetailsMaintenanceVehiclePage() {
   }, [isSuccessPaste, setIsSuccessPaste]);
 
   const handlePasteClick = () => {
-    const ticketValue = maintenanceVehicle?.maintenanceVehicle.contact || "";
+    const ticketValue = maintenanceVehicle?.maintenanceVehicle.ticket || "";
     navigator.clipboard.writeText(ticketValue.toUpperCase());
     setIsSuccessPaste(true);
   };
