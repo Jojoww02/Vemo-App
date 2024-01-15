@@ -55,9 +55,9 @@ export default function AdminDetailsMaintenanceVehiclePage() {
     queryFn: async () => await getVehicleByIdFn(vehicleId),
   });
 
-  const { data: user } = useQuery<IUserResponse, Error>({
+  const { data: user, isSuccess } = useQuery<IUserResponse, Error>({
     queryKey: ["vehicleUser", vehicle?.userId],
-    queryFn: async () => await getUserByIdFn(vehicle?.userId),
+    queryFn: async () => await getUserByIdFn(vehicle?.userId || ""),
   });
 
   const { data: maintenanceVehicle } = useQuery<
@@ -110,7 +110,8 @@ export default function AdminDetailsMaintenanceVehiclePage() {
                     </h1>
                     <span className="flex gap-2 items-center">
                       <p className="text-lg text-dark font-semibold uppercase">
-                        {maintenanceVehicle?.maintenanceVehicle.ticket}
+                        {isSuccess &&
+                          maintenanceVehicle?.maintenanceVehicle?.ticket}
                       </p>
                       <Tooltip text={"Berhasil menyalin"} open={isSuccessPaste}>
                         {isSuccessPaste ? (
@@ -184,7 +185,10 @@ export default function AdminDetailsMaintenanceVehiclePage() {
                 <div className="w-full">
                   <h1 className="font-medium">Catatan :</h1>
                   <div className="bg-gray-400/25 rounded-lg h-40 w-full p-2 text-dark">
-                    <p>{maintenanceVehicle?.maintenanceVehicle.description}</p>
+                    <p>
+                      {isSuccess &&
+                        maintenanceVehicle?.maintenanceVehicle?.description}
+                    </p>
                   </div>
                 </div>
               </div>
@@ -192,7 +196,10 @@ export default function AdminDetailsMaintenanceVehiclePage() {
                 <IconAddressBook size={30} />
                 <div>
                   <h1 className="font-medium">Kontak yang bisa dihubungi :</h1>
-                  <p>{maintenanceVehicle?.maintenanceVehicle.contact}</p>
+                  <p>
+                    {isSuccess &&
+                      maintenanceVehicle?.maintenanceVehicle?.contact}
+                  </p>
                 </div>
               </div>
             </div>
@@ -201,28 +208,30 @@ export default function AdminDetailsMaintenanceVehiclePage() {
       </div>
       <Separator className="mt-7" />
       <div className="flex flex-wrap mx-auto items-center md:w-[70%] lg:w-full lg:justify-evenly pt-5 gap-2">
-        {maintenanceVehicle?.maintenanceParts.map((maintenancePart) =>
-          conditionParts
-            ?.filter((x) => x.partId === maintenancePart.partId)
-            .map((requestPart) => (
-              <PartVehicleCard
-                key={requestPart.partId}
-                conditiondata={requestPart}
-                maintenancePartData={maintenancePart}
-                maintenanceVehicleData={maintenanceVehicle.maintenanceVehicle}
-                checked={false}
-                onCheckboxChange={() => {}}
-                isCheck={vehicle?.maintenanceStatus !== "requested"}
-                isAdmin={true}
-                isEdit={
-                  maintenanceVehicle.maintenanceVehicle.status === "service"
-                }
-              />
-            ))
-        )}
+        {isSuccess &&
+          maintenanceVehicle?.maintenanceParts?.map((maintenancePart) =>
+            conditionParts
+              ?.filter((x) => x.partId === maintenancePart.partId)
+              .map((requestPart) => (
+                <PartVehicleCard
+                  key={requestPart.partId}
+                  conditiondata={requestPart}
+                  maintenancePartData={maintenancePart}
+                  maintenanceVehicleData={maintenanceVehicle.maintenanceVehicle}
+                  checked={false}
+                  onCheckboxChange={() => {}}
+                  isCheck={vehicle?.maintenanceStatus !== "requested"}
+                  isAdmin={true}
+                  isEdit={
+                    maintenanceVehicle.maintenanceVehicle.status === "service"
+                  }
+                />
+              ))
+          )}
       </div>
       <div className="my-10">
-        {maintenanceVehicle?.maintenanceVehicle.status === "requested" ? (
+        {isSuccess &&
+        maintenanceVehicle?.maintenanceVehicle?.status === "requested" ? (
           <div className="text-center flex mt-4 mb-10 gap-10">
             <Button className="w-1/2 py-6 bg-red-400 hover:bg-red-400/80">
               Tolak Service

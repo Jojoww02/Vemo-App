@@ -46,25 +46,39 @@ export default function AdminDashboardPage() {
   const [columnVisibility, setColumnVisibility] =
     React.useState<VisibilityState>({});
   const [rowSelection, setRowSelection] = React.useState({});
+  const [data, setData] = React.useState<IVehicleResponse[]>([]);
+
   const navigate = useNavigate();
 
-  const { data: requestedVehicles, isSuccess } = useQuery({
+  const { data: requestedVehicles, isSuccess: isSuccessRequested } = useQuery({
     queryKey: ["vehicles", "requested"],
     queryFn: async (): Promise<IVehicleResponse[]> =>
       await getVehiclesByMaintenancesStatusFn("requested"),
   });
 
-  const { data: serviceVehicles } = useQuery({
+  const { data: serviceVehicles, isSuccess: isSuccessService } = useQuery({
     queryKey: ["vehicles", "service"],
     queryFn: async (): Promise<IVehicleResponse[]> =>
       await getVehiclesByMaintenancesStatusFn("service"),
   });
 
-  let data: IVehicleResponse[] = [];
-
-  if (isSuccess) {
-    data = (requestedVehicles ?? []).concat(serviceVehicles ?? []);
-  }
+  React.useEffect(() => {
+    if (
+      isSuccessRequested &&
+      isSuccessService &&
+      requestedVehicles &&
+      serviceVehicles
+    ) {
+      setData([...requestedVehicles, ...serviceVehicles]);
+    } else {
+      setData([]);
+    }
+  }, [
+    isSuccessRequested,
+    isSuccessService,
+    requestedVehicles,
+    serviceVehicles,
+  ]);
 
   const columns: ColumnDef<IVehicleResponse>[] = [
     {
@@ -175,18 +189,16 @@ export default function AdminDashboardPage() {
         const vehicle = row.original;
 
         return (
-          <DropdownMenu>
-            <div
-              className="cursor-pointer"
-              onClick={() =>
-                navigate(
-                  ADMIN_DETAILS_MAINTENANCE_VEHICLE_PAGE(vehicle.vehicleId)
-                )
-              }
-            >
-              <ArrowRightCircle />
-            </div>
-          </DropdownMenu>
+          <div
+            className="cursor-pointer"
+            onClick={() =>
+              navigate(
+                ADMIN_DETAILS_MAINTENANCE_VEHICLE_PAGE(vehicle.vehicleId)
+              )
+            }
+          >
+            <ArrowRightCircle />
+          </div>
         );
       },
     },
