@@ -16,7 +16,10 @@ import { format } from "date-fns";
 import { id } from "date-fns/locale";
 import { useNavigate, useParams } from "react-router-dom";
 import { Button, VehicleIcon } from "@/components/atoms";
-import { VEHICLE_PARTS_PAGE } from "@/lib/constants/routes";
+import {
+  VEHICLE_PARTS_PAGE,
+  VEHICLE_SERVICES_DETAILS_PAGE,
+} from "@/lib/constants/routes";
 import DetailVehicleCard from "@/components/molecules/DetailVehicleCard";
 import { ChevronsDown } from "lucide-react";
 
@@ -49,8 +52,6 @@ export default function VehicleDetailsPage() {
     queryFn: async (): Promise<IMaintenanceVehicle[]> =>
       await getMaintenancesByUserIdFn((user as IUserResponse).userId),
   });
-
-  console.log(historyServices);
 
   return (
     <>
@@ -140,13 +141,13 @@ export default function VehicleDetailsPage() {
                 </TabsContent>
                 <TabsContent value="history">
                   <div className="text-start pl-6 mt-5">
-                    <div className="flex flex-col">
+                    <div className="flex flex-col w-full">
                       <h1 className="list-disc text-xl pt-5 p font-bold sm:text-2xl">
                         Riwayat Service
                       </h1>
                       <ul className="list-disc text-base pt-5 px-2 font-light sm:text-lg">
-                        {isHistorySuccess &&
-                          (historyServices as IMaintenanceVehicle[])
+                        {isHistorySuccess && historyServices.filter((x) => x.vehicleId === vehicleId).length > 0 ? (
+                          historyServices
                             .filter((x) => x.vehicleId === vehicleId)
                             .map((history) => (
                               <li
@@ -160,14 +161,27 @@ export default function VehicleDetailsPage() {
                                     locale: id,
                                   }
                                 )}
-                                -{" "}
+                                {" "}
+                                -
+                                {" "}
                                 <span
                                   className="text-primary cursor-pointer"
+                                  onClick={() =>
+                                    navigate(
+                                      VEHICLE_SERVICES_DETAILS_PAGE(
+                                        vehicleId,
+                                        history.id
+                                      )
+                                    )
+                                  }
                                 >
                                   Lihat Detail
                                 </span>
                               </li>
-                            ))}
+                            ))
+                        ) : (
+                          <p className="font-medium text-primary text-xl text-center mt-14">Belum ada data</p>
+                        )}
                       </ul>
                     </div>
                   </div>
