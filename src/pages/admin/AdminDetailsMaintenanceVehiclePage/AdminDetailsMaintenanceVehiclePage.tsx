@@ -147,6 +147,7 @@ export default function AdminDetailsMaintenanceVehiclePage() {
     queryClient.invalidateQueries({
       queryKey: ["maintenanceVehicle", vehicleId],
     });
+    
 
   vehicleDone.isSuccess && navigate(`${ADMIN_PAGE}/maintenances/`);
   vehicleCancel.isSuccess && navigate(`${ADMIN_PAGE}/maintenances/`);
@@ -222,7 +223,7 @@ export default function AdminDetailsMaintenanceVehiclePage() {
                   <AvatarImage src={`/PhotoProfile/${user?.photo}`} />
                   <AvatarFallback>
                     <img src="/user-profile-icon.svg" alt="" />
-                  </AvatarFallback>
+                  </AvatarFallback> 
                 </Avatar>
                 <div className="ml-5">
                   <p>{(user as IUserResponse)?.name}</p>

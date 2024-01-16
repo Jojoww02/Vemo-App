@@ -1,35 +1,66 @@
 import {
   getMaintenancesByUserIdFn,
+  getMaintenancesVehiclesByVehicleIdFn,
   getVehicleByIdFn,
   getVehiclePartsConditionFn,
 } from "@/api/services/vehicle";
 import {
   IConditionParts,
   IMaintenanceVehicle,
+  IMaintenanceVehicleResponse,
   IUserResponse,
   IVehicleResponse,
 } from "@/api/types";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { IconBike, IconCalendarEvent, IconUser } from "@tabler/icons-react";
+import {
+  IconAutomaticGearbox,
+  IconBike,
+  IconCalendarEvent,
+  IconCheck,
+  IconUser,
+} from "@tabler/icons-react";
 import { useQuery } from "@tanstack/react-query";
 import { format } from "date-fns";
 import { id } from "date-fns/locale";
 import { useNavigate, useParams } from "react-router-dom";
-import { Button, VehicleIcon } from "@/components/atoms";
+import { Button, Tooltip, VehicleIcon } from "@/components/atoms";
 import {
   VEHICLE_PARTS_PAGE,
   VEHICLE_SERVICES_DETAILS_PAGE,
 } from "@/lib/constants/routes";
 import DetailVehicleCard from "@/components/molecules/DetailVehicleCard";
 import { ChevronsDown } from "lucide-react";
+import { IconTicket } from "@tabler/icons-react";
+import { IconClipboard } from "@tabler/icons-react";
+import React from "react";
+import { IconManualGearbox } from "@tabler/icons-react";
 
 export default function VehicleDetailsPage() {
+  const [isSuccessPaste, setIsSuccessPaste] = React.useState(false);
   const { vehicleId } = useParams();
   const navigate = useNavigate();
 
   const validVehicleId = vehicleId || "";
 
   const { data: user } = useQuery({ queryKey: ["me"] });
+
+  React.useEffect(() => {
+    isSuccessPaste && setTimeout(() => setIsSuccessPaste(false), 500);
+  }, [isSuccessPaste, setIsSuccessPaste]);
+
+  const { data: maintenanceVehicle } = useQuery<
+    IMaintenanceVehicleResponse,
+    Error
+  >({
+    queryKey: ["maintenanceVehicle", vehicleId],
+    queryFn: async () => await getMaintenancesVehiclesByVehicleIdFn(vehicleId),
+  });
+
+  const handlePasteClick = () => {
+    const ticketValue = maintenanceVehicle?.maintenanceVehicle.ticket || "";
+    navigator.clipboard.writeText(ticketValue.toUpperCase());
+    setIsSuccessPaste(true);
+  };
 
   const { data: vehicle, isSuccess: isVehicleSuccess } = useQuery<
     IVehicleResponse,
@@ -52,6 +83,8 @@ export default function VehicleDetailsPage() {
     queryFn: async (): Promise<IMaintenanceVehicle[]> =>
       await getMaintenancesByUserIdFn((user as IUserResponse).userId),
   });
+
+  console.log();
 
   return (
     <>
@@ -94,40 +127,91 @@ export default function VehicleDetailsPage() {
                     <h1 className="font-semibold text-xl sm:text-2xl">
                       <a href="#parts">Informasi Kendaraan</a>
                     </h1>
-                    <div className="flex flex-col gap-2">
-                      <div className="flex gap-2">
-                        <IconUser />
-                        <h4 className="text-lg lg:text-xl">Nama Pengguna :</h4>
+                    {maintenanceVehicle?.maintenanceVehicle.status && (
+
+                    <div className="flex gap-5">
+                      <IconTicket size={30} />
+                      <div>
+                        <h1 className="font-medium text-xl text-gray-500">
+                          Tiket Perawatan
+                        </h1>
+                        <span className="flex gap-2 items-center">
+                          <p className="text-base text-dark font-semibold uppercase">
+                            {maintenanceVehicle?.maintenanceVehicle.ticket}
+                          </p>
+                          <Tooltip
+                            text={"Berhasil menyalin"}
+                            open={isSuccessPaste}
+                          >
+                            {isSuccessPaste ? (
+                              <IconCheck
+                                size={20}
+                                className="text-gray-600 cursor-pointer"
+                              />
+                            ) : (
+                              <IconClipboard
+                                size={20}
+                                className="text-gray-600 cursor-pointer"
+                                onClick={handlePasteClick}
+                              />
+                            )}
+                          </Tooltip>
+                        </span>
                       </div>
-                      <div className="text-lg">
-                        {isVehicleSuccess &&
-                          (vehicle as IVehicleResponse).ownerName}
+                    </div>
+                    )}
+                    <div className="flex flex-col gap-2">
+                      <div className="flex gap-5">
+                        <IconBike size={30} />
+                        <div>
+                          <h1 className="font-medium text-xl text-gray-500">
+                            Nama Pengguna :
+                          </h1>
+                          <p className="text-base text-dark font-semibold">
+                            {isVehicleSuccess &&
+                              (vehicle as IVehicleResponse).ownerName}
+                          </p>
+                        </div>
                       </div>
                     </div>
                     <div className="flex flex-col gap-2">
-                      <div className="flex gap-2">
-                        <IconBike />
-                        <h4 className="text-lg lg:text-xl">
-                          Nama Kendaraan Dan Tipe :
-                        </h4>
+                      <div className="flex gap-5">
+                        <IconBike size={30} />
+                        <div>
+                          <h1 className="font-medium text-xl text-gray-500">
+                            Nama Kendaraan
+                          </h1>
+                          <p className="text-base text-dark font-semibold">
+                            {(vehicle as IVehicleResponse)?.vehicleName}
+                          </p>
+                        </div>
                       </div>
-                      <div className="text-lg">
-                        {isVehicleSuccess &&
-                          (vehicle as IVehicleResponse).vehicleName}{" "}
-                        |{" "}
-                        {isVehicleSuccess &&
-                          (vehicle as IVehicleResponse).vehicleType}
+
+                      <div className="flex gap-5">
+                        {(vehicle as IVehicleResponse)?.vehicleType ===
+                        "matic" ? (
+                          <IconAutomaticGearbox size={30} />
+                        ) : (
+                          <IconManualGearbox size={30} />
+                        )}
+                        <div>
+                          <h1 className="font-medium text-xl text-gray-500">
+                            Tipe Kendaraan
+                          </h1>
+                          <p className="text-base text-dark font-semibold capitalize">
+                            {(vehicle as IVehicleResponse)?.vehicleType}
+                          </p>
+                        </div>
                       </div>
                     </div>
-                    <div className="flex flex-col gap-2">
-                      <div className="flex gap-2">
-                        <IconCalendarEvent />
-                        <h4 className="text-lg lg:text-xl">
+                    <div className="flex gap-5">
+                        <IconBike size={30} />
+                        <div>
+                          <h1 className="font-medium text-xl text-gray-500">
                           Tanggal Kendaraan Dibeli :
-                        </h4>
-                      </div>
-                      <div className="text-lg">
-                        {isVehicleSuccess &&
+                          </h1>
+                          <p className="text-base text-dark font-semibold">
+                          {isVehicleSuccess &&
                           format(
                             new Date(
                               (vehicle as IVehicleResponse).purchasingDate
@@ -135,8 +219,9 @@ export default function VehicleDetailsPage() {
                             "dd MMMM yyyy",
                             { locale: id }
                           )}
+                          </p>
+                        </div>
                       </div>
-                    </div>
                   </div>
                 </TabsContent>
                 <TabsContent value="history">
@@ -146,7 +231,9 @@ export default function VehicleDetailsPage() {
                         Riwayat Service
                       </h1>
                       <ul className="list-disc text-base pt-5 px-2 font-light sm:text-lg">
-                        {isHistorySuccess && historyServices.filter((x) => x.vehicleId === vehicleId).length > 0 ? (
+                        {isHistorySuccess &&
+                        historyServices.filter((x) => x.vehicleId === vehicleId)
+                          .length > 0 ? (
                           historyServices
                             .filter((x) => x.vehicleId === vehicleId)
                             .map((history) => (
@@ -160,10 +247,8 @@ export default function VehicleDetailsPage() {
                                   {
                                     locale: id,
                                   }
-                                )}
-                                {" "}
-                                -
-                                {" "}
+                                )}{" "}
+                                -{" "}
                                 <span
                                   className="text-primary cursor-pointer"
                                   onClick={() =>
@@ -180,7 +265,9 @@ export default function VehicleDetailsPage() {
                               </li>
                             ))
                         ) : (
-                          <p className="font-medium text-primary text-xl text-center mt-14">Belum ada data</p>
+                          <p className="font-medium text-primary text-xl text-center mt-14">
+                            Belum ada data
+                          </p>
                         )}
                       </ul>
                     </div>
