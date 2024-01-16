@@ -15,9 +15,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import {
   IconAutomaticGearbox,
   IconBike,
-  IconCalendarEvent,
   IconCheck,
-  IconUser,
 } from "@tabler/icons-react";
 import { useQuery } from "@tanstack/react-query";
 import { format } from "date-fns";
