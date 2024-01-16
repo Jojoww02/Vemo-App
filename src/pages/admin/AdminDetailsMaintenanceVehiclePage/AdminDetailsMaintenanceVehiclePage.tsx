@@ -6,14 +6,21 @@ import {
 } from "@/api/services/vehicle";
 import {
   IConditionParts,
-  IMaintenanceByStatus,
   IMaintenanceVehicleResponse,
   IUserResponse,
   IVehicleResponse,
 } from "@/api/types";
-import { Button, Tooltip } from "@/components/atoms";
+import { Button, Input, Tooltip } from "@/components/atoms";
 import PartVehicleCard from "@/components/molecules/PartVehicleCard";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
 import { Separator } from "@/components/ui/separator";
 import useMutateVehicle from "@/hooks/mutations/useMutateVehicle";
 import {
@@ -28,17 +35,22 @@ import { IconAddressBook } from "@tabler/icons-react";
 import { IconBike } from "@tabler/icons-react";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import React from "react";
-import { useForm } from "react-hook-form";
-import { useParams } from "react-router-dom";
+import { FormProvider, useForm } from "react-hook-form";
+import { useNavigate, useParams } from "react-router-dom";
 
 export default function AdminDetailsMaintenanceVehiclePage() {
   const { vehicleId } = useParams();
   const [isSuccessPaste, setIsSuccessPaste] = React.useState(false);
+  const ADMIN_PAGE = "/admin";
+  const navigate = useNavigate();
 
   const queryClient = useQueryClient();
-  const methods = useForm<IMaintenanceByStatus>();
+  const methods = useForm<{description: string}>();
 
   const { vehicleByStatus, partPrice } = useMutateVehicle();
+
+  const { vehicleDone } = useMutateVehicle();
+  const { vehicleCancel } = useMutateVehicle();
 
   React.useEffect(() => {
     isSuccessPaste && setTimeout(() => setIsSuccessPaste(false), 500);
@@ -80,6 +92,48 @@ export default function AdminDetailsMaintenanceVehiclePage() {
     });
   };
 
+  const handleDoneClick = async () => {
+    const maintenanceVehicleId = maintenanceVehicle?.maintenanceVehicle.id;
+    const maintenanceParts = maintenanceVehicle?.maintenanceParts;
+
+    const maintenancePartIds: string[] =
+      maintenanceParts?.map((part) => part.id) || [];
+
+    await vehicleDone.mutateAsync({
+      maintenanceVehicleId: maintenanceVehicleId,
+      maintenancePartIds,
+    });
+  };
+
+  const handleDeclineVehicle = async ({description}: {description:string}) => {
+    // Assuming maintenanceVehicle is already declared and holds the necessary data
+    const maintenanceVehicleId = maintenanceVehicle?.maintenanceVehicle.id;
+
+    if (maintenanceVehicleId) {
+      await vehicleCancel.mutateAsync({
+        maintenanceVehicleId,
+        status: "decline",
+        description
+      });
+    } else {
+      console.error("maintenanceVehicleId is undefined");
+    }
+  };
+  const handleCancelVehicle = async ({description}: {description:string}) => {
+    // Assuming maintenanceVehicle is already declared and holds the necessary data
+    const maintenanceVehicleId = maintenanceVehicle?.maintenanceVehicle.id;
+
+    if (maintenanceVehicleId) {
+      await vehicleCancel.mutateAsync({
+        maintenanceVehicleId,
+        status: "cancel",
+        description,
+      });
+    } else {
+      console.error("maintenanceVehicleId is undefined");
+    }
+  };
+
   if (vehicleByStatus.isSuccess) {
     queryClient.invalidateQueries({
       queryKey: ["vehicle", vehicleId],
@@ -93,6 +147,9 @@ export default function AdminDetailsMaintenanceVehiclePage() {
     queryClient.invalidateQueries({
       queryKey: ["maintenanceVehicle", vehicleId],
     });
+
+  vehicleDone.isSuccess && navigate(`${ADMIN_PAGE}/maintenances/`);
+  vehicleCancel.isSuccess && navigate(`${ADMIN_PAGE}/maintenances/`);
 
   return (
     <div className="w-full px-3">
@@ -111,7 +168,7 @@ export default function AdminDetailsMaintenanceVehiclePage() {
                     <span className="flex gap-2 items-center">
                       <p className="text-lg text-dark font-semibold uppercase">
                         {isSuccess &&
-                          maintenanceVehicle?.maintenanceVehicle?.ticket}
+                          maintenanceVehicle?.maintenanceVehicle.ticket}
                       </p>
                       <Tooltip text={"Berhasil menyalin"} open={isSuccessPaste}>
                         {isSuccessPaste ? (
@@ -233,9 +290,42 @@ export default function AdminDetailsMaintenanceVehiclePage() {
         {isSuccess &&
         maintenanceVehicle?.maintenanceVehicle?.status === "requested" ? (
           <div className="text-center flex mt-4 mb-10 gap-10">
-            <Button className="w-1/2 py-6 bg-red-400 hover:bg-red-400/80">
-              Tolak Service
-            </Button>
+            <Dialog>
+              <DialogTrigger asChild>
+                <Button className="w-1/2 py-6 bg-red-400 hover:bg-red-400/80">
+                  Tolak Service
+                </Button>
+              </DialogTrigger>
+              <DialogContent className="w-4/5">
+                <DialogHeader className="flex flex-col items-center justify-center">
+                  <DialogTitle className="text-2xl font-semibold">
+                    Mengedit
+                  </DialogTitle>
+                  <DialogDescription className="text-center">
+                    Alasan kenapa menolak kendaraan 
+                  </DialogDescription>
+                </DialogHeader>
+                <FormProvider {...methods}>
+                  <form
+                    onSubmit={methods.handleSubmit(handleDeclineVehicle)}
+                    className="flex flex-col justify-center"
+                  >
+                    <Input
+                      name="description"
+                      label="Alasannya kenapa"
+                      placeholder="Masukan catatan disini..."
+                      type="textarea"
+                      className="h-24"
+                    />
+                    <div className="flex justify-center mt-10 w-full">
+                      <Button type="submit" className="text-base">
+                        Kirim
+                      </Button>
+                    </div>
+                  </form>
+                </FormProvider>
+              </DialogContent>
+            </Dialog>
             <Button
               className="w-1/2 py-6"
               onClick={methods.handleSubmit(handleDeleteOptionClick)}
@@ -245,13 +335,49 @@ export default function AdminDetailsMaintenanceVehiclePage() {
           </div>
         ) : (
           <div className="text-center flex mt-4 mb-10 gap-10">
-            <Button
-              className="w-1/2 py-6 bg-red-400 hover:bg-red-400/80"
-              onClick={methods.handleSubmit(handleDeleteOptionClick)}
-            >
-              Batalkan Service
+            <Dialog>
+              <DialogTrigger asChild>
+                <Button
+                  className="w-1/2 py-6 bg-red-400 hover:bg-red-400/80"
+                  // onClick={methods.handleSubmit(handleDeleteOptionClick)}
+                >
+                  Batalkan Service
+                </Button>
+              </DialogTrigger>
+              <DialogContent className="w-4/5">
+                <DialogHeader className="flex flex-col items-center justify-center">
+                  <DialogTitle className="text-2xl font-semibold">
+                    Mengedit
+                  </DialogTitle>
+                  <DialogDescription className="text-center">
+                    Alasan kenapa Membatalkan kendaraan 
+                  </DialogDescription>
+                </DialogHeader>
+                <FormProvider {...methods}>
+                  <form
+                    onSubmit={methods.handleSubmit(handleCancelVehicle)}
+                    className="flex flex-col justify-center"
+                  >
+                    <Input
+                      name="description"
+                      label="Alasannya kenapa"
+                      placeholder="Masukan catatan disini..."
+                      type="textarea"
+                      className="h-24"
+                    />
+                    <div className="flex justify-center mt-10 w-full">
+                      <Button type="submit" className="text-base">
+                        Kirim
+                      </Button>
+                    </div>
+                  </form>
+                </FormProvider>
+              </DialogContent>
+            </Dialog>
+
+            <Button className="w-1/2 py-6" onClick={handleDoneClick}>
+              Selesai Service
             </Button>
-            <Button className="w-1/2 py-6">Selesai Service</Button>
           </div>
         )}
       </div>

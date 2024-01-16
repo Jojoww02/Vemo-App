@@ -3,12 +3,16 @@ import {
   getPartByVehicleIdFn,
   patchMaintenaceByPriceFn,
   patchMaintenanceByStatusFn,
+  postMaintenancesVehiclesCancelFn,
+  postMaintenancesVehiclesDoneFn,
   registerVehicleFn,
   requestMaintenanceFn,
 } from "@/api/services/vehicle";
 import {
+  IMaintenamceVehicleDone,
   IMaintenanceByStatus,
   IMaintenancePrice,
+  IMaintenanceVehicleCancel,
   IRequestMaintenance,
   IVehicle,
 } from "@/api/types";
@@ -44,6 +48,16 @@ export default function useMutateVehicle() {
     partPrice: useMutation({
       mutationFn: async (price: IMaintenancePrice) => {
         await patchMaintenaceByPriceFn(price);
+      },
+    }),
+    vehicleDone: useMutation({
+      mutationFn: async (done: IMaintenamceVehicleDone) => {
+        await postMaintenancesVehiclesDoneFn(done);
+      },
+    }),
+    vehicleCancel: useMutation({
+      mutationFn: async (cancel: IMaintenanceVehicleCancel) => {
+        await postMaintenancesVehiclesCancelFn(cancel);
       },
     }),
   };

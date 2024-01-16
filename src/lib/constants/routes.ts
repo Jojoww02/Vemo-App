@@ -67,6 +67,8 @@ export const GET_MAINTENANCE_BY_VEHICLEID_SERVICE = (userId: string | undefined)
 export const GET_MAINTENANCE_BY_VEHICLEID_DETAILS_SERVICE = (maintenanceId: string | undefined) => `vehicles/maintenances/details/${maintenanceId}`;
 export const PATCH_MAINTENANCES_VEHICLE_BY_STATUS_SERVICE = '/vehicles/maintenances/status';
 export const PATCH_MAINTENANCES_PART_PRICE_SERVICE = '/vehicles/maintenances/part/price';
+export const POST_VEHICLES_MAINTENANCES_DONE_SERVICE = '/vehicles/maintenance/done'
+export const POST_VEHICLE_MAINTENANCE_CANCEL_SERVICE = '/vehicles/maintenance/cancel'
 
 /* NOTIFICATION SERVICE */
 export const GET_NOTIFICATIONS_SERVICE = "notifications";

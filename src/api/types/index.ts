@@ -160,3 +160,14 @@ export interface IMaintenancePrice {
   maintenancePartId: string | undefined;
   newPrice: number;
 }
+
+export interface IMaintenamceVehicleDone {
+  maintenanceVehicleId: string | undefined;
+  maintenancePartIds: string[];
+}
+
+export interface IMaintenanceVehicleCancel {
+  maintenanceVehicleId: string;
+  status: string;
+  description: string;
+}
