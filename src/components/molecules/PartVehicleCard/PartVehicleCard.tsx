@@ -18,7 +18,7 @@ import { IconEditCircle } from "@tabler/icons-react";
 import { FormProvider, useForm } from "react-hook-form";
 
 interface PartVehicleCardProps {
-  conditiondata?: IConditionParts;
+  conditiondata: IConditionParts;
   maintenancePartData?: IMaintenanceParts;
   maintenanceVehicleData?: IMaintenanceVehicle;
   checked?: boolean;
