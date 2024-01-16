@@ -105,7 +105,7 @@ export default function ServicesHistoryPage() {
         const maintenance = row.original;
         return (
           <DropdownMenu>
-            <div className="cursor-pointer" onClick={() => navigate(VEHICLE_SERVICES_DETAILS_PAGE(maintenance.id))}>
+            <div className="cursor-pointer" onClick={() => navigate(VEHICLE_SERVICES_DETAILS_PAGE(maintenance.vehicleId, maintenance.id))}>
               <p className="text-primary font-medium text-sm hover:underline">Lihat detail</p>
             </div>
           </DropdownMenu>
@@ -137,9 +137,9 @@ export default function ServicesHistoryPage() {
     <div className="w-full">
       <div className="flex items-center py-4">
         <Input
-          placeholder="Cari Kendaraan..."
-          value={(table.getColumn("vehicleName")?.getFilterValue() as string) ?? ""}
-          onChange={(event) => table.getColumn("vehicleName")?.setFilterValue(event.target.value)}
+          placeholder="Cari Status Kendaraan..."
+          value={(table.getColumn("status")?.getFilterValue() as string) ?? ""}
+          onChange={(event) => table.getColumn("status")?.setFilterValue(event.target.value)}
           className="max-w-sm"
         />
       </div>

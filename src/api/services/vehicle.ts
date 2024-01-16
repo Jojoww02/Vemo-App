@@ -72,7 +72,7 @@ export const getMaintenancesByUserIdFn = async (userId: string | undefined): Pro
   return response.data;
 };
 
-export const getMaintenancesDetailByMaintenanceIdFn = async (maintenanceId: string | undefined): Promise<IMaintenanceVehicle> => {
-  const response = await privateApi.get<IMaintenanceVehicle>(API.GET_MAINTENANCE_BY_VEHICLEID_DETAILS_SERVICE(maintenanceId));
+export const getMaintenancesDetailByMaintenanceIdFn = async (maintenanceId: string | undefined): Promise<IMaintenanceVehicleResponse> => {
+  const response = await privateApi.get<IMaintenanceVehicleResponse>(API.GET_MAINTENANCE_BY_VEHICLEID_DETAILS_SERVICE(maintenanceId));
   return response.data;
 };

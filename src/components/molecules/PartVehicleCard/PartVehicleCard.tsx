@@ -18,14 +18,14 @@ import { IconEditCircle } from "@tabler/icons-react";
 import { FormProvider, useForm } from "react-hook-form";
 
 interface PartVehicleCardProps {
-  conditiondata: IConditionParts;
+  conditiondata?: IConditionParts;
   maintenancePartData?: IMaintenanceParts;
   maintenanceVehicleData?: IMaintenanceVehicle;
-  checked: boolean;
-  onCheckboxChange: () => void;
-  isCheck: boolean;
-  isAdmin: boolean;
-  isEdit: boolean;
+  checked?: boolean;
+  onCheckboxChange?: () => void;
+  isCheck?: boolean;
+  isAdmin?: boolean;
+  isEdit?: boolean;
 }
 
 export default function PartVehicleCard(props: PartVehicleCardProps) {
@@ -46,7 +46,7 @@ export default function PartVehicleCard(props: PartVehicleCardProps) {
   const onSubmitHandlerDate = (value: { editMaintenanceDate: Date }) => {
     console.log({
       editMaintenanceDate: new Date(value.editMaintenanceDate).toISOString(),
-      partId: conditiondata.partId,
+      partId: conditiondata?.partId,
     });
   };
 
@@ -61,13 +61,13 @@ export default function PartVehicleCard(props: PartVehicleCardProps) {
   return (
     <div className="w-full relative flex xl:w-[30rem] h-[6.7rem] xl:h-[7rem] xl:px-5 xl:p-2 px-2 p-2 my-2 rounded-[0.50rem] bg-white shadow-[0px_2px_7px_5px_#00000040] cursor-pointer">
       <img
-        src={`/${conditiondata.partName?.toLowerCase()}.svg`}
+        src={`/${conditiondata?.partName?.toLowerCase()}.svg`}
         alt=""
         className="w-16 xs:w-20 sm:w-24 md:w-28"
       />
       <div className="relative flex flex-col justify-center px-5 w-full font-semibold text-dark">
         <h1 className="text-[0.9rem] sm:text-lg md:text-xl">
-          {conditiondata.partName} Motor
+          {conditiondata?.partName} Motor
         </h1>
         {isAdmin ? (
           <div className="font-normal text-[1rem] ">
@@ -76,14 +76,14 @@ export default function PartVehicleCard(props: PartVehicleCardProps) {
           </div>
         ) : (
           <p className="font-normal text-[0.8rem] sm:text-lg xl:text-lg">
-            Kondisi {conditiondata.partName} Motor
+            Kondisi {conditiondata?.partName} Motor
           </p>
         )}
         {isCheck && (
           <div className="flex gap-4 items-center absolute top-1 right-8">
-            {!isAdmin && conditiondata.condition <= 60 && (
+            {!isAdmin && conditiondata?.condition <= 60 && (
               <Checkbox
-                id={`checkbox-${conditiondata.partId}`}
+                id={`checkbox-${conditiondata?.partId}`}
                 onCheckedChange={onCheckboxChange}
                 checked={checked}
                 className="w-6 h-6 md:w-8 md:h-8"
@@ -120,7 +120,7 @@ export default function PartVehicleCard(props: PartVehicleCardProps) {
                         placeholder="silahkan edit"
                         name="editMaintenanceDate"
                         label="Edit"
-                        id={conditiondata.partId}
+                        id={conditiondata?.partId}
                       />
                       <div className="flex justify-center mt-10 w-full">
                         <Button type="submit" className="text-base">
@@ -159,7 +159,7 @@ export default function PartVehicleCard(props: PartVehicleCardProps) {
                         placeholder="Silahkan masukan harga baru"
                         name="newPrice"
                         label="Perbarui harga"
-                        id={conditiondata.partId}
+                        id={conditiondata?.partId}
                       />
                       <div className="flex justify-center mt-10 w-full">
                         <Button type="submit" className="text-base">
@@ -178,17 +178,17 @@ export default function PartVehicleCard(props: PartVehicleCardProps) {
           <div className="w-full h-2 bg-slate-600 rounded-full">
             <div
               className={`h-2 rounded-full ${
-                conditiondata.condition <= 30
+                conditiondata?.condition <= 30
                   ? "bg-red-400"
-                  : conditiondata.condition <= 60
+                  : conditiondata?.condition <= 60
                   ? "bg-yellow-400"
                   : "bg-green-400"
               }`}
-              style={{ width: `${conditiondata.condition?.toString()}%` }}
+              style={{ width: `${conditiondata?.condition?.toString()}%` }}
             ></div>
           </div>
           <p className="font-normal xl:text-lg text-sm px-2">
-            {conditiondata.condition}%
+            {conditiondata?.condition}%
           </p>
         </div>
       </div>
