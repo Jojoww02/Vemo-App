@@ -1,6 +1,6 @@
 import { NotificationIcon } from "@/components/atoms";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { History, Info, Loader2, Menu, Wrench } from "lucide-react";
+import { Cog, History, Info, Loader2, Menu, Wrench } from "lucide-react";
 import {
   IconLayoutDashboard,
   IconSquareRoundedChevronLeftFilled,
@@ -117,6 +117,12 @@ export default function TopBar() {
       path: `${ADMIN_PAGE}/maintenances`,
       show: user && (user as IUserResponse).role === "admin",
     },
+    {
+      title: "Part Maintenance",
+      icon: <Cog size={35} />,
+      path: `${ADMIN_PAGE}/part`,
+      show: user && (user as IUserResponse).role === "admin",
+    },
   ];
 
   if (isVehicleListEnabled) {
@@ -140,6 +146,8 @@ export default function TopBar() {
         return "Pending Vehicles";
       case "/admin/maintenances":
         return "Requested Maintenance";
+      case "/admin/part":
+        return "Part Maintenance";
       default:
         return "Dashboard";
     }

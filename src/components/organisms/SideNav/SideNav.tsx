@@ -3,7 +3,7 @@ import { IconLogout2, IconUserSquareRounded, IconSquareRoundedChevronLeftFilled,
 import { cn } from "@/lib/utils/style";
 import { ToogleIcon } from "@/components/atoms";
 import { Separator } from "@/components/ui/separator";
-import { History, Info, Loader2, Wrench } from "lucide-react";
+import { Cog, History, Info, Loader2, Wrench } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import useLogoutUser from "@/hooks/mutations/useLogoutUser";
 import IconVemo from "@/assets/iconVemo.svg";
@@ -63,6 +63,12 @@ export default function SideNav() {
         title: "Approve Maintenance",
         icon: <Wrench size={35} />,
         navigateTo: `${ADMIN_PAGE}/maintenances`,
+        show: user && (user as IUserResponse).role === "admin",
+      },
+      {
+        title: "Part Maintenance",
+        icon: <Cog size={35} />,
+        navigateTo: `${ADMIN_PAGE}/part`,
         show: user && (user as IUserResponse).role === "admin",
       },
     ];

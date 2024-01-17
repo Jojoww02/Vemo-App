@@ -98,7 +98,7 @@ export default function AdminDashboardPage() {
             variant="ghost"
             onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
           >
-            Name
+            Nama Kendaraan
             <CaretSortIcon className="ml-2 h-4 w-4" />
           </Button>
         );
@@ -113,7 +113,7 @@ export default function AdminDashboardPage() {
             variant="ghost"
             onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
           >
-            Owner Name
+            Nama pemilik
             <CaretSortIcon className="ml-2 h-4 w-4" />
           </Button>
         );
@@ -128,7 +128,7 @@ export default function AdminDashboardPage() {
             variant="ghost"
             onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
           >
-            License Number
+            Nomor Plat
             <CaretSortIcon className="ml-2 h-4 w-4" />
           </Button>
         );
@@ -145,7 +145,7 @@ export default function AdminDashboardPage() {
             variant="ghost"
             onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
           >
-            Vehicle Type
+            Tipe Kendaraan
             <CaretSortIcon className="ml-2 h-4 w-4" />
           </Button>
         );
@@ -162,7 +162,7 @@ export default function AdminDashboardPage() {
             variant="ghost"
             onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
           >
-            Purchasing Date
+            Tanggal Pembelian
             <CaretSortIcon className="ml-2 h-4 w-4" />
           </Button>
         );

@@ -39,6 +39,7 @@ import {
   AdminVehiclesPending,
 } from "@/pages/admin";
 import { RegisterPageMobile } from "@/mobile";
+import AdminPart from "@/pages/admin/AdminPartPage/AdminPart";
 
 const publicRoutes: RouteObject = {
   children: [
@@ -186,6 +187,8 @@ const privateRoutes: RouteObject = {
               path: APP.ADMIN_DETAILS_MAINTENANCE_VEHICLE_PAGE(":vehicleId"),
               element: <AdminDetailsMaintenanceVehiclePage />,
             },
+            { path: APP.ADMIN_PART_PAGE,
+            element: <AdminPart />}
           ],
         },
       ],
