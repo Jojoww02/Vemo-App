@@ -38,10 +38,10 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { IVehicleResponse } from "@/api/types";
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import { getVehiclesByMaintenancesStatusFn } from "@/api/services/vehicle";
 import { format } from "date-fns";
-import { id } from "date-fns/locale";
+import { da, id } from "date-fns/locale";
 import {
   ArrowRightCircle,
   Check,
@@ -54,6 +54,7 @@ import { useNavigate } from "react-router-dom";
 import { ADMIN_DETAILS_MAINTENANCE_VEHICLE_PAGE } from "@/lib/constants/routes";
 import {
   Dialog,
+  DialogClose,
   DialogContent,
   DialogDescription,
   DialogHeader,
@@ -61,8 +62,20 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { FormProvider, useForm } from "react-hook-form";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
+import { privateApi } from "@/api";
 
-export default function AdminDashboardPage() {
+export default function AdminPartPage() {
   const [sorting, setSorting] = React.useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
     []
@@ -70,42 +83,10 @@ export default function AdminDashboardPage() {
   const [columnVisibility, setColumnVisibility] =
     React.useState<VisibilityState>({});
   const [rowSelection, setRowSelection] = React.useState({});
-  const [data, setData] = React.useState<IVehicleResponse[]>([]);
 
+  const [isAddOpen, setIsAddOpen] = React.useState(false);
   const [isUpdateOpen, setIsUpdateOpen] = React.useState(false);
-
-  const methods = useForm<any>();
-  const navigate = useNavigate();
-
-  const { data: requestedVehicles, isSuccess: isSuccessRequested } = useQuery({
-    queryKey: ["vehicles", "requested"],
-    queryFn: async (): Promise<IVehicleResponse[]> =>
-      await getVehiclesByMaintenancesStatusFn("requested"),
-  });
-
-  const { data: serviceVehicles, isSuccess: isSuccessService } = useQuery({
-    queryKey: ["vehicles", "service"],
-    queryFn: async (): Promise<IVehicleResponse[]> =>
-      await getVehiclesByMaintenancesStatusFn("service"),
-  });
-
-  React.useEffect(() => {
-    if (
-      isSuccessRequested &&
-      isSuccessService &&
-      requestedVehicles &&
-      serviceVehicles
-    ) {
-      setData([...requestedVehicles, ...serviceVehicles]);
-    } else {
-      setData([]);
-    }
-  }, [
-    isSuccessRequested,
-    isSuccessService,
-    requestedVehicles,
-    serviceVehicles,
-  ]);
+  const [selectedPartId, setSelectedPartId] = React.useState("");
 
   const columns: ColumnDef<IVehicleResponse>[] = [
     {
@@ -118,7 +99,7 @@ export default function AdminDashboardPage() {
       },
     },
     {
-      accessorKey: "vehicleName",
+      accessorKey: "name",
       header: ({ column }) => {
         return (
           <Button
@@ -130,10 +111,10 @@ export default function AdminDashboardPage() {
           </Button>
         );
       },
-      cell: ({ row }) => <div>{row.getValue("vehicleName")}</div>,
+      cell: ({ row }) => <div>{row.getValue("name")}</div>,
     },
     {
-      accessorKey: "licensePlate",
+      accessorKey: "ageInMonth",
       header: ({ column }) => {
         return (
           <Button
@@ -146,11 +127,11 @@ export default function AdminDashboardPage() {
         );
       },
       cell: ({ row }) => (
-        <div className="uppercase">{row.getValue("licensePlate")}</div>
+        <div className="">{row.getValue("ageInMonth")} Bulan</div>
       ),
     },
     {
-      accessorKey: "vehicleType",
+      accessorKey: "maintenancePrice",
       header: ({ column }) => {
         return (
           <Button
@@ -163,11 +144,11 @@ export default function AdminDashboardPage() {
         );
       },
       cell: ({ row }) => (
-        <div className="capitalize">{row.getValue("vehicleType")}</div>
+        <div className="capitalize">Rp. {row.getValue("maintenancePrice")}</div>
       ),
     },
     {
-      accessorKey: "vehicleType",
+      accessorKey: "maintenanceServicePrice",
       header: ({ column }) => {
         return (
           <Button
@@ -180,7 +161,9 @@ export default function AdminDashboardPage() {
         );
       },
       cell: ({ row }) => (
-        <div className="capitalize">{row.getValue("vehicleType")}</div>
+        <div className="capitalize">
+          Rp. {row.getValue("maintenanceServicePrice")}
+        </div>
       ),
     },
     {
@@ -197,82 +180,151 @@ export default function AdminDashboardPage() {
         );
       },
       cell: ({ row }) => (
-        <div className="capitalize">{row.getValue("vehicleType")}</div>
+        <div className="capitalize">
+          {row.getValue("vehicleType") || "General"}
+        </div>
       ),
     },
-    // {
-    //   accessorKey: "purchasingDate",
-    //   header: ({ column }) => {
-    //     return (
-    //       <Button
-    //         variant="ghost"
-    //         onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-    //       >
-    //         Harga service perawatan
-    //         <CaretSortIcon className="ml-2 h-4 w-4" />
-    //       </Button>
-    //     );
-    //   },
-    //   cell: ({ row }) => (
-    //     <div>
-    //       {format(new Date(row.getValue("purchasingDate")), "dd MMMM yyyy", {
-    //         locale: id,
-    //       })}
-    //     </div>
-    //   ),
-    // },
-    // {
-    //   accessorKey: "maintenanceStatus",
-    //   header: "Status",
-    //   cell: ({ row }) => (
-    //     <div className="capitalize">{row.getValue("maintenanceStatus")}</div>
-    //   ),
-    // },
     {
       id: "actions",
       enableHiding: false,
       cell: ({ row }) => {
-        const vehicle = row.original;
-
         return (
-          <div
-          // className="cursor-pointer"
-          // onClick={() =>
-          //   navigate(
-          //     ADMIN_DETAILS_MAINTENANCE_VEHICLE_PAGE(vehicle.vehicleId)
-          //   )
-          // }
-          >
-            <DropdownMenu>
-              <DropdownMenuLabel>Menu</DropdownMenuLabel>
-              <DropdownMenuTrigger asChild>
-                <Button variant="ghost" className="h-8 w-8 p-0">
-                  <span className="sr-only">Buka menu</span>
-                  <DotsHorizontalIcon className="h-4 w-4" />
-                </Button>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent align="end">
-                <DropdownMenuItem onClick={() => setIsUpdateOpen(true)}>
-                  <Settings size={15} className="ml-2 mr-3" />
-                  <p>Update</p>
-                </DropdownMenuItem>
-                <DropdownMenuSeparator />
-                <DropdownMenuItem>
-                  <X size={15} className="ml-2 mr-3" />
+          <div className="flex gap-2">
+            <Button
+              asChild
+              size="sm"
+              onClick={() => {
+                setIsUpdateOpen(true);
+                setSelectedPartId((row.original as any).id);
+                partById.refetch();
+              }}
+              className="cursor-pointer !bg-yellow-500/90 hover:!bg-yellow-500/75"
+            >
+              <p>Update</p>
+            </Button>
 
-                  <p>Tolak</p>
-                </DropdownMenuItem>
-                <DropdownMenuSeparator />
-              </DropdownMenuContent>
-            </DropdownMenu>
+            <AlertDialog>
+              <AlertDialogTrigger asChild>
+                <Button
+                  asChild
+                  size="sm"
+                  className="cursor-pointer !bg-red-500/90 hover:!bg-red-500/75"
+                >
+                  <p>Hapus</p>
+                </Button>
+              </AlertDialogTrigger>
+              <AlertDialogContent>
+                <AlertDialogHeader>
+                  <AlertDialogTitle>
+                    Apakah yakin ingin menghapus?
+                  </AlertDialogTitle>
+                </AlertDialogHeader>
+                <AlertDialogFooter>
+                  <AlertDialogCancel>Batal</AlertDialogCancel>
+                  <AlertDialogAction
+                    onClick={async () =>
+                      await deletePart.mutateAsync((row.original as any).id)
+                    }
+                    className="!bg-red-500/90 hover:!bg-red-500/75"
+                  >
+                    Hapus
+                  </AlertDialogAction>
+                </AlertDialogFooter>
+              </AlertDialogContent>
+            </AlertDialog>
           </div>
         );
       },
     },
   ];
 
+  const parts = useQuery({
+    queryKey: ["parts"],
+    queryFn: async () => {
+      return (await privateApi.get("vehicles/parts")).data;
+    },
+  });
+
+  const partById = useQuery({
+    queryKey: ["parts", selectedPartId],
+    queryFn: async () => {
+      return (await privateApi.get(`vehicles/parts/${selectedPartId}`)).data;
+    },
+    enabled: isUpdateOpen,
+  });
+
+  const addPart = useMutation({
+    mutationFn: async (data: typeof defaultFormValue) => {
+      return (
+        await privateApi.post(`vehicles/parts`, {
+          ...data,
+          vehicleType: data.vehicleType === "general" ? null : data.vehicleType,
+        })
+      ).data;
+    },
+    onSuccess: () => {
+      setIsAddOpen(false);
+      parts.refetch();
+      methodsAdd.reset();
+    },
+  });
+
+  const updatePart = useMutation({
+    mutationFn: async (data: typeof defaultFormValue) => {
+      return (
+        await privateApi.put(`vehicles/parts`, {
+          ...data,
+          partId: selectedPartId,
+          vehicleType: data.vehicleType === "general" ? null : data.vehicleType,
+        })
+      ).data;
+    },
+    onSuccess: () => {
+      setIsUpdateOpen(false);
+      parts.refetch();
+    },
+  });
+
+  const deletePart = useMutation({
+    mutationFn: async (partId: string) => {
+      return (await privateApi.delete(`vehicles/parts`, { data: { partId } }))
+        .data;
+    },
+    onSuccess: () => {
+      parts.refetch();
+    },
+  });
+
+  const [defaultFormValue] = React.useState(() => ({
+    name: "",
+    ageInMonth: "",
+    maintenancePrice: "",
+    maintenanceServicePrice: "",
+    vehicleType: "general",
+  }));
+
+  const methodsAdd = useForm<typeof defaultFormValue>();
+
+  const methodsUpdate = useForm({
+    defaultValues: defaultFormValue,
+  });
+
+  React.useEffect(() => {
+    if (!!partById.data) {
+      type KeysType = keyof typeof defaultFormValue;
+      const keys = Object.keys(
+        methodsUpdate.formState.defaultValues ?? {}
+      ) as Array<KeysType>;
+
+      for (const key of keys) {
+        methodsUpdate.setValue(key, partById.data[key]);
+      }
+    }
+  }, [partById.data, methodsUpdate.setValue]);
+
   const table = useReactTable({
-    data,
+    data: parts.data ?? [],
     columns,
     onSortingChange: setSorting,
     onColumnFiltersChange: setColumnFilters,
@@ -292,44 +344,12 @@ export default function AdminDashboardPage() {
 
   return (
     <div className="w-full">
-      <div className="flex items-center py-4">
-        <Input
-          placeholder="Search vehicle by owner name..."
-          value={
-            (table.getColumn("ownerName")?.getFilterValue() as string) ?? ""
-          }
-          onChange={(event) =>
-            table.getColumn("ownerName")?.setFilterValue(event.target.value)
-          }
-          className="max-w-sm"
-        />
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button variant="outline" className="ml-auto">
-              Columns <ChevronDownIcon className="ml-2 h-4 w-4" />
-            </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent align="end">
-            {table
-              .getAllColumns()
-              .filter((column) => column.getCanHide())
-              .map((column) => {
-                return (
-                  <DropdownMenuCheckboxItem
-                    key={column.id}
-                    className="capitalize"
-                    checked={column.getIsVisible()}
-                    onCheckedChange={(value) =>
-                      column.toggleVisibility(!!value)
-                    }
-                  >
-                    {column.id}
-                  </DropdownMenuCheckboxItem>
-                );
-              })}
-          </DropdownMenuContent>
-        </DropdownMenu>
-      </div>
+      <Button
+        className="bg-green-600/90 hover:bg-green-600/75 mb-3"
+        onClick={() => setIsAddOpen(true)}
+      >
+        Tambahkan Komponen
+      </Button>
       <div className="rounded-md border">
         <Table>
           <TableHeader>
@@ -400,52 +420,139 @@ export default function AdminDashboardPage() {
           </Button>
         </div>
       </div>
-      <Dialog open={isUpdateOpen}>
+      {/* Add Parts Modal */}
+      <Dialog open={isAddOpen}>
         <DialogContent className="w-4/5">
           <DialogHeader className="flex flex-col items-center justify-center">
             <DialogTitle className="text-2xl font-semibold">
-              Mengedit
+              Tambahkan Komponen
             </DialogTitle>
-            <DialogDescription className="text-center">
-              Silahkan requetst
-            </DialogDescription>
           </DialogHeader>
-          <FormProvider {...methods}>
-            <form action="" className="flex flex-col gap-5">
+          <FormProvider {...methodsAdd}>
+            <form
+              onSubmit={methodsAdd.handleSubmit(async (data) => {
+                await addPart.mutateAsync(data);
+              })}
+              className="flex flex-col gap-5 w-full pb-4"
+            >
               <_Input
                 type="text"
                 placeholder="Nama Komponen"
-                name="editMaintenanceDate"
+                name="name"
                 label="Nama Komponen"
+                isFill={methodsAdd.watch().name}
               />
               <_Input
                 type="number"
-                placeholder="Umur Komponen Kendaraan"
-                name="editMaintenanceDate"
-                label="Umur Komponen Kendaraan"
+                placeholder="Umur Komponen"
+                name="ageInMonth"
+                label="Umur Komponen"
+                isFill={methodsAdd.watch().ageInMonth}
               />
               <_Input
                 type="number"
                 placeholder="Harga Perawatan"
-                name="editMaintenanceDate"
+                name="maintenancePrice"
                 label="Harga Perawatan"
+                isFill={methodsAdd.watch().maintenancePrice}
               />
               <_Input
                 type="number"
-                placeholder="Harga service perawatan"
-                name="editMaintenanceDate"
-                label="Harga service perawatan"
+                placeholder="Harga  Jasa"
+                name="maintenanceServicePrice"
+                label="Harga Jasa"
+                isFill={methodsAdd.watch().maintenanceServicePrice}
               />
               <_Input
                 name="vehicleType"
                 label="Jenis Kendaraan"
-                isFill={methods.watch().vehicleType}
+                isFill={methodsAdd.watch().vehicleType}
                 placeholder="Pilih jenis kendaraan"
                 type="select"
               >
                 <option value="matic">Matic</option>
                 <option value="manual">Manual</option>
+                <option value="general">General</option>
               </_Input>
+              <div className="flex self-end gap-2">
+                <_Button
+                  type="button"
+                  onClick={() => setIsAddOpen(false)}
+                  className="!py-5 !bg-red-500/90 hover:!bg-red-500/75"
+                >
+                  Batal
+                </_Button>
+                <_Button type="submit" className="!py-5">
+                  Tambahkan Komponen
+                </_Button>
+              </div>
+            </form>
+          </FormProvider>
+        </DialogContent>
+      </Dialog>
+      {/* Update Part Modal */}
+      <Dialog open={isUpdateOpen}>
+        <DialogContent className="w-4/5">
+          <DialogHeader className="flex flex-col items-center justify-center">
+            <DialogTitle className="text-2xl font-semibold">
+              Update Komponen
+            </DialogTitle>
+          </DialogHeader>
+          <FormProvider {...methodsUpdate}>
+            <form
+              onSubmit={methodsUpdate.handleSubmit(async (data) => {
+                await updatePart.mutateAsync(data);
+              })}
+              className="flex flex-col gap-5 w-full pb-4"
+            >
+              <_Input
+                type="text"
+                placeholder="Nama Komponen"
+                name="name"
+                label="Nama Komponen"
+                isFill={methodsUpdate.watch().name}
+              />
+              <_Input
+                type="number"
+                placeholder="Umur Komponen"
+                name="ageInMonth"
+                label="Umur Komponen"
+              />
+              <_Input
+                type="number"
+                placeholder="Harga Perawatan"
+                name="maintenancePrice"
+                label="Harga Perawatan"
+              />
+              <_Input
+                type="number"
+                placeholder="Harga  Jasa"
+                name="maintenanceServicePrice"
+                label="Harga Jasa"
+              />
+              <_Input
+                name="vehicleType"
+                label="Jenis Kendaraan"
+                isFill={methodsUpdate.watch().vehicleType}
+                placeholder="Pilih jenis kendaraan"
+                type="select"
+              >
+                <option value="matic">Matic</option>
+                <option value="manual">Manual</option>
+                <option value="general">General</option>
+              </_Input>
+              <div className="flex self-end gap-2">
+                <_Button
+                  type="button"
+                  onClick={() => setIsUpdateOpen(false)}
+                  className="!py-5 !bg-red-500/90 hover:!bg-red-500/75"
+                >
+                  Batal
+                </_Button>
+                <_Button type="submit" className="!py-5">
+                  Update Komponen
+                </_Button>
+              </div>
             </form>
           </FormProvider>
         </DialogContent>
