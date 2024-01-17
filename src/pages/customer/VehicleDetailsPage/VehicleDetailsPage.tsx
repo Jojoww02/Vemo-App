@@ -12,11 +12,7 @@ import {
   IVehicleResponse,
 } from "@/api/types";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import {
-  IconAutomaticGearbox,
-  IconBike,
-  IconCheck,
-} from "@tabler/icons-react";
+import { IconAutomaticGearbox, IconBike, IconCheck } from "@tabler/icons-react";
 import { useQuery } from "@tanstack/react-query";
 import { format } from "date-fns";
 import { id } from "date-fns/locale";
@@ -126,37 +122,36 @@ export default function VehicleDetailsPage() {
                       <a href="#parts">Informasi Kendaraan</a>
                     </h1>
                     {maintenanceVehicle?.maintenanceVehicle.status && (
-
-                    <div className="flex gap-5">
-                      <IconTicket size={30} />
-                      <div>
-                        <h1 className="font-medium text-xl text-gray-500">
-                          Tiket Perawatan
-                        </h1>
-                        <span className="flex gap-2 items-center">
-                          <p className="text-base text-dark font-semibold uppercase">
-                            {maintenanceVehicle?.maintenanceVehicle.ticket}
-                          </p>
-                          <Tooltip
-                            text={"Berhasil menyalin"}
-                            open={isSuccessPaste}
-                          >
-                            {isSuccessPaste ? (
-                              <IconCheck
-                                size={20}
-                                className="text-gray-600 cursor-pointer"
-                              />
-                            ) : (
-                              <IconClipboard
-                                size={20}
-                                className="text-gray-600 cursor-pointer"
-                                onClick={handlePasteClick}
-                              />
-                            )}
-                          </Tooltip>
-                        </span>
+                      <div className="flex gap-5">
+                        <IconTicket size={30} />
+                        <div>
+                          <h1 className="font-medium text-xl text-gray-500">
+                            Tiket Perawatan
+                          </h1>
+                          <span className="flex gap-2 items-center">
+                            <p className="text-base text-dark font-semibold uppercase">
+                              {maintenanceVehicle?.maintenanceVehicle.ticket}
+                            </p>
+                            <Tooltip
+                              text={"Berhasil menyalin"}
+                              open={isSuccessPaste}
+                            >
+                              {isSuccessPaste ? (
+                                <IconCheck
+                                  size={20}
+                                  className="text-gray-600 cursor-pointer"
+                                />
+                              ) : (
+                                <IconClipboard
+                                  size={20}
+                                  className="text-gray-600 cursor-pointer"
+                                  onClick={handlePasteClick}
+                                />
+                              )}
+                            </Tooltip>
+                          </span>
+                        </div>
                       </div>
-                    </div>
                     )}
                     <div className="flex flex-col gap-2">
                       <div className="flex gap-5">
@@ -203,23 +198,23 @@ export default function VehicleDetailsPage() {
                       </div>
                     </div>
                     <div className="flex gap-5">
-                        <IconBike size={30} />
-                        <div>
-                          <h1 className="font-medium text-xl text-gray-500">
+                      <IconBike size={30} />
+                      <div>
+                        <h1 className="font-medium text-xl text-gray-500">
                           Tanggal Kendaraan Dibeli :
-                          </h1>
-                          <p className="text-base text-dark font-semibold">
+                        </h1>
+                        <p className="text-base text-dark font-semibold">
                           {isVehicleSuccess &&
-                          format(
-                            new Date(
-                              (vehicle as IVehicleResponse).purchasingDate
-                            ),
-                            "dd MMMM yyyy",
-                            { locale: id }
-                          )}
-                          </p>
-                        </div>
+                            format(
+                              new Date(
+                                (vehicle as IVehicleResponse).purchasingDate
+                              ),
+                              "dd MMMM yyyy",
+                              { locale: id }
+                            )}
+                        </p>
                       </div>
+                    </div>
                   </div>
                 </TabsContent>
                 <TabsContent value="history">
