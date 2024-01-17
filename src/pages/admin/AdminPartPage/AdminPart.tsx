@@ -1,8 +1,6 @@
 import React from "react";
 import {
-  CaretSortIcon,
-  ChevronDownIcon,
-  DotsHorizontalIcon,
+  CaretSortIcon
 } from "@radix-ui/react-icons";
 import {
   ColumnDef,
@@ -18,16 +16,6 @@ import {
 } from "@tanstack/react-table";
 import { Button } from "@/components/ui/button";
 import { Button as _Button } from "@/components/atoms";
-import {
-  DropdownMenu,
-  DropdownMenuCheckboxItem,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import { Input } from "@/components/ui/input";
 import { Input as _Input } from "@/components/atoms";
 import {
   Table,
@@ -39,27 +27,11 @@ import {
 } from "@/components/ui/table";
 import { IVehicleResponse } from "@/api/types";
 import { useMutation, useQuery } from "@tanstack/react-query";
-import { getVehiclesByMaintenancesStatusFn } from "@/api/services/vehicle";
-import { format } from "date-fns";
-import { da, id } from "date-fns/locale";
-import {
-  ArrowRightCircle,
-  Check,
-  Info,
-  Loader2,
-  Settings,
-  X,
-} from "lucide-react";
-import { useNavigate } from "react-router-dom";
-import { ADMIN_DETAILS_MAINTENANCE_VEHICLE_PAGE } from "@/lib/constants/routes";
 import {
   Dialog,
-  DialogClose,
   DialogContent,
-  DialogDescription,
   DialogHeader,
   DialogTitle,
-  DialogTrigger,
 } from "@/components/ui/dialog";
 import { FormProvider, useForm } from "react-hook-form";
 import {
@@ -67,7 +39,6 @@ import {
   AlertDialogAction,
   AlertDialogCancel,
   AlertDialogContent,
-  AlertDialogDescription,
   AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogTitle,
