@@ -16,6 +16,7 @@ interface Props extends React.InputHTMLAttributes<HTMLInputElement> {
   editable?: boolean;
   defaultValue?: string;
   className?: string;
+  maxDate?: string;
 }
 
 export default function Input(props: Props): JSX.Element {
@@ -124,6 +125,7 @@ export default function Input(props: Props): JSX.Element {
                 type={isEyeIconOpen ? "text" : type}
                 autoComplete="off"
                 defaultValue={defaultValue}
+                max={props.maxDate || ""}
               />
             )}
             {/* Input type password */}

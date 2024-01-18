@@ -162,12 +162,14 @@ export default function RegisterVehiclePage() {
                     isFill={methods.watch().purchasingDate?.toString()}
                     placeholder="Input your Vehicle Purchase"
                     type="date"
+                    maxDate={new Date().toISOString().split("T")[0]}
                   />
                   <Input
                     name="lastMaintenance"
                     label="Perawatan Terakhir"
                     isFill={methods.watch().lastMaintenance?.toString()}
                     type="date"
+                    maxDate={new Date().toISOString().split("T")[0]}
                   />
                   <div className="flex flex-col gap-2 mt-7">
                     <Button
