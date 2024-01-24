@@ -15,7 +15,10 @@ import {
 } from "@/components/ui/dialog";
 import useMutateVehicle from "@/hooks/mutations/useMutateVehicle";
 import { IconEditCircle } from "@tabler/icons-react";
+import { useQueryClient } from "@tanstack/react-query";
+import React from "react";
 import { FormProvider, useForm } from "react-hook-form";
+import { useParams } from "react-router-dom";
 
 interface PartVehicleCardProps {
   conditiondata: IConditionParts;
@@ -39,14 +42,19 @@ export default function PartVehicleCard(props: PartVehicleCardProps) {
     isEdit,
   } = props;
 
-  const { partPrice } = useMutateVehicle();
+  const queryClient = useQueryClient();
+  const { vehicleId } = useParams();
+
+  const { partPrice, partChanges } = useMutateVehicle();
 
   const methods = useForm<any>();
 
-  const onSubmitHandlerDate = (value: { editMaintenanceDate: Date }) => {
-    console.log({
-      editMaintenanceDate: new Date(value.editMaintenanceDate).toISOString(),
-      partId: conditiondata?.partId,
+  const onSubmitHandlerDate = async (data: any) => {
+    await partChanges.mutateAsync({
+      newLastMaintenanceDate: new Date(
+        data.newLastMaintenanceDate
+      ).toISOString(),
+      conditionPartId: conditiondata?.conditionPartId,
     });
   };
 
@@ -57,6 +65,15 @@ export default function PartVehicleCard(props: PartVehicleCardProps) {
       maintenancePartId: maintenancePartData?.id,
     });
   };
+
+  const [isEditOpen, setIsEditOpen] = React.useState(false);
+
+  React.useEffect(() => {
+    queryClient.invalidateQueries({
+      queryKey: ["conditionParts", ["vehicleId", vehicleId]],
+    });
+    partChanges.isSuccess && setIsEditOpen(false);
+  }, [partChanges.isSuccess]);
 
   return (
     <div className="w-full relative flex xl:w-[30rem] h-[6.7rem] xl:h-[7rem] xl:px-5 xl:p-2 px-2 p-2 my-2 rounded-[0.50rem] bg-white shadow-[0px_2px_7px_5px_#00000040] cursor-pointer">
@@ -92,87 +109,89 @@ export default function PartVehicleCard(props: PartVehicleCardProps) {
           </div>
         )}
 
-        {conditiondata?.condition <= 60 && (
-          <>
-            {!isAdmin && isEdit ? (
-              <Dialog>
-                <DialogTrigger asChild className="absolute top-2 right-20">
+        <>
+          {!isAdmin && isEdit ? (
+            <Dialog open={isEditOpen}>
+              <DialogTrigger
+                asChild
+                className="absolute top-2 right-20"
+                onClick={() => setIsEditOpen(true)}
+              >
+                <button type="button">
+                  <IconEditCircle />
+                </button>
+              </DialogTrigger>
+              <DialogContent className="w-4/5">
+                <DialogHeader className="flex flex-col items-center justify-center">
+                  <DialogTitle className="text-2xl font-semibold">
+                    Mengedit
+                  </DialogTitle>
+                  <DialogDescription className="text-center">
+                    Silahkan kapan terakhir anda services parts ini
+                  </DialogDescription>
+                </DialogHeader>
+                <FormProvider {...methods}>
+                  <form
+                    onSubmit={methods.handleSubmit(onSubmitHandlerDate)}
+                    className="flex flex-col justify-center"
+                  >
+                    <Input
+                      type="date"
+                      placeholder="silahkan edit"
+                      name="newLastMaintenanceDate"
+                      label="Edit"
+                      maxDate={new Date().toISOString().split("T")[0]}
+                    />
+                    <div className="flex justify-center mt-10 w-full">
+                      <Button type="submit" className="text-base">
+                        Kirim
+                      </Button>
+                    </div>
+                  </form>
+                </FormProvider>
+              </DialogContent>
+            </Dialog>
+          ) : (
+            <Dialog>
+              <DialogTrigger asChild className="absolute top-2 right-20">
+                {isEdit && (
                   <button type="button">
                     <IconEditCircle />
                   </button>
-                </DialogTrigger>
-                <DialogContent className="w-4/5">
-                  <DialogHeader className="flex flex-col items-center justify-center">
-                    <DialogTitle className="text-2xl font-semibold">
-                      Mengedit
-                    </DialogTitle>
-                    <DialogDescription className="text-center">
-                      Silahkan kapan terakhir anda services parts ini
-                    </DialogDescription>
-                  </DialogHeader>
-                  <FormProvider {...methods}>
-                    <form
-                      onSubmit={methods.handleSubmit(onSubmitHandlerDate)}
-                      className="flex flex-col justify-center"
-                    >
-                      <Input
-                        type="date"
-                        placeholder="silahkan edit"
-                        name="editMaintenanceDate"
-                        label="Edit"
-                        id={conditiondata?.partId}
-                      />
-                      <div className="flex justify-center mt-10 w-full">
-                        <Button type="submit" className="text-base">
-                          Kirim
-                        </Button>
-                      </div>
-                    </form>
-                  </FormProvider>
-                </DialogContent>
-              </Dialog>
-            ) : (
-              <Dialog>
-                <DialogTrigger asChild className="absolute top-2 right-20">
-                  {isEdit && (
-                    <button type="button">
-                      <IconEditCircle />
-                    </button>
-                  )}
-                </DialogTrigger>
-                <DialogContent className="w-4/5">
-                  <DialogHeader className="flex flex-col items-center justify-center">
-                    <DialogTitle className="text-2xl font-semibold">
-                      Mengedit
-                    </DialogTitle>
-                    <DialogDescription className="text-center">
-                      Silahkan requetst
-                    </DialogDescription>
-                  </DialogHeader>
-                  <FormProvider {...methods}>
-                    <form
-                      onSubmit={methods.handleSubmit(onHandleEditPrice)}
-                      className="flex flex-col justify-center"
-                    >
-                      <Input
-                        type="number"
-                        placeholder="Silahkan masukan harga baru"
-                        name="newPrice"
-                        label="Perbarui harga"
-                        id={conditiondata?.partId}
-                      />
-                      <div className="flex justify-center mt-10 w-full">
-                        <Button type="submit" className="text-base">
-                          Kirim
-                        </Button>
-                      </div>
-                    </form>
-                  </FormProvider>
-                </DialogContent>
-              </Dialog>
-            )}
-          </>
-        )}
+                )}
+              </DialogTrigger>
+              <DialogContent className="w-4/5">
+                <DialogHeader className="flex flex-col items-center justify-center">
+                  <DialogTitle className="text-2xl font-semibold">
+                    Mengedit
+                  </DialogTitle>
+                  <DialogDescription className="text-center">
+                    Silahkan requetst
+                  </DialogDescription>
+                </DialogHeader>
+                <FormProvider {...methods}>
+                  <form
+                    onSubmit={methods.handleSubmit(onHandleEditPrice)}
+                    className="flex flex-col justify-center"
+                  >
+                    <Input
+                      type="number"
+                      placeholder="Silahkan masukan harga baru"
+                      name="newPrice"
+                      label="Perbarui harga"
+                      id={conditiondata?.partId}
+                    />
+                    <div className="flex justify-center mt-10 w-full">
+                      <Button type="submit" className="text-base">
+                        Kirim
+                      </Button>
+                    </div>
+                  </form>
+                </FormProvider>
+              </DialogContent>
+            </Dialog>
+          )}
+        </>
 
         <div className="flex items-center py-1">
           <div className="w-full h-2 bg-slate-600 rounded-full">

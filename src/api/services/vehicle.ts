@@ -1,5 +1,5 @@
 import { privateApi } from "@/api";
-import { IGenericResponse, IConditionParts, IRequestMaintenance, IVehicle, IVehicleResponse, IVehicleStatus, IPartResponse, ICountVehiclesResponse, IMaintenanceVehicleResponse, IMaintenanceByStatus, IMaintenancePrice, IMaintenamceVehicleDone, IMaintenanceVehicleCancel, IMaintenanceVehicle } from "@/api/types";
+import { IGenericResponse, IConditionParts, IRequestMaintenance, IVehicle, IVehicleResponse, IVehicleStatus, IPartResponse, ICountVehiclesResponse, IMaintenanceVehicleResponse, IMaintenanceByStatus, IMaintenancePrice, IMaintenamceVehicleDone, IMaintenanceVehicleCancel, IMaintenanceVehicle, IVehiclePartsMaintenance } from "@/api/types";
 import * as API from "@/lib/constants/routes";
 
 export const registerVehicleFn = async (registerVehicleData: IVehicle): Promise<IGenericResponse> => {
@@ -86,3 +86,8 @@ export const getMaintenancesDetailByMaintenanceIdFn = async (maintenanceId: stri
   const response = await privateApi.get<IMaintenanceVehicleResponse>(API.GET_MAINTENANCE_BY_VEHICLEID_DETAILS_SERVICE(maintenanceId));
   return response.data;
 };
+
+export const patchVehiclesPartsMaintenanceFn = async (change: IVehiclePartsMaintenance): Promise<IGenericResponse> => {
+  const response = await privateApi.patch<IGenericResponse>(API.PATCH_VEHICLES_PARTS_MAINTENANCE_SERVICE, change);
+  return response.data
+}

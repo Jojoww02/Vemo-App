@@ -4,7 +4,7 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import { DASHBOARD_PAGE, VEHICLE_DETAILS_PAGE } from "@/lib/constants/routes";
 import { Button, Input } from "@/components/atoms";
 import { FormProvider, useForm } from "react-hook-form";
-import { useQuery } from "@tanstack/react-query";
+import {  useQuery } from "@tanstack/react-query";
 import { IConditionParts, IPartResponse, IVehicleResponse } from "@/api/types";
 import {
   Dialog,

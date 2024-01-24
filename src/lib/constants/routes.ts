@@ -70,6 +70,7 @@ export const PATCH_MAINTENANCES_VEHICLE_BY_STATUS_SERVICE = '/vehicles/maintenan
 export const PATCH_MAINTENANCES_PART_PRICE_SERVICE = '/vehicles/maintenances/part/price';
 export const POST_VEHICLES_MAINTENANCES_DONE_SERVICE = '/vehicles/maintenance/done'
 export const POST_VEHICLE_MAINTENANCE_CANCEL_SERVICE = '/vehicles/maintenance/cancel'
+export const PATCH_VEHICLES_PARTS_MAINTENANCE_SERVICE = '/vehicles/parts/maintenance/' 
 
 /* NOTIFICATION SERVICE */
 export const GET_NOTIFICATIONS_SERVICE = "notifications";

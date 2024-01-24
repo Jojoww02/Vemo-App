@@ -171,3 +171,8 @@ export interface IMaintenanceVehicleCancel {
   status: string;
   description: string;
 }
+
+export interface IVehiclePartsMaintenance {
+  conditionPartId: string;
+  newLastMaintenanceDate: string;
+}

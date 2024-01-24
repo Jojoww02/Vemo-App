@@ -3,6 +3,7 @@ import {
   getPartByVehicleIdFn,
   patchMaintenaceByPriceFn,
   patchMaintenanceByStatusFn,
+  patchVehiclesPartsMaintenanceFn,
   postMaintenancesVehiclesCancelFn,
   postMaintenancesVehiclesDoneFn,
   registerVehicleFn,
@@ -15,6 +16,7 @@ import {
   IMaintenanceVehicleCancel,
   IRequestMaintenance,
   IVehicle,
+  IVehiclePartsMaintenance,
 } from "@/api/types";
 import { useMutation } from "@tanstack/react-query";
 
@@ -58,6 +60,11 @@ export default function useMutateVehicle() {
     vehicleCancel: useMutation({
       mutationFn: async (cancel: IMaintenanceVehicleCancel) => {
         await postMaintenancesVehiclesCancelFn(cancel);
+      },
+    }),
+    partChanges: useMutation({
+      mutationFn: async (change: IVehiclePartsMaintenance) => {
+        await patchVehiclesPartsMaintenanceFn(change);
       },
     }),
   };
